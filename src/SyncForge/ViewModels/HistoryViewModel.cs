@@ -113,6 +113,14 @@ public sealed partial class HistoryViewModel : ObservableObject
 
     public void LoadMore() => LoadPage();
 
+    /// <summary>Alle Läufe, die zum aktuellen Filter passen (nicht nur die geladene Seite), als CSV speichern.</summary>
+    public Task ExportAsync(Microsoft.UI.Xaml.XamlRoot xamlRoot)
+    {
+        var query = new RunQuery { ProfileId = SelectedProfile?.ProfileId, Status = SelectedStatus?.Status, Limit = int.MaxValue };
+        return Services.HistoryExport.ExportAsync(xamlRoot, Services.HistoryExport.FileName("Csv_FileNameRuns", DateTime.Now.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture)),
+            csv => Services.HistoryExport.WriteRuns(csv, _history.GetRuns(query)));
+    }
+
     private void LoadPage()
     {
         var page = _history.GetRuns(new RunQuery

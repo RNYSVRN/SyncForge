@@ -558,3 +558,43 @@ Editor_OwnBandwidth.Description;Sonst gilt das Limit aus den Einstellungen der A
 Editor_OwnBandwidthValue.Header;Höchstens (KB/s);At most (KB/s)
 Editor_OwnBandwidthValue.Description;0 = unbegrenzt;0 = unlimited
 Editor_OwnBandwidthBox.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Bandbreitenlimit in KB/s;Bandwidth limit in KB/s
+History_Export.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Historie als CSV exportieren;Export history as CSV
+History_Export.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip;Läufe des aktuellen Filters als CSV-Datei speichern (z. B. für Excel);Save the runs of the current filter as a CSV file (e.g. for Excel)
+History_ExportText.Text;Exportieren…;Export…
+Detail_Export.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Dateiliste als CSV exportieren;Export file list as CSV
+Detail_Export.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip;Angezeigte Dateiliste (mit Ziel, Filter und Suche) als CSV-Datei speichern;Save the shown file list (with destination, filter and search) as a CSV file
+Detail_ExportText.Text;Dateiliste exportieren…;Export file list…
+Csv_FileType;CSV-Datei;CSV file
+Csv_FileNameRuns;SyncForge Historie {0};SyncForge history {0}
+Csv_FileNameFiles;SyncForge {0} {1};SyncForge {0} {1}
+Csv_ExportedTitle;Export abgeschlossen;Export complete
+Csv_ExportedText;Die Datei wurde gespeichert: {0};The file was saved: {0}
+Csv_Open;Öffnen;Open
+Csv_Col_Start;Start;Start
+Csv_Col_Profile;Profil;Profile
+Csv_Col_Trigger;Auslöser;Trigger
+Csv_Col_Status;Status;Status
+Csv_Col_Copied;Kopiert;Copied
+Csv_Col_Updated;Aktualisiert;Updated
+Csv_Col_Deleted;Gelöscht;Deleted
+Csv_Col_Bytes;Bytes;Bytes
+Csv_Col_Errors;Fehler;Errors
+Csv_Col_Conflicts;Konflikte;Conflicts
+Csv_Col_Targets;Ziele;Destinations
+Csv_Col_Skipped;Übersprungene Ziele;Skipped destinations
+Csv_Col_Duration;Dauer (s);Duration (s)
+Csv_Col_Target;Ziel;Destination
+Csv_Col_Action;Aktion;Action
+Csv_Col_Path;Pfad;Path
+Csv_Col_Size;Größe (Bytes);Size (bytes)
+Csv_Col_Side;Seite;Side
+Csv_Col_Error;Fehler;Error
+Csv_SideSource;Quelle;Source
+Csv_SideTarget;Ziel;Destination
+Csv_Kind_CreateDirectory;Ordner angelegt;Folder created
+Csv_Kind_CopyNew;Neu kopiert;Copied (new)
+Csv_Kind_Update;Aktualisiert;Updated
+Csv_Kind_DeleteFile;Datei gelöscht;File deleted
+Csv_Kind_DeleteDirectory;Ordner gelöscht;Folder deleted
+Csv_Kind_RenameConflict;Konflikt umbenannt;Conflict renamed
+Csv_Kind_Conflict;Konflikt;Conflict

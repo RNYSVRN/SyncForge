@@ -564,4 +564,44 @@
   <data name="Editor_OwnBandwidthValue.Header" xml:space="preserve"><value>At most (KB/s)</value></data>
   <data name="Editor_OwnBandwidthValue.Description" xml:space="preserve"><value>0 = unlimited</value></data>
   <data name="Editor_OwnBandwidthBox.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Bandwidth limit in KB/s</value></data>
+  <data name="History_Export.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Export history as CSV</value></data>
+  <data name="History_Export.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve"><value>Save the runs of the current filter as a CSV file (e.g. for Excel)</value></data>
+  <data name="History_ExportText.Text" xml:space="preserve"><value>Export…</value></data>
+  <data name="Detail_Export.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Export file list as CSV</value></data>
+  <data name="Detail_Export.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve"><value>Save the shown file list (with destination, filter and search) as a CSV file</value></data>
+  <data name="Detail_ExportText.Text" xml:space="preserve"><value>Export file list…</value></data>
+  <data name="Csv_FileType" xml:space="preserve"><value>CSV file</value></data>
+  <data name="Csv_FileNameRuns" xml:space="preserve"><value>SyncForge history {0}</value></data>
+  <data name="Csv_FileNameFiles" xml:space="preserve"><value>SyncForge {0} {1}</value></data>
+  <data name="Csv_ExportedTitle" xml:space="preserve"><value>Export complete</value></data>
+  <data name="Csv_ExportedText" xml:space="preserve"><value>The file was saved: {0}</value></data>
+  <data name="Csv_Open" xml:space="preserve"><value>Open</value></data>
+  <data name="Csv_Col_Start" xml:space="preserve"><value>Start</value></data>
+  <data name="Csv_Col_Profile" xml:space="preserve"><value>Profile</value></data>
+  <data name="Csv_Col_Trigger" xml:space="preserve"><value>Trigger</value></data>
+  <data name="Csv_Col_Status" xml:space="preserve"><value>Status</value></data>
+  <data name="Csv_Col_Copied" xml:space="preserve"><value>Copied</value></data>
+  <data name="Csv_Col_Updated" xml:space="preserve"><value>Updated</value></data>
+  <data name="Csv_Col_Deleted" xml:space="preserve"><value>Deleted</value></data>
+  <data name="Csv_Col_Bytes" xml:space="preserve"><value>Bytes</value></data>
+  <data name="Csv_Col_Errors" xml:space="preserve"><value>Errors</value></data>
+  <data name="Csv_Col_Conflicts" xml:space="preserve"><value>Conflicts</value></data>
+  <data name="Csv_Col_Targets" xml:space="preserve"><value>Destinations</value></data>
+  <data name="Csv_Col_Skipped" xml:space="preserve"><value>Skipped destinations</value></data>
+  <data name="Csv_Col_Duration" xml:space="preserve"><value>Duration (s)</value></data>
+  <data name="Csv_Col_Target" xml:space="preserve"><value>Destination</value></data>
+  <data name="Csv_Col_Action" xml:space="preserve"><value>Action</value></data>
+  <data name="Csv_Col_Path" xml:space="preserve"><value>Path</value></data>
+  <data name="Csv_Col_Size" xml:space="preserve"><value>Size (bytes)</value></data>
+  <data name="Csv_Col_Side" xml:space="preserve"><value>Side</value></data>
+  <data name="Csv_Col_Error" xml:space="preserve"><value>Error</value></data>
+  <data name="Csv_SideSource" xml:space="preserve"><value>Source</value></data>
+  <data name="Csv_SideTarget" xml:space="preserve"><value>Destination</value></data>
+  <data name="Csv_Kind_CreateDirectory" xml:space="preserve"><value>Folder created</value></data>
+  <data name="Csv_Kind_CopyNew" xml:space="preserve"><value>Copied (new)</value></data>
+  <data name="Csv_Kind_Update" xml:space="preserve"><value>Updated</value></data>
+  <data name="Csv_Kind_DeleteFile" xml:space="preserve"><value>File deleted</value></data>
+  <data name="Csv_Kind_DeleteDirectory" xml:space="preserve"><value>Folder deleted</value></data>
+  <data name="Csv_Kind_RenameConflict" xml:space="preserve"><value>Conflict renamed</value></data>
+  <data name="Csv_Kind_Conflict" xml:space="preserve"><value>Conflict</value></data>
 </root>

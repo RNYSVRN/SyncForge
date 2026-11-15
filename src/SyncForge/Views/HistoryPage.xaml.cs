@@ -36,4 +36,6 @@ public sealed partial class HistoryPage : Page
     }
 
     private void LoadMore_Click(object sender, RoutedEventArgs e) => ViewModel.LoadMore();
+
+    private async void Export_Click(object sender, RoutedEventArgs e) => await ViewModel.ExportAsync(XamlRoot);
 }

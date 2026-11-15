@@ -120,12 +120,26 @@ public sealed partial class RunDetailViewModel : ObservableObject
         Files.Clear();
         foreach (var f in items) Files.Add(ToItem(f));
         HasNoFiles = total == 0;
+        CanExport = total > 0;
         FilesCountText = total > items.Count
             ? Format.Text("Detail_FilesCountLimited", Format.Number(total), Format.Number(items.Count))
             : Format.Text(total == 1 ? "Detail_FilesCountOne" : "Detail_FilesCount", Format.Number(total));
     }
 
     public void Delete() => _history.DeleteRun(_runId);
+
+    /// <summary>Es gibt (mit aktuellem Ziel, Filter und Suche) Dateien zum Exportieren.</summary>
+    [ObservableProperty] public partial bool CanExport { get; set; }
+
+    /// <summary>Dateiliste mit aktuellem Ziel, Filter und Suche als CSV speichern, ohne die Grenze der Anzeige.</summary>
+    public Task ExportAsync(Microsoft.UI.Xaml.XamlRoot xamlRoot)
+    {
+        if (_history.GetRun(_runId) is not { } detail) return Task.CompletedTask;
+        var (targetId, filter, search) = (SelectedTarget?.TargetId, Filter, SearchText);
+        var name = Services.HistoryExport.FileName("Csv_FileNameFiles", detail.Run.ProfileName, Services.HistoryExport.FileDate(detail.Run.StartedAt));
+        return Services.HistoryExport.ExportAsync(xamlRoot, name,
+            csv => Services.HistoryExport.WriteFiles(csv, detail, _history.GetFiles(_runId, targetId, filter, search, int.MaxValue).Items));
+    }
 
     private static FileItemViewModel ToItem(RunFileEntry f)
     {

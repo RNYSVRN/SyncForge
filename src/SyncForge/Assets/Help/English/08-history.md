@@ -23,6 +23,13 @@ Clicking a run shows the result per destination and a list of all individual act
 
 The folder icon opens the destination in Explorer; **Delete entry** removes the run from the history (the files themselves are not touched).
 
+## Export as CSV
+
+- **Export…** at the top of the history saves all runs matching the selected profile and status filter as a CSV file (not just the ones already loaded).
+- **Export file list…** in the run details saves the individual actions of the run, using the selected destination, filter and search term, without the display limit.
+
+The files open directly in Excel with a double click: the separator follows your regional settings, numbers have no thousands separators and times are written as `YYYY-MM-DD hh:mm:ss`.
+
 ## Retention
 
 Older runs are removed automatically after the number of days set in **Settings › Data & retention**. You can also clear the whole history there.

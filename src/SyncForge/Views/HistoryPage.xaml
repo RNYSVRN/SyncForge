@@ -26,6 +26,7 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <TextBlock x:Uid="History_Title" Text="Historie" Style="{StaticResource TitleTextBlockStyle}" VerticalAlignment="Center" />
                         <ComboBox Grid.Column="1" MinWidth="180" VerticalAlignment="Center"
@@ -36,6 +37,13 @@
                                   ItemsSource="{x:Bind ViewModel.StatusFilters}"
                                   SelectedItem="{x:Bind ViewModel.SelectedStatus, Mode=TwoWay}"
                                   x:Uid="History_StatusFilter" AutomationProperties.Name="Status" />
+                        <Button Grid.Column="3" VerticalAlignment="Center" Click="Export_Click"
+                                x:Uid="History_Export" ToolTipService.ToolTip="Läufe des aktuellen Filters als CSV-Datei speichern">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon Glyph="&#xEDE1;" FontSize="16" />
+                                <TextBlock x:Uid="History_ExportText" Text="Exportieren…" />
+                            </StackPanel>
+                        </Button>
                     </Grid>
 
                     <!-- Kennzahlen (letzte 30 Tage) -->
