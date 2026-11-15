@@ -42,6 +42,24 @@ public sealed class NotificationService
     public static long? ParseRunId(IDictionary<string, string> arguments) =>
         arguments.TryGetValue("runId", out var id) && long.TryParse(id, out var runId) ? runId : null;
 
+    /// <summary>Neue Version gefunden. Der Button öffnet die Download-Seite direkt im Browser.</summary>
+    public void ShowUpdateAvailable(string version, string pageUrl)
+    {
+        if (!_registered) return;
+        try
+        {
+            var builder = new AppNotificationBuilder()
+                .AddText(Format.Text("Update_NotifyTitle", version))
+                .AddText(Localization.Get("Update_NotifyText"))
+                .AddButton(new AppNotificationButton(Localization.Get("Update_OpenPage/Content")).SetInvokeUri(new Uri(pageUrl)));
+            AppNotificationManager.Default.Show(builder.BuildNotification());
+        }
+        catch (Exception ex)
+        {
+            App.LogError(ex);
+        }
+    }
+
     /// <summary>Zeigt eine Benachrichtigung, sofern für diesen Status eingeschaltet.</summary>
     public void OnRunCompleted(RunCompletedEventArgs e)
     {

@@ -11,6 +11,12 @@
         <StackPanel Spacing="16" MaxWidth="1100" HorizontalAlignment="Stretch">
             <TextBlock x:Uid="Dashboard_Title" Text="Übersicht" Style="{StaticResource TitleTextBlockStyle}" />
 
+            <InfoBar x:Name="UpdateBar" IsOpen="False" IsClosable="True" Severity="Success" CloseButtonClick="UpdateBar_CloseButtonClick">
+                <InfoBar.ActionButton>
+                    <Button x:Uid="Update_OpenPage" Content="Download-Seite öffnen" Click="OpenUpdatePage_Click" />
+                </InfoBar.ActionButton>
+            </InfoBar>
+
             <InfoBar x:Uid="Dashboard_Welcome" IsOpen="True" IsClosable="True" Severity="Informational"
                      Title="Willkommen bei SyncForge" Message="Lege ein Backup-Profil an, um Ordner in ein oder mehrere Ziele zu synchronisieren." />
 

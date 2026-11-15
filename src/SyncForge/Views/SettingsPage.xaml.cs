@@ -14,6 +14,8 @@ public sealed partial class SettingsPage : Page
     public SettingsPage()
     {
         InitializeComponent();
+        Loaded += (_, _) => ViewModel.Attach();
+        Unloaded += (_, _) => ViewModel.Detach();
     }
 
     private async void Export_Click(object sender, RoutedEventArgs e)

@@ -372,4 +372,18 @@
   <data name="Run_PlanUnreadable" xml:space="preserve"><value>{0} folder(s) unreadable (skipped)</value></data>
   <data name="Run_Unreadable" xml:space="preserve"><value>{0} folder(s) could not be read and were skipped.</value></data>
   <data name="Run_RootLost" xml:space="preserve"><value>Stopped, {0} was no longer reachable</value></data>
+  <data name="Settings_Updates.Header" xml:space="preserve"><value>Check for updates</value></data>
+  <data name="Settings_Updates.Description" xml:space="preserve"><value>Asks GitHub once a day whether a new version exists. Only your IP address and the SyncForge version are transmitted. Nothing is downloaded.</value></data>
+  <data name="Update_CheckNow.Content" xml:space="preserve"><value>Check now</value></data>
+  <data name="Update_OpenPage.Content" xml:space="preserve"><value>Open download page</value></data>
+  <data name="Update_StatusChecking" xml:space="preserve"><value>Checking …</value></data>
+  <data name="Update_StatusError" xml:space="preserve"><value>Check failed: {0}</value></data>
+  <data name="Update_StatusAvailable" xml:space="preserve"><value>SyncForge {0} is available.</value></data>
+  <data name="Update_StatusLatest" xml:space="preserve"><value>You are using the latest version. Last checked: {0}</value></data>
+  <data name="Update_StatusNever" xml:space="preserve"><value>Not checked yet.</value></data>
+  <data name="Update_Timeout" xml:space="preserve"><value>GitHub did not respond in time.</value></data>
+  <data name="Update_InfoTitle" xml:space="preserve"><value>Update available</value></data>
+  <data name="Update_InfoMessage" xml:space="preserve"><value>SyncForge {0} has been released. You are using version {1}.</value></data>
+  <data name="Update_NotifyTitle" xml:space="preserve"><value>SyncForge {0} is available</value></data>
+  <data name="Update_NotifyText" xml:space="preserve"><value>The download page has the installer and the release notes.</value></data>
 </root>

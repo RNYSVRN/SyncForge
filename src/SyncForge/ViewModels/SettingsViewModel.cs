@@ -1,4 +1,4 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Reflection;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -14,13 +14,15 @@ public sealed partial class SettingsViewModel : ObservableObject
 
     private readonly SettingsService _settings;
     private readonly ThemeService _theme;
+    private readonly UpdateService _updates;
     private readonly string _startupLanguage;
     private readonly bool _loading;
 
-    public SettingsViewModel(SettingsService settings, ThemeService theme)
+    public SettingsViewModel(SettingsService settings, ThemeService theme, UpdateService updates)
     {
         _settings = settings;
         _theme = theme;
+        _updates = updates;
         _startupLanguage = settings.Current.Language;
 
         _loading = true;
@@ -38,11 +40,12 @@ public sealed partial class SettingsViewModel : ObservableObject
         PauseOnBattery = s.PauseOnBattery;
         PauseOnMeteredConnection = s.PauseOnMeteredConnection;
         HistoryRetentionDays = s.HistoryRetentionDays;
+        CheckForUpdates = s.CheckForUpdates;
         _loading = false;
+        RefreshUpdateState();
     }
 
-    public string Version =>
-        Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion.Split('+')[0] ?? "0.0.0";
+    public string Version => Helpers.AppInfo.VersionText;
 
     public string DataDirectory => SettingsService.DataDirectory;
 
@@ -91,6 +94,47 @@ public sealed partial class SettingsViewModel : ObservableObject
     partial void OnPauseOnBatteryChanged(bool value) => Update(s => s.PauseOnBattery = value);
     partial void OnPauseOnMeteredConnectionChanged(bool value) => Update(s => s.PauseOnMeteredConnection = value);
     partial void OnHistoryRetentionDaysChanged(double value) => Update(s => s.HistoryRetentionDays = Clamp(value, 1, 3650, 90));
+
+    // ---------- Updates ----------
+
+    [ObservableProperty] public partial bool CheckForUpdates { get; set; }
+    [ObservableProperty] public partial string UpdateStatus { get; set; } = string.Empty;
+    [ObservableProperty] public partial bool IsUpdateAvailable { get; set; }
+    [ObservableProperty] public partial bool CanCheckUpdates { get; set; } = true;
+
+    partial void OnCheckForUpdatesChanged(bool value)
+    {
+        if (_loading) return;
+        _updates.SetEnabled(value);
+    }
+
+    /// <summary>Von der Seite beim Anzeigen/Verlassen aufgerufen (der Dienst lebt länger als das ViewModel).</summary>
+    public void Attach() { _updates.Changed += OnUpdatesChanged; RefreshUpdateState(); }
+    public void Detach() => _updates.Changed -= OnUpdatesChanged;
+
+    private void OnUpdatesChanged(object? sender, EventArgs e) => RefreshUpdateState();
+
+    private void RefreshUpdateState()
+    {
+        var available = _updates.Available;
+        IsUpdateAvailable = available is not null;
+        CanCheckUpdates = !_updates.IsChecking;
+        var last = _settings.Current.LastUpdateCheck;
+        UpdateStatus = _updates.IsChecking ? Localization.Get("Update_StatusChecking")
+            : _updates.LastError is { } error ? Helpers.Format.Text("Update_StatusError", error)
+            : available is { } a ? Helpers.Format.Text("Update_StatusAvailable", a.Version.ToString(3))
+            : last is { } at ? Helpers.Format.Text("Update_StatusLatest", Helpers.Format.DateTime(at))
+            : Localization.Get("Update_StatusNever");
+    }
+
+    [RelayCommand]
+    private Task CheckUpdatesNow() => _updates.CheckNowAsync();
+
+    [RelayCommand]
+    private void OpenUpdatePage()
+    {
+        if (_updates.Available is { } a) Process.Start(new ProcessStartInfo(a.Url) { UseShellExecute = true });
+    }
 
     [RelayCommand]
     private static void Restart() => AppInstance.Restart(string.Empty);

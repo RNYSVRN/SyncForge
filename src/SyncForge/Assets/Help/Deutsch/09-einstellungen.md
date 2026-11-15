@@ -23,3 +23,9 @@
 - **Historie aufbewahren (Tage)** und **Historie löschen**.
 - **Import & Export**: sichert alle Profile und Einstellungen in eine Datei bzw. übernimmt sie, etwa auf einem neuen PC. Beim Import werden Profile mit gleicher Kennung ersetzt, die übrigen hinzugefügt; die Einstellungen übernimmst du optional.
 - **Datenordner**: öffnet den Ordner, in dem SyncForge Einstellungen, Profile und Historie speichert.
+
+## Updates
+
+- **Nach Updates suchen**: Ist der Schalter an, fragt SyncForge einmal täglich bei GitHub nach, ob es eine neue Version gibt. Übertragen werden dabei nur deine IP-Adresse und die Version von SyncForge. Standardmäßig ist die Prüfung aus.
+- Gibt es eine neue Version, erscheint ein Hinweis in der **Übersicht** (und einmalig eine Benachrichtigung) mit einem Link zur Download-Seite. Installiert wird nichts automatisch: Lade das neue Setup herunter und führe es aus, deine Profile und Einstellungen bleiben erhalten. Mit winget geht es auch per `winget upgrade RonnySeverin.SyncForge`.
+- **Jetzt suchen** prüft sofort.

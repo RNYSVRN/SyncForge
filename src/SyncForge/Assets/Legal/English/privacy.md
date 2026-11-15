@@ -8,6 +8,8 @@ Last updated: November 2026
 
 SyncForge works **entirely locally on your PC**. The app sends **no data to the provider** or to third parties, contains **no telemetry, no advertising and no tracking**, and requires **no user account**.
 
+The only exception is the **update check**, which is turned off by default. If you turn it on, SyncForge asks GitHub once a day whether a new version exists (see below).
+
 ## What data SyncForge processes
 
 To sync folders, SyncForge reads and writes the files and folders you define as source and destination in your profiles. File contents are only copied between these locations.
@@ -25,6 +27,14 @@ This data is stored in the folder `%LOCALAPPDATA%\SyncForge` (when installed as 
 ## Network and cloud
 
 SyncForge only accesses network shares or cloud folders that you set up as destinations yourself. For cloud folders, the privacy terms of the respective cloud provider apply, whose software transfers the files further.
+
+## Update check (optional)
+
+Under **Settings › Check for updates** you can turn on the update check. It is off by default. When turned on, SyncForge calls GitHub's public interface (`api.github.com`) at most once a day, and when you click **Check now**, to retrieve the number of the latest version.
+
+For technical reasons, GitHub (GitHub, Inc., a Microsoft company, USA) receives your **IP address**, the time of the request and the **SyncForge version number** (as the identifier of the request). No other data, for example about your files, profiles or device, is transmitted. The provider of SyncForge receives no data from this request. GitHub's privacy statement applies to the processing at GitHub.
+
+If a new version is found, SyncForge shows a notice with a link to the download page. Nothing is downloaded or installed automatically. You can turn the check off at any time in the same place.
 
 ## Windows features
 
