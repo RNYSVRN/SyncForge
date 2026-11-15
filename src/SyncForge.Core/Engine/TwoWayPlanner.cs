@@ -52,6 +52,13 @@ public static class TwoWayPlanner
         plan.UnreadableFolders.AddRange(sourceUnreadable.Select(r => Path.Combine(sourceRoot, r)));
         plan.UnreadableFolders.AddRange(targetUnreadable.Select(r => Path.Combine(targetRoot, r)));
         var unreadable = sourceUnreadable.Concat(targetUnreadable).ToList();
+
+        // Ordner auf der einen, Datei auf der anderen Seite: bleibt ein Konflikt, bis der Benutzer ihn löst.
+        // Was im Ordner liegt, wird bis dahin nicht angefasst (Kopieren würde ohnehin an der Datei scheitern).
+        var typeConflicts = source.Values
+            .Where(s => target.TryGetValue(s.RelativePath, out var t) && s.IsDirectory != t.IsDirectory)
+            .Select(s => s.RelativePath)
+            .ToList();
         plan.ExistingTargetFileCount = target.Values.Count(e => !e.IsDirectory);
         plan.SourceFileCount = source.Values.Count(e => !e.IsDirectory);
         plan.SourceBytes = source.Values.Where(e => !e.IsDirectory).Sum(e => e.Size);
@@ -69,6 +76,7 @@ public static class TwoWayPlanner
             ct.ThrowIfCancellationRequested();
             // In einem unlesbaren Ordner (auf einer der Seiten) ist der Zustand unbekannt: nichts tun.
             if (unreadable.Count > 0 && FileTree.IsInsideUnreadable(path, unreadable)) continue;
+            if (typeConflicts.Count > 0 && FileTree.IsInsideUnreadable(path, typeConflicts)) continue;
             source.TryGetValue(path, out var s);
             target.TryGetValue(path, out var t);
             state.TryGetValue(path, out var b);
