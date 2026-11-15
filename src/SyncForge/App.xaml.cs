@@ -83,7 +83,8 @@ public partial class App : Application
             CreateTrayIcon(settings);
 
             var coordinator = Services.GetRequiredService<SyncCoordinator>();
-            coordinator.RunStarted += (_, _) => UiQueue.TryEnqueue(UpdateTrayToolTip);
+            // Infobereich: Fortschritt im Tooltip (höchstens etwa einmal pro Sekunde aktualisiert).
+            coordinator.ActivityChanged += (_, _) => UiQueue.TryEnqueue(UpdateTrayToolTipThrottled);
             coordinator.RunCompleted += (_, e) => UiQueue.TryEnqueue(() =>
             {
                 UpdateTrayToolTip();
@@ -169,10 +170,30 @@ public partial class App : Application
         UpdateTrayToolTip();
     }
 
+    private long _lastTrayUpdate;
+
+    private void UpdateTrayToolTipThrottled()
+    {
+        var activities = Services.GetRequiredService<SyncCoordinator>().Activities;
+        var now = Environment.TickCount64;
+        // Beginn und Ende sofort zeigen, Fortschritt gedrosselt.
+        if (activities.Count > 0 && _tray?.ToolTip != "SyncForge" && now - _lastTrayUpdate < 1000) return;
+        _lastTrayUpdate = now;
+        UpdateTrayToolTip();
+    }
+
     private void UpdateTrayToolTip()
     {
-        var running = Services.GetRequiredService<SyncCoordinator>().RunningCount;
-        _tray?.SetToolTip(running > 0 ? Format.Text("Tray_Running", Format.Number(running)) : "SyncForge");
+        var activities = Services.GetRequiredService<SyncCoordinator>().Activities;
+        var text = activities.Count switch
+        {
+            0 => "SyncForge",
+            1 when activities[0] is { IsAnalyzing: false, IsCancelling: false } a =>
+                Format.Text("Tray_RunningOne", a.ProfileName, a.Percent.ToString("0", Format.Culture)),
+            1 => Format.Text("Tray_RunningOneAnalyzing", activities[0].ProfileName),
+            _ => Format.Text("Tray_Running", Format.Number(activities.Count))
+        };
+        _tray?.SetToolTip(text.Length > 127 ? text[..126] + "…" : text); // Windows erlaubt höchstens 128 Zeichen
     }
 
     /// <summary>Menü-Design des Infobereichs an das App-Design anpassen.</summary>

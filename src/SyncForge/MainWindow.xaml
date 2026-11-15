@@ -2,7 +2,8 @@
 <Window
     x:Class="SyncForge.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SyncForge">
 
     <Window.SystemBackdrop>
         <MicaBackdrop />
@@ -106,6 +107,47 @@
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
             </NavigationView.FooterMenuItems>
+
+            <!-- Laufende Synchronisierungen (auch automatische), auf jeder Seite sichtbar. -->
+            <NavigationView.PaneFooter>
+                <ItemsControl x:Name="ActivityList" Margin="8,0,8,4">
+                    <ItemsControl.ItemContainerTransitions>
+                        <TransitionCollection>
+                            <EntranceThemeTransition />
+                        </TransitionCollection>
+                    </ItemsControl.ItemContainerTransitions>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="local:ActivityItemViewModel">
+                            <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                                    BorderThickness="1" CornerRadius="{StaticResource ControlCornerRadius}" Padding="12,8,4,10" Margin="0,4,0,0"
+                                    ToolTipService.ToolTip="{x:Bind ToolTip, Mode=OneWay}">
+                                <Grid RowSpacing="6">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="{x:Bind Name}" Style="{StaticResource BodyStrongTextBlockStyle}" TextTrimming="CharacterEllipsis"
+                                               VerticalAlignment="Center" />
+                                    <Button Grid.Column="1" Tag="{x:Bind ProfileId}" Click="CancelActivity_Click" Padding="6" Margin="4,-4,0,-4"
+                                            Background="Transparent" BorderThickness="0" IsEnabled="{x:Bind CanCancel, Mode=OneWay}"
+                                            x:Uid="Activity_Cancel" ToolTipService.ToolTip="Abbrechen">
+                                        <FontIcon Glyph="&#xE711;" FontSize="12" />
+                                    </Button>
+                                    <ProgressBar Grid.Row="1" Grid.ColumnSpan="2" Margin="0,0,8,0" Value="{x:Bind Percent, Mode=OneWay}"
+                                                 IsIndeterminate="{x:Bind IsIndeterminate, Mode=OneWay}" />
+                                    <TextBlock Grid.Row="2" Grid.ColumnSpan="2" Text="{x:Bind StatusText, Mode=OneWay}" Style="{StaticResource CaptionTextBlockStyle}"
+                                               Foreground="{ThemeResource TextFillColorSecondaryBrush}" TextTrimming="CharacterEllipsis" />
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </NavigationView.PaneFooter>
 
             <Frame x:Name="ContentFrame" Navigated="ContentFrame_Navigated" />
         </NavigationView>

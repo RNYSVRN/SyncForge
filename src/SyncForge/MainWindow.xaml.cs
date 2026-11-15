@@ -61,6 +61,37 @@ public sealed partial class MainWindow : Window
 
         // Dampf über der Kaffeetasse ("Unterstützen"), Farbe folgt dem Symbol (Hover, Auswahl, Design).
         Controls.CoffeeSteam.Attach(SupportIcon, SupportIcon, () => SupportIcon.Foreground);
+
+        // Laufende Synchronisierungen in der Navigation anzeigen (Meldungen kommen von Hintergrund-Threads).
+        _coordinator = App.Services.GetRequiredService<SyncCoordinator>();
+        ActivityList.ItemsSource = _activities;
+        _coordinator.ActivityChanged += (_, _) => DispatcherQueue.TryEnqueue(RefreshActivities);
+        RefreshActivities();
+    }
+
+    private readonly SyncCoordinator _coordinator;
+    private readonly System.Collections.ObjectModel.ObservableCollection<ActivityItemViewModel> _activities = [];
+
+    /// <summary>Liste an die laufenden Läufe angleichen: vorhandene Einträge aktualisieren statt neu aufbauen (kein Flackern).</summary>
+    private void RefreshActivities()
+    {
+        var current = _coordinator.Activities;
+        foreach (var gone in _activities.Where(a => current.All(c => c.ProfileId != a.ProfileId)).ToList()) _activities.Remove(gone);
+        foreach (var activity in current)
+        {
+            var item = _activities.FirstOrDefault(a => a.ProfileId == activity.ProfileId);
+            if (item is null)
+            {
+                item = new ActivityItemViewModel(activity.ProfileId, activity.ProfileName);
+                _activities.Add(item);
+            }
+            item.Update(activity);
+        }
+    }
+
+    private void CancelActivity_Click(object sender, RoutedEventArgs e)
+    {
+        if ((sender as FrameworkElement)?.Tag is Guid profileId) _coordinator.Cancel(profileId);
     }
 
     public void NavigateTo(string tag)
