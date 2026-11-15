@@ -166,7 +166,9 @@ public enum SyncValidationError
     TargetEqualsSource,
     TargetInsideSource,
     SourceInsideTarget,
-    TargetUnavailable
+    TargetUnavailable,
+    /// <summary>Automatischer Lauf übersprungen, weil der Löschschutz angeschlagen hat.</summary>
+    DeletionProtection
 }
 
 public sealed class SyncValidationException(SyncValidationError error, string path)

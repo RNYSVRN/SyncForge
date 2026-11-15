@@ -59,13 +59,13 @@ public sealed partial class SyncRunViewModel : ObservableObject
     private CancellationTokenSource? _cts;
     private readonly Dictionary<string, TargetRunViewModel> _byRoot = new(StringComparer.OrdinalIgnoreCase);
 
-    private readonly HistoryStore _history;
+    private readonly SyncCoordinator _coordinator;
 
-    public SyncRunViewModel(ProfileStore store, SettingsService settings, HistoryStore history)
+    public SyncRunViewModel(ProfileStore store, SettingsService settings, SyncCoordinator coordinator)
     {
         _store = store;
         _settings = settings;
-        _history = history;
+        _coordinator = coordinator;
     }
 
     /// <summary>Id des gespeicherten Historien-Eintrags (für "Details anzeigen").</summary>
@@ -158,12 +158,18 @@ public sealed partial class SyncRunViewModel : ObservableObject
         if (!CanStart)
         {
             SetMessage(InfoBarSeverity.Success, Localization.Get("Run_UpToDate"), string.Empty);
-            if (!request.PreviewOnly)
+            if (!request.PreviewOnly && _coordinator.TryBegin(profile.Id, _cts))
             {
                 // Auch ein Lauf ohne Änderungen gehört in die Historie (und prüft dabei die Ziele).
-                var run = await ProfileRunner.ExecuteAsync(_analysis, BuildOptions(), null, CancellationToken.None);
-                SaveLastRun(run.Status, Localization.Get("Run_UpToDate"));
-                RecordRun(run);
+                try
+                {
+                    var run = await ProfileRunner.ExecuteAsync(_analysis, _coordinator.BuildOptions(profile), null, CancellationToken.None);
+                    HistoryRunId = _coordinator.Record(run, RunTrigger.Manual).HistoryId;
+                }
+                finally
+                {
+                    _coordinator.End(profile.Id);
+                }
             }
             State = RunState.Done;
             return;
@@ -176,10 +182,16 @@ public sealed partial class SyncRunViewModel : ObservableObject
     public async Task ExecuteAsync()
     {
         if (_analysis is null || !CanStart) return;
+        _cts = new CancellationTokenSource();
+        var profileId = _analysis.Profile.Id;
+        if (!_coordinator.TryBegin(profileId, _cts))
+        {
+            SetMessage(InfoBarSeverity.Informational, Localization.Get("Run_AlreadyRunning"), string.Empty);
+            return;
+        }
         ShowDeletionWarning = false;
         ShowMessage = false;
         State = RunState.Running;
-        _cts = new CancellationTokenSource();
 
         foreach (var t in Targets.Where(t => t.PlanRoot is not null))
         {
@@ -190,33 +202,17 @@ public sealed partial class SyncRunViewModel : ObservableObject
         }
 
         var progress = new Progress<SyncProgress>(OnProgress);
-        var run = await ProfileRunner.ExecuteAsync(_analysis, BuildOptions(), progress, _cts.Token);
-        ShowResults(run);
-        RecordRun(run);
-        State = RunState.Done;
-    }
-
-    private SyncExecutorOptions BuildOptions() => new()
-    {
-        MaxParallelCopies = _settings.Current.MaxParallelCopies,
-        BandwidthLimitKBps = _settings.Current.BandwidthLimitKBps,
-        VerifyAfterCopy = _analysis!.Profile.VerifyAfterCopy,
-        DeleteToRecycleBin = _analysis.Profile.DeleteToRecycleBin
-    };
-
-    /// <summary>Speichert den Lauf in der Historie und wendet die Aufbewahrungsdauer an.</summary>
-    private void RecordRun(ProfileRunResult run)
-    {
         try
         {
-            HistoryRunId = _history.AddRun(run, RunTrigger.Manual);
-            _history.DeleteOlderThan(DateTimeOffset.Now.AddDays(-Math.Max(1, _settings.Current.HistoryRetentionDays)));
+            var run = await ProfileRunner.ExecuteAsync(_analysis, _coordinator.BuildOptions(_analysis.Profile), progress, _cts.Token);
+            ShowResults(run);
+            HistoryRunId = _coordinator.Record(run, RunTrigger.Manual).HistoryId;
         }
-        catch (Exception ex)
+        finally
         {
-            // Der Lauf selbst war erfolgreich; nur das Protokoll fehlt.
-            MessageText += Environment.NewLine + Format.Text("Run_HistoryFailed", ex.Message);
+            _coordinator.End(profileId);
         }
+        State = RunState.Done;
     }
 
     public void Cancel() => _cts?.Cancel();
@@ -294,10 +290,6 @@ public sealed partial class SyncRunViewModel : ObservableObject
             t.HasErrors = t.Errors.Count > 0;
         }
 
-        var summary = Format.Text("Run_TotalSummary", Format.Number(copied), Format.Number(updated), Format.Number(deleted),
-            Format.Bytes(bytes), Format.Duration(run.Duration));
-        if (run.Skipped.Count > 0) summary += " " + Format.Text("Run_SkippedTargets", Format.Number(run.Skipped.Count));
-
         var severity = run.Status switch
         {
             RunStatus.Success => InfoBarSeverity.Success,
@@ -305,19 +297,7 @@ public sealed partial class SyncRunViewModel : ObservableObject
             RunStatus.Cancelled => InfoBarSeverity.Informational,
             _ => InfoBarSeverity.Error
         };
-        SetMessage(severity, Format.StatusName(run.Status), summary);
-        SaveLastRun(run.Status, summary);
-    }
-
-    private void SaveLastRun(RunStatus status, string summary)
-    {
-        if (_analysis is null) return;
-        var profile = _store.Get(_analysis.Profile.Id);
-        if (profile is null) return;
-        profile.LastRunAt = DateTimeOffset.Now;
-        profile.LastRunStatus = status;
-        profile.LastRunSummary = summary;
-        _store.Save(profile);
+        SetMessage(severity, Format.StatusName(run.Status), SyncCoordinator.BuildSummary(run));
     }
 
     private void Fail(string message)

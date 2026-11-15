@@ -48,7 +48,7 @@ public sealed partial class MainWindow : Window
         Activated += MainWindow_Activated;
 
         RestoreWindowSize();
-        AppWindow.Closing += (_, _) => SaveWindowSize();
+        AppWindow.Closing += AppWindow_Closing;
 
         App.Services.GetRequiredService<ThemeService>().Initialize(this, _settings.Current.Theme);
 
@@ -163,6 +163,19 @@ public sealed partial class MainWindow : Window
         }
         Microsoft.UI.Input.InputNonClientPointerSource.GetForWindowId(AppWindow.Id)
             .SetRegionRects(Microsoft.UI.Input.NonClientRegionKind.Passthrough, rects.ToArray());
+    }
+
+    /// <summary>
+    /// Schließen: In den Infobereich (Zeitpläne und Überwachung laufen weiter) oder – wenn so eingestellt –
+    /// SyncForge beenden.
+    /// </summary>
+    private void AppWindow_Closing(AppWindow sender, AppWindowClosingEventArgs args)
+    {
+        SaveWindowSize();
+        if (App.IsExiting) return;
+        args.Cancel = true;
+        if (_settings.Current.MinimizeToTray) sender.Hide();
+        else App.ExitApp();
     }
 
     private void RestoreWindowSize()

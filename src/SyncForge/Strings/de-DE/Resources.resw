@@ -240,4 +240,34 @@
   <data name="Settings_ClearHistoryText" xml:space="preserve"><value>Alle gespeicherten Läufe und Datei-Details werden endgültig entfernt.</value></data>
   <data name="Detail_FilesCountOne" xml:space="preserve"><value>1 Eintrag</value></data>
   <data name="Run_TargetDoneOneError" xml:space="preserve"><value>Abgeschlossen mit 1 Fehler</value></data>
+  <data name="Run_AlreadyRunning" xml:space="preserve"><value>Dieses Profil wird gerade synchronisiert (z. B. durch einen Zeitplan). Bitte warte, bis der Lauf beendet ist.</value></data>
+  <data name="Run_SkippedProtection" xml:space="preserve"><value>{0} Ziel(e) wegen Löschschutz übersprungen.</value></data>
+  <data name="Validation_DeletionProtection" xml:space="preserve"><value>Löschschutz: zu viele Löschungen – automatischer Lauf übersprungen</value></data>
+  <data name="Tray_Open" xml:space="preserve"><value>SyncForge öffnen</value></data>
+  <data name="Tray_SyncAll" xml:space="preserve"><value>Alle Profile jetzt synchronisieren</value></data>
+  <data name="Tray_Exit" xml:space="preserve"><value>Beenden</value></data>
+  <data name="Tray_Running" xml:space="preserve"><value>SyncForge – synchronisiert ({0})</value></data>
+  <data name="Notify_Title" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="Notify_ShowDetails" xml:space="preserve"><value>Details anzeigen</value></data>
+  <data name="Editor_SectionAutomation.Text" xml:space="preserve"><value>Automatisierung</value></data>
+  <data name="Editor_Schedule.Header" xml:space="preserve"><value>Zeitplan</value></data>
+  <data name="Editor_Schedule.Description" xml:space="preserve"><value>Automatisch zu festen Zeiten synchronisieren.</value></data>
+  <data name="Schedule_None.Content" xml:space="preserve"><value>Kein Zeitplan</value></data>
+  <data name="Schedule_Interval.Content" xml:space="preserve"><value>In festen Abständen</value></data>
+  <data name="Schedule_Daily.Content" xml:space="preserve"><value>Täglich</value></data>
+  <data name="Schedule_Weekly.Content" xml:space="preserve"><value>An bestimmten Wochentagen</value></data>
+  <data name="Editor_Interval.Header" xml:space="preserve"><value>Abstand (Minuten)</value></data>
+  <data name="Editor_TimeOfDay.Header" xml:space="preserve"><value>Uhrzeit</value></data>
+  <data name="Editor_Days.Header" xml:space="preserve"><value>Wochentage</value></data>
+  <data name="Editor_CatchUp.Header" xml:space="preserve"><value>Verpasste Termine nachholen</value></data>
+  <data name="Editor_CatchUp.Description" xml:space="preserve"><value>Lief der PC oder SyncForge zum geplanten Zeitpunkt nicht, wird beim nächsten Start einmal nachsynchronisiert.</value></data>
+  <data name="Editor_Watch.Header" xml:space="preserve"><value>Bei Änderungen synchronisieren</value></data>
+  <data name="Editor_Watch.Description" xml:space="preserve"><value>Überwacht die Quelle und synchronisiert, nachdem eine Weile keine Änderungen mehr kamen.</value></data>
+  <data name="Editor_WatchDelay.Header" xml:space="preserve"><value>Wartezeit nach der letzten Änderung (Sekunden)</value></data>
+  <data name="Editor_RunAtStartup.Header" xml:space="preserve"><value>Beim Start von SyncForge synchronisieren</value></data>
+  <data name="Editor_RunAtStartup.Description" xml:space="preserve"><value>Zusammen mit „Mit Windows starten“ also bei jeder Anmeldung.</value></data>
+  <data name="Editor_RunOnDrive.Header" xml:space="preserve"><value>Wenn ein Ziel-Laufwerk angeschlossen wird</value></data>
+  <data name="Editor_RunOnDrive.Description" xml:space="preserve"><value>Z. B. beim Einstecken der USB-Festplatte, auf der ein Ziel liegt.</value></data>
+  <data name="Editor_AutomationInfo.Message" xml:space="preserve"><value>Automatische Läufe finden statt, solange SyncForge läuft – auch geschlossen im Infobereich. Bei automatischen Läufen wird ein Ziel übersprungen, wenn der Löschschutz anschlägt.</value></data>
+  <data name="Editor_ErrorNoDays" xml:space="preserve"><value>Bitte wähle mindestens einen Wochentag.</value></data>
 </root>

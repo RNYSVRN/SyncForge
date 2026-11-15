@@ -11,10 +11,17 @@ public sealed partial class ProfilesPage : Page
 {
     public ProfilesViewModel ViewModel { get; } = App.Services.GetRequiredService<ProfilesViewModel>();
 
+    private readonly Core.Storage.ProfileStore _store = App.Services.GetRequiredService<Core.Storage.ProfileStore>();
+
     public ProfilesPage()
     {
         InitializeComponent();
+        // Hintergrundläufe aktualisieren den Status in der Liste (Ereignis kommt ggf. von einem anderen Thread).
+        Loaded += (_, _) => _store.Changed += OnStoreChanged;
+        Unloaded += (_, _) => _store.Changed -= OnStoreChanged;
     }
+
+    private void OnStoreChanged(object? sender, EventArgs e) => DispatcherQueue.TryEnqueue(ViewModel.Reload);
 
     protected override void OnNavigatedTo(Microsoft.UI.Xaml.Navigation.NavigationEventArgs e)
     {

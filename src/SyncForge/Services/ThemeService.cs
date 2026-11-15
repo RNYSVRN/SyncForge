@@ -23,6 +23,7 @@ public sealed class ThemeService
 
     public void Apply(AppTheme theme)
     {
+        App.OnThemeChanged(theme);
         if (_window?.Content is FrameworkElement root)
         {
             root.RequestedTheme = theme switch

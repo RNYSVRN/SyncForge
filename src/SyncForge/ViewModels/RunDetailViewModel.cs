@@ -81,7 +81,9 @@ public sealed partial class RunDetailViewModel : ObservableObject
                 TargetRunStatus.Success => ("", Localization.Get("Run_TargetDone")),
                 TargetRunStatus.Error => ("", Format.Text(t.Errors == 1 ? "Run_TargetDoneOneError" : "Run_TargetDoneErrors", Format.Number(t.Errors))),
                 TargetRunStatus.Cancelled => ("", Localization.Get("Status_Cancelled")),
-                _ => ("", Localization.Get("Run_TargetUnavailable"))
+                _ => ("", t.Message is { Length: > 0 } reason && !reason.Contains(' ')
+                    ? Localization.Get("Validation_" + reason)   // z. B. DeletionProtection, SourceMissing
+                    : t.Message ?? Localization.Get("Run_TargetUnavailable"))
             };
             var summary = t.Status == TargetRunStatus.Skipped
                 ? string.Empty

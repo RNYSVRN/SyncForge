@@ -145,6 +145,71 @@
                         </toolkit:SettingsExpander.Items>
                     </toolkit:SettingsExpander>
 
+                    <!-- Automatisierung -->
+                    <TextBlock x:Uid="Editor_SectionAutomation" Text="Automatisierung" Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" />
+                    <toolkit:SettingsExpander x:Uid="Editor_Schedule" Header="Zeitplan" Description="Automatisch zu festen Zeiten synchronisieren."
+                                              IsExpanded="{x:Bind ViewModel.HasSchedule, Mode=OneWay}">
+                        <toolkit:SettingsExpander.HeaderIcon><FontIcon Glyph="&#xE787;" /></toolkit:SettingsExpander.HeaderIcon>
+                        <ComboBox SelectedIndex="{x:Bind ViewModel.ScheduleIndex, Mode=TwoWay}" MinWidth="200">
+                            <ComboBoxItem x:Uid="Schedule_None" Content="Kein Zeitplan" />
+                            <ComboBoxItem x:Uid="Schedule_Interval" Content="In festen Abständen" />
+                            <ComboBoxItem x:Uid="Schedule_Daily" Content="Täglich" />
+                            <ComboBoxItem x:Uid="Schedule_Weekly" Content="An bestimmten Wochentagen" />
+                        </ComboBox>
+                        <toolkit:SettingsExpander.Items>
+                            <toolkit:SettingsCard x:Uid="Editor_Interval" Header="Abstand (Minuten)" Visibility="{x:Bind ViewModel.IsInterval, Mode=OneWay}">
+                                <NumberBox Value="{x:Bind ViewModel.IntervalMinutes, Mode=TwoWay}" Minimum="1" Maximum="10080" SmallChange="15" LargeChange="60"
+                                           SpinButtonPlacementMode="Inline" MinWidth="140" />
+                            </toolkit:SettingsCard>
+                            <toolkit:SettingsCard x:Uid="Editor_TimeOfDay" Header="Uhrzeit" Visibility="{x:Bind ViewModel.IsTimeBased, Mode=OneWay}">
+                                <TimePicker Time="{x:Bind ViewModel.TimeOfDay, Mode=TwoWay}" ClockIdentifier="24HourClock" MinuteIncrement="5" />
+                            </toolkit:SettingsCard>
+                            <toolkit:SettingsCard x:Uid="Editor_Days" Header="Wochentage" Visibility="{x:Bind ViewModel.IsWeekly, Mode=OneWay}">
+                                <ItemsControl ItemsSource="{x:Bind ViewModel.Days}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel Orientation="Horizontal" Spacing="4" />
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate x:DataType="vm:DayOptionViewModel">
+                                            <ToggleButton Content="{x:Bind Name}" IsChecked="{x:Bind IsSelected, Mode=TwoWay}" MinWidth="44" Padding="6,5" />
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </toolkit:SettingsCard>
+                            <toolkit:SettingsCard x:Uid="Editor_CatchUp" Header="Verpasste Termine nachholen"
+                                                  Description="Lief der PC oder SyncForge zum geplanten Zeitpunkt nicht, wird beim nächsten Start einmal nachsynchronisiert."
+                                                  Visibility="{x:Bind ViewModel.HasSchedule, Mode=OneWay}">
+                                <ToggleSwitch IsOn="{x:Bind ViewModel.CatchUpMissed, Mode=TwoWay}" OnContent="{StaticResource ToggleOnText}" OffContent="{StaticResource ToggleOffText}" />
+                            </toolkit:SettingsCard>
+                        </toolkit:SettingsExpander.Items>
+                    </toolkit:SettingsExpander>
+                    <toolkit:SettingsExpander x:Uid="Editor_Watch" Header="Bei Änderungen synchronisieren"
+                                              Description="Überwacht die Quelle und synchronisiert, nachdem eine Weile keine Änderungen mehr kamen."
+                                              IsExpanded="{x:Bind ViewModel.WatchForChanges, Mode=OneWay}">
+                        <toolkit:SettingsExpander.HeaderIcon><FontIcon Glyph="&#xE7B3;" /></toolkit:SettingsExpander.HeaderIcon>
+                        <ToggleSwitch IsOn="{x:Bind ViewModel.WatchForChanges, Mode=TwoWay}" OnContent="{StaticResource ToggleOnText}" OffContent="{StaticResource ToggleOffText}" />
+                        <toolkit:SettingsExpander.Items>
+                            <toolkit:SettingsCard x:Uid="Editor_WatchDelay" Header="Wartezeit nach der letzten Änderung (Sekunden)">
+                                <NumberBox Value="{x:Bind ViewModel.WatchDelaySeconds, Mode=TwoWay}" Minimum="2" Maximum="3600" SmallChange="5" LargeChange="30"
+                                           SpinButtonPlacementMode="Inline" MinWidth="140" />
+                            </toolkit:SettingsCard>
+                        </toolkit:SettingsExpander.Items>
+                    </toolkit:SettingsExpander>
+                    <toolkit:SettingsCard x:Uid="Editor_RunAtStartup" Header="Beim Start von SyncForge synchronisieren"
+                                          Description="Zusammen mit „Mit Windows starten“ also bei jeder Anmeldung.">
+                        <toolkit:SettingsCard.HeaderIcon><FontIcon Glyph="&#xE7E8;" /></toolkit:SettingsCard.HeaderIcon>
+                        <ToggleSwitch IsOn="{x:Bind ViewModel.RunAtStartup, Mode=TwoWay}" OnContent="{StaticResource ToggleOnText}" OffContent="{StaticResource ToggleOffText}" />
+                    </toolkit:SettingsCard>
+                    <toolkit:SettingsCard x:Uid="Editor_RunOnDrive" Header="Wenn ein Ziel-Laufwerk angeschlossen wird"
+                                          Description="Z. B. beim Einstecken der USB-Festplatte, auf der ein Ziel liegt.">
+                        <toolkit:SettingsCard.HeaderIcon><FontIcon Glyph="&#xE88E;" /></toolkit:SettingsCard.HeaderIcon>
+                        <ToggleSwitch IsOn="{x:Bind ViewModel.RunWhenTargetConnected, Mode=TwoWay}" OnContent="{StaticResource ToggleOnText}" OffContent="{StaticResource ToggleOffText}" />
+                    </toolkit:SettingsCard>
+                    <InfoBar x:Uid="Editor_AutomationInfo" IsOpen="True" IsClosable="False" Severity="Informational" Margin="0,4,0,0"
+                             Message="Automatische Läufe finden statt, solange SyncForge läuft – auch geschlossen im Infobereich. Bei automatischen Läufen wird ein Ziel übersprungen, wenn der Löschschutz anschlägt." />
+
                     <!-- Sicherheit -->
                     <TextBlock x:Uid="Editor_SectionSafety" Text="Sicherheit" Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" />
                     <toolkit:SettingsCard x:Uid="Editor_RecycleBin" Header="Gelöschte Dateien in den Papierkorb" Description="Nur auf lokalen Laufwerken möglich. Auf Netzlaufwerken wird endgültig gelöscht.">

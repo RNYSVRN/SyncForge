@@ -234,3 +234,33 @@ Settings_ClearHistoryTitle;Historie löschen?;Clear history?
 Settings_ClearHistoryText;Alle gespeicherten Läufe und Datei-Details werden endgültig entfernt.;All stored runs and file details will be permanently removed.
 Detail_FilesCountOne;1 Eintrag;1 entry
 Run_TargetDoneOneError;Abgeschlossen mit 1 Fehler;Finished with 1 error
+Run_AlreadyRunning;Dieses Profil wird gerade synchronisiert (z. B. durch einen Zeitplan). Bitte warte, bis der Lauf beendet ist.;This profile is being synced right now (e.g. by a schedule). Please wait until the run has finished.
+Run_SkippedProtection;{0} Ziel(e) wegen Löschschutz übersprungen.;{0} destination(s) skipped by deletion protection.
+Validation_DeletionProtection;Löschschutz: zu viele Löschungen – automatischer Lauf übersprungen;Deletion protection: too many deletions – automatic run skipped
+Tray_Open;SyncForge öffnen;Open SyncForge
+Tray_SyncAll;Alle Profile jetzt synchronisieren;Sync all profiles now
+Tray_Exit;Beenden;Exit
+Tray_Running;SyncForge – synchronisiert ({0});SyncForge – syncing ({0})
+Notify_Title;{0}: {1};{0}: {1}
+Notify_ShowDetails;Details anzeigen;Show details
+Editor_SectionAutomation.Text;Automatisierung;Automation
+Editor_Schedule.Header;Zeitplan;Schedule
+Editor_Schedule.Description;Automatisch zu festen Zeiten synchronisieren.;Sync automatically at fixed times.
+Schedule_None.Content;Kein Zeitplan;No schedule
+Schedule_Interval.Content;In festen Abständen;At fixed intervals
+Schedule_Daily.Content;Täglich;Daily
+Schedule_Weekly.Content;An bestimmten Wochentagen;On specific weekdays
+Editor_Interval.Header;Abstand (Minuten);Interval (minutes)
+Editor_TimeOfDay.Header;Uhrzeit;Time
+Editor_Days.Header;Wochentage;Weekdays
+Editor_CatchUp.Header;Verpasste Termine nachholen;Catch up on missed runs
+Editor_CatchUp.Description;Lief der PC oder SyncForge zum geplanten Zeitpunkt nicht, wird beim nächsten Start einmal nachsynchronisiert.;If the PC or SyncForge was not running at the scheduled time, sync once at the next start.
+Editor_Watch.Header;Bei Änderungen synchronisieren;Sync on changes
+Editor_Watch.Description;Überwacht die Quelle und synchronisiert, nachdem eine Weile keine Änderungen mehr kamen.;Monitors the source and syncs once no further changes have occurred for a while.
+Editor_WatchDelay.Header;Wartezeit nach der letzten Änderung (Sekunden);Wait after the last change (seconds)
+Editor_RunAtStartup.Header;Beim Start von SyncForge synchronisieren;Sync when SyncForge starts
+Editor_RunAtStartup.Description;Zusammen mit „Mit Windows starten“ also bei jeder Anmeldung.;Combined with “Start with Windows” this means at every sign-in.
+Editor_RunOnDrive.Header;Wenn ein Ziel-Laufwerk angeschlossen wird;When a destination drive is connected
+Editor_RunOnDrive.Description;Z. B. beim Einstecken der USB-Festplatte, auf der ein Ziel liegt.;E.g. when plugging in the USB drive that holds a destination.
+Editor_AutomationInfo.Message;Automatische Läufe finden statt, solange SyncForge läuft – auch geschlossen im Infobereich. Bei automatischen Läufen wird ein Ziel übersprungen, wenn der Löschschutz anschlägt.;Automatic runs happen while SyncForge is running – also when closed to the notification area. In automatic runs a destination is skipped if deletion protection is triggered.
+Editor_ErrorNoDays;Bitte wähle mindestens einen Wochentag.;Please choose at least one weekday.

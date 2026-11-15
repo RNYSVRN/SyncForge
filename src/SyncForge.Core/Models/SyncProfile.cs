@@ -57,6 +57,8 @@ public sealed class SyncProfile
 
     public FilterSettings Filter { get; set; } = new();
 
+    public AutomationSettings Automation { get; set; } = new();
+
     /// <summary>Gelöschte Dateien in den Papierkorb verschieben (nur lokale Laufwerke).</summary>
     public bool DeleteToRecycleBin { get; set; } = true;
 

@@ -1,0 +1,160 @@
+using System.Collections.Concurrent;
+using SyncForge.Core.Engine;
+using SyncForge.Core.History;
+using SyncForge.Core.Models;
+using SyncForge.Core.Storage;
+using SyncForge.Helpers;
+
+namespace SyncForge.Services;
+
+public sealed class RunCompletedEventArgs(SyncProfile profile, ProfileRunResult run, RunTrigger trigger, long? historyId, string summary) : EventArgs
+{
+    public SyncProfile Profile { get; } = profile;
+    public ProfileRunResult Run { get; } = run;
+    public RunTrigger Trigger { get; } = trigger;
+    public long? HistoryId { get; } = historyId;
+    public string Summary { get; } = summary;
+}
+
+/// <summary>
+/// Zentrale Stelle für alle Läufe (manuell und automatisch): verhindert parallele Läufe desselben Profils,
+/// speichert Historie und letzten Status und meldet abgeschlossene Läufe (z. B. für Benachrichtigungen).
+/// Threadsicher; Ereignisse kommen ggf. von Hintergrund-Threads.
+/// </summary>
+public sealed class SyncCoordinator
+{
+    private readonly ProfileStore _profiles;
+    private readonly HistoryStore _history;
+    private readonly SettingsService _settings;
+    private readonly ConcurrentDictionary<Guid, CancellationTokenSource> _running = new();
+
+    public SyncCoordinator(ProfileStore profiles, HistoryStore history, SettingsService settings)
+    {
+        _profiles = profiles;
+        _history = history;
+        _settings = settings;
+    }
+
+    public event EventHandler<Guid>? RunStarted;
+    public event EventHandler<RunCompletedEventArgs>? RunCompleted;
+
+    public bool IsRunning(Guid profileId) => _running.ContainsKey(profileId);
+    public int RunningCount => _running.Count;
+
+    /// <summary>Reserviert ein Profil für einen manuellen Lauf (UI). False, wenn es gerade läuft.</summary>
+    public bool TryBegin(Guid profileId, CancellationTokenSource cts)
+    {
+        if (!_running.TryAdd(profileId, cts)) return false;
+        RunStarted?.Invoke(this, profileId);
+        return true;
+    }
+
+    public void End(Guid profileId) => _running.TryRemove(profileId, out _);
+
+    public void CancelAll()
+    {
+        foreach (var cts in _running.Values) cts.Cancel();
+    }
+
+    public SyncExecutorOptions BuildOptions(SyncProfile profile) => new()
+    {
+        MaxParallelCopies = _settings.Current.MaxParallelCopies,
+        BandwidthLimitKBps = _settings.Current.BandwidthLimitKBps,
+        VerifyAfterCopy = profile.VerifyAfterCopy,
+        DeleteToRecycleBin = profile.DeleteToRecycleBin
+    };
+
+    /// <summary>
+    /// Automatischer Lauf ohne Oberfläche. Schlägt der Löschschutz an, wird das betroffene Ziel
+    /// nicht synchronisiert, sondern als übersprungen protokolliert. Gibt null zurück, wenn das Profil
+    /// fehlt oder bereits läuft.
+    /// </summary>
+    public async Task<RunCompletedEventArgs?> RunAsync(Guid profileId, RunTrigger trigger)
+    {
+        var profile = _profiles.Get(profileId);
+        if (profile is null) return null;
+        var cts = new CancellationTokenSource();
+        if (!TryBegin(profileId, cts)) return null;
+
+        try
+        {
+            var analysis = await ProfileRunner.AnalyzeAsync(profile, null, cts.Token);
+            if (analysis.SourceMissing)
+            {
+                foreach (var t in profile.Targets.Where(t => t.Enabled))
+                    analysis.Targets.Add(new TargetAnalysis { Target = t, Status = TargetStatus.Error, ValidationError = SyncValidationError.SourceMissing });
+            }
+            foreach (var warned in analysis.DeletionWarnings.ToList())
+            {
+                warned.Status = TargetStatus.Error;
+                warned.ValidationError = SyncValidationError.DeletionProtection;
+            }
+
+            var run = await ProfileRunner.ExecuteAsync(analysis, BuildOptions(profile), null, cts.Token);
+            return Record(run, trigger);
+        }
+        catch (OperationCanceledException)
+        {
+            return null;
+        }
+        catch (Exception ex)
+        {
+            App.LogError(ex);
+            return null;
+        }
+        finally
+        {
+            End(profileId);
+        }
+    }
+
+    /// <summary>Speichert einen Lauf (Historie + letzter Status) und meldet ihn.</summary>
+    public RunCompletedEventArgs Record(ProfileRunResult run, RunTrigger trigger)
+    {
+        var summary = BuildSummary(run);
+        long? historyId = null;
+        try
+        {
+            historyId = _history.AddRun(run, trigger);
+            _history.DeleteOlderThan(DateTimeOffset.Now.AddDays(-Math.Max(1, _settings.Current.HistoryRetentionDays)));
+        }
+        catch (Exception ex)
+        {
+            App.LogError(ex);
+        }
+
+        var stored = _profiles.Get(run.Profile.Id);
+        if (stored is not null)
+        {
+            stored.LastRunAt = DateTimeOffset.Now;
+            stored.LastRunStatus = run.Status;
+            stored.LastRunSummary = summary;
+            _profiles.Save(stored);
+        }
+
+        var args = new RunCompletedEventArgs(stored ?? run.Profile, run, trigger, historyId, summary);
+        RunCompleted?.Invoke(this, args);
+        return args;
+    }
+
+    public static string BuildSummary(ProfileRunResult run)
+    {
+        var copied = run.Results.Sum(r => r.Copied);
+        var updated = run.Results.Sum(r => r.Updated);
+        var deleted = run.Results.Sum(r => r.DeletedFiles);
+        var bytes = run.Results.Sum(r => r.BytesCopied);
+        var summary = copied + updated + deleted == 0 && run.Status == RunStatus.Success
+            ? Localization.Get("Run_UpToDate")
+            : Format.Text("Run_TotalSummary", Format.Number(copied), Format.Number(updated), Format.Number(deleted), Format.Bytes(bytes), Format.Duration(run.Duration));
+        var errors = run.Results.Sum(r => r.Errors.Count);
+        if (errors > 0) summary += " " + Format.Text("History_RunErrors", Format.Number(errors)) + ".";
+        if (run.Skipped.Count > 0)
+        {
+            var protectedCount = run.Skipped.Count(s => s.ValidationError == SyncValidationError.DeletionProtection);
+            summary += " " + (protectedCount > 0
+                ? Format.Text("Run_SkippedProtection", Format.Number(protectedCount))
+                : Format.Text("Run_SkippedTargets", Format.Number(run.Skipped.Count)));
+        }
+        return summary;
+    }
+}

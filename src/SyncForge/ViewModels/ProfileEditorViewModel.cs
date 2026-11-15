@@ -14,6 +14,13 @@ public sealed partial class TargetItemViewModel : ObservableObject
     [ObservableProperty] public partial bool Enabled { get; set; } = true;
 }
 
+public sealed partial class DayOptionViewModel : ObservableObject
+{
+    public required DayOfWeek Day { get; init; }
+    public required string Name { get; init; }
+    [ObservableProperty] public partial bool IsSelected { get; set; }
+}
+
 public sealed partial class ProfileEditorViewModel : ObservableObject
 {
     private const double Megabyte = 1024 * 1024;
@@ -43,6 +50,23 @@ public sealed partial class ProfileEditorViewModel : ObservableObject
     [ObservableProperty] public partial double MaxSizeMb { get; set; }
     [ObservableProperty] public partial bool DeleteToRecycleBin { get; set; }
     [ObservableProperty] public partial double DeletionProtectionPercent { get; set; }
+    // Automatisierung
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsInterval), nameof(IsTimeBased), nameof(IsWeekly), nameof(HasSchedule))]
+    public partial int ScheduleIndex { get; set; }
+    [ObservableProperty] public partial double IntervalMinutes { get; set; }
+    [ObservableProperty] public partial TimeSpan TimeOfDay { get; set; }
+    [ObservableProperty] public partial bool CatchUpMissed { get; set; }
+    [ObservableProperty] public partial bool WatchForChanges { get; set; }
+    [ObservableProperty] public partial double WatchDelaySeconds { get; set; }
+    [ObservableProperty] public partial bool RunAtStartup { get; set; }
+    [ObservableProperty] public partial bool RunWhenTargetConnected { get; set; }
+    public ObservableCollection<DayOptionViewModel> Days { get; } = [];
+    public bool IsInterval => ScheduleIndex == (int)ScheduleKind.Interval;
+    public bool IsTimeBased => ScheduleIndex is (int)ScheduleKind.Daily or (int)ScheduleKind.Weekly;
+    public bool IsWeekly => ScheduleIndex == (int)ScheduleKind.Weekly;
+    public bool HasSchedule => ScheduleIndex != (int)ScheduleKind.None;
+
     [ObservableProperty] public partial string ValidationMessage { get; set; } = string.Empty;
     [ObservableProperty] public partial bool HasValidationMessage { get; set; }
 
@@ -67,6 +91,23 @@ public sealed partial class ProfileEditorViewModel : ObservableObject
         MaxSizeMb = _profile.Filter.MaxSizeBytes / Megabyte;
         DeleteToRecycleBin = _profile.DeleteToRecycleBin;
         DeletionProtectionPercent = _profile.DeletionProtectionPercent;
+
+        var a = _profile.Automation;
+        ScheduleIndex = (int)a.Schedule;
+        IntervalMinutes = a.IntervalMinutes;
+        TimeOfDay = a.TimeOfDay.ToTimeSpan();
+        CatchUpMissed = a.CatchUpMissed;
+        WatchForChanges = a.WatchForChanges;
+        WatchDelaySeconds = a.WatchDelaySeconds;
+        RunAtStartup = a.RunAtStartup;
+        RunWhenTargetConnected = a.RunWhenTargetConnected;
+        Days.Clear();
+        var culture = Helpers.Format.Culture.DateTimeFormat;
+        for (var i = 0; i < 7; i++)
+        {
+            var day = (DayOfWeek)(((int)culture.FirstDayOfWeek + i) % 7);
+            Days.Add(new DayOptionViewModel { Day = day, Name = culture.GetAbbreviatedDayName(day), IsSelected = a.Days.Contains(day) });
+        }
 
         Targets.Clear();
         foreach (var t in _profile.Targets) Targets.Add(new TargetItemViewModel { Id = t.Id, Path = t.Path, Enabled = t.Enabled });
@@ -111,6 +152,34 @@ public sealed partial class ProfileEditorViewModel : ObservableObject
             .Select(t => new SyncTarget { Id = t.Id, Path = NormalizePath(t.Path), Enabled = t.Enabled })
             .ToList();
 
+        var automation = new AutomationSettings
+        {
+            Schedule = (ScheduleKind)ScheduleIndex,
+            IntervalMinutes = double.IsNaN(IntervalMinutes) ? 60 : (int)Math.Clamp(IntervalMinutes, 1, 7 * 24 * 60),
+            TimeOfDay = TimeOnly.FromTimeSpan(TimeOfDay),
+            Days = Days.Where(d => d.IsSelected).Select(d => d.Day).ToList(),
+            CatchUpMissed = CatchUpMissed,
+            WatchForChanges = WatchForChanges,
+            WatchDelaySeconds = double.IsNaN(WatchDelaySeconds) ? 30 : (int)Math.Clamp(WatchDelaySeconds, 2, 3600),
+            RunAtStartup = RunAtStartup,
+            RunWhenTargetConnected = RunWhenTargetConnected
+        };
+
+        // Inzwischen geänderte Laufzeitdaten (Hintergrundläufe) nicht mit dem Stand beim Öffnen überschreiben.
+        var current = _store.Get(_profile.Id);
+        if (current is not null)
+        {
+            _profile.LastRunAt = current.LastRunAt;
+            _profile.LastRunStatus = current.LastRunStatus;
+            _profile.LastRunSummary = current.LastRunSummary;
+            var old = current.Automation;
+            var scheduleChanged = old.Schedule != automation.Schedule || old.IntervalMinutes != automation.IntervalMinutes
+                || old.TimeOfDay != automation.TimeOfDay || !old.Days.Order().SequenceEqual(automation.Days.Order());
+            // Geänderter Zeitplan zählt ab jetzt (der Planer setzt den Bezugspunkt neu).
+            automation.ScheduleAnchor = scheduleChanged ? null : old.ScheduleAnchor;
+        }
+        _profile.Automation = automation;
+
         _store.Save(_profile);
         return _profile.Id;
     }
@@ -142,6 +211,7 @@ public sealed partial class ProfileEditorViewModel : ObservableObject
         if (duplicates is not null) return Localization.Get("Editor_ErrorDuplicateTarget") + " " + duplicates.Key;
 
         if (MaxSizeMb > 0 && MinSizeMb > MaxSizeMb) return Localization.Get("Editor_ErrorSizeRange");
+        if (IsWeekly && !Days.Any(d => d.IsSelected)) return Localization.Get("Editor_ErrorNoDays");
         return null;
     }
 

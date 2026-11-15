@@ -15,6 +15,8 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <LangVersion>latest</LangVersion>
+    <!-- Eigener Einstiegspunkt (Program.cs) für Einzelinstanz-Weiterleitung -->
+    <DefineConstants>$(DefineConstants);DISABLE_XAML_GENERATED_MAIN</DefineConstants>
 
     <!-- Entwicklung: unpaketiert starten. MSIX folgt in Etappe 4. -->
     <WindowsPackageType>None</WindowsPackageType>

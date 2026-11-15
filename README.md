@@ -29,6 +29,7 @@ src/SyncForge.Core/      Sync-Logik ohne UI (testbar)
   Engine/ProfileRunner   Mehrere Ziele, Erreichbarkeit, Löschschutz
   Storage/ProfileStore   profiles.json
   History/HistoryStore   history.db (SQLite): Läufe, Ergebnisse je Ziel, Datei-Protokoll, Statistiken
+  Scheduling/            Zeitplan-Berechnung (Intervall, täglich, Wochentage, Nachholen)
 tests/SyncForge.Core.Tests/  xUnit-Tests gegen echte Temp-Ordner
 src/SyncForge/
   App.xaml(.cs)          Start, DI-Container, Sprache, Fehlerprotokoll
@@ -36,7 +37,10 @@ src/SyncForge/
   Views/                 Übersicht, Profile, Profil-Editor, Vorschau/Lauf, Historie, Laufdetails, Einstellungen
   Controls/              DailyBarChart (Datenmenge pro Tag)
   ViewModels/            MVVM (CommunityToolkit.Mvvm)
-  Services/              Einstellungen (JSON), Design, Lokalisierung
+  Program.cs             Einstiegspunkt mit Einzelinstanz-Weiterleitung
+  Services/              Einstellungen, Design, Lokalisierung,
+                         SyncCoordinator (alle Läufe), AutomationService (Zeitplan, Überwachung, Laufwerke),
+                         TrayIcon (Infobereich, Win32), NotificationService, StartupService (Autostart)
   Strings/<Sprache>/     Resources.resw – generiert, nicht von Hand bearbeiten
   Assets/                App-Icon – generiert
 tools/

@@ -13,7 +13,13 @@ public sealed partial class HistoryPage : Page
     {
         InitializeComponent();
         ViewModel.StatsChanged += (_, _) => Chart.SetData(ViewModel.DailyStats);
+        var history = App.Services.GetRequiredService<Core.History.HistoryStore>();
+        Loaded += (_, _) => history.Changed += OnHistoryChanged;
+        Unloaded += (_, _) => history.Changed -= OnHistoryChanged;
     }
+
+    // Neue Läufe (auch aus dem Hintergrund) sofort anzeigen.
+    private void OnHistoryChanged(object? sender, EventArgs e) => DispatcherQueue.TryEnqueue(ViewModel.Load);
 
     protected override void OnNavigatedTo(Microsoft.UI.Xaml.Navigation.NavigationEventArgs e)
     {

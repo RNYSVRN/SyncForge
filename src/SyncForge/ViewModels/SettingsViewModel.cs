@@ -27,7 +27,8 @@ public sealed partial class SettingsViewModel : ObservableObject
         var s = settings.Current;
         ThemeIndex = (int)s.Theme;
         LanguageIndex = Math.Max(0, Array.IndexOf(LanguageCodes, s.Language));
-        StartWithWindows = s.StartWithWindows;
+        // Tatsächlichen Autostart-Eintrag anzeigen (könnte außerhalb der App entfernt worden sein).
+        StartWithWindows = StartupService.IsEnabled();
         MinimizeToTray = s.MinimizeToTray;
         NotifyOnSuccess = s.NotifyOnSuccess;
         NotifyOnError = s.NotifyOnError;
@@ -75,7 +76,12 @@ public sealed partial class SettingsViewModel : ObservableObject
         _settings.Save();
     }
 
-    partial void OnStartWithWindowsChanged(bool value) => Update(s => s.StartWithWindows = value);
+    partial void OnStartWithWindowsChanged(bool value)
+    {
+        if (_loading) return;
+        StartupService.Apply(value);
+        Update(s => s.StartWithWindows = value);
+    }
     partial void OnMinimizeToTrayChanged(bool value) => Update(s => s.MinimizeToTray = value);
     partial void OnNotifyOnSuccessChanged(bool value) => Update(s => s.NotifyOnSuccess = value);
     partial void OnNotifyOnErrorChanged(bool value) => Update(s => s.NotifyOnError = value);

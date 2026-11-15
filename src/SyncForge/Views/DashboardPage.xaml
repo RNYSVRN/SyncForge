@@ -41,7 +41,7 @@
                         <FontIcon Glyph="&#xE823;" HorizontalAlignment="Left" Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}" />
                         <TextBlock x:Uid="Dashboard_NextRunCard" Text="Nächster Lauf" Style="{StaticResource BodyStrongTextBlockStyle}" />
                         <TextBlock x:Name="NextRunText" Text="–" Style="{StaticResource SubtitleTextBlockStyle}" />
-                        <TextBlock x:Uid="Dashboard_NoSchedule" Text="Zeitpläne folgen in Etappe 4" Style="{StaticResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                        <TextBlock x:Name="NextRunDetail" x:Uid="Dashboard_NoSchedule" Text="Zeitpläne folgen in Etappe 4" Style="{StaticResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
                     </StackPanel>
                 </Border>
             </Grid>
