@@ -552,4 +552,9 @@
   <data name="Cli_AlreadyRunning" xml:space="preserve"><value>{0}: läuft bereits.</value></data>
   <data name="Cli_Result" xml:space="preserve"><value>{0}: {1}. {2}</value></data>
   <data name="Cli_HandedOver" xml:space="preserve"><value>An das geöffnete SyncForge übergeben. Fortschritt und Ergebnis stehen dort und in der Historie.</value></data>
+  <data name="Editor_ShadowCopy.Header" xml:space="preserve"><value>Gesperrte Dateien über Schattenkopie lesen</value></data>
+  <data name="Editor_ShadowCopy.Description" xml:space="preserve"><value>Für Dateien, die ein Programm dauerhaft sperrt (z. B. Outlook-Datendateien). Benötigt Administratorrechte.</value></data>
+  <data name="Editor_ShadowCopyHint.Title" xml:space="preserve"><value>Wirkt nur mit Administratorrechten</value></data>
+  <data name="Editor_ShadowCopyHint.Message" xml:space="preserve"><value>SyncForge läuft gerade ohne. Richte für dieses Profil eine Aufgabe in der Windows-Aufgabenplanung ein (Mit höchsten Privilegien ausführen, Argumente: --run &quot;Profilname&quot;). Details stehen in der Hilfe unter Automatisierung.</value></data>
+  <data name="Run_ShadowCopied" xml:space="preserve"><value>{0} gesperrte Datei(en) aus einer Schattenkopie gesichert.</value></data>
 </root>

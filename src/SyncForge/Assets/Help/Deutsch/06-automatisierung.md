@@ -47,3 +47,16 @@ Für Skripte oder die Windows-Aufgabenplanung lässt sich SyncForge auch ohne Fe
 Der Lauf erscheint in der Historie als **Befehlszeile**. Ist SyncForge bereits geöffnet, übernimmt das geöffnete Programm die Synchronisierung und zeigt den Fortschritt. Der Exitcode verrät Skripten das Ergebnis: 0 erfolgreich, 1 Warnung, 2 Fehler, 3 abgebrochen, 4 Profil nicht gefunden, 5 falsche Angabe, 6 läuft bereits.
 
 > Tipp: In der Aufgabenplanung als Programm den Pfad zu `SyncForge.exe` angeben (nach der Installation unter `%LOCALAPPDATA%\Programs\SyncForge`) und als Argumente z. B. `--run "Dokumente"`.
+
+## Gesperrte Dateien sichern (Schattenkopie)
+
+Manche Programme sperren ihre Dateien dauerhaft, etwa Outlook seine Datendateien (.pst). Schalte im Profil unter **Sicherheit** die Option **Gesperrte Dateien über Schattenkopie lesen** ein. Bleibt eine Datei trotz mehrerer Versuche gesperrt, erstellt SyncForge eine Momentaufnahme des Laufwerks (Volumeschattenkopie), kopiert die Datei daraus und löscht die Momentaufnahme nach dem Lauf wieder.
+
+Windows erlaubt Schattenkopien nur mit **Administratorrechten**. Damit das ohne Rückfrage automatisch klappt, richte eine Aufgabe ein:
+
+1. Öffne die **Aufgabenplanung** und wähle **Aufgabe erstellen**.
+2. Unter **Allgemein**: einen Namen vergeben und **Mit höchsten Privilegien ausführen** ankreuzen.
+3. Unter **Trigger**: z. B. täglich um 22:00 Uhr.
+4. Unter **Aktionen**: Programm `SyncForge.exe` (nach der Installation unter `%LOCALAPPDATA%\Programs\SyncForge`), Argumente `--run "Profilname"`.
+
+Ohne Administratorrechte ändert die Option nichts: Gesperrte Dateien werden wie bisher als Fehler gemeldet und beim nächsten Lauf erneut versucht.

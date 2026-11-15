@@ -168,6 +168,12 @@ public sealed partial class ProfileEditorViewModel : ObservableObject
     [ObservableProperty] public partial double MinSizeMb { get; set; }
     [ObservableProperty] public partial double MaxSizeMb { get; set; }
     [ObservableProperty] public partial bool DeleteToRecycleBin { get; set; }
+    [ObservableProperty] public partial bool UseShadowCopy { get; set; }
+
+    /// <summary>Schattenkopien brauchen Administratorrechte: Hinweis, wenn SyncForge gerade ohne sie läuft.</summary>
+    public bool ShowShadowCopyHint => UseShadowCopy && !Core.Engine.ShadowCopySession.IsAvailable;
+
+    partial void OnUseShadowCopyChanged(bool value) => OnPropertyChanged(nameof(ShowShadowCopyHint));
     [ObservableProperty] public partial double DeletionProtectionPercent { get; set; }
     // Automatisierung
     [ObservableProperty]
@@ -221,6 +227,7 @@ public sealed partial class ProfileEditorViewModel : ObservableObject
         MinSizeMb = _profile.Filter.MinSizeBytes / Megabyte;
         MaxSizeMb = _profile.Filter.MaxSizeBytes / Megabyte;
         DeleteToRecycleBin = _profile.DeleteToRecycleBin;
+        UseShadowCopy = _profile.UseShadowCopy;
         DeletionProtectionPercent = _profile.DeletionProtectionPercent;
 
         var a = _profile.Automation;
@@ -290,6 +297,7 @@ public sealed partial class ProfileEditorViewModel : ObservableObject
             MaxSizeBytes = ToBytes(MaxSizeMb)
         };
         _profile.DeleteToRecycleBin = DeleteToRecycleBin;
+        _profile.UseShadowCopy = UseShadowCopy;
         _profile.DeletionProtectionPercent = double.IsNaN(DeletionProtectionPercent) ? 25 : (int)Math.Clamp(DeletionProtectionPercent, 0, 100);
         _profile.Targets = Targets
             .Where(t => !string.IsNullOrWhiteSpace(t.Path))

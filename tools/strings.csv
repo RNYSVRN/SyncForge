@@ -546,3 +546,8 @@ Cli_Running;{0}: wird synchronisiert …;{0}: syncing …
 Cli_AlreadyRunning;{0}: läuft bereits.;{0}: already running.
 Cli_Result;{0}: {1}. {2};{0}: {1}. {2}
 Cli_HandedOver;An das geöffnete SyncForge übergeben. Fortschritt und Ergebnis stehen dort und in der Historie.;Handed over to the open SyncForge. Progress and result are shown there and in the history.
+Editor_ShadowCopy.Header;Gesperrte Dateien über Schattenkopie lesen;Read locked files via shadow copy
+Editor_ShadowCopy.Description;Für Dateien, die ein Programm dauerhaft sperrt (z. B. Outlook-Datendateien). Benötigt Administratorrechte.;For files a program keeps locked (e.g. Outlook data files). Requires administrator rights.
+Editor_ShadowCopyHint.Title;Wirkt nur mit Administratorrechten;Only works with administrator rights
+Editor_ShadowCopyHint.Message;SyncForge läuft gerade ohne. Richte für dieses Profil eine Aufgabe in der Windows-Aufgabenplanung ein (Mit höchsten Privilegien ausführen, Argumente: --run "Profilname"). Details stehen in der Hilfe unter Automatisierung.;SyncForge is currently running without them. Set up a task for this profile in the Windows Task Scheduler (Run with highest privileges, arguments: --run "Profile name"). Details are in the help under Automation.
+Run_ShadowCopied;{0} gesperrte Datei(en) aus einer Schattenkopie gesichert.;{0} locked file(s) backed up from a shadow copy.

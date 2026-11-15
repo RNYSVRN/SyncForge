@@ -11,7 +11,7 @@ The user name or password is wrong (or no longer valid), e.g. after a password c
 
 ## A file could not be copied
 
-Usually it is open in another program (e.g. Outlook data files). SyncForge waits out short locks, for example by a virus scanner, and retries several times. If the file stays locked, close the program; the file is copied on the next run. The exact message is shown in the history under **Errors**.
+Usually it is open in another program (e.g. Outlook data files). SyncForge waits out short locks, for example by a virus scanner, and retries several times. If the file stays locked, close the program; the file is copied on the next run. For files that are always locked (e.g. Outlook), there is the option **Read locked files via shadow copy** (see **Automation**). The exact message is shown in the history under **Errors**.
 
 ## Folders could not be read
 

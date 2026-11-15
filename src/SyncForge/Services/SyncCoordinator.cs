@@ -129,6 +129,7 @@ public sealed class SyncCoordinator
         BandwidthLimitKBps = _settings.Current.BandwidthLimitKBps,
         VerifyAfterCopy = profile.VerifyAfterCopy,
         DeleteToRecycleBin = profile.DeleteToRecycleBin,
+        UseShadowCopy = profile.UseShadowCopy,
         KeepVersions = profile.Mode == SyncMode.Versioned,
         VersionsToKeep = profile.VersionsToKeep,
         VersionMaxAgeDays = profile.VersionMaxAgeDays
@@ -227,6 +228,8 @@ public sealed class SyncCoordinator
             : Format.Text("Run_TotalSummary", Format.Number(copied), Format.Number(updated), Format.Number(deleted), Format.Bytes(bytes), Format.Duration(run.Duration));
         var cloudSkipped = run.Results.Sum(r => r.SkippedCloudFiles);
         if (cloudSkipped > 0) summary += " " + Format.Text("Run_CloudSkipped", Format.Number(cloudSkipped));
+        var shadowCopied = run.Results.Sum(r => r.ShadowCopiedFiles);
+        if (shadowCopied > 0) summary += " " + Format.Text("Run_ShadowCopied", Format.Number(shadowCopied));
         var unreadable = run.Results.Sum(r => r.UnreadableFolders);
         if (unreadable > 0) summary += " " + Format.Text("Run_Unreadable", Format.Number(unreadable));
         foreach (var lost in run.Results.Select(r => r.LostRoot).OfType<string>()) summary += " " + Format.Text("Run_RootLost", lost) + ".";

@@ -303,6 +303,17 @@
                         <toolkit:SettingsCard.HeaderIcon><FontIcon Glyph="&#xE74D;" /></toolkit:SettingsCard.HeaderIcon>
                         <ToggleSwitch IsOn="{x:Bind ViewModel.DeleteToRecycleBin, Mode=TwoWay}" OnContent="{StaticResource ToggleOnText}" OffContent="{StaticResource ToggleOffText}" />
                     </toolkit:SettingsCard>
+                    <toolkit:SettingsExpander x:Uid="Editor_ShadowCopy" Header="Gesperrte Dateien über Schattenkopie lesen"
+                                              Description="Für Dateien, die ein Programm dauerhaft sperrt (z. B. Outlook-Datendateien). Benötigt Administratorrechte."
+                                              IsExpanded="{x:Bind ViewModel.ShowShadowCopyHint, Mode=OneWay}">
+                        <toolkit:SettingsExpander.HeaderIcon><FontIcon Glyph="&#xE8C8;" /></toolkit:SettingsExpander.HeaderIcon>
+                        <ToggleSwitch IsOn="{x:Bind ViewModel.UseShadowCopy, Mode=TwoWay}" OnContent="{StaticResource ToggleOnText}" OffContent="{StaticResource ToggleOffText}" />
+                        <toolkit:SettingsExpander.ItemsHeader>
+                            <InfoBar x:Uid="Editor_ShadowCopyHint" IsOpen="{x:Bind ViewModel.ShowShadowCopyHint, Mode=OneWay}" IsClosable="False" Severity="Informational"
+                                     Title="Wirkt nur mit Administratorrechten"
+                                     Message="SyncForge läuft gerade ohne. Richte für dieses Profil eine Aufgabe in der Windows-Aufgabenplanung ein (Mit höchsten Privilegien ausführen, Argumente: --run &quot;Profilname&quot;). Details stehen in der Hilfe unter Automatisierung." />
+                        </toolkit:SettingsExpander.ItemsHeader>
+                    </toolkit:SettingsExpander>
                     <toolkit:SettingsCard x:Uid="Editor_DeletionProtection" Header="Löschschutz (%)" Description="Vor dem Lauf warnen, wenn mehr als dieser Anteil der Dateien im Ziel gelöscht würde. 0 = aus.">
                         <toolkit:SettingsCard.HeaderIcon><FontIcon Glyph="&#xE72E;" /></toolkit:SettingsCard.HeaderIcon>
                         <NumberBox Value="{x:Bind ViewModel.DeletionProtectionPercent, Mode=TwoWay}" Minimum="0" Maximum="100" SpinButtonPlacementMode="Inline" MinWidth="140" />
