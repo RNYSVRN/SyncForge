@@ -130,5 +130,5 @@ public sealed partial class DashboardPage : Page
         if (_updates.Available is { } a) System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(a.Url) { UseShellExecute = true });
     }
 
-    private void NewProfile_Click(object sender, RoutedEventArgs e) => App.MainWindow.Navigate(typeof(ProfileEditorPage));
+    private void NewProfile_Click(object sender, RoutedEventArgs e) => App.MainWindow.Navigate(typeof(WizardPage));
 }

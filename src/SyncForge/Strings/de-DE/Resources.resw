@@ -474,4 +474,56 @@
   <data name="Dashboard_SyncAllButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Alle synchronisieren</value></data>
   <data name="Dashboard_NewProfileButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Neues Profil</value></data>
   <data name="Dashboard_CreateFirstButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Erstes Profil anlegen</value></data>
+  <data name="Wizard_Title.Text" xml:space="preserve"><value>Neues Backup-Profil</value></data>
+  <data name="Wizard_StepOf" xml:space="preserve"><value>Schritt {0} von {1}</value></data>
+  <data name="Wizard_TemplateHeading.Text" xml:space="preserve"><value>Was möchtest du sichern?</value></data>
+  <data name="Wizard_Template_documents_Title" xml:space="preserve"><value>Dokumente sichern</value></data>
+  <data name="Wizard_Template_documents_Text" xml:space="preserve"><value>Dein Dokumente-Ordner, täglich und beim Anschließen der Festplatte.</value></data>
+  <data name="Wizard_Template_photos_Title" xml:space="preserve"><value>Fotos und Videos sichern</value></data>
+  <data name="Wizard_Template_photos_Text" xml:space="preserve"><value>Bilder und Videos in eigenen Unterordnern, täglich und beim Anschließen der Festplatte.</value></data>
+  <data name="Wizard_Template_usb_Title" xml:space="preserve"><value>Auf USB-Festplatte spiegeln</value></data>
+  <data name="Wizard_Template_usb_Text" xml:space="preserve"><value>Exakte Kopie beliebiger Ordner, sobald die Festplatte angeschlossen wird.</value></data>
+  <data name="Wizard_Template_nas_Title" xml:space="preserve"><value>Auf NAS sichern, mit Versionen</value></data>
+  <data name="Wizard_Template_nas_Text" xml:space="preserve"><value>Täglich ins Netzwerk. Überschriebene und gelöschte Dateien lassen sich wiederherstellen.</value></data>
+  <data name="Wizard_Template_twoway_Title" xml:space="preserve"><value>Zwei Ordner synchron halten</value></data>
+  <data name="Wizard_Template_twoway_Text" xml:space="preserve"><value>Änderungen auf beiden Seiten werden übernommen, sofort bei jeder Änderung.</value></data>
+  <data name="Wizard_Template_custom_Title" xml:space="preserve"><value>Alles selbst festlegen</value></data>
+  <data name="Wizard_Template_custom_Text" xml:space="preserve"><value>Öffnet den vollständigen Editor mit allen Einstellungen.</value></data>
+  <data name="Wizard_SourcesHeading.Text" xml:space="preserve"><value>Welche Ordner sollen gesichert werden?</value></data>
+  <data name="Wizard_SourcesText.Text" xml:space="preserve"><value>Alle Unterordner werden mitgesichert. Bei mehreren Ordnern bekommt jeder im Ziel einen eigenen Unterordner.</value></data>
+  <data name="Wizard_AddSource.Text" xml:space="preserve"><value>Weiteren Ordner hinzufügen</value></data>
+  <data name="Wizard_AddSourceButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Weiteren Ordner hinzufügen</value></data>
+  <data name="Wizard_TargetHeading.Text" xml:space="preserve"><value>Wohin soll gesichert werden?</value></data>
+  <data name="Wizard_TargetText.Text" xml:space="preserve"><value>Zum Beispiel ein Ordner auf einer USB-Festplatte, auf einem zweiten Laufwerk oder auf deinem NAS (\\server\freigabe). USB-Festplatten erkennt SyncForge auch unter einem anderen Laufwerksbuchstaben wieder.</value></data>
+  <data name="Wizard_TargetBox.PlaceholderText" xml:space="preserve"><value>E:\Backup</value></data>
+  <data name="Wizard_TargetBox.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Zielordner</value></data>
+  <data name="Wizard_TargetNetwork" xml:space="preserve"><value>Netzwerkfreigabe</value></data>
+  <data name="Wizard_TargetNotReady" xml:space="preserve"><value>Laufwerk nicht bereit</value></data>
+  <data name="Wizard_DriveRemovable" xml:space="preserve"><value>USB-Laufwerk</value></data>
+  <data name="Wizard_DriveNetwork" xml:space="preserve"><value>Netzlaufwerk</value></data>
+  <data name="Wizard_DriveFixed" xml:space="preserve"><value>Laufwerk</value></data>
+  <data name="Wizard_TargetInfo" xml:space="preserve"><value>{0} {1} · {2} frei</value></data>
+  <data name="Wizard_WhenHeading.Text" xml:space="preserve"><value>Wann soll gesichert werden?</value></data>
+  <data name="Wizard_ScheduleChoice.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Zeitplan</value></data>
+  <data name="Wizard_WhenManual.Content" xml:space="preserve"><value>Nur wenn ich es starte</value></data>
+  <data name="Wizard_WhenDaily.Content" xml:space="preserve"><value>Täglich</value></data>
+  <data name="Wizard_WhenHourlyOption.Content" xml:space="preserve"><value>Stündlich</value></data>
+  <data name="Wizard_Time.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Uhrzeit</value></data>
+  <data name="Wizard_WatchOption.Content" xml:space="preserve"><value>Zusätzlich bei Änderungen sofort sichern</value></data>
+  <data name="Wizard_DriveOption.Content" xml:space="preserve"><value>Sichern, sobald das Ziel-Laufwerk angeschlossen wird</value></data>
+  <data name="Wizard_WhenHint.Text" xml:space="preserve"><value>Automatische Läufe finden statt, solange SyncForge läuft, auch im Infobereich. Mit „Mit Windows starten“ in den Einstellungen klappt das ab der Anmeldung.</value></data>
+  <data name="Wizard_SummaryHeading.Text" xml:space="preserve"><value>Fast fertig</value></data>
+  <data name="Wizard_NameBox.Header" xml:space="preserve"><value>Name</value></data>
+  <data name="Wizard_SummaryModeLabel.Text" xml:space="preserve"><value>Modus</value></data>
+  <data name="Wizard_SummarySourcesLabel.Text" xml:space="preserve"><value>Quellen</value></data>
+  <data name="Wizard_SummaryTargetLabel.Text" xml:space="preserve"><value>Ziel</value></data>
+  <data name="Wizard_SummaryWhenLabel.Text" xml:space="preserve"><value>Wann</value></data>
+  <data name="Wizard_OpenEditor.Content" xml:space="preserve"><value>Weitere Einstellungen (Filter, Löschschutz …) im Editor festlegen</value></data>
+  <data name="Wizard_WhenDailyAt" xml:space="preserve"><value>Täglich um {0}</value></data>
+  <data name="Wizard_WhenHourly" xml:space="preserve"><value>Stündlich</value></data>
+  <data name="Wizard_Cancel.Content" xml:space="preserve"><value>Abbrechen</value></data>
+  <data name="Wizard_Back.Content" xml:space="preserve"><value>Zurück</value></data>
+  <data name="Wizard_Next.Content" xml:space="preserve"><value>Weiter</value></data>
+  <data name="Wizard_CreatePreview.Content" xml:space="preserve"><value>Anlegen und Vorschau zeigen</value></data>
+  <data name="Wizard_Create.Content" xml:space="preserve"><value>Profil anlegen</value></data>
 </root>

@@ -1,4 +1,4 @@
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using SyncForge.Helpers;
@@ -31,7 +31,7 @@ public sealed partial class ProfilesPage : Page
 
     private static ProfileItemViewModel? ItemOf(object sender) => (sender as FrameworkElement)?.Tag as ProfileItemViewModel;
 
-    private void Add_Click(object sender, RoutedEventArgs e) => App.MainWindow.Navigate(typeof(ProfileEditorPage));
+    private void Add_Click(object sender, RoutedEventArgs e) => App.MainWindow.Navigate(typeof(WizardPage));
 
     private void Profile_ItemClick(object sender, ItemClickEventArgs e)
     {

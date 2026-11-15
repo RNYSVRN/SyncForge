@@ -474,4 +474,56 @@
   <data name="Dashboard_SyncAllButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Sync all</value></data>
   <data name="Dashboard_NewProfileButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>New profile</value></data>
   <data name="Dashboard_CreateFirstButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Create first profile</value></data>
+  <data name="Wizard_Title.Text" xml:space="preserve"><value>New backup profile</value></data>
+  <data name="Wizard_StepOf" xml:space="preserve"><value>Step {0} of {1}</value></data>
+  <data name="Wizard_TemplateHeading.Text" xml:space="preserve"><value>What would you like to back up?</value></data>
+  <data name="Wizard_Template_documents_Title" xml:space="preserve"><value>Back up documents</value></data>
+  <data name="Wizard_Template_documents_Text" xml:space="preserve"><value>Your Documents folder, daily and when the drive is connected.</value></data>
+  <data name="Wizard_Template_photos_Title" xml:space="preserve"><value>Back up photos and videos</value></data>
+  <data name="Wizard_Template_photos_Text" xml:space="preserve"><value>Pictures and videos in their own subfolders, daily and when the drive is connected.</value></data>
+  <data name="Wizard_Template_usb_Title" xml:space="preserve"><value>Mirror to a USB drive</value></data>
+  <data name="Wizard_Template_usb_Text" xml:space="preserve"><value>An exact copy of any folders as soon as the drive is connected.</value></data>
+  <data name="Wizard_Template_nas_Title" xml:space="preserve"><value>Back up to a NAS, with versions</value></data>
+  <data name="Wizard_Template_nas_Text" xml:space="preserve"><value>Daily to the network. Overwritten and deleted files can be restored.</value></data>
+  <data name="Wizard_Template_twoway_Title" xml:space="preserve"><value>Keep two folders in sync</value></data>
+  <data name="Wizard_Template_twoway_Text" xml:space="preserve"><value>Changes on both sides are applied, right after every change.</value></data>
+  <data name="Wizard_Template_custom_Title" xml:space="preserve"><value>Set everything myself</value></data>
+  <data name="Wizard_Template_custom_Text" xml:space="preserve"><value>Opens the full editor with all settings.</value></data>
+  <data name="Wizard_SourcesHeading.Text" xml:space="preserve"><value>Which folders should be backed up?</value></data>
+  <data name="Wizard_SourcesText.Text" xml:space="preserve"><value>All subfolders are included. With several folders, each gets its own subfolder in the destination.</value></data>
+  <data name="Wizard_AddSource.Text" xml:space="preserve"><value>Add another folder</value></data>
+  <data name="Wizard_AddSourceButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Add another folder</value></data>
+  <data name="Wizard_TargetHeading.Text" xml:space="preserve"><value>Where should the backup go?</value></data>
+  <data name="Wizard_TargetText.Text" xml:space="preserve"><value>For example a folder on a USB drive, on a second drive or on your NAS (\\server\share). SyncForge recognizes USB drives even under a different drive letter.</value></data>
+  <data name="Wizard_TargetBox.PlaceholderText" xml:space="preserve"><value>E:\Backup</value></data>
+  <data name="Wizard_TargetBox.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Destination folder</value></data>
+  <data name="Wizard_TargetNetwork" xml:space="preserve"><value>Network share</value></data>
+  <data name="Wizard_TargetNotReady" xml:space="preserve"><value>Drive not ready</value></data>
+  <data name="Wizard_DriveRemovable" xml:space="preserve"><value>USB drive</value></data>
+  <data name="Wizard_DriveNetwork" xml:space="preserve"><value>Network drive</value></data>
+  <data name="Wizard_DriveFixed" xml:space="preserve"><value>Drive</value></data>
+  <data name="Wizard_TargetInfo" xml:space="preserve"><value>{0} {1} · {2} free</value></data>
+  <data name="Wizard_WhenHeading.Text" xml:space="preserve"><value>When should the backup run?</value></data>
+  <data name="Wizard_ScheduleChoice.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Schedule</value></data>
+  <data name="Wizard_WhenManual.Content" xml:space="preserve"><value>Only when I start it</value></data>
+  <data name="Wizard_WhenDaily.Content" xml:space="preserve"><value>Daily</value></data>
+  <data name="Wizard_WhenHourlyOption.Content" xml:space="preserve"><value>Hourly</value></data>
+  <data name="Wizard_Time.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Time</value></data>
+  <data name="Wizard_WatchOption.Content" xml:space="preserve"><value>Also back up right after changes</value></data>
+  <data name="Wizard_DriveOption.Content" xml:space="preserve"><value>Back up as soon as the destination drive is connected</value></data>
+  <data name="Wizard_WhenHint.Text" xml:space="preserve"><value>Automatic runs happen while SyncForge is running, also in the notification area. With &quot;Start with Windows&quot; in the settings this works from sign-in.</value></data>
+  <data name="Wizard_SummaryHeading.Text" xml:space="preserve"><value>Almost done</value></data>
+  <data name="Wizard_NameBox.Header" xml:space="preserve"><value>Name</value></data>
+  <data name="Wizard_SummaryModeLabel.Text" xml:space="preserve"><value>Mode</value></data>
+  <data name="Wizard_SummarySourcesLabel.Text" xml:space="preserve"><value>Sources</value></data>
+  <data name="Wizard_SummaryTargetLabel.Text" xml:space="preserve"><value>Destination</value></data>
+  <data name="Wizard_SummaryWhenLabel.Text" xml:space="preserve"><value>When</value></data>
+  <data name="Wizard_OpenEditor.Content" xml:space="preserve"><value>Set more options (filters, deletion protection …) in the editor</value></data>
+  <data name="Wizard_WhenDailyAt" xml:space="preserve"><value>Daily at {0}</value></data>
+  <data name="Wizard_WhenHourly" xml:space="preserve"><value>Hourly</value></data>
+  <data name="Wizard_Cancel.Content" xml:space="preserve"><value>Cancel</value></data>
+  <data name="Wizard_Back.Content" xml:space="preserve"><value>Back</value></data>
+  <data name="Wizard_Next.Content" xml:space="preserve"><value>Next</value></data>
+  <data name="Wizard_CreatePreview.Content" xml:space="preserve"><value>Create and show preview</value></data>
+  <data name="Wizard_Create.Content" xml:space="preserve"><value>Create profile</value></data>
 </root>

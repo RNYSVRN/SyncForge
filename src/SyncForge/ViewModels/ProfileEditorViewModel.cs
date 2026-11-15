@@ -86,24 +86,8 @@ public sealed partial class ProfileEditorViewModel : ObservableObject
     /// Unterordner je Quelle: vorhandene bleiben, neue werden aus dem Ordnernamen gebildet (eindeutig).
     /// Bei nur einer Quelle bleibt es, wie es ist (neu: direkt ins Ziel).
     /// </summary>
-    private List<string> FinalTargetFolders()
-    {
-        var used = Sources.Where(s => s.Path.Trim().Length > 0).ToList();
-        if (used.Count <= 1) return Sources.Select(s => s.TargetFolder).ToList();
-        var taken = Sources.Select(s => s.TargetFolder).Where(f => f.Length > 0).ToList();
-        var result = new List<string>();
-        foreach (var s in Sources)
-        {
-            var folder = s.TargetFolder;
-            if (folder.Length == 0 && s.Path.Trim().Length > 0)
-            {
-                folder = SyncProfile.SuggestTargetFolder(s.Path, taken, Localization.Get("Editor_DriveFolder"));
-                taken.Add(folder);
-            }
-            result.Add(folder);
-        }
-        return result;
-    }
+    private List<string> FinalTargetFolders() =>
+        ProfileValidation.TargetFolders(Sources.Select(s => (s.Path, s.TargetFolder)).ToList());
 
     private void RefreshSubfolders()
     {
@@ -300,96 +284,20 @@ public sealed partial class ProfileEditorViewModel : ObservableObject
     private string? Validate()
     {
         if (string.IsNullOrWhiteSpace(Name)) return Localization.Get("Editor_ErrorName");
-        var sources = Sources.Where(s => !string.IsNullOrWhiteSpace(s.Path)).ToList();
-        if (sources.Count == 0) return Localization.Get("Editor_ErrorSourceEmpty");
-        foreach (var s in sources)
-        {
-            if (!IsValidPath(s.Path)) return Localization.Get("Editor_ErrorPathInvalid") + " " + s.Path;
-            Core.Network.NetworkShares.EnsureAccess(s.Path); // Netzwerkquelle mit gespeicherten Anmeldedaten
-            if (!Directory.Exists(s.Path))
-                return Localization.Get(s.IsNetworkPath ? "Editor_ErrorSourceNetwork" : "Editor_ErrorSourceMissing") + " " + s.Path;
-        }
-        // Quellen dürfen sich nicht überschneiden (sonst würden Dateien doppelt gesichert).
-        for (var i = 0; i < sources.Count; i++)
-        for (var j = i + 1; j < sources.Count; j++)
-        {
-            try { SyncPlanner.ValidatePaths(sources[i].Path, sources[j].Path); }
-            catch (SyncValidationException) { return Localization.Get("Editor_ErrorSourcesOverlap") + " " + sources[j].Path; }
-        }
-
-        var targets = Targets.Where(t => !string.IsNullOrWhiteSpace(t.Path)).ToList();
-        if (targets.Count == 0) return Localization.Get("Editor_ErrorNoTarget");
-
         var folders = FinalTargetFolders();
-        foreach (var t in targets)
-        {
-            if (!IsValidPath(t.Path)) return Localization.Get("Editor_ErrorPathInvalid") + " " + t.Path;
-            for (var i = 0; i < Sources.Count; i++)
-            {
-                var s = Sources[i];
-                if (string.IsNullOrWhiteSpace(s.Path)) continue;
-                var root = string.IsNullOrEmpty(folders[i]) ? t.Path : System.IO.Path.Combine(t.Path, folders[i]);
-                try
-                {
-                    SyncPlanner.ValidatePaths(s.Path, t.Path);
-                    SyncPlanner.ValidatePaths(s.Path, root);
-                }
-                catch (SyncValidationException ex)
-                {
-                    return Localization.Get("Validation_" + ex.Error) + " " + t.Path;
-                }
-            }
-        }
-
-        var duplicates = targets.GroupBy(t => NormalizePath(t.Path), StringComparer.OrdinalIgnoreCase).FirstOrDefault(g => g.Count() > 1);
-        if (duplicates is not null) return Localization.Get("Editor_ErrorDuplicateTarget") + " " + duplicates.Key;
+        var pathError = ProfileValidation.ValidatePaths(
+            Sources.Select((s, i) => (s.Path, folders[i])).ToList(),
+            Targets.Select(t => t.Path).ToList());
+        if (pathError is not null) return pathError;
 
         if (MaxSizeMb > 0 && MinSizeMb > MaxSizeMb) return Localization.Get("Editor_ErrorSizeRange");
         if (IsWeekly && !Days.Any(d => d.IsSelected)) return Localization.Get("Editor_ErrorNoDays");
         return null;
     }
 
-    /// <summary>
-    /// Ziel mit Volume-ID: Für lokale/USB-Laufwerke (außer dem Systemlaufwerk) wird die Seriennummer gespeichert,
-    /// damit das Laufwerk auch unter anderem Buchstaben erkannt und nie ein fremdes beschrieben wird.
-    /// </summary>
-    private static SyncTarget CreateTarget(TargetItemViewModel t)
-    {
-        var target = new SyncTarget { Id = t.Id, Path = NormalizePath(t.Path), Enabled = t.Enabled };
-        try
-        {
-            var root = System.IO.Path.GetPathRoot(target.Path);
-            var systemRoot = System.IO.Path.GetPathRoot(Environment.SystemDirectory);
-            if (!string.IsNullOrEmpty(root) && !root.StartsWith(@"\\", StringComparison.Ordinal)
-                && !string.Equals(root, systemRoot, StringComparison.OrdinalIgnoreCase)
-                && new DriveInfo(root).DriveType is DriveType.Fixed or DriveType.Removable
-                && VolumeResolver.GetVolume(root) is { } volume)
-            {
-                target.VolumeSerial = volume.Serial;
-                target.VolumeLabel = volume.Label;
-            }
-        }
-        catch (Exception ex) when (ex is IOException or ArgumentException or UnauthorizedAccessException)
-        {
-            // Laufwerk nicht bereit: ohne Volume-ID speichern.
-        }
-        return target;
-    }
+    private static SyncTarget CreateTarget(TargetItemViewModel t) => ProfileValidation.CreateTarget(t.Id, t.Path, t.Enabled);
 
-    private static bool IsValidPath(string path)
-    {
-        try
-        {
-            return System.IO.Path.IsPathFullyQualified(path.Trim()) && System.IO.Path.GetFullPath(path.Trim()).Length > 0;
-        }
-        catch
-        {
-            return false;
-        }
-    }
-
-    private static string NormalizePath(string path) =>
-        System.IO.Path.TrimEndingDirectorySeparator(System.IO.Path.GetFullPath(path.Trim()));
+    private static string NormalizePath(string path) => ProfileValidation.NormalizePath(path);
 
     private static List<string> SplitLines(string text) =>
         text.Split(['\r', '\n'], StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).ToList();
