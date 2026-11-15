@@ -21,6 +21,34 @@ dotnet build SyncForge.sln -c Debug -p:Platform=x64
 dotnet test --project tests\SyncForge.Core.Tests\SyncForge.Core.Tests.csproj
 ```
 
+## Veröffentlichen (GitHub Release, winget)
+Voraussetzung: Inno Setup 6 (`winget install JRSoftware.InnoSetup`). Version in `src/SyncForge/SyncForge.csproj` (`<Version>`) erhöhen, dann:
+```powershell
+powershell -ExecutionPolicy Bypass -File tools\Build-Release.ps1 -GitHubRepo besitzer/SyncForge
+```
+Ergebnis in `artifacts\release\`:
+- `SyncForge-x.y.z-x64-Setup.exe`: Installationsprogramm, pro Benutzer ohne Administratorrechte nach
+  `%LOCALAPPDATA%\Programs\SyncForge`. Beendet eine laufende SyncForge-Instanz vor Update und Deinstallation.
+  Die Deinstallation entfernt Autostart-Eintrag und Benachrichtigungs-Registrierung und fragt, ob auch Einstellungen,
+  Profile und Historie gelöscht werden sollen (still: nie).
+- `SyncForge-x.y.z-x64.zip`: ohne Installation, entpacken und `SyncForge.exe` starten.
+- `SHA256SUMS.txt`: Prüfsummen für die Release-Beschreibung.
+- `winget\manifests\...`: winget-Manifest (Vorlagen in `installer\winget`), Prüfung mit `winget validate --manifest <Ordner>`.
+
+Ablauf:
+1. GitHub Release mit dem Tag `vx.y.z` anlegen und Setup, ZIP und `SHA256SUMS.txt` anhängen.
+2. winget: Den Ordner `artifacts\release\winget\manifests\r\RonnySeverin\SyncForge\x.y.z` per Pull Request in
+   [microsoft/winget-pkgs](https://github.com/microsoft/winget-pkgs) unter demselben Pfad einreichen
+   (alternativ mit dem Werkzeug `wingetcreate`). Danach: `winget install RonnySeverin.SyncForge`.
+
+Die Dateien sind nicht signiert. Beim ersten Start aus dem Browser zeigt Windows SmartScreen deshalb einen Hinweis
+(„Weitere Informationen › Trotzdem ausführen“). Ist die intelligente App-Steuerung aktiv, blockiert Windows
+unsignierte Apps ganz.
+
+Mitgeliefert wird nur, was SyncForge braucht: Die KI-, ML-, Such- und Widget-Teile des Windows App SDK sind in der
+Projektdatei mit `ExcludeAssets="all"` ausgeschlossen (spart rund 60 MB). Die Ressourcendatei `SyncForge.pri`
+kopiert ein eigener Build-Schritt mit, ohne sie startet die unpaketierte App nicht.
+
 ## MSIX-Paket
 ```powershell
 powershell -File tools\Build-Msix.ps1                       # baut artifacts\msix\...\SyncForge_x.y.z.0_x64.msix

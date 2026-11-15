@@ -1,0 +1,14 @@
+# yaml-language-server: $schema=https://aka.ms/winget-manifest.installer.1.9.0.schema.json
+PackageIdentifier: {ID}
+PackageVersion: {VERSION}
+MinimumOSVersion: 10.0.22000.0
+InstallerType: inno
+Scope: user
+UpgradeBehavior: install
+ProductCode: '{7E14F12D-37BA-41B5-8E1B-9575CD29B50F}_is1'
+Installers:
+- Architecture: x64
+  InstallerUrl: {URL}
+  InstallerSha256: {SHA256}
+ManifestType: installer
+ManifestVersion: 1.9.0

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
@@ -54,6 +54,13 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="2.6.5" />
+    <!-- Ungenutzte Teile des Windows App SDK nicht mitliefern (KI, ML, Suche, Widgets: ca. 45 MB). -->
+    <PackageReference Include="Microsoft.WindowsAppSDK.AI" Version="2.6.5" ExcludeAssets="all" />
+    <PackageReference Include="Microsoft.WindowsAppSDK.ML" Version="2.6.5" ExcludeAssets="all" />
+    <PackageReference Include="Microsoft.WindowsAppSDK.Search" Version="2.6.5" ExcludeAssets="all" />
+    <PackageReference Include="Microsoft.WindowsAppSDK.Widgets" Version="2.6.5" ExcludeAssets="all" />
+    <PackageReference Include="Microsoft.Windows.AI.MachineLearning" Version="2.4.89" ExcludeAssets="all" />
+    <PackageReference Include="System.Numerics.Tensors" Version="9.0.0" ExcludeAssets="all" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.28000.2957" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
     <PackageReference Include="CommunityToolkit.WinUI.Controls.SettingsControls" Version="8.2.251219" />
@@ -67,5 +74,10 @@
   <ItemGroup>
     <ProjectReference Include="..\SyncForge.Core\SyncForge.Core.csproj" />
   </ItemGroup>
+
+  <!-- Unpaketiert veröffentlichen: Die Ressourcendatei (Texte, XAML) wird gebaut, aber nicht mitkopiert. -->
+  <Target Name="CopyPriToPublishDir" AfterTargets="Publish" Condition="'$(WindowsPackageType)' == 'None'">
+    <Copy SourceFiles="$(OutDir)$(TargetName).pri" DestinationFolder="$(PublishDir)" Condition="Exists('$(OutDir)$(TargetName).pri')" />
+  </Target>
 
 </Project>

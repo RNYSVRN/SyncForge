@@ -9,15 +9,11 @@
         "file":  "windowsappsdk.txt",
         "packages":  [
                          "microsoft.windowsappsdk",
-                         "microsoft.windowsappsdk.ai",
                          "microsoft.windowsappsdk.base",
                          "microsoft.windowsappsdk.dwrite",
                          "microsoft.windowsappsdk.foundation",
                          "microsoft.windowsappsdk.interactiveexperiences",
-                         "microsoft.windowsappsdk.ml",
                          "microsoft.windowsappsdk.runtime",
-                         "microsoft.windowsappsdk.search",
-                         "microsoft.windowsappsdk.widgets",
                          "microsoft.windowsappsdk.winui"
                      ]
     },
@@ -31,18 +27,6 @@
         "file":  "webview2.txt",
         "packages":  [
                          "microsoft.web.webview2"
-                     ]
-    },
-    {
-        "id":  "windows-ai-ml",
-        "name":  "Windows AI Machine Learning",
-        "version":  "2.4.89",
-        "authors":  "Microsoft Corporation",
-        "license":  "Microsoft Software License Terms",
-        "url":  "https://aka.ms/windowsappsdk",
-        "file":  "windows-ai-ml.txt",
-        "packages":  [
-                         "microsoft.windows.ai.machinelearning"
                      ]
     },
     {
@@ -124,18 +108,6 @@
         "file":  "sqlite.txt",
         "packages":  [
                          "sqlitepclraw.lib.e_sqlite3"
-                     ]
-    },
-    {
-        "id":  "system-numerics-tensors",
-        "name":  "System.Numerics.Tensors",
-        "version":  "9.0.0",
-        "authors":  "Microsoft Corporation",
-        "license":  "MIT",
-        "url":  "https://github.com/dotnet/runtime",
-        "file":  "system-numerics-tensors.txt",
-        "packages":  [
-                         "system.numerics.tensors"
                      ]
     },
     {
