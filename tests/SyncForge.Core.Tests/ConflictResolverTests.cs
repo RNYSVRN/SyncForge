@@ -94,6 +94,26 @@ public class ConflictResolverTests
     }
 
     [Fact]
+    public async Task TypeConflict_ContentsAreLeftAlone_NoErrors()
+    {
+        using var f = new TestFolder();
+        var state = Path.Combine(f.Root, "state.json");
+        f.Src(@"ding\a.txt", "Ordner in der Quelle");
+        f.Src(@"ding\unter\b.txt", "tiefer");
+        f.Dst("ding", "Datei im Ziel");
+        f.Src("normal.txt", "wird kopiert");
+
+        var plan = await Analyze(f, state);
+
+        // Nur der Konflikt selbst, nichts aus dem Ordner (das würde bei jedem Lauf scheitern).
+        Assert.DoesNotContain(plan.Actions, a => a.RelativePath.StartsWith(@"ding\", StringComparison.OrdinalIgnoreCase));
+        Assert.Contains(plan.Actions, a => a.Kind == SyncActionKind.Conflict && a.RelativePath == "ding");
+        await Run(plan); // ohne Fehler
+        Assert.Equal("wird kopiert", File.ReadAllText(Path.Combine(f.Target, "normal.txt")));
+        Assert.Equal("Datei im Ziel", File.ReadAllText(Path.Combine(f.Target, "ding")));
+    }
+
+    [Fact]
     public async Task TypeConflict_IsListed_ButNotResolvable()
     {
         using var f = new TestFolder();
