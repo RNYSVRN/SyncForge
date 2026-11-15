@@ -326,3 +326,21 @@ Detail_OpenFolder.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;
 Versions_Restore.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;In der Quelle wiederherstellen;Restore in source
 Versions_SaveAs.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Speichern unter;Save as
 Versions_Show.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Im Explorer anzeigen;Show in Explorer
+Nav_Help.Content;Hilfe;Help
+Nav_Legal.Content;Lizenzen & Rechtliches;Licenses & legal
+Help_Title.Text;Hilfe;Help
+Help_Search.PlaceholderText;Hilfe durchsuchen;Search help
+Help_Results;{0} Themen gefunden;{0} topics found
+Help_ResultOne;1 Thema gefunden;1 topic found
+Help_NoResults.Text;Keine Treffer.;No results.
+Legal_Title.Text;Lizenzen & Rechtliches;Licenses & legal
+Legal_TabApp.Text;SyncForge;SyncForge
+Legal_TabPrivacy.Text;Datenschutz;Privacy
+Legal_TabThirdParty.Text;Drittanbieter;Third party
+Legal_Copyright.Text;© 2026 Ronny Severin. Alle Rechte vorbehalten.;© 2026 Ronny Severin. All rights reserved.
+Legal_ThirdPartyIntro.Text;SyncForge verwendet die folgenden Komponenten. Vielen Dank an alle Autorinnen und Autoren. Die vollständigen Lizenztexte findest du jeweils beim Aufklappen.;SyncForge uses the following components. Many thanks to all their authors. Expand an entry to see the full license text.
+Legal_Version;Version {0};Version {0}
+Legal_Packages;Pakete: {0};Packages: {0}
+Legal_OpenFullText;Volltext öffnen;Open full text
+Legal_LicenseMissing;Lizenztext nicht gefunden.;License text not found.
+Legal_Truncated;… Text gekürzt – vollständig über „Volltext öffnen“.;… text shortened – see “Open full text” for the complete version.

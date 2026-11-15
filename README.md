@@ -28,6 +28,15 @@ powershell -ExecutionPolicy Bypass -File tools\Install-Msix.ps1   # als Administ
 Deinstallieren: `Get-AppxPackage SyncForge | Remove-AppxPackage`. Die installierte App hat eigene Daten (paketierter
 AppData-Bereich), getrennt vom unpaketierten Entwicklungs-Build.
 
+## Hilfe, Rechtstexte und Lizenzen
+- Hilfe: `src/SyncForge/Assets/Help/Deutsch|English/*.md` – ein Thema pro Datei, Reihenfolge nach Dateiname,
+  erste Zeile `<!-- glyph:E7C1 -->` = Symbol (Segoe Fluent Icons). Unterstützt: `#`/`##`/`###`, Absätze, `-`/`1.` Listen,
+  `> Hinweis`, `**fett**`, `` `Code` ``.
+- Nutzungsbedingungen und Datenschutz: `src/SyncForge/Assets/Legal/Deutsch|English/eula.md` bzw. `privacy.md`
+  (**Entwurf – vor Veröffentlichung rechtlich prüfen und Kontaktdaten eintragen**).
+- Drittanbieter-Lizenzen: nach jedem Paket-Update `powershell -File tools\Collect-Licenses.ps1` ausführen
+  (liest die verwendeten Paketversionen aus dem Build und übernimmt die Lizenztexte aus den NuGet-Paketen).
+
 ## Sync-Modi
 | Modus | Verhalten |
 |---|---|

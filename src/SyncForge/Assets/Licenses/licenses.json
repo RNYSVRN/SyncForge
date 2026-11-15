@@ -1,0 +1,153 @@
+[
+    {
+        "id":  "windowsappsdk",
+        "name":  "Windows App SDK / WinUI 3",
+        "version":  "2.6.5",
+        "authors":  "Microsoft Corporation",
+        "license":  "Microsoft Software License Terms",
+        "url":  "https://github.com/microsoft/WindowsAppSDK",
+        "file":  "windowsappsdk.txt",
+        "packages":  [
+                         "microsoft.windowsappsdk",
+                         "microsoft.windowsappsdk.ai",
+                         "microsoft.windowsappsdk.base",
+                         "microsoft.windowsappsdk.dwrite",
+                         "microsoft.windowsappsdk.foundation",
+                         "microsoft.windowsappsdk.interactiveexperiences",
+                         "microsoft.windowsappsdk.ml",
+                         "microsoft.windowsappsdk.runtime",
+                         "microsoft.windowsappsdk.search",
+                         "microsoft.windowsappsdk.widgets",
+                         "microsoft.windowsappsdk.winui"
+                     ]
+    },
+    {
+        "id":  "webview2",
+        "name":  "Microsoft Edge WebView2 SDK",
+        "version":  "1.0.3719.77",
+        "authors":  "Microsoft Corporation",
+        "license":  "Microsoft Software License Terms",
+        "url":  "https://aka.ms/webview2",
+        "file":  "webview2.txt",
+        "packages":  [
+                         "microsoft.web.webview2"
+                     ]
+    },
+    {
+        "id":  "windows-ai-ml",
+        "name":  "Windows AI Machine Learning",
+        "version":  "2.4.89",
+        "authors":  "Microsoft Corporation",
+        "license":  "Microsoft Software License Terms",
+        "url":  "https://aka.ms/windowsappsdk",
+        "file":  "windows-ai-ml.txt",
+        "packages":  [
+                         "microsoft.windows.ai.machinelearning"
+                     ]
+    },
+    {
+        "id":  "dotnet-community-toolkit",
+        "name":  ".NET Community Toolkit (MVVM)",
+        "version":  "8.4.2",
+        "authors":  ".NET Foundation and Contributors",
+        "license":  "MIT",
+        "url":  "https://github.com/CommunityToolkit/dotnet",
+        "file":  "dotnet-community-toolkit.txt",
+        "packages":  [
+                         "communitytoolkit.common",
+                         "communitytoolkit.mvvm"
+                     ]
+    },
+    {
+        "id":  "windows-community-toolkit",
+        "name":  "Windows Community Toolkit",
+        "version":  "8.2.251219",
+        "authors":  ".NET Foundation and Contributors",
+        "license":  "MIT",
+        "url":  "https://github.com/CommunityToolkit/Windows",
+        "file":  "windows-community-toolkit.txt",
+        "packages":  [
+                         "communitytoolkit.winui.controls.settingscontrols",
+                         "communitytoolkit.winui.extensions",
+                         "communitytoolkit.winui.helpers",
+                         "communitytoolkit.winui.triggers"
+                     ]
+    },
+    {
+        "id":  "dependency-injection",
+        "name":  "Microsoft.Extensions.DependencyInjection",
+        "version":  "10.0.15",
+        "authors":  "Microsoft Corporation",
+        "license":  "MIT",
+        "url":  "https://github.com/dotnet/runtime",
+        "file":  "dependency-injection.txt",
+        "packages":  [
+                         "microsoft.extensions.dependencyinjection",
+                         "microsoft.extensions.dependencyinjection.abstractions"
+                     ]
+    },
+    {
+        "id":  "microsoft-data-sqlite",
+        "name":  "Microsoft.Data.Sqlite",
+        "version":  "10.0.15",
+        "authors":  "Microsoft Corporation",
+        "license":  "MIT",
+        "url":  "https://github.com/dotnet/efcore",
+        "file":  "microsoft-data-sqlite.txt",
+        "packages":  [
+                         "microsoft.data.sqlite",
+                         "microsoft.data.sqlite.core"
+                     ]
+    },
+    {
+        "id":  "sqlitepclraw",
+        "name":  "SQLitePCLRaw",
+        "version":  "2.1.13",
+        "authors":  "Eric Sink, SourceGear LLC",
+        "license":  "Apache-2.0",
+        "url":  "https://github.com/ericsink/SQLitePCL.raw",
+        "file":  "sqlitepclraw.txt",
+        "packages":  [
+                         "sqlitepclraw.bundle_e_sqlite3",
+                         "sqlitepclraw.core",
+                         "sqlitepclraw.lib.e_sqlite3",
+                         "sqlitepclraw.provider.e_sqlite3"
+                     ]
+    },
+    {
+        "id":  "sqlite",
+        "name":  "SQLite",
+        "version":  "runtime",
+        "authors":  "D. Richard Hipp and contributors",
+        "license":  "Public Domain",
+        "url":  "https://www.sqlite.org",
+        "file":  "sqlite.txt",
+        "packages":  [
+                         "sqlitepclraw.lib.e_sqlite3"
+                     ]
+    },
+    {
+        "id":  "system-numerics-tensors",
+        "name":  "System.Numerics.Tensors",
+        "version":  "9.0.0",
+        "authors":  "Microsoft Corporation",
+        "license":  "MIT",
+        "url":  "https://github.com/dotnet/runtime",
+        "file":  "system-numerics-tensors.txt",
+        "packages":  [
+                         "system.numerics.tensors"
+                     ]
+    },
+    {
+        "id":  "dotnet",
+        "name":  ".NET Runtime",
+        "version":  "runtime",
+        "authors":  ".NET Foundation and Contributors",
+        "license":  "MIT",
+        "url":  "https://github.com/dotnet/runtime",
+        "file":  "dotnet.txt",
+        "packages":  [
+
+                     ]
+    }
+]

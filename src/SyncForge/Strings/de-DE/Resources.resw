@@ -332,4 +332,22 @@
   <data name="Versions_Restore.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>In der Quelle wiederherstellen</value></data>
   <data name="Versions_SaveAs.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Speichern unter</value></data>
   <data name="Versions_Show.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Im Explorer anzeigen</value></data>
+  <data name="Nav_Help.Content" xml:space="preserve"><value>Hilfe</value></data>
+  <data name="Nav_Legal.Content" xml:space="preserve"><value>Lizenzen &amp; Rechtliches</value></data>
+  <data name="Help_Title.Text" xml:space="preserve"><value>Hilfe</value></data>
+  <data name="Help_Search.PlaceholderText" xml:space="preserve"><value>Hilfe durchsuchen</value></data>
+  <data name="Help_Results" xml:space="preserve"><value>{0} Themen gefunden</value></data>
+  <data name="Help_ResultOne" xml:space="preserve"><value>1 Thema gefunden</value></data>
+  <data name="Help_NoResults.Text" xml:space="preserve"><value>Keine Treffer.</value></data>
+  <data name="Legal_Title.Text" xml:space="preserve"><value>Lizenzen &amp; Rechtliches</value></data>
+  <data name="Legal_TabApp.Text" xml:space="preserve"><value>SyncForge</value></data>
+  <data name="Legal_TabPrivacy.Text" xml:space="preserve"><value>Datenschutz</value></data>
+  <data name="Legal_TabThirdParty.Text" xml:space="preserve"><value>Drittanbieter</value></data>
+  <data name="Legal_Copyright.Text" xml:space="preserve"><value>© 2026 Ronny Severin. Alle Rechte vorbehalten.</value></data>
+  <data name="Legal_ThirdPartyIntro.Text" xml:space="preserve"><value>SyncForge verwendet die folgenden Komponenten. Vielen Dank an alle Autorinnen und Autoren. Die vollständigen Lizenztexte findest du jeweils beim Aufklappen.</value></data>
+  <data name="Legal_Version" xml:space="preserve"><value>Version {0}</value></data>
+  <data name="Legal_Packages" xml:space="preserve"><value>Pakete: {0}</value></data>
+  <data name="Legal_OpenFullText" xml:space="preserve"><value>Volltext öffnen</value></data>
+  <data name="Legal_LicenseMissing" xml:space="preserve"><value>Lizenztext nicht gefunden.</value></data>
+  <data name="Legal_Truncated" xml:space="preserve"><value>… Text gekürzt – vollständig über „Volltext öffnen“.</value></data>
 </root>

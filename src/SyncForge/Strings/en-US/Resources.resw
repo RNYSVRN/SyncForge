@@ -332,4 +332,22 @@
   <data name="Versions_Restore.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Restore in source</value></data>
   <data name="Versions_SaveAs.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Save as</value></data>
   <data name="Versions_Show.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Show in Explorer</value></data>
+  <data name="Nav_Help.Content" xml:space="preserve"><value>Help</value></data>
+  <data name="Nav_Legal.Content" xml:space="preserve"><value>Licenses &amp; legal</value></data>
+  <data name="Help_Title.Text" xml:space="preserve"><value>Help</value></data>
+  <data name="Help_Search.PlaceholderText" xml:space="preserve"><value>Search help</value></data>
+  <data name="Help_Results" xml:space="preserve"><value>{0} topics found</value></data>
+  <data name="Help_ResultOne" xml:space="preserve"><value>1 topic found</value></data>
+  <data name="Help_NoResults.Text" xml:space="preserve"><value>No results.</value></data>
+  <data name="Legal_Title.Text" xml:space="preserve"><value>Licenses &amp; legal</value></data>
+  <data name="Legal_TabApp.Text" xml:space="preserve"><value>SyncForge</value></data>
+  <data name="Legal_TabPrivacy.Text" xml:space="preserve"><value>Privacy</value></data>
+  <data name="Legal_TabThirdParty.Text" xml:space="preserve"><value>Third party</value></data>
+  <data name="Legal_Copyright.Text" xml:space="preserve"><value>© 2026 Ronny Severin. All rights reserved.</value></data>
+  <data name="Legal_ThirdPartyIntro.Text" xml:space="preserve"><value>SyncForge uses the following components. Many thanks to all their authors. Expand an entry to see the full license text.</value></data>
+  <data name="Legal_Version" xml:space="preserve"><value>Version {0}</value></data>
+  <data name="Legal_Packages" xml:space="preserve"><value>Packages: {0}</value></data>
+  <data name="Legal_OpenFullText" xml:space="preserve"><value>Open full text</value></data>
+  <data name="Legal_LicenseMissing" xml:space="preserve"><value>License text not found.</value></data>
+  <data name="Legal_Truncated" xml:space="preserve"><value>… text shortened – see “Open full text” for the complete version.</value></data>
 </root>

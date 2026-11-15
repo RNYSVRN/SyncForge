@@ -18,6 +18,8 @@ public sealed partial class MainWindow : Window
         ["Profiles"] = typeof(ProfilesPage),
         ["History"] = typeof(HistoryPage),
         ["Settings"] = typeof(SettingsPage),
+        ["Help"] = typeof(HelpPage),
+        ["Legal"] = typeof(LegalPage),
     };
 
     /// <summary>Unterseiten, bei denen ein Hauptpunkt der Navigation markiert bleibt.</summary>
@@ -64,7 +66,7 @@ public sealed partial class MainWindow : Window
             return;
         }
 
-        NavView.SelectedItem = NavView.MenuItems.OfType<NavigationViewItem>().FirstOrDefault(i => (string)i.Tag == tag);
+        NavView.SelectedItem = FindNavItem(tag);
     }
 
     /// <summary>Öffnet eine Unterseite (z. B. Profil-Editor) mit Parameter.</summary>
@@ -77,6 +79,10 @@ public sealed partial class MainWindow : Window
         if (ContentFrame.CanGoBack) ContentFrame.GoBack();
         else ContentFrame.Navigate(Pages[fallbackTag]);
     }
+
+    /// <summary>Navigationseintrag mit diesem Tag – oben oder unten (Hilfe, Lizenzen).</summary>
+    private NavigationViewItem? FindNavItem(string? tag) =>
+        NavView.MenuItems.Concat(NavView.FooterMenuItems).OfType<NavigationViewItem>().FirstOrDefault(i => (string)i.Tag == tag);
 
     private void NavView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
     {
@@ -111,7 +117,7 @@ public sealed partial class MainWindow : Window
                   ?? (SubPages.TryGetValue(e.SourcePageType, out var parent) ? parent : null);
         object? item = tag == "Settings"
             ? NavView.SettingsItem
-            : NavView.MenuItems.OfType<NavigationViewItem>().FirstOrDefault(i => (string)i.Tag == tag);
+            : FindNavItem(tag);
         if (item is not null && !ReferenceEquals(NavView.SelectedItem, item))
         {
             _syncingSelection = true;

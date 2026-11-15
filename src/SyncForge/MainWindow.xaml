@@ -87,6 +87,19 @@
                 </NavigationViewItem>
             </NavigationView.MenuItems>
 
+            <NavigationView.FooterMenuItems>
+                <NavigationViewItem x:Uid="Nav_Help" Tag="Help" Content="Hilfe">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE897;" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem x:Uid="Nav_Legal" Tag="Legal" Content="Lizenzen &amp; Rechtliches">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xEB95;" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+            </NavigationView.FooterMenuItems>
+
             <Frame x:Name="ContentFrame" Navigated="ContentFrame_Navigated" />
         </NavigationView>
     </Grid>
