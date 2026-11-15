@@ -1,4 +1,4 @@
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using SyncForge.Core.Models;
 using SyncForge.Core.Network;
@@ -118,7 +118,8 @@ public sealed partial class WizardViewModel : ObservableObject
         if (Sources.Count == 0) AddSource();
     }
 
-    partial void OnTargetPathChanged(string value) => TargetInfo = DescribeTarget(value);
+    // Gleicher Hinweis wie im Editor (Laufwerk, freier Platz, Warnungen wie "gleiches Laufwerk").
+    partial void OnTargetPathChanged(string value) => TargetInfo = PathHints.ForTarget(value, Sources.Select(s => s.Path).ToList()).Text;
 
     public void Back()
     {

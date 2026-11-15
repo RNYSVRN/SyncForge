@@ -526,4 +526,13 @@
   <data name="Wizard_Next.Content" xml:space="preserve"><value>Next</value></data>
   <data name="Wizard_CreatePreview.Content" xml:space="preserve"><value>Create and show preview</value></data>
   <data name="Wizard_Create.Content" xml:space="preserve"><value>Create profile</value></data>
+  <data name="Hint_InvalidPath" xml:space="preserve"><value>Not a valid path (enter it in full, e.g. D:\Backup).</value></data>
+  <data name="Hint_NetworkCheckedOnSave" xml:space="preserve"><value>Network share, checked when saving.</value></data>
+  <data name="Hint_SourceFound" xml:space="preserve"><value>Folder found.</value></data>
+  <data name="Hint_SourceMissing" xml:space="preserve"><value>Folder not found.</value></data>
+  <data name="Hint_DriveNotReady" xml:space="preserve"><value>Drive not connected. The backup runs as soon as it is back.</value></data>
+  <data name="Hint_SameDrive" xml:space="preserve"><value>{0} · Same drive as a source: does not protect against the drive failing.</value></data>
+  <data name="Hint_LowSpace" xml:space="preserve"><value>{0} · Little free space left.</value></data>
+  <data name="Editor_SavePreview.Content" xml:space="preserve"><value>Save and preview</value></data>
+  <data name="Editor_TargetPathBox.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Destination folder</value></data>
 </root>

@@ -15,8 +15,26 @@ public sealed partial class TargetItemViewModel : ObservableObject
 
     /// <summary>Netzwerkfreigabe (\\server\freigabe): Anmeldedaten-Knopf anzeigen.</summary>
     public bool IsNetworkPath => Core.Network.NetworkShares.IsNetworkPath(Path);
+    public event EventHandler? PathEdited;
 
-    partial void OnPathChanged(string value) => OnPropertyChanged(nameof(IsNetworkPath));
+    [ObservableProperty] public partial string HintText { get; set; } = string.Empty;
+    [ObservableProperty] public partial string HintGlyph { get; set; } = string.Empty;
+    [ObservableProperty] public partial Microsoft.UI.Xaml.Media.Brush? HintBrush { get; set; }
+    [ObservableProperty] public partial bool HasHint { get; set; }
+
+    public void SetHint(PathHint hint)
+    {
+        HasHint = hint.Kind != HintKind.None;
+        HintText = hint.Text;
+        HintGlyph = hint.Glyph;
+        HintBrush = hint.Brush;
+    }
+
+    partial void OnPathChanged(string value)
+    {
+        OnPropertyChanged(nameof(IsNetworkPath));
+        PathEdited?.Invoke(this, EventArgs.Empty);
+    }
 }
 
 public sealed partial class SourceItemViewModel : ObservableObject
@@ -31,9 +49,19 @@ public sealed partial class SourceItemViewModel : ObservableObject
     public bool IsNetworkPath => Core.Network.NetworkShares.IsNetworkPath(Path);
     public event EventHandler? PathEdited;
 
+    [ObservableProperty] public partial string HintText { get; set; } = string.Empty;
+    [ObservableProperty] public partial string HintGlyph { get; set; } = string.Empty;
+    [ObservableProperty] public partial Microsoft.UI.Xaml.Media.Brush? HintBrush { get; set; }
+    [ObservableProperty] public partial bool HasHint { get; set; }
+
     partial void OnPathChanged(string value)
     {
         OnPropertyChanged(nameof(IsNetworkPath));
+        var hint = PathHints.ForSource(value);
+        HasHint = hint.Kind != HintKind.None;
+        HintText = hint.Text;
+        HintGlyph = hint.Glyph;
+        HintBrush = hint.Brush;
         PathEdited?.Invoke(this, EventArgs.Empty);
     }
 }
@@ -89,8 +117,22 @@ public sealed partial class ProfileEditorViewModel : ObservableObject
     private List<string> FinalTargetFolders() =>
         ProfileValidation.TargetFolders(Sources.Select(s => (s.Path, s.TargetFolder)).ToList());
 
+    /// <summary>Hinweise unter den Zielen (hängen auch von den Quellen ab, z. B. "gleiches Laufwerk").</summary>
+    private void RefreshTargetHints()
+    {
+        var sources = Sources.Select(s => s.Path).ToList();
+        foreach (var t in Targets) t.SetHint(PathHints.ForTarget(t.Path, sources));
+    }
+
+    private TargetItemViewModel Track(TargetItemViewModel target)
+    {
+        target.PathEdited += (_, _) => RefreshTargetHints();
+        return target;
+    }
+
     private void RefreshSubfolders()
     {
+        RefreshTargetHints();
         var folders = FinalTargetFolders();
         HasMultipleSources = Sources.Count(s => s.Path.Trim().Length > 0) > 1;
         for (var i = 0; i < Sources.Count; i++)
@@ -199,16 +241,21 @@ public sealed partial class ProfileEditorViewModel : ObservableObject
         }
 
         Targets.Clear();
-        foreach (var t in _profile.Targets) Targets.Add(new TargetItemViewModel { Id = t.Id, Path = t.Path, Enabled = t.Enabled });
-        if (Targets.Count == 0) Targets.Add(new TargetItemViewModel());
+        foreach (var t in _profile.Targets) Targets.Add(Track(new TargetItemViewModel { Id = t.Id, Path = t.Path, Enabled = t.Enabled }));
+        if (Targets.Count == 0) Targets.Add(Track(new TargetItemViewModel()));
+        RefreshTargetHints();
     }
 
-    public void AddTarget(string path = "") => Targets.Add(new TargetItemViewModel { Path = path });
+    public void AddTarget(string path = "")
+    {
+        Targets.Add(Track(new TargetItemViewModel { Path = path }));
+        RefreshTargetHints();
+    }
 
     public void RemoveTarget(TargetItemViewModel target)
     {
         Targets.Remove(target);
-        if (Targets.Count == 0) Targets.Add(new TargetItemViewModel());
+        if (Targets.Count == 0) Targets.Add(Track(new TargetItemViewModel()));
     }
 
     /// <summary>Prüft die Eingaben und speichert. Gibt die Profil-Id zurück oder null bei Fehlern.</summary>

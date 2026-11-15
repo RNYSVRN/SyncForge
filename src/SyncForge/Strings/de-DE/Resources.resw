@@ -526,4 +526,13 @@
   <data name="Wizard_Next.Content" xml:space="preserve"><value>Weiter</value></data>
   <data name="Wizard_CreatePreview.Content" xml:space="preserve"><value>Anlegen und Vorschau zeigen</value></data>
   <data name="Wizard_Create.Content" xml:space="preserve"><value>Profil anlegen</value></data>
+  <data name="Hint_InvalidPath" xml:space="preserve"><value>Kein gültiger Pfad (vollständig angeben, z. B. D:\Backup).</value></data>
+  <data name="Hint_NetworkCheckedOnSave" xml:space="preserve"><value>Netzwerkfreigabe, wird beim Speichern geprüft.</value></data>
+  <data name="Hint_SourceFound" xml:space="preserve"><value>Ordner gefunden.</value></data>
+  <data name="Hint_SourceMissing" xml:space="preserve"><value>Ordner nicht gefunden.</value></data>
+  <data name="Hint_DriveNotReady" xml:space="preserve"><value>Laufwerk nicht angeschlossen. Gesichert wird, sobald es wieder da ist.</value></data>
+  <data name="Hint_SameDrive" xml:space="preserve"><value>{0} · Gleiches Laufwerk wie eine Quelle: schützt nicht vor einem Ausfall des Laufwerks.</value></data>
+  <data name="Hint_LowSpace" xml:space="preserve"><value>{0} · Nur noch wenig Platz frei.</value></data>
+  <data name="Editor_SavePreview.Content" xml:space="preserve"><value>Speichern und Vorschau</value></data>
+  <data name="Editor_TargetPathBox.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Zielordner</value></data>
 </root>

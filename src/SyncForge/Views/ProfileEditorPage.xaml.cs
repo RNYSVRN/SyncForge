@@ -92,5 +92,13 @@ public sealed partial class ProfileEditorPage : Page
         if (ViewModel.Save() is not null) App.MainWindow.GoBack();
     }
 
+    /// <summary>Speichern und gleich sehen, was ein Lauf tun würde (der Editor verschwindet aus dem Verlauf).</summary>
+    private void SavePreview_Click(object sender, RoutedEventArgs e)
+    {
+        if (ViewModel.Save() is not { } id) return;
+        App.MainWindow.Navigate(typeof(SyncRunPage), new SyncRunRequest(id, PreviewOnly: true));
+        App.MainWindow.ForgetPage(typeof(ProfileEditorPage));
+    }
+
     private void Cancel_Click(object sender, RoutedEventArgs e) => App.MainWindow.GoBack();
 }
