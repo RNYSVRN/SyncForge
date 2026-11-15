@@ -12,10 +12,19 @@ public static class Program
 {
     private const string InstanceKey = "SyncForge.Main";
 
+    /// <summary>Vom Deinstallationsprogramm aufgerufen: Spuren in Windows entfernen und sofort beenden.</summary>
+    public const string UninstallCleanupArgument = "--uninstall-cleanup";
+
     [STAThread]
     private static int Main(string[] args)
     {
         WinRT.ComWrappersSupport.InitializeComWrappers();
+
+        if (args.Contains(UninstallCleanupArgument, StringComparer.OrdinalIgnoreCase))
+        {
+            UninstallCleanup();
+            return 0;
+        }
 
         var current = AppInstance.FindOrRegisterForKey(InstanceKey);
         if (!current.IsCurrent)
@@ -35,5 +44,17 @@ public static class Program
             _ = new App();
         });
         return 0;
+    }
+
+    /// <summary>Benachrichtigungs-Registrierung und Autostart-Eintrag entfernen (Daten bleiben unberührt).</summary>
+    private static void UninstallCleanup()
+    {
+        try { Microsoft.Windows.AppNotifications.AppNotificationManager.Default.UnregisterAll(); } catch { /* best effort */ }
+        try
+        {
+            using var key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run", writable: true);
+            key?.DeleteValue("SyncForge", throwOnMissingValue: false);
+        }
+        catch { /* best effort */ }
     }
 }

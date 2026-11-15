@@ -21,6 +21,12 @@ foreach ($lib in $assets.libraries.PSObject.Properties) {
     $versions[$name.ToLowerInvariant()] = $ver
 }
 
+# Pakete, die im Projekt mit ExcludeAssets="all" ausgeschlossen sind, werden nicht mitgeliefert.
+$csproj = [xml](Get-Content (Join-Path $root 'src\SyncForge\SyncForge.csproj') -Raw -Encoding UTF8)
+foreach ($ref in $csproj.Project.ItemGroup.PackageReference) {
+    if ($ref.ExcludeAssets -eq 'all') { $versions.Remove($ref.Include.ToLowerInvariant()) }
+}
+
 function Read-Text([string]$path) { [IO.File]::ReadAllText($path, [Text.Encoding]::UTF8).Trim() }
 function Package-File([string]$id, [string]$pattern) {
     $dir = Join-Path $nuget "$id\$($versions[$id])"
@@ -66,7 +72,11 @@ $components = @(
 
 $list = foreach ($c in $components) {
     $version = if ($c.Version) { $c.Version } elseif ($versions.ContainsKey($c.Main)) { $versions[$c.Main] } else { $null }
-    if ($c.Main -and -not $versions.ContainsKey($c.Main)) { Write-Warning "$($c.Name): Paket $($c.Main) wird nicht verwendet – übersprungen"; continue }
+    if ($c.Main -and -not $versions.ContainsKey($c.Main)) {
+        Write-Warning "$($c.Name): Paket $($c.Main) wird nicht verwendet, übersprungen"
+        Remove-Item (Join-Path $out "$($c.Id).txt") -ErrorAction SilentlyContinue
+        continue
+    }
 
     $parts = @()
     if ($c.Template) {
