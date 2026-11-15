@@ -23,6 +23,13 @@ Ein Klick auf einen Lauf zeigt das Ergebnis je Ziel und eine Liste aller einzeln
 
 Über das Ordnersymbol öffnest du das Ziel im Explorer; **Eintrag löschen** entfernt den Lauf aus der Historie (die Dateien selbst bleiben unverändert).
 
+## Export als CSV
+
+- **Exportieren…** oben in der Historie speichert alle Läufe, die zum gewählten Profil- und Statusfilter passen, als CSV-Datei (nicht nur die bereits geladenen).
+- **Dateiliste exportieren…** in den Laufdetails speichert die einzelnen Aktionen des Laufs, mit dem gewählten Ziel, Filter und Suchbegriff und ohne die Grenze der Anzeige.
+
+Die Dateien öffnen sich per Doppelklick direkt in Excel: Das Trennzeichen richtet sich nach deinen Regionseinstellungen, Zahlen stehen ohne Tausenderpunkte und Zeitpunkte als `JJJJ-MM-TT hh:mm:ss`.
+
 ## Aufbewahrung
 
 Ältere Läufe werden nach der in **Einstellungen › Daten & Aufbewahrung** eingestellten Anzahl von Tagen automatisch entfernt. Dort kannst du die Historie auch vollständig löschen.

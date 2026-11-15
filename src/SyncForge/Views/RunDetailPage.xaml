@@ -20,6 +20,7 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <FontIcon Glyph="{x:Bind ViewModel.StatusGlyph, Mode=OneWay}" FontSize="28" VerticalAlignment="Center"
                           Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}" />
@@ -27,7 +28,15 @@
                     <TextBlock Text="{x:Bind ViewModel.Title, Mode=OneWay}" Style="{StaticResource TitleTextBlockStyle}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" />
                     <TextBlock Text="{x:Bind ViewModel.Subtitle, Mode=OneWay}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
                 </StackPanel>
-                <Button Grid.Column="2" VerticalAlignment="Center" Click="Delete_Click" x:Uid="Detail_Delete"
+                <Button Grid.Column="2" VerticalAlignment="Center" Click="Export_Click" x:Uid="Detail_Export"
+                        ToolTipService.ToolTip="Angezeigte Dateiliste als CSV-Datei speichern"
+                        IsEnabled="{x:Bind ViewModel.CanExport, Mode=OneWay}" Visibility="{x:Bind ShowIf(ViewModel.NotFound), Mode=OneWay}">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <FontIcon Glyph="&#xEDE1;" FontSize="14" />
+                        <TextBlock x:Uid="Detail_ExportText" Text="Dateiliste exportieren…" />
+                    </StackPanel>
+                </Button>
+                <Button Grid.Column="3" VerticalAlignment="Center" Click="Delete_Click" x:Uid="Detail_Delete"
                         ToolTipService.ToolTip="Eintrag löschen" Visibility="{x:Bind ShowIf(ViewModel.NotFound), Mode=OneWay}">
                     <StackPanel Orientation="Horizontal" Spacing="8">
                         <FontIcon Glyph="&#xE74D;" FontSize="14" />
