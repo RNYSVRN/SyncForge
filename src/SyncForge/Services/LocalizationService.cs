@@ -10,6 +10,9 @@ public static class Localization
 
     private static ResourceLoader? _loader;
 
+    /// <summary>Gewählte Sprache ("de-DE"/"en-US") oder leer für die Systemsprache.</summary>
+    public static string CurrentLanguage { get; private set; } = string.Empty;
+
     /// <summary>Muss vor dem Erzeugen des ersten Fensters aufgerufen werden.</summary>
     public static void ApplyLanguage(string language)
     {
@@ -19,6 +22,7 @@ public static class Localization
             try
             {
                 ApplicationLanguages.PrimaryLanguageOverride = language;
+                CurrentLanguage = language;
             }
             catch
             {

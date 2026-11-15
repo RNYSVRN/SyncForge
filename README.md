@@ -14,12 +14,25 @@ dotnet build SyncForge.sln -c Debug -p:Platform=x64
 .\src\SyncForge\bin\x64\Debug\net10.0-windows10.0.26100.0\SyncForge.exe
 ```
 
+## Tests
+```powershell
+dotnet test --project tests\SyncForge.Core.Tests\SyncForge.Core.Tests.csproj
+```
+
 ## Projektstruktur
 ```
+src/SyncForge.Core/      Sync-Logik ohne UI (testbar)
+  Models/                Profil, Ziele, Filter-Einstellungen
+  Filtering/PathFilter   Ein-/Ausschlussmuster (*.tmp, ordner\, a\**\b)
+  Engine/SyncPlanner     Analyse: Quelle vs. Ziel -> Plan (verändert nichts)
+  Engine/SyncExecutor    Ausführung: Temp-Datei + Ersetzen, parallel, Abbruch, Papierkorb
+  Engine/ProfileRunner   Mehrere Ziele, Erreichbarkeit, Löschschutz
+  Storage/ProfileStore   profiles.json
+tests/SyncForge.Core.Tests/  xUnit-Tests gegen echte Temp-Ordner
 src/SyncForge/
   App.xaml(.cs)          Start, DI-Container, Sprache, Fehlerprotokoll
   MainWindow.xaml(.cs)   Titelleiste, Mica, NavigationView, Fenstergröße
-  Views/                 Übersicht, Profile, Historie, Einstellungen
+  Views/                 Übersicht, Profile, Profil-Editor, Vorschau/Lauf, Historie, Einstellungen
   ViewModels/            MVVM (CommunityToolkit.Mvvm)
   Services/              Einstellungen (JSON), Design, Lokalisierung
   Strings/<Sprache>/     Resources.resw – generiert, nicht von Hand bearbeiten
@@ -38,4 +51,4 @@ tools/
 
 ## Daten
 Einstellungen und Protokolle liegen unter `%LOCALAPPDATA%\SyncForge\`
-(`settings.json`, `crash.log` bei Fehlern).
+(`settings.json`, `profiles.json`, `crash.log` bei Fehlern).

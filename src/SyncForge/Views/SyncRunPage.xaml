@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="SyncForge.Views.SyncRunPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:vm="using:SyncForge.ViewModels"
+    Background="Transparent">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ScrollViewer>
+            <Grid Padding="{StaticResource PageMargin}">
+                <StackPanel MaxWidth="1000" Spacing="12">
+                    <StackPanel Spacing="2">
+                        <TextBlock Text="{x:Bind ViewModel.Title, Mode=OneWay}" Style="{StaticResource TitleTextBlockStyle}" TextTrimming="CharacterEllipsis" />
+                        <TextBlock Text="{x:Bind ViewModel.Subtitle, Mode=OneWay}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
+                    </StackPanel>
+
+                    <!-- Analyse läuft -->
+                    <StackPanel Orientation="Horizontal" Spacing="12" Visibility="{x:Bind ViewModel.IsAnalyzing, Mode=OneWay}" Margin="0,8,0,0">
+                        <ProgressRing IsActive="True" Width="20" Height="20" />
+                        <TextBlock Text="{x:Bind ViewModel.AnalyzeText, Mode=OneWay}" VerticalAlignment="Center" />
+                    </StackPanel>
+
+                    <InfoBar IsOpen="{x:Bind ViewModel.ShowDeletionWarning, Mode=OneWay}" IsClosable="False" Severity="Warning"
+                             x:Uid="Run_DeletionWarningBar" Title="Löschschutz" Message="{x:Bind ViewModel.DeletionWarningText, Mode=OneWay}" />
+
+                    <InfoBar IsOpen="{x:Bind ViewModel.ShowMessage, Mode=OneWay}" IsClosable="False"
+                             Severity="{x:Bind ViewModel.MessageSeverity, Mode=OneWay}"
+                             Title="{x:Bind ViewModel.MessageTitle, Mode=OneWay}" Message="{x:Bind ViewModel.MessageText, Mode=OneWay}" />
+
+                    <!-- Ziele -->
+                    <ItemsControl ItemsSource="{x:Bind ViewModel.Targets}">
+                        <ItemsControl.ItemContainerTransitions>
+                            <TransitionCollection>
+                                <EntranceThemeTransition IsStaggeringEnabled="True" />
+                            </TransitionCollection>
+                        </ItemsControl.ItemContainerTransitions>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="vm:TargetRunViewModel">
+                                <Border Style="{StaticResource CardBorderStyle}" Padding="16" Margin="0,0,0,8">
+                                    <StackPanel Spacing="8">
+                                        <Grid ColumnSpacing="12">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <FontIcon Glyph="{x:Bind StatusGlyph, Mode=OneWay}" FontSize="20" VerticalAlignment="Center"
+                                                      Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}" />
+                                            <StackPanel Grid.Column="1" Spacing="2">
+                                                <TextBlock Text="{x:Bind TargetPath}" Style="{StaticResource BodyStrongTextBlockStyle}" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" ToolTipService.ToolTip="{x:Bind TargetPath}" />
+                                                <TextBlock Text="{x:Bind StatusText, Mode=OneWay}" Style="{StaticResource CaptionTextBlockStyle}"
+                                                           Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                                            </StackPanel>
+                                        </Grid>
+
+                                        <TextBlock Text="{x:Bind SummaryText, Mode=OneWay}" TextWrapping="Wrap" Visibility="{x:Bind HasSummary, Mode=OneWay}" />
+
+                                        <StackPanel Spacing="4" Visibility="{x:Bind ShowProgress, Mode=OneWay}">
+                                            <ProgressBar Value="{x:Bind ProgressPercent, Mode=OneWay}" Maximum="100"
+                                                         IsIndeterminate="{x:Bind IsProgressIndeterminate, Mode=OneWay}" />
+                                            <TextBlock Text="{x:Bind ProgressText, Mode=OneWay}" Style="{StaticResource CaptionTextBlockStyle}"
+                                                       Foreground="{ThemeResource TextFillColorSecondaryBrush}" TextTrimming="CharacterEllipsis" />
+                                        </StackPanel>
+
+                                        <Expander x:Uid="Run_ErrorsExpander" Header="Fehler" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"
+                                                  Visibility="{x:Bind HasErrors, Mode=OneWay}" IsExpanded="True">
+                                            <ItemsControl ItemsSource="{x:Bind Errors}">
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate x:DataType="vm:ActionItemViewModel">
+                                                        <StackPanel Margin="0,4">
+                                                            <TextBlock Text="{x:Bind Path}" TextTrimming="CharacterEllipsis" />
+                                                            <TextBlock Text="{x:Bind Detail}" Style="{StaticResource CaptionTextBlockStyle}"
+                                                                       Foreground="{ThemeResource SystemFillColorCriticalBrush}" TextWrapping="Wrap" />
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                        </Expander>
+
+                                        <Expander x:Uid="Run_ActionsExpander" Header="Geplante Änderungen" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"
+                                                  Visibility="{x:Bind HasActions, Mode=OneWay}">
+                                            <StackPanel>
+                                                <ListView ItemsSource="{x:Bind Actions}" SelectionMode="None" MaxHeight="360">
+                                                    <ListView.ItemTemplate>
+                                                        <DataTemplate x:DataType="vm:ActionItemViewModel">
+                                                            <Grid ColumnSpacing="12" Padding="0,4">
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="Auto" />
+                                                                    <ColumnDefinition Width="*" />
+                                                                    <ColumnDefinition Width="Auto" />
+                                                                </Grid.ColumnDefinitions>
+                                                                <FontIcon Glyph="{x:Bind Glyph}" FontSize="14" />
+                                                                <TextBlock Grid.Column="1" Text="{x:Bind Path}" TextTrimming="CharacterEllipsis" />
+                                                                <TextBlock Grid.Column="2" Text="{x:Bind Detail}" Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                                           Style="{StaticResource CaptionTextBlockStyle}" VerticalAlignment="Center" />
+                                                            </Grid>
+                                                        </DataTemplate>
+                                                    </ListView.ItemTemplate>
+                                                </ListView>
+                                                <TextBlock Text="{x:Bind MoreActionsText, Mode=OneWay}" Style="{StaticResource CaptionTextBlockStyle}"
+                                                           Foreground="{ThemeResource TextFillColorTertiaryBrush}" Margin="0,8,0,0" />
+                                            </StackPanel>
+                                        </Expander>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+
+        <!-- Aktionsleiste -->
+        <Border Grid.Row="1" BorderThickness="0,1,0,0" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" Padding="36,16">
+            <StackPanel MaxWidth="1000" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8">
+                <Button x:Uid="Run_Cancel" Content="Abbrechen" MinWidth="120" Click="Cancel_Click" Visibility="{x:Bind ViewModel.IsBusy, Mode=OneWay}" />
+                <Button x:Uid="Run_Back" Content="Zurück zur Liste" MinWidth="120" Click="Back_Click" Visibility="{x:Bind ViewModel.IsIdle, Mode=OneWay}" />
+                <Button x:Uid="Run_Start" Content="Jetzt synchronisieren" MinWidth="160" Style="{StaticResource AccentButtonStyle}"
+                        Click="Start_Click" Visibility="{x:Bind ViewModel.IsReady, Mode=OneWay}" IsEnabled="{x:Bind ViewModel.CanStart, Mode=OneWay}" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</Page>

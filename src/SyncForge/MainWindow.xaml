@@ -66,6 +66,7 @@
             ExpandedModeThresholdWidth="760"
             OpenPaneLength="220"
             DisplayModeChanged="NavView_DisplayModeChanged"
+            ItemInvoked="NavView_ItemInvoked"
             SelectionChanged="NavView_SelectionChanged">
 
             <NavigationView.MenuItems>

@@ -20,7 +20,15 @@ public sealed partial class MainWindow : Window
         ["Settings"] = typeof(SettingsPage),
     };
 
+    /// <summary>Unterseiten, bei denen ein Hauptpunkt der Navigation markiert bleibt.</summary>
+    private static readonly Dictionary<Type, string> SubPages = new()
+    {
+        [typeof(ProfileEditorPage)] = "Profiles",
+        [typeof(SyncRunPage)] = "Profiles",
+    };
+
     private readonly SettingsService _settings;
+    private bool _syncingSelection;
 
     public MainWindow()
     {
@@ -57,8 +65,20 @@ public sealed partial class MainWindow : Window
         NavView.SelectedItem = NavView.MenuItems.OfType<NavigationViewItem>().FirstOrDefault(i => (string)i.Tag == tag);
     }
 
+    /// <summary>Öffnet eine Unterseite (z. B. Profil-Editor) mit Parameter.</summary>
+    public void Navigate(Type pageType, object? parameter = null) =>
+        ContentFrame.Navigate(pageType, parameter, new DrillInNavigationTransitionInfo());
+
+    /// <summary>Zurück zur vorherigen Seite (oder zur angegebenen Hauptseite, falls es keine gibt).</summary>
+    public void GoBack(string fallbackTag = "Profiles")
+    {
+        if (ContentFrame.CanGoBack) ContentFrame.GoBack();
+        else ContentFrame.Navigate(Pages[fallbackTag]);
+    }
+
     private void NavView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
     {
+        if (_syncingSelection) return;
         var tag = args.IsSettingsSelected ? "Settings" : (args.SelectedItem as NavigationViewItem)?.Tag as string;
         if (tag is null || !Pages.TryGetValue(tag, out var pageType) || ContentFrame.CurrentSourcePageType == pageType)
         {
@@ -68,20 +88,33 @@ public sealed partial class MainWindow : Window
         ContentFrame.Navigate(pageType, null, args.RecommendedNavigationTransitionInfo ?? new EntranceNavigationTransitionInfo());
     }
 
+    /// <summary>Klick auf den schon markierten Punkt (z. B. aus dem Profil-Editor zurück zur Liste).</summary>
+    private void NavView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
+    {
+        var tag = args.IsSettingsInvoked ? "Settings" : (args.InvokedItemContainer as NavigationViewItem)?.Tag as string;
+        if (tag is not null && Pages.TryGetValue(tag, out var pageType) && ContentFrame.CurrentSourcePageType != pageType
+            && SubPages.TryGetValue(ContentFrame.CurrentSourcePageType, out var parent) && parent == tag)
+        {
+            ContentFrame.Navigate(pageType, null, args.RecommendedNavigationTransitionInfo);
+        }
+    }
+
     private void ContentFrame_Navigated(object sender, Microsoft.UI.Xaml.Navigation.NavigationEventArgs e)
     {
         TitleBarBackButton.IsEnabled = ContentFrame.CanGoBack;
 
-        // Auswahl in der Navigation an die angezeigte Seite angleichen (z. B. nach "Zurück").
-        var tag = Pages.FirstOrDefault(p => p.Value == e.SourcePageType).Key;
-        if (tag == "Settings")
+        // Auswahl in der Navigation an die angezeigte Seite angleichen (z. B. nach "Zurück"),
+        // ohne dabei erneut zu navigieren.
+        var tag = Pages.FirstOrDefault(p => p.Value == e.SourcePageType).Key
+                  ?? (SubPages.TryGetValue(e.SourcePageType, out var parent) ? parent : null);
+        object? item = tag == "Settings"
+            ? NavView.SettingsItem
+            : NavView.MenuItems.OfType<NavigationViewItem>().FirstOrDefault(i => (string)i.Tag == tag);
+        if (item is not null && !ReferenceEquals(NavView.SelectedItem, item))
         {
-            if (NavView.SelectedItem != NavView.SettingsItem) NavView.SelectedItem = NavView.SettingsItem;
-        }
-        else if (tag is not null)
-        {
-            var item = NavView.MenuItems.OfType<NavigationViewItem>().FirstOrDefault(i => (string)i.Tag == tag);
-            if (item is not null && !ReferenceEquals(NavView.SelectedItem, item)) NavView.SelectedItem = item;
+            _syncingSelection = true;
+            NavView.SelectedItem = item;
+            _syncingSelection = false;
         }
     }
 

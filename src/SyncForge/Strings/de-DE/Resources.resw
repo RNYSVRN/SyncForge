@@ -68,4 +68,127 @@
   <data name="TitleBar_PaneToggle.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Navigation umschalten</value></data>
   <data name="Toggle_On" xml:space="preserve"><value>Ein</value></data>
   <data name="Toggle_Off" xml:space="preserve"><value>Aus</value></data>
+  <data name="Profiles_Preview.Content" xml:space="preserve"><value>Vorschau</value></data>
+  <data name="Profiles_SyncNow.Content" xml:space="preserve"><value>Synchronisieren</value></data>
+  <data name="Profiles_More.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve"><value>Weitere Optionen</value></data>
+  <data name="Profiles_Edit.Text" xml:space="preserve"><value>Bearbeiten</value></data>
+  <data name="Profiles_Duplicate.Text" xml:space="preserve"><value>Duplizieren</value></data>
+  <data name="Profiles_Delete.Text" xml:space="preserve"><value>Löschen</value></data>
+  <data name="Profiles_EmptyAdd.Content" xml:space="preserve"><value>Erstes Profil anlegen</value></data>
+  <data name="Profiles_RouteOne" xml:space="preserve"><value>{0}  →  1 Ziel</value></data>
+  <data name="Profiles_RouteMany" xml:space="preserve"><value>{0}  →  {1} Ziele</value></data>
+  <data name="Profiles_LastRun" xml:space="preserve"><value>Zuletzt: {0} ({1})</value></data>
+  <data name="Profiles_NeverRun" xml:space="preserve"><value>Noch nie synchronisiert</value></data>
+  <data name="Profiles_CopyName" xml:space="preserve"><value>{0} (Kopie)</value></data>
+  <data name="Profiles_DeleteTitle" xml:space="preserve"><value>Profil löschen?</value></data>
+  <data name="Profiles_DeleteText" xml:space="preserve"><value>Das Profil „{0}“ wird entfernt. Dateien in Quelle und Zielen bleiben unverändert.</value></data>
+  <data name="Common_Delete" xml:space="preserve"><value>Löschen</value></data>
+  <data name="Common_Cancel" xml:space="preserve"><value>Abbrechen</value></data>
+  <data name="Common_CancelButton.Content" xml:space="preserve"><value>Abbrechen</value></data>
+  <data name="Mode_Mirror" xml:space="preserve"><value>Spiegeln</value></data>
+  <data name="Mode_Versioned" xml:space="preserve"><value>Versioniert</value></data>
+  <data name="Mode_TwoWay" xml:space="preserve"><value>Zwei-Wege</value></data>
+  <data name="Status_Success" xml:space="preserve"><value>Erfolgreich</value></data>
+  <data name="Status_Warning" xml:space="preserve"><value>Mit Warnungen</value></data>
+  <data name="Status_Error" xml:space="preserve"><value>Fehlgeschlagen</value></data>
+  <data name="Status_Cancelled" xml:space="preserve"><value>Abgebrochen</value></data>
+  <data name="Status_None" xml:space="preserve"><value>–</value></data>
+  <data name="Editor_TitleNew" xml:space="preserve"><value>Neues Profil</value></data>
+  <data name="Editor_TitleEdit" xml:space="preserve"><value>Profil bearbeiten</value></data>
+  <data name="Editor_SectionGeneral.Text" xml:space="preserve"><value>Allgemein</value></data>
+  <data name="Editor_Name.Header" xml:space="preserve"><value>Name</value></data>
+  <data name="Editor_Name.Description" xml:space="preserve"><value>Wird in der Liste und in Benachrichtigungen angezeigt.</value></data>
+  <data name="Editor_NameBox.PlaceholderText" xml:space="preserve"><value>z. B. Dokumente auf NAS</value></data>
+  <data name="Editor_SectionSource.Text" xml:space="preserve"><value>Quelle</value></data>
+  <data name="Editor_Source.Header" xml:space="preserve"><value>Quellordner</value></data>
+  <data name="Editor_Source.Description" xml:space="preserve"><value>Dieser Ordner wird mit allen Unterordnern synchronisiert.</value></data>
+  <data name="Editor_PathBox.PlaceholderText" xml:space="preserve"><value>C:\Users\Name\Documents</value></data>
+  <data name="Editor_Browse.Content" xml:space="preserve"><value>Durchsuchen…</value></data>
+  <data name="Editor_SectionTargets.Text" xml:space="preserve"><value>Ziele</value></data>
+  <data name="Editor_Targets.Header" xml:space="preserve"><value>Zielordner</value></data>
+  <data name="Editor_Targets.Description" xml:space="preserve"><value>Lokale Laufwerke, USB-Laufwerke, Netzwerkfreigaben (\\server\freigabe) oder Cloud-Ordner.</value></data>
+  <data name="Editor_AddTargetText.Text" xml:space="preserve"><value>Ziel hinzufügen</value></data>
+  <data name="Editor_BrowseTarget.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve"><value>Durchsuchen</value></data>
+  <data name="Editor_TargetEnabled.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve"><value>Ziel aktiv</value></data>
+  <data name="Editor_RemoveTarget.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve"><value>Ziel entfernen</value></data>
+  <data name="Editor_MultiTarget.Header" xml:space="preserve"><value>Mehrere Ziele</value></data>
+  <data name="Editor_MultiTarget.Description" xml:space="preserve"><value>Ziele nacheinander oder gleichzeitig synchronisieren. Nicht erreichbare Ziele werden übersprungen.</value></data>
+  <data name="MultiTarget_Sequential.Content" xml:space="preserve"><value>Nacheinander</value></data>
+  <data name="MultiTarget_Parallel.Content" xml:space="preserve"><value>Gleichzeitig</value></data>
+  <data name="Editor_SectionSync.Text" xml:space="preserve"><value>Synchronisierung</value></data>
+  <data name="Editor_Mode.Header" xml:space="preserve"><value>Modus</value></data>
+  <data name="Editor_Mode.Description" xml:space="preserve"><value>Spiegeln: Das Ziel wird zur exakten Kopie der Quelle, inklusive Löschungen.</value></data>
+  <data name="Mode_MirrorItem.Content" xml:space="preserve"><value>Spiegeln</value></data>
+  <data name="Mode_VersionedItem.Content" xml:space="preserve"><value>Versioniert (folgt)</value></data>
+  <data name="Mode_TwoWayItem.Content" xml:space="preserve"><value>Zwei-Wege (folgt)</value></data>
+  <data name="Editor_Compare.Header" xml:space="preserve"><value>Änderungen erkennen</value></data>
+  <data name="Editor_Compare.Description" xml:space="preserve"><value>Inhaltsvergleich findet auch Änderungen ohne neues Datum, ist aber deutlich langsamer.</value></data>
+  <data name="Compare_SizeDate.Content" xml:space="preserve"><value>Größe und Datum</value></data>
+  <data name="Compare_Content.Content" xml:space="preserve"><value>Größe und Inhalt (Prüfsumme)</value></data>
+  <data name="Editor_Verify.Header" xml:space="preserve"><value>Kopien prüfen</value></data>
+  <data name="Editor_Verify.Description" xml:space="preserve"><value>Jede kopierte Datei per Prüfsumme mit der Quelle vergleichen.</value></data>
+  <data name="Editor_SectionFilter.Text" xml:space="preserve"><value>Filter</value></data>
+  <data name="Editor_Filter.Header" xml:space="preserve"><value>Ein- und Ausschlüsse</value></data>
+  <data name="Editor_Filter.Description" xml:space="preserve"><value>Ausgeschlossene Dateien werden weder kopiert noch im Ziel gelöscht.</value></data>
+  <data name="Editor_Exclude.Header" xml:space="preserve"><value>Ausschließen</value></data>
+  <data name="Editor_Exclude.Description" xml:space="preserve"><value>Ein Muster pro Zeile, z. B. *.tmp, node_modules\ oder Projekte\**\bin\</value></data>
+  <data name="Editor_Include.Header" xml:space="preserve"><value>Nur einschließen</value></data>
+  <data name="Editor_Include.Description" xml:space="preserve"><value>Leer = alle Dateien. Sonst nur Dateien, die einem Muster entsprechen, z. B. *.jpg</value></data>
+  <data name="Editor_ExcludeHidden.Header" xml:space="preserve"><value>Versteckte Dateien ausschließen</value></data>
+  <data name="Editor_ExcludeSystem.Header" xml:space="preserve"><value>Systemdateien ausschließen</value></data>
+  <data name="Editor_MinSize.Header" xml:space="preserve"><value>Mindestgröße (MB)</value></data>
+  <data name="Editor_MinSize.Description" xml:space="preserve"><value>0 = keine Grenze</value></data>
+  <data name="Editor_MaxSize.Header" xml:space="preserve"><value>Höchstgröße (MB)</value></data>
+  <data name="Editor_MaxSize.Description" xml:space="preserve"><value>0 = keine Grenze</value></data>
+  <data name="Editor_SectionSafety.Text" xml:space="preserve"><value>Sicherheit</value></data>
+  <data name="Editor_RecycleBin.Header" xml:space="preserve"><value>Gelöschte Dateien in den Papierkorb</value></data>
+  <data name="Editor_RecycleBin.Description" xml:space="preserve"><value>Nur auf lokalen Laufwerken möglich. Auf Netzlaufwerken wird endgültig gelöscht.</value></data>
+  <data name="Editor_DeletionProtection.Header" xml:space="preserve"><value>Löschschutz (%)</value></data>
+  <data name="Editor_DeletionProtection.Description" xml:space="preserve"><value>Vor dem Lauf warnen, wenn mehr als dieser Anteil der Dateien im Ziel gelöscht würde. 0 = aus.</value></data>
+  <data name="Editor_Save.Content" xml:space="preserve"><value>Speichern</value></data>
+  <data name="Editor_ErrorName" xml:space="preserve"><value>Bitte gib einen Namen ein.</value></data>
+  <data name="Editor_ErrorSourceEmpty" xml:space="preserve"><value>Bitte wähle einen Quellordner.</value></data>
+  <data name="Editor_ErrorPathInvalid" xml:space="preserve"><value>Ungültiger Pfad:</value></data>
+  <data name="Editor_ErrorSourceMissing" xml:space="preserve"><value>Der Quellordner existiert nicht.</value></data>
+  <data name="Editor_ErrorNoTarget" xml:space="preserve"><value>Bitte füge mindestens ein Ziel hinzu.</value></data>
+  <data name="Editor_ErrorDuplicateTarget" xml:space="preserve"><value>Ziel ist doppelt eingetragen:</value></data>
+  <data name="Editor_ErrorSizeRange" xml:space="preserve"><value>Die Mindestgröße ist größer als die Höchstgröße.</value></data>
+  <data name="Validation_SourceMissing" xml:space="preserve"><value>Quellordner nicht gefunden:</value></data>
+  <data name="Validation_TargetEqualsSource" xml:space="preserve"><value>Ziel und Quelle sind identisch:</value></data>
+  <data name="Validation_TargetInsideSource" xml:space="preserve"><value>Das Ziel liegt innerhalb der Quelle:</value></data>
+  <data name="Validation_SourceInsideTarget" xml:space="preserve"><value>Die Quelle liegt innerhalb des Ziels:</value></data>
+  <data name="Validation_TargetUnavailable" xml:space="preserve"><value>Ziel nicht erreichbar</value></data>
+  <data name="Run_ProfileMissing" xml:space="preserve"><value>Das Profil wurde nicht gefunden.</value></data>
+  <data name="Run_Analyzing" xml:space="preserve"><value>Analysiere…</value></data>
+  <data name="Run_Comparing" xml:space="preserve"><value>Vergleiche Inhalte… {0} von {1} Dateien</value></data>
+  <data name="Run_Scanning" xml:space="preserve"><value>Lese Ordner… {0} Einträge</value></data>
+  <data name="Run_DeletionWarning" xml:space="preserve"><value>{0} Dateien ({1} %) würden in {2} gelöscht. Bitte prüfe die geplanten Änderungen, bevor du startest.</value></data>
+  <data name="Run_NoTargetReady" xml:space="preserve"><value>Kein Ziel ist erreichbar.</value></data>
+  <data name="Run_UpToDate" xml:space="preserve"><value>Alles aktuell – keine Änderungen nötig.</value></data>
+  <data name="Run_Waiting" xml:space="preserve"><value>Wartet…</value></data>
+  <data name="Run_Deleting" xml:space="preserve"><value>Lösche…</value></data>
+  <data name="Run_Finishing" xml:space="preserve"><value>Schließe ab…</value></data>
+  <data name="Run_Copying" xml:space="preserve"><value>Kopiere…</value></data>
+  <data name="Run_ProgressDetail" xml:space="preserve"><value>{0} von {1} Schritten · {2} von {3} · {4}</value></data>
+  <data name="Run_TargetUnavailable" xml:space="preserve"><value>Nicht erreichbar – wird übersprungen</value></data>
+  <data name="Run_TargetReady" xml:space="preserve"><value>Bereit</value></data>
+  <data name="Run_PlanSummary" xml:space="preserve"><value>{0} neu · {1} geändert · {2} zu löschen · {3} unverändert · {4} zu kopieren</value></data>
+  <data name="Run_MoreActions" xml:space="preserve"><value>… und {0} weitere</value></data>
+  <data name="Run_TargetDoneErrors" xml:space="preserve"><value>Abgeschlossen mit {0} Fehlern</value></data>
+  <data name="Run_TargetDone" xml:space="preserve"><value>Abgeschlossen</value></data>
+  <data name="Run_ResultSummary" xml:space="preserve"><value>{0} kopiert · {1} aktualisiert · {2} gelöscht · {3} · {4}</value></data>
+  <data name="Run_TotalSummary" xml:space="preserve"><value>{0} kopiert, {1} aktualisiert, {2} gelöscht ({3}) in {4}.</value></data>
+  <data name="Run_SkippedTargets" xml:space="preserve"><value>{0} Ziel(e) übersprungen.</value></data>
+  <data name="Run_DeletionWarningBar.Title" xml:space="preserve"><value>Löschschutz</value></data>
+  <data name="Run_ErrorsExpander.Header" xml:space="preserve"><value>Fehler</value></data>
+  <data name="Run_ActionsExpander.Header" xml:space="preserve"><value>Geplante Änderungen</value></data>
+  <data name="Run_Cancel.Content" xml:space="preserve"><value>Abbrechen</value></data>
+  <data name="Run_Back.Content" xml:space="preserve"><value>Zurück zur Liste</value></data>
+  <data name="Run_Start.Content" xml:space="preserve"><value>Jetzt synchronisieren</value></data>
+  <data name="Action_CopyNew" xml:space="preserve"><value>Neu</value></data>
+  <data name="Action_Update" xml:space="preserve"><value>Geändert</value></data>
+  <data name="Action_DeleteFile" xml:space="preserve"><value>Löschen</value></data>
+  <data name="Action_DeleteDirectory" xml:space="preserve"><value>Ordner löschen</value></data>
+  <data name="Action_CreateDirectory" xml:space="preserve"><value>Ordner anlegen</value></data>
+  <data name="Dashboard_NoSchedule.Text" xml:space="preserve"><value>Noch kein Zeitplan</value></data>
 </root>

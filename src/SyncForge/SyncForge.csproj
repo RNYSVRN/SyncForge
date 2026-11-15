@@ -39,4 +39,8 @@
     <Content Include="Assets\**" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SyncForge.Core\SyncForge.Core.csproj" />
+  </ItemGroup>
+
 </Project>

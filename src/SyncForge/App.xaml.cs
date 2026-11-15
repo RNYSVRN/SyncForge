@@ -1,5 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
+using SyncForge.Core.Storage;
 using SyncForge.Services;
 using SyncForge.ViewModels;
 
@@ -18,13 +19,18 @@ public partial class App : Application
         Services = new ServiceCollection()
             .AddSingleton<SettingsService>()
             .AddSingleton<ThemeService>()
+            .AddSingleton(_ => new ProfileStore(SettingsService.DataDirectory))
             .AddTransient<SettingsViewModel>()
+            .AddTransient<ProfilesViewModel>()
+            .AddTransient<ProfileEditorViewModel>()
+            .AddTransient<SyncRunViewModel>()
             .BuildServiceProvider();
 
         // Sprache muss gesetzt sein, bevor XAML-Ressourcen geladen werden.
         var settings = Services.GetRequiredService<SettingsService>();
         settings.Load();
         Localization.ApplyLanguage(settings.Current.Language);
+        Services.GetRequiredService<ProfileStore>().Load();
 
         InitializeComponent();
 

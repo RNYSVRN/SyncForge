@@ -1,0 +1,167 @@
+using System.Collections.ObjectModel;
+using CommunityToolkit.Mvvm.ComponentModel;
+using SyncForge.Core.Engine;
+using SyncForge.Core.Models;
+using SyncForge.Core.Storage;
+using SyncForge.Services;
+
+namespace SyncForge.ViewModels;
+
+public sealed partial class TargetItemViewModel : ObservableObject
+{
+    public Guid Id { get; init; } = Guid.NewGuid();
+    [ObservableProperty] public partial string Path { get; set; } = string.Empty;
+    [ObservableProperty] public partial bool Enabled { get; set; } = true;
+}
+
+public sealed partial class ProfileEditorViewModel : ObservableObject
+{
+    private const double Megabyte = 1024 * 1024;
+    private readonly ProfileStore _store;
+    private SyncProfile _profile = new();
+
+    public ProfileEditorViewModel(ProfileStore store)
+    {
+        _store = store;
+    }
+
+    public ObservableCollection<TargetItemViewModel> Targets { get; } = [];
+
+    [ObservableProperty] public partial bool IsNew { get; set; }
+    [ObservableProperty] public partial string PageTitle { get; set; } = string.Empty;
+    [ObservableProperty] public partial string Name { get; set; } = string.Empty;
+    [ObservableProperty] public partial string SourcePath { get; set; } = string.Empty;
+    [ObservableProperty] public partial int ModeIndex { get; set; }
+    [ObservableProperty] public partial int CompareIndex { get; set; }
+    [ObservableProperty] public partial int MultiTargetIndex { get; set; }
+    [ObservableProperty] public partial bool VerifyAfterCopy { get; set; }
+    [ObservableProperty] public partial string ExcludePatterns { get; set; } = string.Empty;
+    [ObservableProperty] public partial string IncludePatterns { get; set; } = string.Empty;
+    [ObservableProperty] public partial bool ExcludeHidden { get; set; }
+    [ObservableProperty] public partial bool ExcludeSystem { get; set; }
+    [ObservableProperty] public partial double MinSizeMb { get; set; }
+    [ObservableProperty] public partial double MaxSizeMb { get; set; }
+    [ObservableProperty] public partial bool DeleteToRecycleBin { get; set; }
+    [ObservableProperty] public partial double DeletionProtectionPercent { get; set; }
+    [ObservableProperty] public partial string ValidationMessage { get; set; } = string.Empty;
+    [ObservableProperty] public partial bool HasValidationMessage { get; set; }
+
+    public void Load(Guid? id)
+    {
+        var existing = id is { } guid ? _store.Get(guid) : null;
+        IsNew = existing is null;
+        _profile = existing?.Clone() ?? new SyncProfile();
+        PageTitle = Localization.Get(IsNew ? "Editor_TitleNew" : "Editor_TitleEdit");
+
+        Name = _profile.Name;
+        SourcePath = _profile.SourcePath;
+        ModeIndex = (int)_profile.Mode;
+        CompareIndex = (int)_profile.CompareMode;
+        MultiTargetIndex = (int)_profile.MultiTargetMode;
+        VerifyAfterCopy = _profile.VerifyAfterCopy;
+        ExcludePatterns = string.Join(Environment.NewLine, _profile.Filter.ExcludePatterns);
+        IncludePatterns = string.Join(Environment.NewLine, _profile.Filter.IncludePatterns);
+        ExcludeHidden = _profile.Filter.ExcludeHidden;
+        ExcludeSystem = _profile.Filter.ExcludeSystem;
+        MinSizeMb = _profile.Filter.MinSizeBytes / Megabyte;
+        MaxSizeMb = _profile.Filter.MaxSizeBytes / Megabyte;
+        DeleteToRecycleBin = _profile.DeleteToRecycleBin;
+        DeletionProtectionPercent = _profile.DeletionProtectionPercent;
+
+        Targets.Clear();
+        foreach (var t in _profile.Targets) Targets.Add(new TargetItemViewModel { Id = t.Id, Path = t.Path, Enabled = t.Enabled });
+        if (Targets.Count == 0) Targets.Add(new TargetItemViewModel());
+    }
+
+    public void AddTarget(string path = "") => Targets.Add(new TargetItemViewModel { Path = path });
+
+    public void RemoveTarget(TargetItemViewModel target)
+    {
+        Targets.Remove(target);
+        if (Targets.Count == 0) Targets.Add(new TargetItemViewModel());
+    }
+
+    /// <summary>Prüft die Eingaben und speichert. Gibt die Profil-Id zurück oder null bei Fehlern.</summary>
+    public Guid? Save()
+    {
+        var error = Validate();
+        ValidationMessage = error ?? string.Empty;
+        HasValidationMessage = error is not null;
+        if (error is not null) return null;
+
+        _profile.Name = Name.Trim();
+        _profile.SourcePath = NormalizePath(SourcePath);
+        _profile.Mode = (SyncMode)ModeIndex;
+        _profile.CompareMode = (CompareMode)CompareIndex;
+        _profile.MultiTargetMode = (MultiTargetMode)MultiTargetIndex;
+        _profile.VerifyAfterCopy = VerifyAfterCopy;
+        _profile.Filter = new FilterSettings
+        {
+            ExcludePatterns = SplitLines(ExcludePatterns),
+            IncludePatterns = SplitLines(IncludePatterns),
+            ExcludeHidden = ExcludeHidden,
+            ExcludeSystem = ExcludeSystem,
+            MinSizeBytes = ToBytes(MinSizeMb),
+            MaxSizeBytes = ToBytes(MaxSizeMb)
+        };
+        _profile.DeleteToRecycleBin = DeleteToRecycleBin;
+        _profile.DeletionProtectionPercent = double.IsNaN(DeletionProtectionPercent) ? 25 : (int)Math.Clamp(DeletionProtectionPercent, 0, 100);
+        _profile.Targets = Targets
+            .Where(t => !string.IsNullOrWhiteSpace(t.Path))
+            .Select(t => new SyncTarget { Id = t.Id, Path = NormalizePath(t.Path), Enabled = t.Enabled })
+            .ToList();
+
+        _store.Save(_profile);
+        return _profile.Id;
+    }
+
+    private string? Validate()
+    {
+        if (string.IsNullOrWhiteSpace(Name)) return Localization.Get("Editor_ErrorName");
+        if (string.IsNullOrWhiteSpace(SourcePath)) return Localization.Get("Editor_ErrorSourceEmpty");
+        if (!IsValidPath(SourcePath)) return Localization.Get("Editor_ErrorPathInvalid");
+        if (!Directory.Exists(SourcePath)) return Localization.Get("Editor_ErrorSourceMissing");
+
+        var targets = Targets.Where(t => !string.IsNullOrWhiteSpace(t.Path)).ToList();
+        if (targets.Count == 0) return Localization.Get("Editor_ErrorNoTarget");
+
+        foreach (var t in targets)
+        {
+            if (!IsValidPath(t.Path)) return Localization.Get("Editor_ErrorPathInvalid") + " " + t.Path;
+            try
+            {
+                SyncPlanner.ValidatePaths(SourcePath, t.Path);
+            }
+            catch (SyncValidationException ex)
+            {
+                return Localization.Get("Validation_" + ex.Error) + " " + t.Path;
+            }
+        }
+
+        var duplicates = targets.GroupBy(t => NormalizePath(t.Path), StringComparer.OrdinalIgnoreCase).FirstOrDefault(g => g.Count() > 1);
+        if (duplicates is not null) return Localization.Get("Editor_ErrorDuplicateTarget") + " " + duplicates.Key;
+
+        if (MaxSizeMb > 0 && MinSizeMb > MaxSizeMb) return Localization.Get("Editor_ErrorSizeRange");
+        return null;
+    }
+
+    private static bool IsValidPath(string path)
+    {
+        try
+        {
+            return System.IO.Path.IsPathFullyQualified(path.Trim()) && System.IO.Path.GetFullPath(path.Trim()).Length > 0;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    private static string NormalizePath(string path) =>
+        System.IO.Path.TrimEndingDirectorySeparator(System.IO.Path.GetFullPath(path.Trim()));
+
+    private static List<string> SplitLines(string text) =>
+        text.Split(['\r', '\n'], StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).ToList();
+
+    private static long ToBytes(double mb) => double.IsNaN(mb) || mb <= 0 ? 0 : (long)(mb * Megabyte);
+}

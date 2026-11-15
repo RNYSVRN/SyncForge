@@ -62,3 +62,126 @@ TitleBar_PaneToggle.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip;Nav
 TitleBar_PaneToggle.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Navigation umschalten;Toggle navigation
 Toggle_On;Ein;On
 Toggle_Off;Aus;Off
+Profiles_Preview.Content;Vorschau;Preview
+Profiles_SyncNow.Content;Synchronisieren;Sync now
+Profiles_More.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip;Weitere Optionen;More options
+Profiles_Edit.Text;Bearbeiten;Edit
+Profiles_Duplicate.Text;Duplizieren;Duplicate
+Profiles_Delete.Text;Löschen;Delete
+Profiles_EmptyAdd.Content;Erstes Profil anlegen;Create first profile
+Profiles_RouteOne;{0}  →  1 Ziel;{0}  →  1 destination
+Profiles_RouteMany;{0}  →  {1} Ziele;{0}  →  {1} destinations
+Profiles_LastRun;Zuletzt: {0} ({1});Last run: {0} ({1})
+Profiles_NeverRun;Noch nie synchronisiert;Never synced
+Profiles_CopyName;{0} (Kopie);{0} (copy)
+Profiles_DeleteTitle;Profil löschen?;Delete profile?
+Profiles_DeleteText;Das Profil „{0}“ wird entfernt. Dateien in Quelle und Zielen bleiben unverändert.;The profile “{0}” will be removed. Files in the source and destinations are not touched.
+Common_Delete;Löschen;Delete
+Common_Cancel;Abbrechen;Cancel
+Common_CancelButton.Content;Abbrechen;Cancel
+Mode_Mirror;Spiegeln;Mirror
+Mode_Versioned;Versioniert;Versioned
+Mode_TwoWay;Zwei-Wege;Two-way
+Status_Success;Erfolgreich;Successful
+Status_Warning;Mit Warnungen;With warnings
+Status_Error;Fehlgeschlagen;Failed
+Status_Cancelled;Abgebrochen;Cancelled
+Status_None;–;–
+Editor_TitleNew;Neues Profil;New profile
+Editor_TitleEdit;Profil bearbeiten;Edit profile
+Editor_SectionGeneral.Text;Allgemein;General
+Editor_Name.Header;Name;Name
+Editor_Name.Description;Wird in der Liste und in Benachrichtigungen angezeigt.;Shown in the list and in notifications.
+Editor_NameBox.PlaceholderText;z. B. Dokumente auf NAS;e.g. Documents to NAS
+Editor_SectionSource.Text;Quelle;Source
+Editor_Source.Header;Quellordner;Source folder
+Editor_Source.Description;Dieser Ordner wird mit allen Unterordnern synchronisiert.;This folder is synced including all subfolders.
+Editor_PathBox.PlaceholderText;C:\Users\Name\Documents;C:\Users\Name\Documents
+Editor_Browse.Content;Durchsuchen…;Browse…
+Editor_SectionTargets.Text;Ziele;Destinations
+Editor_Targets.Header;Zielordner;Destination folders
+Editor_Targets.Description;Lokale Laufwerke, USB-Laufwerke, Netzwerkfreigaben (\\server\freigabe) oder Cloud-Ordner.;Local drives, USB drives, network shares (\\server\share) or cloud folders.
+Editor_AddTargetText.Text;Ziel hinzufügen;Add destination
+Editor_BrowseTarget.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip;Durchsuchen;Browse
+Editor_TargetEnabled.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip;Ziel aktiv;Destination enabled
+Editor_RemoveTarget.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip;Ziel entfernen;Remove destination
+Editor_MultiTarget.Header;Mehrere Ziele;Multiple destinations
+Editor_MultiTarget.Description;Ziele nacheinander oder gleichzeitig synchronisieren. Nicht erreichbare Ziele werden übersprungen.;Sync destinations one after another or at the same time. Unreachable destinations are skipped.
+MultiTarget_Sequential.Content;Nacheinander;One after another
+MultiTarget_Parallel.Content;Gleichzeitig;At the same time
+Editor_SectionSync.Text;Synchronisierung;Synchronization
+Editor_Mode.Header;Modus;Mode
+Editor_Mode.Description;Spiegeln: Das Ziel wird zur exakten Kopie der Quelle, inklusive Löschungen.;Mirror: the destination becomes an exact copy of the source, including deletions.
+Mode_MirrorItem.Content;Spiegeln;Mirror
+Mode_VersionedItem.Content;Versioniert (folgt);Versioned (coming soon)
+Mode_TwoWayItem.Content;Zwei-Wege (folgt);Two-way (coming soon)
+Editor_Compare.Header;Änderungen erkennen;Detect changes
+Editor_Compare.Description;Inhaltsvergleich findet auch Änderungen ohne neues Datum, ist aber deutlich langsamer.;Content comparison also finds changes without a new date, but is much slower.
+Compare_SizeDate.Content;Größe und Datum;Size and date
+Compare_Content.Content;Größe und Inhalt (Prüfsumme);Size and content (checksum)
+Editor_Verify.Header;Kopien prüfen;Verify copies
+Editor_Verify.Description;Jede kopierte Datei per Prüfsumme mit der Quelle vergleichen.;Compare every copied file with the source using a checksum.
+Editor_SectionFilter.Text;Filter;Filters
+Editor_Filter.Header;Ein- und Ausschlüsse;Includes and excludes
+Editor_Filter.Description;Ausgeschlossene Dateien werden weder kopiert noch im Ziel gelöscht.;Excluded files are neither copied nor deleted in the destination.
+Editor_Exclude.Header;Ausschließen;Exclude
+Editor_Exclude.Description;Ein Muster pro Zeile, z. B. *.tmp, node_modules\ oder Projekte\**\bin\;One pattern per line, e.g. *.tmp, node_modules\ or Projects\**\bin\
+Editor_Include.Header;Nur einschließen;Include only
+Editor_Include.Description;Leer = alle Dateien. Sonst nur Dateien, die einem Muster entsprechen, z. B. *.jpg;Empty = all files. Otherwise only files matching a pattern, e.g. *.jpg
+Editor_ExcludeHidden.Header;Versteckte Dateien ausschließen;Exclude hidden files
+Editor_ExcludeSystem.Header;Systemdateien ausschließen;Exclude system files
+Editor_MinSize.Header;Mindestgröße (MB);Minimum size (MB)
+Editor_MinSize.Description;0 = keine Grenze;0 = no limit
+Editor_MaxSize.Header;Höchstgröße (MB);Maximum size (MB)
+Editor_MaxSize.Description;0 = keine Grenze;0 = no limit
+Editor_SectionSafety.Text;Sicherheit;Safety
+Editor_RecycleBin.Header;Gelöschte Dateien in den Papierkorb;Move deleted files to the Recycle Bin
+Editor_RecycleBin.Description;Nur auf lokalen Laufwerken möglich. Auf Netzlaufwerken wird endgültig gelöscht.;Only possible on local drives. On network drives files are deleted permanently.
+Editor_DeletionProtection.Header;Löschschutz (%);Deletion protection (%)
+Editor_DeletionProtection.Description;Vor dem Lauf warnen, wenn mehr als dieser Anteil der Dateien im Ziel gelöscht würde. 0 = aus.;Warn before the run if more than this share of files in the destination would be deleted. 0 = off.
+Editor_Save.Content;Speichern;Save
+Editor_ErrorName;Bitte gib einen Namen ein.;Please enter a name.
+Editor_ErrorSourceEmpty;Bitte wähle einen Quellordner.;Please choose a source folder.
+Editor_ErrorPathInvalid;Ungültiger Pfad:;Invalid path:
+Editor_ErrorSourceMissing;Der Quellordner existiert nicht.;The source folder does not exist.
+Editor_ErrorNoTarget;Bitte füge mindestens ein Ziel hinzu.;Please add at least one destination.
+Editor_ErrorDuplicateTarget;Ziel ist doppelt eingetragen:;Destination is listed twice:
+Editor_ErrorSizeRange;Die Mindestgröße ist größer als die Höchstgröße.;The minimum size is larger than the maximum size.
+Validation_SourceMissing;Quellordner nicht gefunden:;Source folder not found:
+Validation_TargetEqualsSource;Ziel und Quelle sind identisch:;Destination equals the source:
+Validation_TargetInsideSource;Das Ziel liegt innerhalb der Quelle:;The destination is inside the source:
+Validation_SourceInsideTarget;Die Quelle liegt innerhalb des Ziels:;The source is inside the destination:
+Validation_TargetUnavailable;Ziel nicht erreichbar;Destination not reachable
+Run_ProfileMissing;Das Profil wurde nicht gefunden.;The profile was not found.
+Run_Analyzing;Analysiere…;Analyzing…
+Run_Comparing;Vergleiche Inhalte… {0} von {1} Dateien;Comparing contents… {0} of {1} files
+Run_Scanning;Lese Ordner… {0} Einträge;Reading folders… {0} items
+Run_DeletionWarning;{0} Dateien ({1} %) würden in {2} gelöscht. Bitte prüfe die geplanten Änderungen, bevor du startest.;{0} files ({1} %) would be deleted in {2}. Please review the planned changes before you start.
+Run_NoTargetReady;Kein Ziel ist erreichbar.;No destination is reachable.
+Run_UpToDate;Alles aktuell – keine Änderungen nötig.;Everything is up to date – no changes needed.
+Run_Waiting;Wartet…;Waiting…
+Run_Deleting;Lösche…;Deleting…
+Run_Finishing;Schließe ab…;Finishing…
+Run_Copying;Kopiere…;Copying…
+Run_ProgressDetail;{0} von {1} Schritten · {2} von {3} · {4};{0} of {1} steps · {2} of {3} · {4}
+Run_TargetUnavailable;Nicht erreichbar – wird übersprungen;Not reachable – will be skipped
+Run_TargetReady;Bereit;Ready
+Run_PlanSummary;{0} neu · {1} geändert · {2} zu löschen · {3} unverändert · {4} zu kopieren;{0} new · {1} changed · {2} to delete · {3} unchanged · {4} to copy
+Run_MoreActions;… und {0} weitere;… and {0} more
+Run_TargetDoneErrors;Abgeschlossen mit {0} Fehlern;Finished with {0} errors
+Run_TargetDone;Abgeschlossen;Finished
+Run_ResultSummary;{0} kopiert · {1} aktualisiert · {2} gelöscht · {3} · {4};{0} copied · {1} updated · {2} deleted · {3} · {4}
+Run_TotalSummary;{0} kopiert, {1} aktualisiert, {2} gelöscht ({3}) in {4}.;{0} copied, {1} updated, {2} deleted ({3}) in {4}.
+Run_SkippedTargets;{0} Ziel(e) übersprungen.;{0} destination(s) skipped.
+Run_DeletionWarningBar.Title;Löschschutz;Deletion protection
+Run_ErrorsExpander.Header;Fehler;Errors
+Run_ActionsExpander.Header;Geplante Änderungen;Planned changes
+Run_Cancel.Content;Abbrechen;Cancel
+Run_Back.Content;Zurück zur Liste;Back to list
+Run_Start.Content;Jetzt synchronisieren;Sync now
+Action_CopyNew;Neu;New
+Action_Update;Geändert;Changed
+Action_DeleteFile;Löschen;Delete
+Action_DeleteDirectory;Ordner löschen;Delete folder
+Action_CreateDirectory;Ordner anlegen;Create folder
+Dashboard_NoSchedule.Text;Noch kein Zeitplan;No schedule yet
