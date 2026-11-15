@@ -1,4 +1,4 @@
-namespace SyncForge.Core.Engine;
+﻿namespace SyncForge.Core.Engine;
 
 public enum SyncPhase
 {
@@ -51,6 +51,8 @@ public sealed class SyncResult
     /// Netzwerk getrennt). Der Lauf wurde dann geordnet beendet.
     /// </summary>
     public string? LostRoot { get; set; }
+    /// <summary>Gesperrte Dateien, die aus einer Schattenkopie gesichert wurden.</summary>
+    public int ShadowCopiedFiles { get; set; }
     public long BytesCopied { get; set; }
     public TimeSpan Duration { get; set; }
     public bool Cancelled { get; set; }

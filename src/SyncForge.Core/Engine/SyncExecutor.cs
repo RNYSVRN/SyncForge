@@ -1,4 +1,4 @@
-using System.Buffers;
+﻿using System.Buffers;
 using System.Diagnostics;
 using SyncForge.Core.Versioning;
 
@@ -14,6 +14,9 @@ public sealed class SyncExecutorOptions
 
     /// <summary>Überschriebene/gelöschte Dateien in den Versionsordner verschieben statt löschen.</summary>
     public bool KeepVersions { get; init; }
+
+    /// <summary>Dauerhaft gesperrte Quelldateien aus einer Volumeschattenkopie lesen (nur mit Administratorrechten).</summary>
+    public bool UseShadowCopy { get; init; }
     public int VersionsToKeep { get; init; } = 10;
     public int VersionMaxAgeDays { get; init; } = 90;
 }
@@ -121,17 +124,19 @@ public sealed class SyncExecutor
                 reporter.ItemDone(action.RelativePath, SyncPhase.Copying);
             }
 
-            // 2. Dateien kopieren (parallel)
+            // 2. Dateien kopieren (parallel). Schattenkopien entstehen erst, wenn eine Datei gesperrt bleibt.
             var copies = plan.Actions.Where(a => a.IsCopy).ToList();
+            using var shadow = _options.UseShadowCopy && ShadowCopySession.IsAvailable ? new ShadowCopySession() : null;
             await Parallel.ForEachAsync(copies,
                 new ParallelOptions { MaxDegreeOfParallelism = Math.Clamp(_options.MaxParallelCopies, 1, 16), CancellationToken = ct },
                 async (action, token) =>
                 {
                     try
                     {
-                        await CopyFileAsync(plan, action, reporter, token);
+                        var fromSnapshot = await CopyFileAsync(plan, action, reporter, token, shadow);
                         lock (result)
                         {
+                            if (fromSnapshot) result.ShadowCopiedFiles++;
                             if (action.Kind == SyncActionKind.CopyNew) result.Copied++;
                             else result.Updated++;
                             result.BytesCopied += action.Size;
@@ -260,26 +265,55 @@ public sealed class SyncExecutor
 
     private static readonly TimeSpan[] LockRetryDelays = [TimeSpan.FromMilliseconds(250), TimeSpan.FromMilliseconds(750), TimeSpan.FromMilliseconds(1500)];
 
-    private async Task CopyFileAsync(SyncPlan plan, SyncAction action, ProgressReporter reporter, CancellationToken ct)
+    /// <returns>True, wenn die Datei aus einer Schattenkopie gelesen wurde.</returns>
+    private async Task<bool> CopyFileAsync(SyncPlan plan, SyncAction action, ProgressReporter reporter, CancellationToken ct,
+        ShadowCopySession? shadow = null)
     {
-        for (var attempt = 0; ; attempt++)
+        try
         {
-            try
+            for (var attempt = 0; ; attempt++)
             {
-                await CopyFileOnceAsync(plan, action, reporter, ct);
-                return;
+                try
+                {
+                    await CopyFileOnceAsync(plan, action, reporter, ct);
+                    return false;
+                }
+                catch (Exception ex) when (attempt < LockRetryDelays.Length && IsSharingViolation(ex))
+                {
+                    await Task.Delay(LockRetryDelays[attempt], ct);
+                }
             }
-            catch (Exception ex) when (attempt < LockRetryDelays.Length && IsSharingViolation(ex))
-            {
-                await Task.Delay(LockRetryDelays[attempt], ct);
-            }
+        }
+        catch (Exception ex) when (shadow is not null && IsSharingViolation(ex))
+        {
+            // Dauerhaft gesperrt (z. B. Outlook-Datendatei): aus einer Momentaufnahme des Laufwerks lesen.
+            // Nur wenn wirklich die Quelle gesperrt ist; eine gesperrte Zieldatei hilft keine Schattenkopie.
+            var source = Path.Combine(OtherRoot(plan, action.Side), action.RelativePath);
+            if (CanRead(source) || await shadow.TranslateAsync(source, ct) is not { } snapshotPath) throw;
+            await CopyFileOnceAsync(plan, action, reporter, ct, snapshotPath);
+            return true;
         }
     }
 
-    private async Task CopyFileOnceAsync(SyncPlan plan, SyncAction action, ProgressReporter reporter, CancellationToken ct)
+    private static bool CanRead(string path)
+    {
+        try
+        {
+            using var _ = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete);
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    /// <param name="readFrom">Andere Lesequelle für dieselbe Datei (Pfad in einer Schattenkopie).</param>
+    private async Task CopyFileOnceAsync(SyncPlan plan, SyncAction action, ProgressReporter reporter, CancellationToken ct,
+        string? readFrom = null)
     {
         var toRoot = RootOf(plan, action.Side);
-        var source = Path.Combine(OtherRoot(plan, action.Side), action.RelativePath);
+        var source = readFrom ?? Path.Combine(OtherRoot(plan, action.Side), action.RelativePath);
         var target = Path.Combine(toRoot, action.RelativePath);
         var targetDir = Path.GetDirectoryName(target)!;
         if (!_knownDirectories.ContainsKey(targetDir))

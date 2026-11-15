@@ -11,7 +11,7 @@ Benutzername oder Kennwort stimmen nicht (mehr), etwa nach einer Kennwortänderu
 
 ## Eine Datei konnte nicht kopiert werden
 
-Meist ist sie gerade in einem anderen Programm geöffnet (z. B. Outlook-Datendateien). Kurze Sperren, etwa durch einen Virenscanner, wartet SyncForge ab und versucht es mehrmals. Bleibt die Datei gesperrt, schließe das Programm; die Datei wird beim nächsten Lauf kopiert. Die genaue Meldung steht in der Historie unter **Fehler**.
+Meist ist sie gerade in einem anderen Programm geöffnet (z. B. Outlook-Datendateien). Kurze Sperren, etwa durch einen Virenscanner, wartet SyncForge ab und versucht es mehrmals. Bleibt die Datei gesperrt, schließe das Programm; die Datei wird beim nächsten Lauf kopiert. Für Dateien, die dauerhaft gesperrt sind (z. B. Outlook), gibt es die Option **Gesperrte Dateien über Schattenkopie lesen** (siehe **Automatisierung**). Die genaue Meldung steht in der Historie unter **Fehler**.
 
 ## Ordner konnten nicht gelesen werden
 

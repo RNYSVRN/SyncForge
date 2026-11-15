@@ -62,6 +62,9 @@ $components = @(
     @{ Id = 'sqlite'; Name = 'SQLite'; Main = 'sqlitepclraw.lib.e_sqlite3'
        Authors = 'D. Richard Hipp and contributors'; License = 'Public Domain'; Url = 'https://www.sqlite.org'
        Template = 'SQLite-PublicDomain.txt'; Version = 'runtime' },  # SQLite-Version ermittelt die App
+    @{ Id = 'system-management'; Name = 'System.Management'; Main = 'system.management'; Prefix = 'system.management|system.codedom'
+       Authors = 'Microsoft Corporation'; License = 'MIT'; Url = 'https://github.com/dotnet/runtime'
+       Template = 'MIT.txt'; Copyright = 'Copyright (c) .NET Foundation and Contributors'; Files = @('^THIRD-PARTY-NOTICES\.TXT$') },
     @{ Id = 'system-numerics-tensors'; Name = 'System.Numerics.Tensors'; Main = 'system.numerics.tensors'
        Authors = 'Microsoft Corporation'; License = 'MIT'; Url = 'https://github.com/dotnet/runtime'
        Files = @('^LICENSE\.TXT$', '^THIRD-PARTY-NOTICES\.TXT$') },

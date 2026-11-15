@@ -1,4 +1,4 @@
-namespace SyncForge.Core.Models;
+﻿namespace SyncForge.Core.Models;
 
 public enum SyncMode
 {
@@ -128,6 +128,9 @@ public sealed class SyncProfile
 
     /// <summary>Gelöschte Dateien in den Papierkorb verschieben (nur lokale Laufwerke).</summary>
     public bool DeleteToRecycleBin { get; set; } = true;
+
+    /// <summary>Dauerhaft gesperrte Dateien (z. B. Outlook) aus einer Volumeschattenkopie lesen. Wirkt nur mit Administratorrechten.</summary>
+    public bool UseShadowCopy { get; set; }
 
     /// <summary>Warnen, wenn mehr als dieser Anteil (%) der Zieldateien gelöscht würde. 0 = aus.</summary>
     public int DeletionProtectionPercent { get; set; } = 25;

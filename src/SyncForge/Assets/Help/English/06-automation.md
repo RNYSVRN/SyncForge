@@ -47,3 +47,16 @@ For scripts or the Windows Task Scheduler, SyncForge can also run without a wind
 The run appears in the history as **Command line**. If SyncForge is already open, the open program takes over the sync and shows its progress. The exit code tells scripts the result: 0 success, 1 warning, 2 error, 3 cancelled, 4 profile not found, 5 invalid arguments, 6 already running.
 
 > Tip: In the Task Scheduler, enter the path to `SyncForge.exe` as the program (after installation in `%LOCALAPPDATA%\Programs\SyncForge`) and, for example, `--run "Documents"` as arguments.
+
+## Backing up locked files (shadow copy)
+
+Some programs keep their files locked, for example Outlook its data files (.pst). In the profile, turn on **Read locked files via shadow copy** under **Safety**. If a file stays locked after several attempts, SyncForge creates a snapshot of the drive (volume shadow copy), copies the file from it and deletes the snapshot after the run.
+
+Windows only allows shadow copies with **administrator rights**. To have this work automatically without a prompt, set up a task:
+
+1. Open the **Task Scheduler** and choose **Create Task**.
+2. Under **General**: enter a name and tick **Run with highest privileges**.
+3. Under **Triggers**: e.g. daily at 10:00 PM.
+4. Under **Actions**: program `SyncForge.exe` (after installation in `%LOCALAPPDATA%\Programs\SyncForge`), arguments `--run "Profile name"`.
+
+Without administrator rights the option has no effect: locked files are reported as errors as before and retried on the next run.

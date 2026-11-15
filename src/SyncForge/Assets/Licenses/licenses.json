@@ -111,6 +111,19 @@
                      ]
     },
     {
+        "id":  "system-management",
+        "name":  "System.Management",
+        "version":  "10.0.15",
+        "authors":  "Microsoft Corporation",
+        "license":  "MIT",
+        "url":  "https://github.com/dotnet/runtime",
+        "file":  "system-management.txt",
+        "packages":  [
+                         "system.codedom",
+                         "system.management"
+                     ]
+    },
+    {
         "id":  "dotnet",
         "name":  ".NET Runtime",
         "version":  "runtime",

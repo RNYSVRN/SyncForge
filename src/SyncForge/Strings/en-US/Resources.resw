@@ -552,4 +552,9 @@
   <data name="Cli_AlreadyRunning" xml:space="preserve"><value>{0}: already running.</value></data>
   <data name="Cli_Result" xml:space="preserve"><value>{0}: {1}. {2}</value></data>
   <data name="Cli_HandedOver" xml:space="preserve"><value>Handed over to the open SyncForge. Progress and result are shown there and in the history.</value></data>
+  <data name="Editor_ShadowCopy.Header" xml:space="preserve"><value>Read locked files via shadow copy</value></data>
+  <data name="Editor_ShadowCopy.Description" xml:space="preserve"><value>For files a program keeps locked (e.g. Outlook data files). Requires administrator rights.</value></data>
+  <data name="Editor_ShadowCopyHint.Title" xml:space="preserve"><value>Only works with administrator rights</value></data>
+  <data name="Editor_ShadowCopyHint.Message" xml:space="preserve"><value>SyncForge is currently running without them. Set up a task for this profile in the Windows Task Scheduler (Run with highest privileges, arguments: --run &quot;Profile name&quot;). Details are in the help under Automation.</value></data>
+  <data name="Run_ShadowCopied" xml:space="preserve"><value>{0} locked file(s) backed up from a shadow copy.</value></data>
 </root>
