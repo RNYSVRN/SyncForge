@@ -48,6 +48,15 @@ public sealed partial class ProfileEditorPage : Page
         else ViewModel.AddTarget(path);
     }
 
+    private async void SourceCredentials_Click(object sender, RoutedEventArgs e) =>
+        await NetworkCredentialDialog.ShowAsync(this, ViewModel.SourcePath);
+
+    private async void TargetCredentials_Click(object sender, RoutedEventArgs e)
+    {
+        if ((sender as FrameworkElement)?.Tag is ViewModels.TargetItemViewModel target)
+            await NetworkCredentialDialog.ShowAsync(this, target.Path);
+    }
+
     private void RemoveTarget_Click(object sender, RoutedEventArgs e)
     {
         if ((sender as FrameworkElement)?.Tag is TargetItemViewModel target) ViewModel.RemoveTarget(target);

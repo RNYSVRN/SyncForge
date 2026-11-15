@@ -388,4 +388,20 @@
   <data name="Update_NotifyText" xml:space="preserve"><value>The download page has the installer and the release notes.</value></data>
   <data name="Support_RateLink.Content" xml:space="preserve"><value>SyncForge on GitHub</value></data>
   <data name="Support_FeedbackLink.Content" xml:space="preserve"><value>Open an issue</value></data>
+  <data name="Editor_Credentials.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve"><value>Credentials for the network share</value></data>
+  <data name="Editor_Credentials.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Credentials</value></data>
+  <data name="Editor_ErrorSourceNetwork" xml:space="preserve"><value>Network share not reachable. Is the server switched on? If needed, enter credentials using the key icon.</value></data>
+  <data name="Credentials_Title" xml:space="preserve"><value>Credentials for the network share</value></data>
+  <data name="Credentials_Text" xml:space="preserve"><value>SyncForge signs in to {0} with these details. They are stored securely in the Windows Credential Manager and apply to all profiles using this share.</value></data>
+  <data name="Credentials_User" xml:space="preserve"><value>User name</value></data>
+  <data name="Credentials_UserPlaceholder" xml:space="preserve"><value>e.g. NAS\user or user</value></data>
+  <data name="Credentials_Password" xml:space="preserve"><value>Password</value></data>
+  <data name="Credentials_Save" xml:space="preserve"><value>Test and save</value></data>
+  <data name="Credentials_Remove" xml:space="preserve"><value>Remove credentials</value></data>
+  <data name="Credentials_Missing" xml:space="preserve"><value>Please enter user name and password.</value></data>
+  <data name="Credentials_ErrorLogon" xml:space="preserve"><value>Sign-in failed. Please check user name and password.</value></data>
+  <data name="Credentials_ErrorNotFound" xml:space="preserve"><value>{0} was not found. Is the server switched on and reachable on the network?</value></data>
+  <data name="Credentials_ErrorConflict" xml:space="preserve"><value>Windows is already connected to this server as a different user. Disconnect the existing connection (e.g. a mapped network drive) or use the same credentials.</value></data>
+  <data name="Validation_NetworkLogonFailed" xml:space="preserve"><value>Sign-in to the network share failed</value></data>
+  <data name="Validation_NetworkCredentialConflict" xml:space="preserve"><value>Network share: Windows is already connected as a different user</value></data>
 </root>

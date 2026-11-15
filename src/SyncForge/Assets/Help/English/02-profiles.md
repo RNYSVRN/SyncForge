@@ -29,6 +29,12 @@ Each destination can be enabled or disabled individually. A destination must not
 
 **Multiple destinations** are synced either **one after another** or **at the same time**. If a destination is not reachable (e.g. USB drive not plugged in), it is skipped; the other destinations are still backed up.
 
+## Network shares with sign-in
+
+If your NAS requires its own user name and password, a **key icon** appears next to a network path (`\\server\share\...`). Use it to enter the credentials. SyncForge tests them right away and stores them securely in the **Windows Credential Manager**, never in profiles or export files. They apply to all profiles using the same share.
+
+Before every run, SyncForge connects with them automatically, also for schedules and from the notification area. If the share is already reachable (for example because Windows is already connected), the stored credentials are not needed at all. You can remove them in the same dialog.
+
 ## USB drives are recognized by the drive itself
 
 For local and USB destinations, SyncForge stores the **serial number of the drive** when you save. If the drive gets a different drive letter next time, SyncForge still finds it. If a different drive is mounted under the old letter, it is never written to.

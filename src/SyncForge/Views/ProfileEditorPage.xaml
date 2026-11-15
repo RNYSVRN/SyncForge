@@ -38,9 +38,14 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <TextBox Text="{x:Bind ViewModel.SourcePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Uid="Editor_PathBox" PlaceholderText="C:\Benutzer\Name\Dokumente" />
-                            <Button Grid.Column="1" x:Uid="Editor_Browse" Content="Durchsuchen…" Click="BrowseSource_Click" />
+                            <Button Grid.Column="1" Click="SourceCredentials_Click" Visibility="{x:Bind ViewModel.SourceIsNetworkPath, Mode=OneWay}"
+                                    x:Uid="Editor_Credentials" ToolTipService.ToolTip="Anmeldedaten für die Netzwerkfreigabe">
+                                <FontIcon Glyph="&#xE8D7;" FontSize="16" />
+                            </Button>
+                            <Button Grid.Column="2" x:Uid="Editor_Browse" Content="Durchsuchen…" Click="BrowseSource_Click" />
                         </Grid>
                     </toolkit:SettingsCard>
 
@@ -66,15 +71,21 @@
                                                 <ColumnDefinition Width="Auto" />
                                                 <ColumnDefinition Width="Auto" />
                                                 <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="Auto" />
                                             </Grid.ColumnDefinitions>
                                             <TextBox Text="{x:Bind Path, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" PlaceholderText="D:\Backup" VerticalAlignment="Center" />
-                                            <Button Grid.Column="1" Tag="{x:Bind}" Click="BrowseTarget_Click" VerticalAlignment="Center"
+                                            <Button Grid.Column="1" Tag="{x:Bind}" Click="TargetCredentials_Click" VerticalAlignment="Center"
+                                                    Visibility="{x:Bind IsNetworkPath, Mode=OneWay}"
+                                                    x:Uid="Editor_Credentials" ToolTipService.ToolTip="Anmeldedaten für die Netzwerkfreigabe">
+                                                <FontIcon Glyph="&#xE8D7;" FontSize="16" />
+                                            </Button>
+                                            <Button Grid.Column="2" Tag="{x:Bind}" Click="BrowseTarget_Click" VerticalAlignment="Center"
                                                     x:Uid="Editor_BrowseTarget" ToolTipService.ToolTip="Durchsuchen">
                                                 <FontIcon Glyph="&#xED25;" FontSize="16" />
                                             </Button>
-                                            <ToggleSwitch Grid.Column="2" IsOn="{x:Bind Enabled, Mode=TwoWay}" MinWidth="0" VerticalAlignment="Center"
+                                            <ToggleSwitch Grid.Column="3" IsOn="{x:Bind Enabled, Mode=TwoWay}" MinWidth="0" VerticalAlignment="Center"
                                                           OnContent="" OffContent="" x:Uid="Editor_TargetEnabled" ToolTipService.ToolTip="Ziel aktiv" />
-                                            <Button Grid.Column="3" Tag="{x:Bind}" Click="RemoveTarget_Click" VerticalAlignment="Center"
+                                            <Button Grid.Column="4" Tag="{x:Bind}" Click="RemoveTarget_Click" VerticalAlignment="Center"
                                                     x:Uid="Editor_RemoveTarget" ToolTipService.ToolTip="Ziel entfernen">
                                                 <FontIcon Glyph="&#xE74D;" FontSize="16" />
                                             </Button>

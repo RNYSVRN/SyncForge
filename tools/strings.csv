@@ -382,3 +382,19 @@ Update_NotifyTitle;SyncForge {0} ist verfügbar;SyncForge {0} is available
 Update_NotifyText;Auf der Download-Seite findest du das Setup und die Neuerungen.;The download page has the installer and the release notes.
 Support_RateLink.Content;SyncForge auf GitHub;SyncForge on GitHub
 Support_FeedbackLink.Content;Issue erstellen;Open an issue
+Editor_Credentials.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip;Anmeldedaten für die Netzwerkfreigabe;Credentials for the network share
+Editor_Credentials.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Anmeldedaten;Credentials
+Editor_ErrorSourceNetwork;Netzwerkfreigabe nicht erreichbar. Ist der Server eingeschaltet? Falls nötig, hinterlege Anmeldedaten über das Schlüsselsymbol.;Network share not reachable. Is the server switched on? If needed, enter credentials using the key icon.
+Credentials_Title;Anmeldedaten für die Netzwerkfreigabe;Credentials for the network share
+Credentials_Text;SyncForge meldet sich mit diesen Daten an {0} an. Sie werden sicher in der Windows-Anmeldeinformationsverwaltung gespeichert und gelten für alle Profile mit dieser Freigabe.;SyncForge signs in to {0} with these details. They are stored securely in the Windows Credential Manager and apply to all profiles using this share.
+Credentials_User;Benutzername;User name
+Credentials_UserPlaceholder;z. B. NAS\benutzer oder benutzer;e.g. NAS\user or user
+Credentials_Password;Kennwort;Password
+Credentials_Save;Testen und speichern;Test and save
+Credentials_Remove;Anmeldedaten entfernen;Remove credentials
+Credentials_Missing;Bitte Benutzername und Kennwort eingeben.;Please enter user name and password.
+Credentials_ErrorLogon;Anmeldung fehlgeschlagen. Bitte Benutzername und Kennwort prüfen.;Sign-in failed. Please check user name and password.
+Credentials_ErrorNotFound;{0} wurde nicht gefunden. Ist der Server eingeschaltet und im Netzwerk erreichbar?;{0} was not found. Is the server switched on and reachable on the network?
+Credentials_ErrorConflict;Windows ist mit diesem Server bereits unter einem anderen Benutzer verbunden. Trenne die bestehende Verbindung (z. B. ein verbundenes Netzlaufwerk) oder verwende dieselben Anmeldedaten.;Windows is already connected to this server as a different user. Disconnect the existing connection (e.g. a mapped network drive) or use the same credentials.
+Validation_NetworkLogonFailed;Anmeldung an der Netzwerkfreigabe fehlgeschlagen;Sign-in to the network share failed
+Validation_NetworkCredentialConflict;Netzwerkfreigabe: Windows ist bereits unter einem anderen Benutzer verbunden;Network share: Windows is already connected as a different user

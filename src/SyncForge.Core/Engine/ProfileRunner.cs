@@ -1,4 +1,5 @@
-using SyncForge.Core.Models;
+﻿using SyncForge.Core.Models;
+using SyncForge.Core.Network;
 
 namespace SyncForge.Core.Engine;
 
@@ -57,6 +58,8 @@ public static class ProfileRunner
         string? stateDirectory = null, string conflictLabel = "Konflikt")
     {
         var analysis = new ProfileAnalysis { Profile = profile };
+        // Netzwerkfreigaben mit gespeicherten Anmeldedaten vorher verbinden (sonst wären sie "nicht vorhanden").
+        await Task.Run(() => NetworkShares.EnsureAccess(profile.SourcePath), ct);
         if (!Directory.Exists(profile.SourcePath))
         {
             analysis.SourceMissing = true;
@@ -71,6 +74,19 @@ public static class ProfileRunner
 
             // USB-/lokale Ziele über die Volume-ID finden (auch unter anderem Laufwerksbuchstaben).
             var path = VolumeResolver.Resolve(target.Path, target.VolumeSerial);
+            if (path is not null)
+            {
+                var access = await Task.Run(() => NetworkShares.EnsureAccess(path), ct);
+                if (access.Result is NetworkAccessResult.LogonFailure or NetworkAccessResult.CredentialConflict)
+                {
+                    ta.Status = TargetStatus.Unavailable;
+                    ta.ValidationError = access.Result == NetworkAccessResult.LogonFailure
+                        ? SyncValidationError.NetworkLogonFailed
+                        : SyncValidationError.NetworkCredentialConflict;
+                    ta.ErrorMessage = access.Message;
+                    continue;
+                }
+            }
             if (path is null || !IsTargetReachable(path))
             {
                 ta.Status = TargetStatus.Unavailable;
