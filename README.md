@@ -35,7 +35,14 @@ Ergebnis in `artifacts\release\`:
 - `SHA256SUMS.txt`: Prüfsummen für die Release-Beschreibung.
 - `winget\manifests\...`: winget-Manifest (Vorlagen in `installer\winget`), Prüfung mit `winget validate --manifest <Ordner>`.
 
-Ablauf:
+Ablauf mit GitHub Actions (`.github/workflows/build.yml`):
+- Jeder Push auf `main` und jeder Pull Request: Tests und Build.
+- Tag `vx.y.z` pushen (muss zur `<Version>` in der Projektdatei passen):
+  `git tag v0.5.0` und `git push origin v0.5.0`. Die Action baut Setup, ZIP und Prüfsummen, legt damit einen
+  **Release-Entwurf** an und stellt das winget-Manifest als Artefakt bereit. Auf GitHub die Neuerungen eintragen
+  und den Entwurf veröffentlichen.
+
+Ohne Action (lokal):
 1. GitHub Release mit dem Tag `vx.y.z` anlegen und Setup, ZIP und `SHA256SUMS.txt` anhängen.
 2. winget: Den Ordner `artifacts\release\winget\manifests\r\RonnySeverin\SyncForge\x.y.z` per Pull Request in
    [microsoft/winget-pkgs](https://github.com/microsoft/winget-pkgs) unter demselben Pfad einreichen

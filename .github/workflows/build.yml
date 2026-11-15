@@ -1,0 +1,108 @@
+# Baut und testet SyncForge bei jedem Push und Pull Request.
+# Ein Tag wie "v0.5.0" erstellt zusätzlich Setup, ZIP, Prüfsummen und winget-Manifest und legt damit
+# einen Release-Entwurf an. Veröffentlicht wird er erst, wenn du ihn auf GitHub freigibst.
+name: Build
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  DOTNET_NOLOGO: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+
+jobs:
+  build:
+    name: Build und Tests
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Tests
+        run: dotnet test --project tests/SyncForge.Core.Tests/SyncForge.Core.Tests.csproj -c Release
+
+      - name: App bauen (x64)
+        run: dotnet build SyncForge.sln -c Release -p:Platform=x64
+
+  release:
+    name: Release-Entwurf
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: windows-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Version prüfen (Tag = Version in SyncForge.csproj)
+        shell: pwsh
+        run: |
+          $version = ([xml](Get-Content src/SyncForge/SyncForge.csproj -Raw)).Project.PropertyGroup.Version | Where-Object { $_ } | Select-Object -First 1
+          $tag = '${{ github.ref_name }}'
+          if ("v$version" -ne $tag) { throw "Tag $tag passt nicht zur Version $version in SyncForge.csproj." }
+          "VERSION=$version" >> $env:GITHUB_ENV
+
+      - name: Inno Setup installieren
+        run: choco install innosetup --no-progress -y
+
+      - name: Setup, ZIP und Prüfsummen bauen
+        shell: pwsh
+        run: ./tools/Build-Release.ps1 -GitHubRepo '${{ github.repository }}'
+
+      - name: winget-Manifest als Artefakt
+        uses: actions/upload-artifact@v4
+        with:
+          name: winget-manifest-${{ env.VERSION }}
+          path: artifacts/release/winget/
+
+      - name: Release-Entwurf anlegen
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $files = @(
+            "artifacts/release/SyncForge-$env:VERSION-x64-Setup.exe",
+            "artifacts/release/SyncForge-$env:VERSION-x64.zip",
+            "artifacts/release/SHA256SUMS.txt"
+          )
+          $sums = (Get-Content artifacts/release/SHA256SUMS.txt -Raw).Trim()
+          $notes = @"
+          ## Neu in dieser Version
+
+          (Bitte vor dem Veröffentlichen ergänzen.)
+
+          ## Installation
+
+          - **SyncForge-$env:VERSION-x64-Setup.exe**: Installationsprogramm, ohne Administratorrechte.
+          - **SyncForge-$env:VERSION-x64.zip**: ohne Installation, entpacken und SyncForge.exe starten.
+
+          Die Dateien sind nicht signiert. Windows SmartScreen zeigt deshalb beim ersten Start einen Hinweis:
+          "Weitere Informationen" und dann "Trotzdem ausführen".
+
+          ## Prüfsummen (SHA-256)
+
+          ``````
+          $sums
+          ``````
+          "@
+          $notesFile = Join-Path $env:RUNNER_TEMP 'notes.md'
+          Set-Content $notesFile $notes -Encoding utf8
+          gh release create '${{ github.ref_name }}' @files --draft --title "SyncForge $env:VERSION" --notes-file $notesFile
