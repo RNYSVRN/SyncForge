@@ -119,6 +119,7 @@
         <Border Grid.Row="1" BorderThickness="0,1,0,0" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" Padding="36,16">
             <StackPanel MaxWidth="1000" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8">
                 <Button x:Uid="Run_Cancel" Content="Abbrechen" MinWidth="120" Click="Cancel_Click" Visibility="{x:Bind ViewModel.IsBusy, Mode=OneWay}" />
+                <Button x:Uid="Run_ShowDetails" Content="Details anzeigen" MinWidth="120" Click="Details_Click" Visibility="{x:Bind ViewModel.HasHistoryEntry, Mode=OneWay}" />
                 <Button x:Uid="Run_Back" Content="Zurück zur Liste" MinWidth="120" Click="Back_Click" Visibility="{x:Bind ViewModel.IsIdle, Mode=OneWay}" />
                 <Button x:Uid="Run_Start" Content="Jetzt synchronisieren" MinWidth="160" Style="{StaticResource AccentButtonStyle}"
                         Click="Start_Click" Visibility="{x:Bind ViewModel.IsReady, Mode=OneWay}" IsEnabled="{x:Bind ViewModel.CanStart, Mode=OneWay}" />

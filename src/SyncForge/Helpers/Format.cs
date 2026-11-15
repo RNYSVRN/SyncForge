@@ -50,6 +50,16 @@ public static class Format
         _ => "Status_None"
     });
 
+    /// <summary>Segoe-Fluent-Glyph für einen Laufstatus.</summary>
+    public static string StatusGlyph(RunStatus status) => status switch
+    {
+        RunStatus.Success => "",   // Häkchen
+        RunStatus.Warning => "",   // Warnung
+        RunStatus.Error => "",     // Fehler
+        RunStatus.Cancelled => "", // Abgebrochen
+        _ => ""                    // Sync
+    };
+
     /// <summary>Kultur passend zur UI-Sprache (für Zahlen- und Datumsformate).</summary>
     public static CultureInfo Culture
     {

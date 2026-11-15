@@ -26,6 +26,12 @@ public sealed record SyncProgress(
 
 public sealed record SyncError(string RelativePath, string Message);
 
+/// <summary>Protokolleintrag einer ausgeführten (oder fehlgeschlagenen) Dateiaktion.</summary>
+public sealed record SyncFileRecord(SyncActionKind Kind, string RelativePath, long Size, string? Error = null)
+{
+    public bool Failed => Error is not null;
+}
+
 /// <summary>Ergebnis der Ausführung eines Plans für ein Ziel.</summary>
 public sealed class SyncResult
 {
@@ -39,5 +45,7 @@ public sealed class SyncResult
     public TimeSpan Duration { get; set; }
     public bool Cancelled { get; set; }
     public List<SyncError> Errors { get; } = [];
+    /// <summary>Alle ausgeführten bzw. fehlgeschlagenen Aktionen in Ausführungsreihenfolge.</summary>
+    public List<SyncFileRecord> Files { get; } = [];
     public bool Success => !Cancelled && Errors.Count == 0;
 }

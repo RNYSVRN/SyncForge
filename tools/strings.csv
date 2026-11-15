@@ -185,3 +185,52 @@ Action_DeleteFile;Löschen;Delete
 Action_DeleteDirectory;Ordner löschen;Delete folder
 Action_CreateDirectory;Ordner anlegen;Create folder
 Dashboard_NoSchedule.Text;Noch kein Zeitplan;No schedule yet
+Run_HistoryFailed;Der Lauf konnte nicht in der Historie gespeichert werden: {0};The run could not be saved to the history: {0}
+Run_ShowDetails.Content;Details anzeigen;Show details
+History_ChartEmpty;Noch keine Daten;No data yet
+History_ChartTooltip;{0}: {1} übertragen, {2} Läufe;{0}: {1} transferred, {2} runs
+History_RunSummary;{0} kopiert · {1} aktualisiert · {2} gelöscht;{0} copied · {1} updated · {2} deleted
+History_RunErrors;{0} Fehler;{0} errors
+History_AllStatus;Alle Status;All statuses
+History_AllProfiles;Alle Profile;All profiles
+History_TileRuns.Text;Läufe (30 Tage);Runs (30 days)
+History_TileSuccess.Text;Erfolgsquote;Success rate
+History_TileBytes.Text;Übertragene Daten;Data transferred
+History_TileDuration.Text;Ø Dauer;Avg. duration
+History_ChartTitle.Text;Übertragene Daten pro Tag;Data transferred per day
+History_ChartSubtitle.Text;Letzte 30 Tage;Last 30 days
+History_RunsHeader.Text;Läufe;Runs
+History_NoMatches.Text;Keine Läufe für diesen Filter.;No runs match this filter.
+History_LoadMore.Content;Weitere laden;Load more
+History_ProfileFilter.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Profil;Profile
+History_StatusFilter.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Status;Status
+Detail_NotFound;Eintrag nicht gefunden;Entry not found
+Trigger_Manual;Manuell;Manual
+Trigger_Schedule;Zeitplan;Schedule
+Trigger_Watcher;Überwachung;Monitoring
+Trigger_Event;Ereignis;Event
+Detail_AllTargets;Alle Ziele;All destinations
+Detail_FilesCount;{0} Einträge;{0} entries
+Detail_FilesCountLimited;{0} Einträge – die ersten {1} werden angezeigt. Grenze die Suche ein.;{0} entries – showing the first {1}. Narrow down the search.
+Action_Deleted;Gelöscht;Deleted
+Action_DirectoryDeleted;Ordner gelöscht;Folder deleted
+Action_DirectoryCreated;Ordner angelegt;Folder created
+Detail_Delete.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip;Diesen Eintrag aus der Historie entfernen;Remove this entry from the history
+Detail_DeleteText.Text;Eintrag löschen;Delete entry
+Detail_OpenFolder.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip;Ordner öffnen;Open folder
+Detail_FilterAll.Text;Alle;All
+Detail_FilterNew.Text;Neu;New
+Detail_FilterUpdated.Text;Geändert;Changed
+Detail_FilterDeleted.Text;Gelöscht;Deleted
+Detail_FilterErrors.Text;Fehler;Errors
+Detail_Search.PlaceholderText;Dateien durchsuchen;Search files
+Detail_NoFiles.Text;Keine Einträge für diesen Filter.;No entries match this filter.
+Detail_DeleteTitle;Eintrag löschen?;Delete entry?
+Detail_DeleteConfirm;Der Lauf und seine Datei-Details werden aus der Historie entfernt. Die Dateien selbst bleiben unverändert.;The run and its file details will be removed from the history. The files themselves are not touched.
+Settings_ClearHistory.Header;Historie löschen;Clear history
+Settings_ClearHistory.Description;Entfernt alle gespeicherten Läufe und Datei-Details. Profile bleiben erhalten.;Removes all stored runs and file details. Profiles are kept.
+Settings_ClearHistoryButton.Content;Löschen…;Clear…
+Settings_ClearHistoryTitle;Historie löschen?;Clear history?
+Settings_ClearHistoryText;Alle gespeicherten Läufe und Datei-Details werden endgültig entfernt.;All stored runs and file details will be permanently removed.
+Detail_FilesCountOne;1 Eintrag;1 entry
+Run_TargetDoneOneError;Abgeschlossen mit 1 Fehler;Finished with 1 error

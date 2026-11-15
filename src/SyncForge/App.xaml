@@ -67,6 +67,30 @@
                 </Setter>
             </Style>
 
+            <!-- Diagramm (DailyBarChart): Farben über ThemeResource, damit sie dem App-Design folgen. -->
+            <Style x:Key="ChartBarStyle" TargetType="Border">
+                <Setter Property="Background" Value="{ThemeResource AccentFillColorDefaultBrush}" />
+                <Setter Property="CornerRadius" Value="4,4,0,0" />
+                <Setter Property="VerticalAlignment" Value="Bottom" />
+                <Setter Property="Margin" Value="1,0" />
+            </Style>
+            <Style x:Key="ChartColumnStyle" TargetType="Border">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="CornerRadius" Value="4" />
+            </Style>
+            <Style x:Key="ChartColumnHoverStyle" TargetType="Border">
+                <Setter Property="Background" Value="{ThemeResource SubtleFillColorSecondaryBrush}" />
+                <Setter Property="CornerRadius" Value="4" />
+            </Style>
+            <Style x:Key="ChartRuleStyle" TargetType="Rectangle">
+                <Setter Property="Fill" Value="{ThemeResource DividerStrokeColorDefaultBrush}" />
+                <Setter Property="Height" Value="1" />
+            </Style>
+            <Style x:Key="ChartLabelStyle" TargetType="TextBlock" BasedOn="{StaticResource CaptionTextBlockStyle}">
+                <Setter Property="Foreground" Value="{ThemeResource TextFillColorSecondaryBrush}" />
+                <Setter Property="TextWrapping" Value="NoWrap" />
+            </Style>
+
             <!-- Abstände nach Windows-11-Richtlinien -->
             <Thickness x:Key="PageMargin">36,24,36,36</Thickness>
             <x:Double x:Key="SettingsCardSpacing">4</x:Double>

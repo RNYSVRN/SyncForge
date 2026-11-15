@@ -25,6 +25,7 @@ public sealed partial class MainWindow : Window
     {
         [typeof(ProfileEditorPage)] = "Profiles",
         [typeof(SyncRunPage)] = "Profiles",
+        [typeof(RunDetailPage)] = "History",
     };
 
     private readonly SettingsService _settings;

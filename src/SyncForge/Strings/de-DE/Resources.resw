@@ -191,4 +191,53 @@
   <data name="Action_DeleteDirectory" xml:space="preserve"><value>Ordner löschen</value></data>
   <data name="Action_CreateDirectory" xml:space="preserve"><value>Ordner anlegen</value></data>
   <data name="Dashboard_NoSchedule.Text" xml:space="preserve"><value>Noch kein Zeitplan</value></data>
+  <data name="Run_HistoryFailed" xml:space="preserve"><value>Der Lauf konnte nicht in der Historie gespeichert werden: {0}</value></data>
+  <data name="Run_ShowDetails.Content" xml:space="preserve"><value>Details anzeigen</value></data>
+  <data name="History_ChartEmpty" xml:space="preserve"><value>Noch keine Daten</value></data>
+  <data name="History_ChartTooltip" xml:space="preserve"><value>{0}: {1} übertragen, {2} Läufe</value></data>
+  <data name="History_RunSummary" xml:space="preserve"><value>{0} kopiert · {1} aktualisiert · {2} gelöscht</value></data>
+  <data name="History_RunErrors" xml:space="preserve"><value>{0} Fehler</value></data>
+  <data name="History_AllStatus" xml:space="preserve"><value>Alle Status</value></data>
+  <data name="History_AllProfiles" xml:space="preserve"><value>Alle Profile</value></data>
+  <data name="History_TileRuns.Text" xml:space="preserve"><value>Läufe (30 Tage)</value></data>
+  <data name="History_TileSuccess.Text" xml:space="preserve"><value>Erfolgsquote</value></data>
+  <data name="History_TileBytes.Text" xml:space="preserve"><value>Übertragene Daten</value></data>
+  <data name="History_TileDuration.Text" xml:space="preserve"><value>Ø Dauer</value></data>
+  <data name="History_ChartTitle.Text" xml:space="preserve"><value>Übertragene Daten pro Tag</value></data>
+  <data name="History_ChartSubtitle.Text" xml:space="preserve"><value>Letzte 30 Tage</value></data>
+  <data name="History_RunsHeader.Text" xml:space="preserve"><value>Läufe</value></data>
+  <data name="History_NoMatches.Text" xml:space="preserve"><value>Keine Läufe für diesen Filter.</value></data>
+  <data name="History_LoadMore.Content" xml:space="preserve"><value>Weitere laden</value></data>
+  <data name="History_ProfileFilter.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Profil</value></data>
+  <data name="History_StatusFilter.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Status</value></data>
+  <data name="Detail_NotFound" xml:space="preserve"><value>Eintrag nicht gefunden</value></data>
+  <data name="Trigger_Manual" xml:space="preserve"><value>Manuell</value></data>
+  <data name="Trigger_Schedule" xml:space="preserve"><value>Zeitplan</value></data>
+  <data name="Trigger_Watcher" xml:space="preserve"><value>Überwachung</value></data>
+  <data name="Trigger_Event" xml:space="preserve"><value>Ereignis</value></data>
+  <data name="Detail_AllTargets" xml:space="preserve"><value>Alle Ziele</value></data>
+  <data name="Detail_FilesCount" xml:space="preserve"><value>{0} Einträge</value></data>
+  <data name="Detail_FilesCountLimited" xml:space="preserve"><value>{0} Einträge – die ersten {1} werden angezeigt. Grenze die Suche ein.</value></data>
+  <data name="Action_Deleted" xml:space="preserve"><value>Gelöscht</value></data>
+  <data name="Action_DirectoryDeleted" xml:space="preserve"><value>Ordner gelöscht</value></data>
+  <data name="Action_DirectoryCreated" xml:space="preserve"><value>Ordner angelegt</value></data>
+  <data name="Detail_Delete.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve"><value>Diesen Eintrag aus der Historie entfernen</value></data>
+  <data name="Detail_DeleteText.Text" xml:space="preserve"><value>Eintrag löschen</value></data>
+  <data name="Detail_OpenFolder.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve"><value>Ordner öffnen</value></data>
+  <data name="Detail_FilterAll.Text" xml:space="preserve"><value>Alle</value></data>
+  <data name="Detail_FilterNew.Text" xml:space="preserve"><value>Neu</value></data>
+  <data name="Detail_FilterUpdated.Text" xml:space="preserve"><value>Geändert</value></data>
+  <data name="Detail_FilterDeleted.Text" xml:space="preserve"><value>Gelöscht</value></data>
+  <data name="Detail_FilterErrors.Text" xml:space="preserve"><value>Fehler</value></data>
+  <data name="Detail_Search.PlaceholderText" xml:space="preserve"><value>Dateien durchsuchen</value></data>
+  <data name="Detail_NoFiles.Text" xml:space="preserve"><value>Keine Einträge für diesen Filter.</value></data>
+  <data name="Detail_DeleteTitle" xml:space="preserve"><value>Eintrag löschen?</value></data>
+  <data name="Detail_DeleteConfirm" xml:space="preserve"><value>Der Lauf und seine Datei-Details werden aus der Historie entfernt. Die Dateien selbst bleiben unverändert.</value></data>
+  <data name="Settings_ClearHistory.Header" xml:space="preserve"><value>Historie löschen</value></data>
+  <data name="Settings_ClearHistory.Description" xml:space="preserve"><value>Entfernt alle gespeicherten Läufe und Datei-Details. Profile bleiben erhalten.</value></data>
+  <data name="Settings_ClearHistoryButton.Content" xml:space="preserve"><value>Löschen…</value></data>
+  <data name="Settings_ClearHistoryTitle" xml:space="preserve"><value>Historie löschen?</value></data>
+  <data name="Settings_ClearHistoryText" xml:space="preserve"><value>Alle gespeicherten Läufe und Datei-Details werden endgültig entfernt.</value></data>
+  <data name="Detail_FilesCountOne" xml:space="preserve"><value>1 Eintrag</value></data>
+  <data name="Run_TargetDoneOneError" xml:space="preserve"><value>Abgeschlossen mit 1 Fehler</value></data>
 </root>

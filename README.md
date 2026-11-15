@@ -28,11 +28,13 @@ src/SyncForge.Core/      Sync-Logik ohne UI (testbar)
   Engine/SyncExecutor    Ausführung: Temp-Datei + Ersetzen, parallel, Abbruch, Papierkorb
   Engine/ProfileRunner   Mehrere Ziele, Erreichbarkeit, Löschschutz
   Storage/ProfileStore   profiles.json
+  History/HistoryStore   history.db (SQLite): Läufe, Ergebnisse je Ziel, Datei-Protokoll, Statistiken
 tests/SyncForge.Core.Tests/  xUnit-Tests gegen echte Temp-Ordner
 src/SyncForge/
   App.xaml(.cs)          Start, DI-Container, Sprache, Fehlerprotokoll
   MainWindow.xaml(.cs)   Titelleiste, Mica, NavigationView, Fenstergröße
-  Views/                 Übersicht, Profile, Profil-Editor, Vorschau/Lauf, Historie, Einstellungen
+  Views/                 Übersicht, Profile, Profil-Editor, Vorschau/Lauf, Historie, Laufdetails, Einstellungen
+  Controls/              DailyBarChart (Datenmenge pro Tag)
   ViewModels/            MVVM (CommunityToolkit.Mvvm)
   Services/              Einstellungen (JSON), Design, Lokalisierung
   Strings/<Sprache>/     Resources.resw – generiert, nicht von Hand bearbeiten
@@ -51,4 +53,4 @@ tools/
 
 ## Daten
 Einstellungen und Protokolle liegen unter `%LOCALAPPDATA%\SyncForge\`
-(`settings.json`, `profiles.json`, `crash.log` bei Fehlern).
+(`settings.json`, `profiles.json`, `history.db`, `crash.log` bei Fehlern).

@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.UI.Xaml.Controls;
 using SyncForge.Core.Engine;
+using SyncForge.Core.History;
 using SyncForge.Core.Models;
 using SyncForge.Core.Storage;
 using SyncForge.Helpers;
@@ -11,7 +12,10 @@ namespace SyncForge.ViewModels;
 
 public sealed record SyncRunRequest(Guid ProfileId, bool PreviewOnly);
 
-public sealed record ActionItemViewModel(string Glyph, string Path, string Detail);
+public sealed record ActionItemViewModel(string Glyph, string Path, string Detail)
+{
+    public override string ToString() => $"{Path}, {Detail}"; // Name für Screenreader
+}
 
 public sealed partial class TargetRunViewModel : ObservableObject
 {
@@ -55,18 +59,27 @@ public sealed partial class SyncRunViewModel : ObservableObject
     private CancellationTokenSource? _cts;
     private readonly Dictionary<string, TargetRunViewModel> _byRoot = new(StringComparer.OrdinalIgnoreCase);
 
-    public SyncRunViewModel(ProfileStore store, SettingsService settings)
+    private readonly HistoryStore _history;
+
+    public SyncRunViewModel(ProfileStore store, SettingsService settings, HistoryStore history)
     {
         _store = store;
         _settings = settings;
+        _history = history;
     }
+
+    /// <summary>Id des gespeicherten Historien-Eintrags (für "Details anzeigen").</summary>
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(HasHistoryEntry))]
+    public partial long? HistoryRunId { get; set; }
+    public bool HasHistoryEntry => HistoryRunId is not null && State == RunState.Done;
 
     public ObservableCollection<TargetRunViewModel> Targets { get; } = [];
 
     [ObservableProperty] public partial string Title { get; set; } = string.Empty;
     [ObservableProperty] public partial string Subtitle { get; set; } = string.Empty;
     [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(IsAnalyzing), nameof(IsReady), nameof(IsRunning), nameof(IsDone), nameof(CanStart), nameof(IsBusy), nameof(IsIdle))]
+    [NotifyPropertyChangedFor(nameof(IsAnalyzing), nameof(IsReady), nameof(IsRunning), nameof(IsDone), nameof(CanStart), nameof(IsBusy), nameof(IsIdle), nameof(HasHistoryEntry))]
     public partial RunState State { get; set; }
 
     [ObservableProperty] public partial bool ShowDeletionWarning { get; set; }
@@ -145,7 +158,13 @@ public sealed partial class SyncRunViewModel : ObservableObject
         if (!CanStart)
         {
             SetMessage(InfoBarSeverity.Success, Localization.Get("Run_UpToDate"), string.Empty);
-            if (!request.PreviewOnly) SaveLastRun(RunStatus.Success, Localization.Get("Run_UpToDate"));
+            if (!request.PreviewOnly)
+            {
+                // Auch ein Lauf ohne Änderungen gehört in die Historie (und prüft dabei die Ziele).
+                var run = await ProfileRunner.ExecuteAsync(_analysis, BuildOptions(), null, CancellationToken.None);
+                SaveLastRun(run.Status, Localization.Get("Run_UpToDate"));
+                RecordRun(run);
+            }
             State = RunState.Done;
             return;
         }
@@ -171,17 +190,33 @@ public sealed partial class SyncRunViewModel : ObservableObject
         }
 
         var progress = new Progress<SyncProgress>(OnProgress);
-        var options = new SyncExecutorOptions
-        {
-            MaxParallelCopies = _settings.Current.MaxParallelCopies,
-            BandwidthLimitKBps = _settings.Current.BandwidthLimitKBps,
-            VerifyAfterCopy = _analysis.Profile.VerifyAfterCopy,
-            DeleteToRecycleBin = _analysis.Profile.DeleteToRecycleBin
-        };
-
-        var run = await ProfileRunner.ExecuteAsync(_analysis, options, progress, _cts.Token);
+        var run = await ProfileRunner.ExecuteAsync(_analysis, BuildOptions(), progress, _cts.Token);
         ShowResults(run);
+        RecordRun(run);
         State = RunState.Done;
+    }
+
+    private SyncExecutorOptions BuildOptions() => new()
+    {
+        MaxParallelCopies = _settings.Current.MaxParallelCopies,
+        BandwidthLimitKBps = _settings.Current.BandwidthLimitKBps,
+        VerifyAfterCopy = _analysis!.Profile.VerifyAfterCopy,
+        DeleteToRecycleBin = _analysis.Profile.DeleteToRecycleBin
+    };
+
+    /// <summary>Speichert den Lauf in der Historie und wendet die Aufbewahrungsdauer an.</summary>
+    private void RecordRun(ProfileRunResult run)
+    {
+        try
+        {
+            HistoryRunId = _history.AddRun(run, RunTrigger.Manual);
+            _history.DeleteOlderThan(DateTimeOffset.Now.AddDays(-Math.Max(1, _settings.Current.HistoryRetentionDays)));
+        }
+        catch (Exception ex)
+        {
+            // Der Lauf selbst war erfolgreich; nur das Protokoll fehlt.
+            MessageText += Environment.NewLine + Format.Text("Run_HistoryFailed", ex.Message);
+        }
     }
 
     public void Cancel() => _cts?.Cancel();
@@ -250,7 +285,7 @@ public sealed partial class SyncRunViewModel : ObservableObject
             t.ProgressPercent = 100;
             t.StatusGlyph = r.Cancelled ? "" : r.Errors.Count > 0 ? "" : "";
             t.StatusText = r.Cancelled ? Localization.Get("Status_Cancelled")
-                : r.Errors.Count > 0 ? Format.Text("Run_TargetDoneErrors", Format.Number(r.Errors.Count))
+                : r.Errors.Count > 0 ? Format.Text(r.Errors.Count == 1 ? "Run_TargetDoneOneError" : "Run_TargetDoneErrors", Format.Number(r.Errors.Count))
                 : Localization.Get("Run_TargetDone");
             t.SummaryText = Format.Text("Run_ResultSummary", Format.Number(r.Copied), Format.Number(r.Updated),
                 Format.Number(r.DeletedFiles), Format.Bytes(r.BytesCopied), Format.Duration(r.Duration));

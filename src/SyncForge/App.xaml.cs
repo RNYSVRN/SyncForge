@@ -1,5 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
+using SyncForge.Core.History;
 using SyncForge.Core.Storage;
 using SyncForge.Services;
 using SyncForge.ViewModels;
@@ -13,13 +14,13 @@ public partial class App : Application
 
     public App()
     {
-#if DEBUG
-        AppDomain.CurrentDomain.FirstChanceException += (_, e) => LogCrash(new Exception("FirstChance", e.Exception));
-#endif
         Services = new ServiceCollection()
             .AddSingleton<SettingsService>()
             .AddSingleton<ThemeService>()
             .AddSingleton(_ => new ProfileStore(SettingsService.DataDirectory))
+            .AddSingleton(_ => new HistoryStore(Path.Combine(SettingsService.DataDirectory, "history.db")))
+            .AddTransient<HistoryViewModel>()
+            .AddTransient<RunDetailViewModel>()
             .AddTransient<SettingsViewModel>()
             .AddTransient<ProfilesViewModel>()
             .AddTransient<ProfileEditorViewModel>()
@@ -31,6 +32,7 @@ public partial class App : Application
         settings.Load();
         Localization.ApplyLanguage(settings.Current.Language);
         Services.GetRequiredService<ProfileStore>().Load();
+        InitializeHistory(settings);
 
         InitializeComponent();
 
@@ -48,6 +50,22 @@ public partial class App : Application
     {
         Resources["ToggleOnText"] = Localization.Get("Toggle_On");
         Resources["ToggleOffText"] = Localization.Get("Toggle_Off");
+    }
+
+    /// <summary>Legt die Historien-Datenbank an und entfernt Läufe außerhalb der Aufbewahrungsdauer.</summary>
+    private static void InitializeHistory(SettingsService settings)
+    {
+        try
+        {
+            var history = Services.GetRequiredService<HistoryStore>();
+            history.Initialize();
+            history.DeleteOlderThan(DateTimeOffset.Now.AddDays(-Math.Max(1, settings.Current.HistoryRetentionDays)));
+        }
+        catch (Exception ex)
+        {
+            // Eine defekte Historie darf den Start nicht verhindern.
+            LogCrash(ex);
+        }
     }
 
     private static void LogCrash(Exception? ex)

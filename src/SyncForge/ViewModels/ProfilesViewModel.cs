@@ -29,14 +29,9 @@ public sealed class ProfileItemViewModel(SyncProfile profile)
         : Format.Text("Profiles_NeverRun");
 
     /// <summary>Segoe-Fluent-Glyph für den Status des letzten Laufs.</summary>
-    public string StatusGlyph => Profile.LastRunStatus switch
-    {
-        RunStatus.Success => "",   // Häkchen
-        RunStatus.Warning => "",   // Warnung
-        RunStatus.Error => "",     // Fehler
-        RunStatus.Cancelled => "", // Abgebrochen
-        _ => ""                    // Sync
-    };
+    public string StatusGlyph => Format.StatusGlyph(Profile.LastRunStatus);
+
+    public override string ToString() => $"{Name}, {LastRunText}"; // Name für Screenreader
 }
 
 public sealed partial class ProfilesViewModel : ObservableObject

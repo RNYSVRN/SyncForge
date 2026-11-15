@@ -13,4 +13,8 @@
     <InternalsVisibleTo Include="SyncForge.Core.Tests" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.15" />
+  </ItemGroup>
+
 </Project>

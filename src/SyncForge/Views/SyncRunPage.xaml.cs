@@ -25,4 +25,9 @@ public sealed partial class SyncRunPage : Page
     private void Cancel_Click(object sender, RoutedEventArgs e) => ViewModel.Cancel();
 
     private void Back_Click(object sender, RoutedEventArgs e) => App.MainWindow.GoBack();
+
+    private void Details_Click(object sender, RoutedEventArgs e)
+    {
+        if (ViewModel.HistoryRunId is { } id) App.MainWindow.Navigate(typeof(RunDetailPage), id);
+    }
 }

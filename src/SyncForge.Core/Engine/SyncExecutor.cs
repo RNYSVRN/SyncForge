@@ -63,6 +63,7 @@ public sealed class SyncExecutor
                             result.DeletedDirectories++;
                             break;
                     }
+                    return true;
                 });
                 reporter.ItemDone(action.RelativePath, SyncPhase.Copying);
             }
@@ -81,6 +82,7 @@ public sealed class SyncExecutor
                             if (action.Kind == SyncActionKind.CopyNew) result.Copied++;
                             else result.Updated++;
                             result.BytesCopied += action.Size;
+                            result.Files.Add(new SyncFileRecord(action.Kind, action.RelativePath, action.Size));
                         }
                     }
                     catch (OperationCanceledException) when (token.IsCancellationRequested)
@@ -89,7 +91,11 @@ public sealed class SyncExecutor
                     }
                     catch (Exception ex)
                     {
-                        lock (result) result.Errors.Add(new SyncError(action.RelativePath, ex.Message));
+                        lock (result)
+                        {
+                            result.Errors.Add(new SyncError(action.RelativePath, ex.Message));
+                            result.Files.Add(new SyncFileRecord(action.Kind, action.RelativePath, action.Size, ex.Message));
+                        }
                     }
                     reporter.ItemDone(action.RelativePath, SyncPhase.Copying);
                 });
@@ -103,21 +109,16 @@ public sealed class SyncExecutor
                     var path = Combine(plan.TargetRoot, action.RelativePath);
                     if (action.Kind == SyncActionKind.DeleteFile)
                     {
-                        if (File.Exists(path))
-                        {
-                            DeleteFile(path, useRecycleBin);
-                            result.DeletedFiles++;
-                        }
+                        if (!File.Exists(path)) return false;
+                        DeleteFile(path, useRecycleBin);
+                        result.DeletedFiles++;
+                        return true;
                     }
-                    else if (Directory.Exists(path))
-                    {
-                        // Nicht rekursiv: enthält der Ordner ausgeschlossene Dateien, bleibt er bestehen.
-                        if (!Directory.EnumerateFileSystemEntries(path).Any())
-                        {
-                            DeleteDirectory(path, recursive: false, useRecycleBin);
-                            result.DeletedDirectories++;
-                        }
-                    }
+                    // Nicht rekursiv: enthält der Ordner ausgeschlossene Dateien, bleibt er bestehen.
+                    if (!Directory.Exists(path) || Directory.EnumerateFileSystemEntries(path).Any()) return false;
+                    DeleteDirectory(path, recursive: false, useRecycleBin);
+                    result.DeletedDirectories++;
+                    return true;
                 });
                 reporter.ItemDone(action.RelativePath, SyncPhase.Deleting);
             }
@@ -136,15 +137,17 @@ public sealed class SyncExecutor
         return result;
     }
 
-    private static void Run(SyncResult result, SyncAction action, Action work)
+    /// <summary>Führt eine sequenzielle Aktion aus und protokolliert sie (work gibt false zurück = nichts zu tun).</summary>
+    private static void Run(SyncResult result, SyncAction action, Func<bool> work)
     {
         try
         {
-            work();
+            if (work()) result.Files.Add(new SyncFileRecord(action.Kind, action.RelativePath, action.Size));
         }
         catch (Exception ex) when (ex is not OperationCanceledException)
         {
             result.Errors.Add(new SyncError(action.RelativePath, ex.Message));
+            result.Files.Add(new SyncFileRecord(action.Kind, action.RelativePath, action.Size, ex.Message));
         }
     }
 

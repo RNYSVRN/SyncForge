@@ -120,6 +120,13 @@
                 <NumberBox Value="{x:Bind ViewModel.HistoryRetentionDays, Mode=TwoWay}" Minimum="1" Maximum="3650" SpinButtonPlacementMode="Inline" MinWidth="140" />
             </toolkit:SettingsCard>
 
+            <toolkit:SettingsCard x:Uid="Settings_ClearHistory" Header="Historie löschen" Description="Entfernt alle gespeicherten Läufe und Datei-Details. Profile bleiben erhalten.">
+                <toolkit:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xE74D;" />
+                </toolkit:SettingsCard.HeaderIcon>
+                <Button x:Uid="Settings_ClearHistoryButton" Content="Löschen…" Click="ClearHistory_Click" />
+            </toolkit:SettingsCard>
+
             <toolkit:SettingsCard x:Uid="Settings_ImportExport" Header="Import &amp; Export" Description="Profile und Einstellungen sichern oder auf einen anderen PC übertragen.">
                 <toolkit:SettingsCard.HeaderIcon>
                     <FontIcon Glyph="&#xE8B5;" />
