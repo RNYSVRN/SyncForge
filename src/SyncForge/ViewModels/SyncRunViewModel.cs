@@ -259,6 +259,7 @@ public sealed partial class SyncRunViewModel : ObservableObject
                         Format.Number(plan.CopyNewCount), Format.Number(plan.UpdateCount), Format.Number(plan.DeleteFileCount),
                         Format.Number(plan.UnchangedFileCount), Format.Bytes(plan.BytesToCopy));
                     if (plan.ToSourceCount > 0) vm.SummaryText += " · " + Format.Text("Run_PlanToSource", Format.Number(plan.ToSourceCount));
+                    if (plan.SkippedCloudFiles > 0) vm.SummaryText += " · " + Format.Text("Run_PlanCloudSkipped", Format.Number(plan.SkippedCloudFiles));
                     if (plan.ConflictCount > 0) vm.SummaryText += " · " + Format.Text("Run_Conflicts", Format.Number(plan.ConflictCount));
                     if (ta.ResolvedPath is { } resolved && !string.Equals(resolved, ta.Target.Path, StringComparison.OrdinalIgnoreCase))
                         vm.StatusText += " · " + Format.Text("Run_DriveMoved", resolved);

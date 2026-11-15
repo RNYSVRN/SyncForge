@@ -13,6 +13,10 @@ Usually it is open in another program (e.g. Outlook data files). Close the progr
 
 Check in the preview which files would be deleted. If everything is fine (e.g. you deliberately cleaned up a lot), start the run with **Sync now** or adjust the threshold in the profile.
 
+## Files from OneDrive are skipped
+
+These are online-only files. By default SyncForge doesn't download them, so a backup never pulls large amounts of data from the cloud unnoticed. In the profile under **Filters › Online-only files** you can choose **Download and back up**, or keep the folder permanently on the device in Explorer.
+
 ## I don't see any notifications
 
 In the Windows settings under System › Notifications, check whether notifications are allowed for SyncForge and whether **Do not disturb** is on. In that case notifications go silently to the notification center (Windows key + N).

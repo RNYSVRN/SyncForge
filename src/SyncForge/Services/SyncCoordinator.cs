@@ -166,6 +166,8 @@ public sealed class SyncCoordinator
         var summary = copied + updated + deleted == 0 && run.Status == RunStatus.Success
             ? Localization.Get("Run_UpToDate")
             : Format.Text("Run_TotalSummary", Format.Number(copied), Format.Number(updated), Format.Number(deleted), Format.Bytes(bytes), Format.Duration(run.Duration));
+        var cloudSkipped = run.Results.Sum(r => r.SkippedCloudFiles);
+        if (cloudSkipped > 0) summary += " " + Format.Text("Run_CloudSkipped", Format.Number(cloudSkipped));
         var conflicts = run.Results.Sum(r => r.Conflicts);
         if (conflicts > 0) summary += " " + Format.Text("Run_Conflicts", Format.Number(conflicts));
         var errors = run.Results.Sum(r => r.Errors.Count);

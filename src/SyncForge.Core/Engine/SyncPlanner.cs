@@ -25,6 +25,7 @@ public static class SyncPlanner
         ValidatePaths(sourceRoot, targetRoot);
 
         var filter = new PathFilter(filterSettings);
+        var skipCloud = filterSettings.CloudFiles == CloudFileMode.Skip;
 
         progress?.Report(new SyncProgress(targetRoot, SyncPhase.Scanning, null, 0, 0, 0, 0));
         var source = await Task.Run(() => FileTree.Scan(sourceRoot, filter, ct,
@@ -62,6 +63,15 @@ public static class SyncPlanner
                 continue;
             }
 
+            // Nur online verfügbar: nicht herunterladen. Der Eintrag bleibt im Quellbaum, damit eine
+            // vorhandene Kopie im Ziel nicht als "in der Quelle gelöscht" gilt.
+            if (skipCloud && src.IsCloudOnly)
+            {
+                plan.SkippedCloudFiles++;
+                plan.SkippedCloudBytes += src.Size;
+                continue;
+            }
+
             if (dst is null)
             {
                 copies.Add(new SyncAction(SyncActionKind.CopyNew, src.RelativePath, src.Size));
@@ -76,8 +86,9 @@ public static class SyncPlanner
             {
                 copies.Add(new SyncAction(SyncActionKind.Update, src.RelativePath, src.Size));
             }
-            else if (compareMode == CompareMode.Content)
+            else if (compareMode == CompareMode.Content && !src.IsCloudOnly && !dst.IsCloudOnly)
             {
+                // Inhaltsvergleich nur bei lokal vorhandenen Dateien (sonst würde das Lesen einen Download auslösen).
                 compareCandidates.Add((src, dst));
             }
             else if ((src.LastWriteUtc - dst.LastWriteUtc).Duration() > TimestampTolerance)

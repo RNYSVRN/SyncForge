@@ -357,3 +357,9 @@ Support_RateTitle.Text;Stern auf GitHub;Star on GitHub
 Support_RateText.Text;Ein Stern für SyncForge auf GitHub hilft anderen, das Projekt zu finden.;A star for SyncForge on GitHub helps others find the project.
 Support_FeedbackTitle.Text;Feedback geben;Give feedback
 Support_FeedbackText.Text;Ideen und Fehlermeldungen (gern als Issue auf GitHub) machen SyncForge besser.;Ideas and bug reports (ideally as an issue on GitHub) make SyncForge better.
+Editor_CloudFiles.Header;Nur online verfügbare Dateien;Online-only files
+Editor_CloudFiles.Description;Dateien aus OneDrive, Dropbox & Co., die nicht lokal gespeichert sind. Überspringen verhindert ungewollte Downloads. Vorhandene Kopien im Ziel bleiben erhalten.;Files from OneDrive, Dropbox & co. that are not stored locally. Skipping prevents unwanted downloads. Existing copies in the destination are kept.
+CloudFiles_Skip.Content;Überspringen;Skip
+CloudFiles_Download.Content;Herunterladen und sichern;Download and back up
+Run_PlanCloudSkipped;{0} nur online (übersprungen);{0} online-only (skipped)
+Run_CloudSkipped;{0} nur online verfügbare Datei(en) übersprungen.;{0} online-only file(s) skipped.

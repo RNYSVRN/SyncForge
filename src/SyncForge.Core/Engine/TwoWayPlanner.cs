@@ -33,6 +33,7 @@ public static class TwoWayPlanner
         SyncPlanner.ValidatePaths(sourceRoot, targetRoot);
 
         var filter = new PathFilter(filterSettings);
+        var skipCloud = filterSettings.CloudFiles == CloudFileMode.Skip;
         progress?.Report(new SyncProgress(targetRoot, SyncPhase.Scanning, null, 0, 0, 0, 0));
         var source = await Task.Run(() => FileTree.Scan(sourceRoot, filter, ct), ct);
         var targetMissing = !Directory.Exists(targetRoot);
@@ -83,10 +84,20 @@ public static class TwoWayPlanner
                 continue;
             }
 
+            // Nur online verfügbar (auf einer der Seiten): nicht herunterladen und nichts ändern –
+            // weder kopieren noch löschen. Der Stand bleibt, wie er ist.
+            if (skipCloud && (s?.IsCloudOnly == true || t?.IsCloudOnly == true))
+            {
+                plan.SkippedCloudFiles++;
+                plan.SkippedCloudBytes += (s ?? t)!.Size;
+                continue;
+            }
+
             // Dateien
             if (s is not null && t is not null)
             {
-                if (SameFile(s, t) && (compareMode == CompareMode.SizeAndDate || await ContentEqualAsync(sourceRoot, targetRoot, path, ct)))
+                var canHash = compareMode == CompareMode.Content && !s.IsCloudOnly && !t.IsCloudOnly;
+                if (SameFile(s, t) && (!canHash || await ContentEqualAsync(sourceRoot, targetRoot, path, ct)))
                 {
                     plan.UnchangedFileCount++;
                     continue;

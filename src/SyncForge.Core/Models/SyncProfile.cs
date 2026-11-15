@@ -98,8 +98,20 @@ public sealed class SyncTarget
     public string? VolumeLabel { get; set; }
 }
 
+/// <summary>Umgang mit Dateien, die nur online verfügbar sind (Cloud-Platzhalter).</summary>
+public enum CloudFileMode
+{
+    /// <summary>Nicht herunterladen und nicht synchronisieren; vorhandene Kopien im Ziel bleiben erhalten.</summary>
+    Skip,
+    /// <summary>Herunterladen (löst den Download durch den Cloud-Dienst aus) und synchronisieren.</summary>
+    Download
+}
+
 public sealed class FilterSettings
 {
+    /// <summary>Nur online verfügbare Dateien überspringen (Standard) oder herunterladen.</summary>
+    public CloudFileMode CloudFiles { get; set; } = CloudFileMode.Skip;
+
     /// <summary>Ausschlussmuster, je Zeile eines (z. B. *.tmp, node_modules\, Ordner\Unterordner\*.log).</summary>
     public List<string> ExcludePatterns { get; set; } = ["Thumbs.db", "desktop.ini", "~$*", "*.tmp"];
 

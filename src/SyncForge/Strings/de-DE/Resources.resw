@@ -363,4 +363,10 @@
   <data name="Support_RateText.Text" xml:space="preserve"><value>Ein Stern für SyncForge auf GitHub hilft anderen, das Projekt zu finden.</value></data>
   <data name="Support_FeedbackTitle.Text" xml:space="preserve"><value>Feedback geben</value></data>
   <data name="Support_FeedbackText.Text" xml:space="preserve"><value>Ideen und Fehlermeldungen (gern als Issue auf GitHub) machen SyncForge besser.</value></data>
+  <data name="Editor_CloudFiles.Header" xml:space="preserve"><value>Nur online verfügbare Dateien</value></data>
+  <data name="Editor_CloudFiles.Description" xml:space="preserve"><value>Dateien aus OneDrive, Dropbox &amp; Co., die nicht lokal gespeichert sind. Überspringen verhindert ungewollte Downloads. Vorhandene Kopien im Ziel bleiben erhalten.</value></data>
+  <data name="CloudFiles_Skip.Content" xml:space="preserve"><value>Überspringen</value></data>
+  <data name="CloudFiles_Download.Content" xml:space="preserve"><value>Herunterladen und sichern</value></data>
+  <data name="Run_PlanCloudSkipped" xml:space="preserve"><value>{0} nur online (übersprungen)</value></data>
+  <data name="Run_CloudSkipped" xml:space="preserve"><value>{0} nur online verfügbare Datei(en) übersprungen.</value></data>
 </root>

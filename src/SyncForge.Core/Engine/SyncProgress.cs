@@ -42,6 +42,8 @@ public sealed class SyncResult
     public int DeletedDirectories { get; set; }
     public int CreatedDirectories { get; set; }
     public int Conflicts { get; set; }
+    /// <summary>Übersprungene, nur online verfügbare Dateien (aus dem Plan übernommen).</summary>
+    public int SkippedCloudFiles { get; set; }
     public long BytesCopied { get; set; }
     public TimeSpan Duration { get; set; }
     public bool Cancelled { get; set; }

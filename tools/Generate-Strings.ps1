@@ -2,7 +2,14 @@
 # Aufruf: powershell -File tools/Generate-Strings.ps1
 $ErrorActionPreference = 'Stop'
 $root = Split-Path -Parent $PSScriptRoot
-$rows = Import-Csv -Path (Join-Path $PSScriptRoot 'strings.csv') -Delimiter ';' -Encoding UTF8
+$csvPath = Join-Path $PSScriptRoot 'strings.csv'
+# Semikolon ist der Spaltentrenner: Texte dürfen keins enthalten (sonst werden Spalten still verschoben).
+$lineNo = 0
+foreach ($line in [IO.File]::ReadAllLines($csvPath, [Text.Encoding]::UTF8)) {
+    $lineNo++
+    if ($line.Length -gt 0 -and ($line.Split(';').Count -ne 3)) { throw "strings.csv Zeile ${lineNo}: genau 3 Spalten erwartet (Semikolon im Text?): $line" }
+}
+$rows = Import-Csv -Path $csvPath -Delimiter ';' -Encoding UTF8
 
 foreach ($lang in 'de-DE', 'en-US') {
     $sb = [System.Text.StringBuilder]::new()
