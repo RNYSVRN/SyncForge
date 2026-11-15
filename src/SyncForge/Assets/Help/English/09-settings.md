@@ -23,3 +23,9 @@
 - **Keep history (days)** and **Clear history**.
 - **Import & export**: saves all profiles and settings to a file or loads them, e.g. on a new PC. On import, profiles with the same ID are replaced and the others added; applying the settings is optional.
 - **Data folder**: opens the folder where SyncForge stores settings, profiles and history.
+
+## Updates
+
+- **Check for updates**: When the switch is on, SyncForge asks GitHub once a day whether a new version exists. Only your IP address and the SyncForge version are transmitted. The check is off by default.
+- If there is a new version, a notice appears in the **Overview** (and a notification, once) with a link to the download page. Nothing is installed automatically: download the new installer and run it, your profiles and settings are kept. With winget you can also use `winget upgrade RonnySeverin.SyncForge`.
+- **Check now** checks right away.

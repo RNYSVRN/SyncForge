@@ -29,6 +29,17 @@ public sealed class AppSettings
 
     public int HistoryRetentionDays { get; set; } = 90;
 
+    /// <summary>Einmal täglich bei GitHub nach einer neuen Version fragen (aus Datenschutzgründen standardmäßig aus).</summary>
+    public bool CheckForUpdates { get; set; }
+    public DateTimeOffset? LastUpdateCheck { get; set; }
+    /// <summary>Zuletzt gefundene neuere Version (Tag und Seite), damit der Hinweis auch ohne neue Abfrage erscheint.</summary>
+    public string? AvailableUpdateTag { get; set; }
+    public string? AvailableUpdateUrl { get; set; }
+    /// <summary>Für diese Version wurde schon eine Benachrichtigung gezeigt.</summary>
+    public string? NotifiedUpdateTag { get; set; }
+    /// <summary>Hinweis in der Übersicht für diese Version geschlossen.</summary>
+    public string? DismissedUpdateTag { get; set; }
+
     public int WindowWidth { get; set; } = 1200;
     public int WindowHeight { get; set; } = 800;
 }

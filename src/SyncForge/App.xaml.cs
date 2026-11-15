@@ -1,4 +1,4 @@
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Dispatching;
 using Microsoft.UI.Windowing;
@@ -38,6 +38,7 @@ public partial class App : Application
             .AddSingleton<AutomationService>()
             .AddSingleton<NotificationService>()
             .AddSingleton<ImportExportService>()
+            .AddSingleton<UpdateService>()
             .AddTransient<HistoryViewModel>()
             .AddTransient<RunDetailViewModel>()
             .AddTransient<SettingsViewModel>()
@@ -89,6 +90,7 @@ public partial class App : Application
                 if (e.Trigger != RunTrigger.Manual || !MainWindow.AppWindow.IsVisible) notifications.OnRunCompleted(e);
             });
             Services.GetRequiredService<AutomationService>().Start();
+            Services.GetRequiredService<UpdateService>().Start(UiQueue);
 
             // Start durch Klick auf eine Benachrichtigung?
             var activation = AppInstance.GetCurrent().GetActivatedEventArgs();

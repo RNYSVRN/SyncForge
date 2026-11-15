@@ -150,6 +150,25 @@
             <!-- Info -->
             <TextBlock x:Uid="Settings_SectionAbout" Text="Info" Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" />
 
+            <toolkit:SettingsExpander x:Uid="Settings_Updates" Header="Nach Updates suchen"
+                                      Description="Fragt einmal täglich bei GitHub nach einer neuen Version. Übertragen werden dabei nur deine IP-Adresse und die Version von SyncForge. Heruntergeladen wird nichts."
+                                      IsExpanded="{x:Bind ViewModel.CheckForUpdates, Mode=OneWay}">
+                <toolkit:SettingsExpander.HeaderIcon>
+                    <FontIcon Glyph="&#xE777;" />
+                </toolkit:SettingsExpander.HeaderIcon>
+                <ToggleSwitch OnContent="{StaticResource ToggleOnText}" OffContent="{StaticResource ToggleOffText}" IsOn="{x:Bind ViewModel.CheckForUpdates, Mode=TwoWay}" />
+                <toolkit:SettingsExpander.Items>
+                    <toolkit:SettingsCard Header="{x:Bind ViewModel.UpdateStatus, Mode=OneWay}" IsEnabled="{x:Bind ViewModel.CheckForUpdates, Mode=OneWay}">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <Button x:Uid="Update_OpenPage" Content="Download-Seite öffnen" Style="{StaticResource AccentButtonStyle}"
+                                    Visibility="{x:Bind ViewModel.IsUpdateAvailable, Mode=OneWay}" Command="{x:Bind ViewModel.OpenUpdatePageCommand}" />
+                            <Button x:Uid="Update_CheckNow" Content="Jetzt suchen" IsEnabled="{x:Bind ViewModel.CanCheckUpdates, Mode=OneWay}"
+                                    Command="{x:Bind ViewModel.CheckUpdatesNowCommand}" />
+                        </StackPanel>
+                    </toolkit:SettingsCard>
+                </toolkit:SettingsExpander.Items>
+            </toolkit:SettingsExpander>
+
             <toolkit:SettingsCard Header="SyncForge" Description="{x:Bind ViewModel.Version}">
                 <toolkit:SettingsCard.HeaderIcon>
                     <BitmapIcon UriSource="ms-appx:///Assets/AppIcon.png" ShowAsMonochrome="False" />

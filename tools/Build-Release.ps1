@@ -2,13 +2,13 @@
 #   SyncForge-<Version>-x64-Setup.exe   Installationsprogramm (pro Benutzer, ohne Administratorrechte)
 #   SyncForge-<Version>-x64.zip         ohne Installation (entpacken und SyncForge.exe starten)
 #   SHA256SUMS.txt                      Prüfsummen zum Abgleichen
-#   winget\                             Manifest für winget (nur mit -GitHubRepo)
+#   winget\                             Manifest für winget
 #
-# Aufruf: powershell -ExecutionPolicy Bypass -File tools\Build-Release.ps1 [-GitHubRepo besitzer/SyncForge]
+# Aufruf: powershell -ExecutionPolicy Bypass -File tools\Build-Release.ps1 [-GitHubRepo besitzer/name]
 # Voraussetzung: Inno Setup 6 (winget install JRSoftware.InnoSetup)
 param(
     # GitHub-Repository "besitzer/name": Damit wird das winget-Manifest mit den Download-Adressen erzeugt.
-    [string]$GitHubRepo
+    [string]$GitHubRepo = 'RNYSVRN/SyncForge'
 )
 $ErrorActionPreference = 'Stop'
 $root = Split-Path -Parent $PSScriptRoot

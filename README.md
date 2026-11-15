@@ -24,7 +24,7 @@ dotnet test --project tests\SyncForge.Core.Tests\SyncForge.Core.Tests.csproj
 ## Veröffentlichen (GitHub Release, winget)
 Voraussetzung: Inno Setup 6 (`winget install JRSoftware.InnoSetup`). Version in `src/SyncForge/SyncForge.csproj` (`<Version>`) erhöhen, dann:
 ```powershell
-powershell -ExecutionPolicy Bypass -File tools\Build-Release.ps1 -GitHubRepo besitzer/SyncForge
+powershell -ExecutionPolicy Bypass -File tools\Build-Release.ps1   # Repository: RNYSVRN/SyncForge (siehe AppInfo.cs)
 ```
 Ergebnis in `artifacts\release\`:
 - `SyncForge-x.y.z-x64-Setup.exe`: Installationsprogramm, pro Benutzer ohne Administratorrechte nach

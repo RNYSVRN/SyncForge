@@ -366,3 +366,17 @@ Run_CloudSkipped;{0} nur online verfügbare Datei(en) übersprungen.;{0} online-
 Run_PlanUnreadable;{0} Ordner nicht lesbar (ausgelassen);{0} folder(s) unreadable (skipped)
 Run_Unreadable;{0} Ordner konnten nicht gelesen werden und wurden ausgelassen.;{0} folder(s) could not be read and were skipped.
 Run_RootLost;Abgebrochen, {0} war nicht mehr erreichbar;Stopped, {0} was no longer reachable
+Settings_Updates.Header;Nach Updates suchen;Check for updates
+Settings_Updates.Description;Fragt einmal täglich bei GitHub nach einer neuen Version. Übertragen werden dabei nur deine IP-Adresse und die Version von SyncForge. Heruntergeladen wird nichts.;Asks GitHub once a day whether a new version exists. Only your IP address and the SyncForge version are transmitted. Nothing is downloaded.
+Update_CheckNow.Content;Jetzt suchen;Check now
+Update_OpenPage.Content;Download-Seite öffnen;Open download page
+Update_StatusChecking;Es wird gesucht …;Checking …
+Update_StatusError;Suche fehlgeschlagen: {0};Check failed: {0}
+Update_StatusAvailable;SyncForge {0} ist verfügbar.;SyncForge {0} is available.
+Update_StatusLatest;Du verwendest die neueste Version. Zuletzt gesucht: {0};You are using the latest version. Last checked: {0}
+Update_StatusNever;Noch nicht gesucht.;Not checked yet.
+Update_Timeout;GitHub hat nicht rechtzeitig geantwortet.;GitHub did not respond in time.
+Update_InfoTitle;Update verfügbar;Update available
+Update_InfoMessage;SyncForge {0} ist erschienen. Du verwendest Version {1}.;SyncForge {0} has been released. You are using version {1}.
+Update_NotifyTitle;SyncForge {0} ist verfügbar;SyncForge {0} is available
+Update_NotifyText;Auf der Download-Seite findest du das Setup und die Neuerungen.;The download page has the installer and the release notes.
