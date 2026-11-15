@@ -532,3 +532,17 @@ Editor_TargetPathBox.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Na
 Profiles_AddButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Profil hinzufügen;Add profile
 Editor_AddSource.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Quelle hinzufügen;Add source
 Editor_AddTarget.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Ziel hinzufügen;Add destination
+Trigger_CommandLine;Befehlszeile;Command line
+Cli_UsageTitle;SyncForge Befehlszeile;SyncForge command line
+Cli_UsageRun;Profil synchronisieren (mehrfach möglich, Name oder Id);Sync a profile (can be repeated, name or ID)
+Cli_UsageRunAll;Alle Profile synchronisieren;Sync all profiles
+Cli_UsageList;Profile mit Id auflisten;List profiles with their ID
+Cli_UsageHelp;Diese Hilfe;This help
+Cli_UsageExit;Exitcode: 0 erfolgreich, 1 Warnung, 2 Fehler, 3 abgebrochen, 4 Profil nicht gefunden, 5 falsche Angabe, 6 läuft bereits;Exit code: 0 success, 1 warning, 2 error, 3 cancelled, 4 profile not found, 5 invalid arguments, 6 already running
+Cli_Invalid;Ungültige Angabe: {0};Invalid argument: {0}
+Cli_NotFound;Profil nicht gefunden: {0};Profile not found: {0}
+Cli_NoProfiles;Keine Profile vorhanden.;No profiles.
+Cli_Running;{0}: wird synchronisiert …;{0}: syncing …
+Cli_AlreadyRunning;{0}: läuft bereits.;{0}: already running.
+Cli_Result;{0}: {1}. {2};{0}: {1}. {2}
+Cli_HandedOver;An das geöffnete SyncForge übergeben. Fortschritt und Ergebnis stehen dort und in der Historie.;Handed over to the open SyncForge. Progress and result are shown there and in the history.

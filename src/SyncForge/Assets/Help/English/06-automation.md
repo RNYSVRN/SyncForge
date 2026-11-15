@@ -34,3 +34,16 @@ Automatic runs are postponed and caught up later if
 - the same profile is already syncing.
 
 > Important: Automatic runs only happen while SyncForge is running, also when closed to the notification area.
+
+## Command line
+
+For scripts or the Windows Task Scheduler, SyncForge can also run without a window:
+
+- `SyncForge.exe --run "Documents"`: sync a profile (name or ID, can be repeated)
+- `SyncForge.exe --run-all`: sync all profiles
+- `SyncForge.exe --list`: list profiles with their ID
+- `SyncForge.exe --help`: overview of the commands
+
+The run appears in the history as **Command line**. If SyncForge is already open, the open program takes over the sync and shows its progress. The exit code tells scripts the result: 0 success, 1 warning, 2 error, 3 cancelled, 4 profile not found, 5 invalid arguments, 6 already running.
+
+> Tip: In the Task Scheduler, enter the path to `SyncForge.exe` as the program (after installation in `%LOCALAPPDATA%\Programs\SyncForge`) and, for example, `--run "Documents"` as arguments.

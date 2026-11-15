@@ -538,4 +538,18 @@
   <data name="Profiles_AddButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Profil hinzufügen</value></data>
   <data name="Editor_AddSource.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Quelle hinzufügen</value></data>
   <data name="Editor_AddTarget.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Ziel hinzufügen</value></data>
+  <data name="Trigger_CommandLine" xml:space="preserve"><value>Befehlszeile</value></data>
+  <data name="Cli_UsageTitle" xml:space="preserve"><value>SyncForge Befehlszeile</value></data>
+  <data name="Cli_UsageRun" xml:space="preserve"><value>Profil synchronisieren (mehrfach möglich, Name oder Id)</value></data>
+  <data name="Cli_UsageRunAll" xml:space="preserve"><value>Alle Profile synchronisieren</value></data>
+  <data name="Cli_UsageList" xml:space="preserve"><value>Profile mit Id auflisten</value></data>
+  <data name="Cli_UsageHelp" xml:space="preserve"><value>Diese Hilfe</value></data>
+  <data name="Cli_UsageExit" xml:space="preserve"><value>Exitcode: 0 erfolgreich, 1 Warnung, 2 Fehler, 3 abgebrochen, 4 Profil nicht gefunden, 5 falsche Angabe, 6 läuft bereits</value></data>
+  <data name="Cli_Invalid" xml:space="preserve"><value>Ungültige Angabe: {0}</value></data>
+  <data name="Cli_NotFound" xml:space="preserve"><value>Profil nicht gefunden: {0}</value></data>
+  <data name="Cli_NoProfiles" xml:space="preserve"><value>Keine Profile vorhanden.</value></data>
+  <data name="Cli_Running" xml:space="preserve"><value>{0}: wird synchronisiert …</value></data>
+  <data name="Cli_AlreadyRunning" xml:space="preserve"><value>{0}: läuft bereits.</value></data>
+  <data name="Cli_Result" xml:space="preserve"><value>{0}: {1}. {2}</value></data>
+  <data name="Cli_HandedOver" xml:space="preserve"><value>An das geöffnete SyncForge übergeben. Fortschritt und Ergebnis stehen dort und in der Historie.</value></data>
 </root>

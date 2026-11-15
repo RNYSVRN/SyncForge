@@ -27,6 +27,8 @@ public sealed class SyncCoordinator
     private readonly HistoryStore _history;
     private readonly SettingsService _settings;
     private readonly ConcurrentDictionary<Guid, RunActivity> _running = new();
+    /// <summary>Prozessübergreifende Sperre je Profil (Fenster und Befehlszeile laufen in getrennten Prozessen).</summary>
+    private readonly ConcurrentDictionary<Guid, Semaphore> _locks = new();
     private long _lastActivityEventMs = -1000;
     private readonly System.Diagnostics.Stopwatch _clock = System.Diagnostics.Stopwatch.StartNew();
 
@@ -81,7 +83,20 @@ public sealed class SyncCoordinator
     public bool TryBegin(Guid profileId, CancellationTokenSource cts)
     {
         var name = _profiles.Get(profileId)?.Name ?? string.Empty;
-        if (!_running.TryAdd(profileId, new RunActivity(profileId, name, cts))) return false;
+        // Läuft das Profil schon in einem anderen SyncForge-Prozess (z. B. von der Befehlszeile)?
+        var systemLock = new Semaphore(1, 1, $@"Local\SyncForge.Run.{profileId:N}");
+        if (!systemLock.WaitOne(0))
+        {
+            systemLock.Dispose();
+            return false;
+        }
+        if (!_running.TryAdd(profileId, new RunActivity(profileId, name, cts)))
+        {
+            systemLock.Release();
+            systemLock.Dispose();
+            return false;
+        }
+        _locks[profileId] = systemLock;
         RunStarted?.Invoke(this, profileId);
         RaiseActivityChanged(force: true);
         return true;
@@ -90,6 +105,11 @@ public sealed class SyncCoordinator
     public void End(Guid profileId)
     {
         _running.TryRemove(profileId, out _);
+        if (_locks.TryRemove(profileId, out var systemLock))
+        {
+            systemLock.Release();
+            systemLock.Dispose();
+        }
         RaiseActivityChanged(force: true);
     }
 
