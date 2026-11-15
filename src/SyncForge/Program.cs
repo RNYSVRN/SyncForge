@@ -26,6 +26,23 @@ public static class Program
             return 0;
         }
 
+        // Befehlszeile (--run, --run-all, --list, --help): ohne Fenster.
+        var command = Core.Cli.CommandLineOptions.Parse(args);
+        if (command.IsCommand)
+        {
+            // Läuft SyncForge schon, übernimmt das geöffnete Programm die Synchronisierung
+            // (Fortschritt, Benachrichtigung, keine zwei Prozesse für dasselbe Profil).
+            var running = AppInstance.GetInstances().FirstOrDefault(i => i.Key == InstanceKey);
+            if (running is not null && command.Kind is Core.Cli.CommandKind.Run or Core.Cli.CommandKind.RunAll)
+            {
+                var activation = AppInstance.GetCurrent().GetActivatedEventArgs();
+                Task.Run(() => running.RedirectActivationToAsync(activation).AsTask()).Wait();
+                Services.CommandLineRunner.ReportHandedOver();
+                return 0;
+            }
+            return Services.CommandLineRunner.Run(command);
+        }
+
         var current = AppInstance.FindOrRegisterForKey(InstanceKey);
         if (!current.IsCurrent)
         {

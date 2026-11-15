@@ -34,3 +34,16 @@ Automatische Läufe werden zurückgestellt und später nachgeholt, wenn
 - dasselbe Profil gerade synchronisiert wird.
 
 > Wichtig: Automatische Läufe finden nur statt, solange SyncForge läuft, auch geschlossen im Infobereich.
+
+## Befehlszeile
+
+Für Skripte oder die Windows-Aufgabenplanung lässt sich SyncForge auch ohne Fenster starten:
+
+- `SyncForge.exe --run "Dokumente"`: ein Profil synchronisieren (Name oder Id, mehrfach möglich)
+- `SyncForge.exe --run-all`: alle Profile synchronisieren
+- `SyncForge.exe --list`: Profile mit ihrer Id anzeigen
+- `SyncForge.exe --help`: Übersicht der Befehle
+
+Der Lauf erscheint in der Historie als **Befehlszeile**. Ist SyncForge bereits geöffnet, übernimmt das geöffnete Programm die Synchronisierung und zeigt den Fortschritt. Der Exitcode verrät Skripten das Ergebnis: 0 erfolgreich, 1 Warnung, 2 Fehler, 3 abgebrochen, 4 Profil nicht gefunden, 5 falsche Angabe, 6 läuft bereits.
+
+> Tipp: In der Aufgabenplanung als Programm den Pfad zu `SyncForge.exe` angeben (nach der Installation unter `%LOCALAPPDATA%\Programs\SyncForge`) und als Argumente z. B. `--run "Dokumente"`.

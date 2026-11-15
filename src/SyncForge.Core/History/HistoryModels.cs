@@ -9,7 +9,9 @@ public enum RunTrigger
     Manual,
     Schedule,
     Watcher,
-    Event
+    Event,
+    /// <summary>Über die Befehlszeile gestartet (z. B. Skript oder Aufgabenplanung).</summary>
+    CommandLine
 }
 
 public enum TargetRunStatus

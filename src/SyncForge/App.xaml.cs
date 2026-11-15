@@ -119,7 +119,28 @@ public partial class App : Application
         long? runId = null;
         if (args.Kind == ExtendedActivationKind.AppNotification && args.Data is AppNotificationActivatedEventArgs n)
             runId = NotificationService.ParseRunId(n.Arguments);
+
+        // Weitergereichte Befehlszeile (SyncForge.exe --run "Profil"): synchronisieren, ohne das Fenster zu öffnen.
+        if (args.Kind == ExtendedActivationKind.Launch && args.Data is Windows.ApplicationModel.Activation.ILaunchActivatedEventArgs launch)
+        {
+            var command = Core.Cli.CommandLineOptions.Parse(Core.Cli.CommandLineOptions.Split(launch.Arguments));
+            if (command.Kind is Core.Cli.CommandKind.Run or Core.Cli.CommandKind.RunAll)
+            {
+                RunFromCommandLine(command);
+                return;
+            }
+        }
         UiQueue?.TryEnqueue(() => ShowMainWindow(runId));
+    }
+
+    private static void RunFromCommandLine(Core.Cli.CommandLineOptions command)
+    {
+        var store = Services.GetRequiredService<ProfileStore>();
+        var coordinator = Services.GetRequiredService<SyncCoordinator>();
+        var profiles = command.Kind == Core.Cli.CommandKind.RunAll
+            ? store.Profiles.ToList()
+            : command.Profiles.Select(name => CommandLineRunner.Find(store, name)).OfType<Core.Models.SyncProfile>().Distinct().ToList();
+        foreach (var p in profiles) _ = coordinator.RunAsync(p.Id, RunTrigger.CommandLine);
     }
 
     /// <summary>Zeigt das Hauptfenster (aus dem Infobereich) und öffnet optional einen Lauf.</summary>
