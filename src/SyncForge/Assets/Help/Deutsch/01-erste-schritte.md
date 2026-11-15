@@ -5,15 +5,15 @@ SyncForge hält Ordner automatisch auf dem gleichen Stand, zum Beispiel deine Do
 
 ## In drei Schritten zum ersten Backup
 
-1. Öffne **Backup-Profile** und wähle **Profil hinzufügen**.
-2. Wähle den **Quellordner** (was gesichert wird) und ein oder mehrere **Ziele** (wohin gesichert wird). Gib dem Profil einen Namen und speichere.
-3. Klicke in der Profilliste auf **Vorschau**, um zu sehen, was passieren würde, oder direkt auf **Synchronisieren**.
+1. Wähle in der **Übersicht** **Erstes Profil anlegen** (oder später **Neues Profil**). Ein Assistent führt dich durch die Einrichtung: Wähle eine **Vorlage** wie „Dokumente sichern“ oder „Auf NAS sichern, mit Versionen“, prüfe die vorgeschlagenen Ordner und wähle ein Ziel.
+2. Lege fest, **wann** gesichert wird (manuell, täglich, bei Änderungen oder beim Anschließen der Festplatte), und lege das Profil an. Alle weiteren Einstellungen findest du jederzeit im Editor des Profils.
+3. Klicke auf **Vorschau**, um zu sehen, was passieren würde, oder direkt auf **Jetzt synchronisieren**.
 
 > Tipp: Die Vorschau verändert nichts. Nutze sie vor dem ersten Lauf, besonders wenn im Ziel schon Dateien liegen.
 
 ## Die Bereiche der App
 
-- **Übersicht**: Anzahl der Profile, letzter und nächster geplanter Lauf.
+- **Übersicht**: eine Karte je Profil mit Status, nächstem Lauf und laufendem Fortschritt, dazu **Alle synchronisieren**.
 - **Backup-Profile**: Profile anlegen, bearbeiten, ausführen und frühere Fassungen wiederherstellen.
 - **Historie**: alle Läufe mit Statistik und den Details zu jeder einzelnen Datei.
 - **Unterstützen**: SyncForge ist kostenlos und Open Source; hier kannst du die Entwicklung freiwillig mit einem Kaffee über Ko-fi unterstützen.

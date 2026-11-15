@@ -468,3 +468,55 @@ Dashboard_AttentionMany;Beim letzten Lauf von {0} Profilen gab es Fehler oder Wa
 Dashboard_SyncAllButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Alle synchronisieren;Sync all
 Dashboard_NewProfileButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Neues Profil;New profile
 Dashboard_CreateFirstButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Erstes Profil anlegen;Create first profile
+Wizard_Title.Text;Neues Backup-Profil;New backup profile
+Wizard_StepOf;Schritt {0} von {1};Step {0} of {1}
+Wizard_TemplateHeading.Text;Was möchtest du sichern?;What would you like to back up?
+Wizard_Template_documents_Title;Dokumente sichern;Back up documents
+Wizard_Template_documents_Text;Dein Dokumente-Ordner, täglich und beim Anschließen der Festplatte.;Your Documents folder, daily and when the drive is connected.
+Wizard_Template_photos_Title;Fotos und Videos sichern;Back up photos and videos
+Wizard_Template_photos_Text;Bilder und Videos in eigenen Unterordnern, täglich und beim Anschließen der Festplatte.;Pictures and videos in their own subfolders, daily and when the drive is connected.
+Wizard_Template_usb_Title;Auf USB-Festplatte spiegeln;Mirror to a USB drive
+Wizard_Template_usb_Text;Exakte Kopie beliebiger Ordner, sobald die Festplatte angeschlossen wird.;An exact copy of any folders as soon as the drive is connected.
+Wizard_Template_nas_Title;Auf NAS sichern, mit Versionen;Back up to a NAS, with versions
+Wizard_Template_nas_Text;Täglich ins Netzwerk. Überschriebene und gelöschte Dateien lassen sich wiederherstellen.;Daily to the network. Overwritten and deleted files can be restored.
+Wizard_Template_twoway_Title;Zwei Ordner synchron halten;Keep two folders in sync
+Wizard_Template_twoway_Text;Änderungen auf beiden Seiten werden übernommen, sofort bei jeder Änderung.;Changes on both sides are applied, right after every change.
+Wizard_Template_custom_Title;Alles selbst festlegen;Set everything myself
+Wizard_Template_custom_Text;Öffnet den vollständigen Editor mit allen Einstellungen.;Opens the full editor with all settings.
+Wizard_SourcesHeading.Text;Welche Ordner sollen gesichert werden?;Which folders should be backed up?
+Wizard_SourcesText.Text;Alle Unterordner werden mitgesichert. Bei mehreren Ordnern bekommt jeder im Ziel einen eigenen Unterordner.;All subfolders are included. With several folders, each gets its own subfolder in the destination.
+Wizard_AddSource.Text;Weiteren Ordner hinzufügen;Add another folder
+Wizard_AddSourceButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Weiteren Ordner hinzufügen;Add another folder
+Wizard_TargetHeading.Text;Wohin soll gesichert werden?;Where should the backup go?
+Wizard_TargetText.Text;Zum Beispiel ein Ordner auf einer USB-Festplatte, auf einem zweiten Laufwerk oder auf deinem NAS (\\server\freigabe). USB-Festplatten erkennt SyncForge auch unter einem anderen Laufwerksbuchstaben wieder.;For example a folder on a USB drive, on a second drive or on your NAS (\\server\share). SyncForge recognizes USB drives even under a different drive letter.
+Wizard_TargetBox.PlaceholderText;E:\Backup;E:\Backup
+Wizard_TargetBox.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Zielordner;Destination folder
+Wizard_TargetNetwork;Netzwerkfreigabe;Network share
+Wizard_TargetNotReady;Laufwerk nicht bereit;Drive not ready
+Wizard_DriveRemovable;USB-Laufwerk;USB drive
+Wizard_DriveNetwork;Netzlaufwerk;Network drive
+Wizard_DriveFixed;Laufwerk;Drive
+Wizard_TargetInfo;{0} {1} · {2} frei;{0} {1} · {2} free
+Wizard_WhenHeading.Text;Wann soll gesichert werden?;When should the backup run?
+Wizard_ScheduleChoice.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Zeitplan;Schedule
+Wizard_WhenManual.Content;Nur wenn ich es starte;Only when I start it
+Wizard_WhenDaily.Content;Täglich;Daily
+Wizard_WhenHourlyOption.Content;Stündlich;Hourly
+Wizard_Time.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Uhrzeit;Time
+Wizard_WatchOption.Content;Zusätzlich bei Änderungen sofort sichern;Also back up right after changes
+Wizard_DriveOption.Content;Sichern, sobald das Ziel-Laufwerk angeschlossen wird;Back up as soon as the destination drive is connected
+Wizard_WhenHint.Text;Automatische Läufe finden statt, solange SyncForge läuft, auch im Infobereich. Mit „Mit Windows starten“ in den Einstellungen klappt das ab der Anmeldung.;Automatic runs happen while SyncForge is running, also in the notification area. With "Start with Windows" in the settings this works from sign-in.
+Wizard_SummaryHeading.Text;Fast fertig;Almost done
+Wizard_NameBox.Header;Name;Name
+Wizard_SummaryModeLabel.Text;Modus;Mode
+Wizard_SummarySourcesLabel.Text;Quellen;Sources
+Wizard_SummaryTargetLabel.Text;Ziel;Destination
+Wizard_SummaryWhenLabel.Text;Wann;When
+Wizard_OpenEditor.Content;Weitere Einstellungen (Filter, Löschschutz …) im Editor festlegen;Set more options (filters, deletion protection …) in the editor
+Wizard_WhenDailyAt;Täglich um {0};Daily at {0}
+Wizard_WhenHourly;Stündlich;Hourly
+Wizard_Cancel.Content;Abbrechen;Cancel
+Wizard_Back.Content;Zurück;Back
+Wizard_Next.Content;Weiter;Next
+Wizard_CreatePreview.Content;Anlegen und Vorschau zeigen;Create and show preview
+Wizard_Create.Content;Profil anlegen;Create profile

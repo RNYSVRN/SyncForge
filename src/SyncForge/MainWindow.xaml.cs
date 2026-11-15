@@ -31,6 +31,7 @@ public sealed partial class MainWindow : Window
         [typeof(RunDetailPage)] = "History",
         [typeof(VersionsPage)] = "Profiles",
         [typeof(ConflictsPage)] = "Profiles",
+        [typeof(WizardPage)] = "Profiles",
     };
 
     private readonly SettingsService _settings;
@@ -108,6 +109,13 @@ public sealed partial class MainWindow : Window
     /// <summary>Öffnet eine Unterseite (z. B. Profil-Editor) mit Parameter.</summary>
     public void Navigate(Type pageType, object? parameter = null) =>
         ContentFrame.Navigate(pageType, parameter, new DrillInNavigationTransitionInfo());
+
+    /// <summary>Entfernt den letzten Eintrag dieser Seite aus dem Verlauf (z. B. den Assistenten nach dem Anlegen).</summary>
+    public void ForgetPage(Type pageType)
+    {
+        var entry = ContentFrame.BackStack.LastOrDefault(e => e.SourcePageType == pageType);
+        if (entry is not null) ContentFrame.BackStack.Remove(entry);
+    }
 
     /// <summary>Zurück zur vorherigen Seite (oder zur angegebenen Hauptseite, falls es keine gibt).</summary>
     public void GoBack(string fallbackTag = "Profiles")

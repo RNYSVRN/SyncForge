@@ -47,6 +47,7 @@ public partial class App : Application
             .AddTransient<SyncRunViewModel>()
             .AddTransient<VersionsViewModel>()
             .AddTransient<ConflictsViewModel>()
+            .AddTransient<WizardViewModel>()
             .BuildServiceProvider();
 
         // Sprache muss gesetzt sein, bevor XAML-Ressourcen geladen werden.

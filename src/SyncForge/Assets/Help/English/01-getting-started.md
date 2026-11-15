@@ -5,15 +5,15 @@ SyncForge keeps folders in sync automatically, for example your documents on a U
 
 ## Your first backup in three steps
 
-1. Open **Backup profiles** and choose **Add profile**.
-2. Choose the **source folder** (what is backed up) and one or more **destinations** (where it goes). Give the profile a name and save.
-3. In the profile list, click **Preview** to see what would happen, or **Sync now** to start right away.
+1. In the **Overview**, choose **Create first profile** (or **New profile** later). A wizard guides you through the setup: pick a **template** such as "Back up documents" or "Back up to a NAS, with versions", check the suggested folders and choose a destination.
+2. Choose **when** to back up (manually, daily, on changes or when the drive is connected) and create the profile. All other settings are available at any time in the profile editor.
+3. Click **Preview** to see what would happen, or **Sync now** to start right away.
 
 > Tip: The preview never changes anything. Use it before the first run, especially if the destination already contains files.
 
 ## Areas of the app
 
-- **Overview**: number of profiles, last and next scheduled run.
+- **Overview**: a card per profile with status, next run and live progress, plus **Sync all**.
 - **Backup profiles**: create, edit and run profiles and restore earlier versions.
 - **History**: every run with statistics and details for each individual file.
 - **Support**: SyncForge is free and open source; here you can voluntarily support its development with a coffee via Ko-fi.
