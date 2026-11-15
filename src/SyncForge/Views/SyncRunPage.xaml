@@ -33,6 +33,13 @@
                              Severity="{x:Bind ViewModel.MessageSeverity, Mode=OneWay}"
                              Title="{x:Bind ViewModel.MessageTitle, Mode=OneWay}" Message="{x:Bind ViewModel.MessageText, Mode=OneWay}" />
 
+                    <InfoBar x:Uid="Run_ConflictsBar" IsOpen="{x:Bind ViewModel.HasOpenConflicts, Mode=OneWay}" IsClosable="False" Severity="Warning"
+                             Title="Offene Konflikte" Message="Einige Dateien wurden auf beiden Seiten geändert. SyncForge ändert sie nicht, bis du entscheidest.">
+                        <InfoBar.ActionButton>
+                            <Button x:Uid="Run_ResolveConflicts" Content="Konflikte lösen" Click="ResolveConflicts_Click" />
+                        </InfoBar.ActionButton>
+                    </InfoBar>
+
                     <!-- Ziele -->
                     <ItemsControl ItemsSource="{x:Bind ViewModel.Targets}">
                         <ItemsControl.ItemContainerTransitions>

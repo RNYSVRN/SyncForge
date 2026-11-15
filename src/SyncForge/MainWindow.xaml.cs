@@ -1,4 +1,4 @@
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
@@ -30,6 +30,7 @@ public sealed partial class MainWindow : Window
         [typeof(SyncRunPage)] = "Profiles",
         [typeof(RunDetailPage)] = "History",
         [typeof(VersionsPage)] = "Profiles",
+        [typeof(ConflictsPage)] = "Profiles",
     };
 
     private readonly SettingsService _settings;

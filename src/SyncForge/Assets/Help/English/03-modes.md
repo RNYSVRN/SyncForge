@@ -32,6 +32,6 @@ A conflict occurs when a file was **changed on both sides** since the last run. 
 - **Newer version wins**: the file with the more recent modification date replaces the other (with equal dates, the source wins).
 - **Source wins**: the source version replaces the destination version.
 - **Keep both**: the source version keeps the name; the destination version is saved as `Name (conflict date time).ext` on both sides.
-- **Leave unchanged, just report**: both versions stay as they are. The conflict appears in the history (filter **Conflicts**) and again on every run until you resolve it yourself.
+- **Leave unchanged, just report**: both versions stay as they are. The conflict appears in the history (filter **Conflicts**) and again on every run until you decide. With **Resolve conflicts** (in the preview and in the run details) you see both versions with size and date and choose per file: **Keep source**, **Keep destination**, **Keep both** or **Decide later**. **Apply to all** does it in one step, e.g. "newer version each time".
 
 > Tip: With **Notifications › On conflicts** in the settings you learn about conflicts immediately.

@@ -26,6 +26,9 @@ public sealed partial class SyncRunPage : Page
 
     private void Back_Click(object sender, RoutedEventArgs e) => App.MainWindow.GoBack();
 
+    private void ResolveConflicts_Click(object sender, RoutedEventArgs e) =>
+        App.MainWindow.Navigate(typeof(ConflictsPage), ViewModel.ProfileId);
+
     private void Details_Click(object sender, RoutedEventArgs e)
     {
         if (ViewModel.HistoryRunId is { } id) App.MainWindow.Navigate(typeof(RunDetailPage), id);

@@ -1,4 +1,4 @@
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.UI.Xaml.Controls;
 using SyncForge.Core.Engine;
@@ -90,6 +90,10 @@ public sealed partial class SyncRunViewModel : ObservableObject
     [ObservableProperty] public partial InfoBarSeverity MessageSeverity { get; set; }
     [ObservableProperty] public partial string AnalyzeText { get; set; } = string.Empty;
 
+    /// <summary>Zwei-Wege mit "nur melden": Es gibt offene Konflikte, die der Benutzer lösen kann.</summary>
+    [ObservableProperty] public partial bool HasOpenConflicts { get; set; }
+    public Guid ProfileId { get; private set; }
+
     public bool IsAnalyzing => State == RunState.Analyzing;
     public bool IsReady => State == RunState.Ready;
     public bool IsRunning => State == RunState.Running;
@@ -138,6 +142,8 @@ public sealed partial class SyncRunViewModel : ObservableObject
         }
 
         BuildTargetList(_analysis);
+        ProfileId = profile.Id;
+        HasOpenConflicts = _analysis.ReadyTargets.Any(t => t.Plan!.Actions.Any(a => a.Kind == SyncActionKind.Conflict));
         State = RunState.Ready;
 
         var warnings = _analysis.DeletionWarnings.ToList();

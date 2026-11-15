@@ -404,4 +404,41 @@
   <data name="Credentials_ErrorConflict" xml:space="preserve"><value>Windows ist mit diesem Server bereits unter einem anderen Benutzer verbunden. Trenne die bestehende Verbindung (z. B. ein verbundenes Netzlaufwerk) oder verwende dieselben Anmeldedaten.</value></data>
   <data name="Validation_NetworkLogonFailed" xml:space="preserve"><value>Anmeldung an der Netzwerkfreigabe fehlgeschlagen</value></data>
   <data name="Validation_NetworkCredentialConflict" xml:space="preserve"><value>Netzwerkfreigabe: Windows ist bereits unter einem anderen Benutzer verbunden</value></data>
+  <data name="Conflicts_Title.Text" xml:space="preserve"><value>Konflikte lösen</value></data>
+  <data name="Conflicts_Intro.Text" xml:space="preserve"><value>Diese Dateien wurden seit dem letzten Lauf auf beiden Seiten geändert. Wähle je Datei, welche Fassung gilt. Ersetzte Fassungen landen im Papierkorb bzw. im Versionsordner.</value></data>
+  <data name="Conflicts_None.Title" xml:space="preserve"><value>Keine offenen Konflikte</value></data>
+  <data name="Conflicts_None.Message" xml:space="preserve"><value>Beide Seiten sind sich einig.</value></data>
+  <data name="Conflicts_SetAll.Content" xml:space="preserve"><value>Für alle übernehmen</value></data>
+  <data name="Conflicts_AllNewer.Text" xml:space="preserve"><value>Jeweils neuere Fassung</value></data>
+  <data name="Conflicts_AllSource.Text" xml:space="preserve"><value>Quelle behalten</value></data>
+  <data name="Conflicts_AllTarget.Text" xml:space="preserve"><value>Ziel behalten</value></data>
+  <data name="Conflicts_AllBoth.Text" xml:space="preserve"><value>Beide behalten</value></data>
+  <data name="Conflicts_AllSkip.Text" xml:space="preserve"><value>Später entscheiden</value></data>
+  <data name="Conflicts_TypeConflict.Text" xml:space="preserve"><value>Ordner auf der einen, Datei auf der anderen Seite. Bitte im Explorer umbenennen oder entfernen.</value></data>
+  <data name="Conflicts_Choice.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Entscheidung</value></data>
+  <data name="Resolve_Skip.Content" xml:space="preserve"><value>Später entscheiden</value></data>
+  <data name="Resolve_KeepSource.Content" xml:space="preserve"><value>Quelle behalten</value></data>
+  <data name="Resolve_KeepTarget.Content" xml:space="preserve"><value>Ziel behalten</value></data>
+  <data name="Resolve_KeepBoth.Content" xml:space="preserve"><value>Beide behalten</value></data>
+  <data name="Conflicts_Back.Content" xml:space="preserve"><value>Zurück</value></data>
+  <data name="Conflicts_Apply.Content" xml:space="preserve"><value>Übernehmen</value></data>
+  <data name="Conflict_SourceVersion" xml:space="preserve"><value>Quelle: {0}</value></data>
+  <data name="Conflict_TargetVersion" xml:space="preserve"><value>Ziel: {0}</value></data>
+  <data name="Conflict_Missing" xml:space="preserve"><value>nicht vorhanden</value></data>
+  <data name="Conflict_Folder" xml:space="preserve"><value>Ordner</value></data>
+  <data name="Conflict_Newer" xml:space="preserve"><value>neuer</value></data>
+  <data name="Conflicts_Busy" xml:space="preserve"><value>Für dieses Profil läuft gerade eine Synchronisierung. Bitte warte, bis sie fertig ist.</value></data>
+  <data name="Conflicts_Analyzing" xml:space="preserve"><value>Konflikte werden gesucht …</value></data>
+  <data name="Conflicts_Applying" xml:space="preserve"><value>Entscheidungen werden übernommen …</value></data>
+  <data name="Conflicts_TargetsUnavailable" xml:space="preserve"><value>{0} Ziel(e) nicht erreichbar, deren Konflikte fehlen hier.</value></data>
+  <data name="Conflicts_NothingChosen" xml:space="preserve"><value>Wähle zuerst bei mindestens einer Datei, welche Fassung gilt.</value></data>
+  <data name="Conflicts_Done" xml:space="preserve"><value>{0} Konflikt(e) gelöst.</value></data>
+  <data name="Conflicts_DoneErrors" xml:space="preserve"><value>Nicht alles hat geklappt: {0} Fehler. Details stehen in der Historie.</value></data>
+  <data name="Run_ConflictsBar.Title" xml:space="preserve"><value>Offene Konflikte</value></data>
+  <data name="Run_ConflictsBar.Message" xml:space="preserve"><value>Einige Dateien wurden auf beiden Seiten geändert. SyncForge ändert sie nicht, bis du entscheidest.</value></data>
+  <data name="Run_ResolveConflicts.Content" xml:space="preserve"><value>Konflikte lösen</value></data>
+  <data name="Detail_ConflictsBar.Title" xml:space="preserve"><value>Offene Konflikte</value></data>
+  <data name="Detail_ConflictsBar.Message" xml:space="preserve"><value>Einige Dateien wurden auf beiden Seiten geändert und warten auf deine Entscheidung.</value></data>
+  <data name="Detail_ResolveConflicts.Content" xml:space="preserve"><value>Konflikte lösen</value></data>
+  <data name="Detail_Delete.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Eintrag löschen</value></data>
 </root>

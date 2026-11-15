@@ -32,6 +32,6 @@ Ein Konflikt entsteht, wenn eine Datei seit dem letzten Lauf auf **beiden Seiten
 - **Neuere Fassung gewinnt**: die Datei mit dem jüngeren Änderungsdatum ersetzt die andere (bei gleichem Datum gewinnt die Quelle).
 - **Quelle gewinnt**: die Fassung aus der Quelle ersetzt die im Ziel.
 - **Beide behalten**: die Quellfassung behält den Namen, die Zielfassung wird als `Name (Konflikt Datum Uhrzeit).ext` auf beiden Seiten gespeichert.
-- **Nicht ändern, nur melden**: beide Fassungen bleiben, wie sie sind. Der Konflikt erscheint in der Historie (Filter **Konflikte**) und bei jedem Lauf erneut, bis du ihn selbst auflöst.
+- **Nicht ändern, nur melden**: beide Fassungen bleiben, wie sie sind. Der Konflikt erscheint in der Historie (Filter **Konflikte**) und bei jedem Lauf erneut, bis du entscheidest. Über **Konflikte lösen** (in der Vorschau und in den Laufdetails) siehst du beide Fassungen mit Größe und Datum und wählst je Datei: **Quelle behalten**, **Ziel behalten**, **Beide behalten** oder **Später entscheiden**. Mit **Für alle übernehmen** geht das auch in einem Schritt, etwa „jeweils neuere Fassung“.
 
 > Tipp: Mit **Benachrichtigungen › Bei Konflikten** in den Einstellungen erfährst du sofort davon.

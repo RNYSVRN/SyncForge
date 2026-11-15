@@ -1,4 +1,4 @@
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using SyncForge.Core.Engine;
 using SyncForge.Core.History;
@@ -26,12 +26,14 @@ public sealed partial class RunDetailViewModel : ObservableObject
 {
     private const int MaxFiles = 1000;
     private readonly HistoryStore _history;
+    private readonly Core.Storage.ProfileStore _profiles;
     private long _runId;
     private bool _loading;
 
-    public RunDetailViewModel(HistoryStore history)
+    public RunDetailViewModel(HistoryStore history, Core.Storage.ProfileStore profiles)
     {
         _history = history;
+        _profiles = profiles;
     }
 
     public ObservableCollection<TargetEntryViewModel> Targets { get; } = [];
@@ -52,6 +54,12 @@ public sealed partial class RunDetailViewModel : ObservableObject
 
     public long RunId => _runId;
 
+    /// <summary>Profil des Laufs (für "Konflikte lösen").</summary>
+    public Guid ProfileId { get; private set; }
+
+    /// <summary>Lauf hatte offene Konflikte und das Profil ist (noch) ein Zwei-Wege-Profil mit "nur melden".</summary>
+    [ObservableProperty] public partial bool CanResolveConflicts { get; set; }
+
     public void Load(long runId)
     {
         _runId = runId;
@@ -70,6 +78,8 @@ public sealed partial class RunDetailViewModel : ObservableObject
         SummaryText = Format.Text("Run_TotalSummary", Format.Number(run.Copied), Format.Number(run.Updated), Format.Number(run.Deleted),
             Format.Bytes(run.Bytes), Format.Duration(run.Duration));
         if (run.Conflicts > 0) SummaryText += " " + Format.Text("Run_Conflicts", Format.Number(run.Conflicts)) + ".";
+        ProfileId = run.ProfileId;
+        CanResolveConflicts = run.Conflicts > 0 && _profiles.Get(run.ProfileId) is { Mode: Core.Models.SyncMode.TwoWay, ConflictResolution: Core.Models.ConflictResolution.Ask };
 
         _loading = true;
         Targets.Clear();
