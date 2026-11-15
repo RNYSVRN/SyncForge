@@ -24,3 +24,11 @@ SyncForge hält Ordner automatisch auf dem gleichen Stand, zum Beispiel deine Do
 ## Läuft SyncForge im Hintergrund?
 
 Ja. Wenn du das Fenster schließt, bleibt SyncForge im Infobereich der Taskleiste aktiv, damit Zeitpläne und Überwachung weiterlaufen. Beenden kannst du die App über das Symbol im Infobereich (Rechtsklick › **Beenden**). Mehr dazu unter **Infobereich und Hintergrundbetrieb**.
+
+## Tastenkürzel
+
+- **Strg+N**: neues Backup-Profil (Assistent)
+- **F1**: Hilfe
+- **Alt+Pfeil links**: zurück
+- Im Profil-Editor: **Strg+S** speichern, **Esc** abbrechen
+- Mit **Tab** und den Pfeiltasten erreichst du alle Bedienelemente, mit **Leertaste** oder **Eingabe** löst du sie aus.

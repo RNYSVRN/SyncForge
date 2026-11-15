@@ -24,3 +24,11 @@ SyncForge keeps folders in sync automatically, for example your documents on a U
 ## Does SyncForge run in the background?
 
 Yes. When you close the window, SyncForge stays active in the notification area of the taskbar so that schedules and monitoring keep running. To exit the app, right-click the icon in the notification area and choose **Exit**. See **Notification area and background operation** for details.
+
+## Keyboard shortcuts
+
+- **Ctrl+N**: new backup profile (wizard)
+- **F1**: help
+- **Alt+Left arrow**: back
+- In the profile editor: **Ctrl+S** save, **Esc** cancel
+- Use **Tab** and the arrow keys to reach every control, and **Space** or **Enter** to activate it.

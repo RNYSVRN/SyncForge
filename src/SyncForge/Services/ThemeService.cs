@@ -9,6 +9,9 @@ namespace SyncForge.Services;
 public sealed class ThemeService
 {
     private Window? _window;
+    private readonly Windows.UI.ViewManagement.AccessibilitySettings _accessibility = new();
+    // Das Ereignis HighContrastChanged gibt es in Desktop-Apps nicht; ColorValuesChanged meldet auch Kontrastwechsel.
+    private readonly Windows.UI.ViewManagement.UISettings _uiSettings = new();
 
     public void Initialize(Window window, AppTheme theme)
     {
@@ -18,6 +21,11 @@ public sealed class ThemeService
             // Folgt auch Systemwechseln (Hell/Dunkel), wenn "Windows-Standard" gewählt ist.
             root.ActualThemeChanged += (s, _) => ApplyCaptionButtonColors(s.ActualTheme);
         }
+        // Kontrastdesign ein/aus: Fensterschaltflächen wieder Windows überlassen bzw. eigene Farben setzen.
+        _uiSettings.ColorValuesChanged += (_, _) => window.DispatcherQueue.TryEnqueue(() =>
+        {
+            if (window.Content is FrameworkElement r) ApplyCaptionButtonColors(r.ActualTheme);
+        });
         Apply(theme);
     }
 
@@ -54,6 +62,17 @@ public sealed class ThemeService
     {
         if (_window?.AppWindow is not { } appWindow) return;
         var tb = appWindow.TitleBar;
+
+        // Kontrastdesign: Windows bestimmt die Farben (eigene Werte wären dort schlecht oder gar nicht sichtbar).
+        if (_accessibility.HighContrast)
+        {
+            tb.ButtonBackgroundColor = tb.ButtonInactiveBackgroundColor = null;
+            tb.ButtonForegroundColor = tb.ButtonInactiveForegroundColor = null;
+            tb.ButtonHoverBackgroundColor = tb.ButtonHoverForegroundColor = null;
+            tb.ButtonPressedBackgroundColor = tb.ButtonPressedForegroundColor = null;
+            return;
+        }
+
         var dark = actualTheme == ElementTheme.Dark;
         var transparent = Color.FromArgb(0, 0, 0, 0);
 

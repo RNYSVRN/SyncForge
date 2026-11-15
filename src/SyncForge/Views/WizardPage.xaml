@@ -160,7 +160,9 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <Button x:Uid="Wizard_Cancel" Content="Abbrechen" Click="Cancel_Click" MinWidth="100" />
+                <Button x:Uid="Wizard_Cancel" Content="Abbrechen" Click="Cancel_Click" MinWidth="100">
+                    <Button.KeyboardAccelerators><KeyboardAccelerator Key="Escape" /></Button.KeyboardAccelerators>
+                </Button>
                 <Button Grid.Column="1" x:Uid="Wizard_Back" Content="Zurück" Click="Back_Click" MinWidth="100" Visibility="{x:Bind ViewModel.CanGoBack, Mode=OneWay}" />
                 <Button Grid.Column="2" x:Uid="Wizard_Next" Content="Weiter" Click="Next_Click" MinWidth="120" Style="{StaticResource AccentButtonStyle}"
                         Visibility="{x:Bind ViewModel.ShowNext, Mode=OneWay}" />
