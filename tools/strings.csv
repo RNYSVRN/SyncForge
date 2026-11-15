@@ -3,8 +3,6 @@ Nav_Dashboard.Content;Übersicht;Overview
 Nav_Profiles.Content;Backup-Profile;Backup profiles
 Nav_History.Content;Historie;History
 Dashboard_Title.Text;Übersicht;Overview
-Dashboard_Welcome.Title;Willkommen bei SyncForge;Welcome to SyncForge
-Dashboard_Welcome.Message;Lege ein Backup-Profil an, um Ordner in ein oder mehrere Ziele zu synchronisieren.;Create a backup profile to sync folders to one or more destinations.
 Dashboard_ProfilesCard.Text;Backup-Profile;Backup profiles
 Dashboard_LastRunCard.Text;Letzter Lauf;Last run
 Dashboard_NextRunCard.Text;Nächster Lauf;Next run
@@ -451,3 +449,22 @@ Editor_SourceSubfolder;Im Ziel: Unterordner „{0}“;In the destination: subfol
 Editor_DriveFolder;Laufwerk;Drive
 Editor_ErrorSourcesOverlap;Quellen dürfen sich nicht überschneiden (eine liegt in der anderen):;Sources must not overlap (one is inside the other):
 Editor_MultiSourceInfo.Message;Jede Quelle landet in einem eigenen Unterordner der Ziele. Bereits vorhandene Dateien im Ziel bleiben unverändert.;Each source goes into its own subfolder of the destinations. Files already in the destination stay unchanged.
+Dashboard_SyncAll.Text;Alle synchronisieren;Sync all
+Dashboard_EmptyTitle.Text;Willkommen bei SyncForge;Welcome to SyncForge
+Dashboard_EmptyText.Text;Lege ein Backup-Profil an: Wähle einen oder mehrere Ordner und ein Ziel, zum Beispiel eine USB-Festplatte oder dein NAS. Vor jedem Lauf siehst du, was passieren wird.;Create a backup profile: choose one or more folders and a destination, for example a USB drive or your NAS. Before every run you see what will happen.
+Dashboard_CreateFirst.Text;Erstes Profil anlegen;Create first profile
+Dashboard_YourProfiles.Text;Deine Profile;Your profiles
+Dashboard_RunNow.Content;Jetzt synchronisieren;Sync now
+Dashboard_Preview.Content;Vorschau;Preview
+Dashboard_Edit.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip;Bearbeiten;Edit
+Dashboard_Edit.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Profil bearbeiten;Edit profile
+Dashboard_NextRun;Nächster Lauf: {0};Next run: {0}
+Dashboard_OnChanges;Bei Änderungen;On changes
+Dashboard_OnDrive;Beim Anschließen des Laufwerks;When the drive is connected
+Dashboard_ManualOnly;Nur manuell;Manual only
+Dashboard_AttentionTitle;Bitte prüfen;Please check
+Dashboard_AttentionOne;Beim letzten Lauf eines Profils gab es Fehler oder Warnungen. Details stehen in der Historie.;The last run of one profile had errors or warnings. Details are in the history.
+Dashboard_AttentionMany;Beim letzten Lauf von {0} Profilen gab es Fehler oder Warnungen. Details stehen in der Historie.;The last run of {0} profiles had errors or warnings. Details are in the history.
+Dashboard_SyncAllButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Alle synchronisieren;Sync all
+Dashboard_NewProfileButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Neues Profil;New profile
+Dashboard_CreateFirstButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Erstes Profil anlegen;Create first profile

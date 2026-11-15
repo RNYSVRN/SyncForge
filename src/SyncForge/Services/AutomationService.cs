@@ -58,12 +58,14 @@ public sealed class AutomationService : IDisposable
         (SyncProfile, DateTimeOffset)? best = null;
         foreach (var p in _profiles.Profiles)
         {
-            if (p.Automation.Schedule == ScheduleKind.None) continue;
-            var next = ScheduleCalculator.NextAfter(p.Automation, p.Automation.ScheduleAnchor ?? DateTimeOffset.Now);
-            if (next is { } n && (best is null || n < best.Value.Item2)) best = (p, n);
+            if (NextRunFor(p) is { } n && (best is null || n < best.Value.Item2)) best = (p, n);
         }
         return best;
     }
+
+    /// <summary>Nächster Zeitplan-Termin eines Profils (null = kein Zeitplan).</summary>
+    public static DateTimeOffset? NextRunFor(SyncProfile p) =>
+        p.Automation.Schedule == ScheduleKind.None ? null : ScheduleCalculator.NextAfter(p.Automation, p.Automation.ScheduleAnchor ?? DateTimeOffset.Now);
 
     /// <summary>Wird vom Infobereich-Fenster gemeldet, wenn ein Laufwerk angeschlossen wurde.</summary>
     public void OnDriveArrived(char letter)
