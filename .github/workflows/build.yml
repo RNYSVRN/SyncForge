@@ -85,19 +85,19 @@ jobs:
           )
           $sums = (Get-Content artifacts/release/SHA256SUMS.txt -Raw).Trim()
           $notes = @"
-          ## Neu in dieser Version
+          ## What's new
 
-          (Bitte vor dem Veröffentlichen ergänzen.)
+          (Please fill in before publishing.)
 
           ## Installation
 
-          - **SyncForge-$env:VERSION-x64-Setup.exe**: Installationsprogramm, ohne Administratorrechte.
-          - **SyncForge-$env:VERSION-x64.zip**: ohne Installation, entpacken und SyncForge.exe starten.
+          - **SyncForge-$env:VERSION-x64-Setup.exe**: installer, no administrator rights needed.
+          - **SyncForge-$env:VERSION-x64.zip**: no installation, unzip and run SyncForge.exe.
 
-          Die Dateien sind nicht signiert. Windows SmartScreen zeigt deshalb beim ersten Start einen Hinweis:
-          "Weitere Informationen" und dann "Trotzdem ausführen".
+          Requires Windows 11 (x64). The files are not code-signed, so Windows SmartScreen shows a notice on first
+          launch: choose "More info" and then "Run anyway".
 
-          ## Prüfsummen (SHA-256)
+          ## Checksums (SHA-256)
 
           ``````
           $sums
