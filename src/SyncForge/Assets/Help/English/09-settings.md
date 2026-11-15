@@ -15,7 +15,7 @@
 ## Performance
 
 - **Parallel copy operations**: how many files are copied at the same time (1–16).
-- **Bandwidth limit**: limits the transfer rate of all copies in KB/s (0 = unlimited), useful for network destinations.
+- **Bandwidth limit**: limits the transfer rate of all copies in KB/s (0 = unlimited), useful for network destinations. Profiles with their own limit use theirs.
 - **Pause on battery power** and **Pause on metered connections**: both apply to automatic runs.
 
 ## Data & retention

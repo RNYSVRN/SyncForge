@@ -194,6 +194,21 @@
                         <toolkit:SettingsCard.HeaderIcon><FontIcon Glyph="&#xE73E;" /></toolkit:SettingsCard.HeaderIcon>
                         <ToggleSwitch IsOn="{x:Bind ViewModel.VerifyAfterCopy, Mode=TwoWay}" OnContent="{StaticResource ToggleOnText}" OffContent="{StaticResource ToggleOffText}" />
                     </toolkit:SettingsCard>
+                    <toolkit:SettingsCard x:Uid="Editor_LowPriority" Header="Mit niedriger Priorität kopieren" Description="Andere Programme haben beim Zugriff auf die Laufwerke Vorrang, der PC bleibt auch bei großen Läufen flüssig. Der Lauf kann dadurch länger dauern.">
+                        <toolkit:SettingsCard.HeaderIcon><FontIcon Glyph="&#xEC4A;" /></toolkit:SettingsCard.HeaderIcon>
+                        <ToggleSwitch IsOn="{x:Bind ViewModel.LowPriorityIo, Mode=TwoWay}" OnContent="{StaticResource ToggleOnText}" OffContent="{StaticResource ToggleOffText}" />
+                    </toolkit:SettingsCard>
+                    <toolkit:SettingsExpander x:Uid="Editor_OwnBandwidth" Header="Eigenes Bandbreitenlimit" Description="Sonst gilt das Limit aus den Einstellungen der App. Sinnvoll z. B. für ein NAS über WLAN."
+                                              IsExpanded="{x:Bind ViewModel.UseOwnBandwidth, Mode=OneWay}">
+                        <toolkit:SettingsExpander.HeaderIcon><FontIcon Glyph="&#xEC05;" /></toolkit:SettingsExpander.HeaderIcon>
+                        <ToggleSwitch IsOn="{x:Bind ViewModel.UseOwnBandwidth, Mode=TwoWay}" OnContent="{StaticResource ToggleOnText}" OffContent="{StaticResource ToggleOffText}" />
+                        <toolkit:SettingsExpander.Items>
+                            <toolkit:SettingsCard x:Uid="Editor_OwnBandwidthValue" Header="Höchstens (KB/s)" Description="0 = unbegrenzt" IsEnabled="{x:Bind ViewModel.UseOwnBandwidth, Mode=OneWay}">
+                                <NumberBox Value="{x:Bind ViewModel.OwnBandwidthKBps, Mode=TwoWay}" Minimum="0" SmallChange="1024" LargeChange="10240"
+                                           SpinButtonPlacementMode="Inline" MinWidth="140" x:Uid="Editor_OwnBandwidthBox" />
+                            </toolkit:SettingsCard>
+                        </toolkit:SettingsExpander.Items>
+                    </toolkit:SettingsExpander>
 
                     <!-- Filter -->
                     <TextBlock x:Uid="Editor_SectionFilter" Text="Filter" Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" />

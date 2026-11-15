@@ -160,6 +160,10 @@ public sealed partial class ProfileEditorViewModel : ObservableObject
     [ObservableProperty] public partial int CompareIndex { get; set; }
     [ObservableProperty] public partial int MultiTargetIndex { get; set; }
     [ObservableProperty] public partial bool VerifyAfterCopy { get; set; }
+    [ObservableProperty] public partial bool LowPriorityIo { get; set; }
+    /// <summary>Eigenes Bandbreitenlimit statt der Einstellung der App.</summary>
+    [ObservableProperty] public partial bool UseOwnBandwidth { get; set; }
+    [ObservableProperty] public partial double OwnBandwidthKBps { get; set; }
     [ObservableProperty] public partial string ExcludePatterns { get; set; } = string.Empty;
     [ObservableProperty] public partial string IncludePatterns { get; set; } = string.Empty;
     [ObservableProperty] public partial bool ExcludeHidden { get; set; }
@@ -219,6 +223,9 @@ public sealed partial class ProfileEditorViewModel : ObservableObject
         CompareIndex = (int)_profile.CompareMode;
         MultiTargetIndex = (int)_profile.MultiTargetMode;
         VerifyAfterCopy = _profile.VerifyAfterCopy;
+        LowPriorityIo = _profile.LowPriorityIo;
+        UseOwnBandwidth = _profile.BandwidthLimitKBps is not null;
+        OwnBandwidthKBps = _profile.BandwidthLimitKBps ?? 10240;
         ExcludePatterns = string.Join(Environment.NewLine, _profile.Filter.ExcludePatterns);
         IncludePatterns = string.Join(Environment.NewLine, _profile.Filter.IncludePatterns);
         ExcludeHidden = _profile.Filter.ExcludeHidden;
@@ -286,6 +293,10 @@ public sealed partial class ProfileEditorViewModel : ObservableObject
         _profile.CompareMode = (CompareMode)CompareIndex;
         _profile.MultiTargetMode = (MultiTargetMode)MultiTargetIndex;
         _profile.VerifyAfterCopy = VerifyAfterCopy;
+        _profile.LowPriorityIo = LowPriorityIo;
+        _profile.BandwidthLimitKBps = UseOwnBandwidth
+            ? (double.IsNaN(OwnBandwidthKBps) ? 0 : (int)Math.Clamp(Math.Round(OwnBandwidthKBps), 0, 10_000_000))
+            : null;
         _profile.Filter = new FilterSettings
         {
             ExcludePatterns = SplitLines(ExcludePatterns),

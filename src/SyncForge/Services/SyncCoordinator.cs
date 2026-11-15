@@ -126,7 +126,8 @@ public sealed class SyncCoordinator
     public SyncExecutorOptions BuildOptions(SyncProfile profile) => new()
     {
         MaxParallelCopies = _settings.Current.MaxParallelCopies,
-        BandwidthLimitKBps = _settings.Current.BandwidthLimitKBps,
+        BandwidthLimitKBps = profile.BandwidthLimitKBps ?? _settings.Current.BandwidthLimitKBps,
+        LowPriorityIo = profile.LowPriorityIo,
         VerifyAfterCopy = profile.VerifyAfterCopy,
         DeleteToRecycleBin = profile.DeleteToRecycleBin,
         UseShadowCopy = profile.UseShadowCopy,

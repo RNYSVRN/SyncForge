@@ -551,3 +551,10 @@ Editor_ShadowCopy.Description;Für Dateien, die ein Programm dauerhaft sperrt (z
 Editor_ShadowCopyHint.Title;Wirkt nur mit Administratorrechten;Only works with administrator rights
 Editor_ShadowCopyHint.Message;SyncForge läuft gerade ohne. Richte für dieses Profil eine Aufgabe in der Windows-Aufgabenplanung ein (Mit höchsten Privilegien ausführen, Argumente: --run "Profilname"). Details stehen in der Hilfe unter Automatisierung.;SyncForge is currently running without them. Set up a task for this profile in the Windows Task Scheduler (Run with highest privileges, arguments: --run "Profile name"). Details are in the help under Automation.
 Run_ShadowCopied;{0} gesperrte Datei(en) aus einer Schattenkopie gesichert.;{0} locked file(s) backed up from a shadow copy.
+Editor_LowPriority.Header;Mit niedriger Priorität kopieren;Copy with low priority
+Editor_LowPriority.Description;Andere Programme haben beim Zugriff auf die Laufwerke Vorrang, der PC bleibt auch bei großen Läufen flüssig. Der Lauf kann dadurch länger dauern.;Other programs get priority when accessing the drives, so the PC stays responsive even during large runs. The run may take longer.
+Editor_OwnBandwidth.Header;Eigenes Bandbreitenlimit;Own bandwidth limit
+Editor_OwnBandwidth.Description;Sonst gilt das Limit aus den Einstellungen der App. Sinnvoll z. B. für ein NAS über WLAN.;Otherwise the limit from the app settings applies. Useful e.g. for a NAS over Wi-Fi.
+Editor_OwnBandwidthValue.Header;Höchstens (KB/s);At most (KB/s)
+Editor_OwnBandwidthValue.Description;0 = unbegrenzt;0 = unlimited
+Editor_OwnBandwidthBox.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Bandbreitenlimit in KB/s;Bandwidth limit in KB/s

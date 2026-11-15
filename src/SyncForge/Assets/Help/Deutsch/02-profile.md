@@ -46,4 +46,4 @@ Für lokale und USB-Ziele merkt sich SyncForge beim Speichern die **Seriennummer
 - **Größe und Datum** (Standard): schnell; eine Datei gilt als geändert, wenn Größe oder Änderungsdatum abweichen (±2 Sekunden Toleranz für FAT/exFAT-Laufwerke).
 - **Größe und Inhalt (Prüfsumme)**: vergleicht bei gleicher Größe den Inhalt per SHA-256. Findet auch Änderungen ohne neues Datum, ist aber deutlich langsamer.
 
-Zusätzlich kann **Kopien prüfen** jede kopierte Datei nach dem Schreiben mit der Quelle vergleichen.
+Zusätzlich kann **Kopien prüfen** jede kopierte Datei nach dem Schreiben mit der Quelle vergleichen. Mit **Mit niedriger Priorität kopieren** haben andere Programme beim Zugriff auf die Laufwerke Vorrang; der PC bleibt flüssig, der Lauf dauert dafür eventuell länger. Ein **Eigenes Bandbreitenlimit** ersetzt für dieses Profil das Limit aus den Einstellungen, etwa für ein NAS über WLAN.

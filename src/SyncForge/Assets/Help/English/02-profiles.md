@@ -46,4 +46,4 @@ For local and USB destinations, SyncForge stores the **serial number of the driv
 - **Size and date** (default): fast; a file counts as changed if size or modification date differ (±2 seconds tolerance for FAT/exFAT drives).
 - **Size and content (checksum)**: for files of equal size, compares the content using SHA-256. Also finds changes without a new date, but is much slower.
 
-In addition, **Verify copies** compares every copied file with the source after writing.
+In addition, **Verify copies** compares every copied file with the source after writing. With **Copy with low priority**, other programs get priority when accessing the drives; the PC stays responsive, but the run may take longer. An **Own bandwidth limit** replaces the limit from the settings for this profile, e.g. for a NAS over Wi-Fi.
