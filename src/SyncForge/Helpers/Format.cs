@@ -60,6 +60,18 @@ public static class Format
         _ => ""                    // Sync
     };
 
+    /// <summary>Farbe des Statussymbols (grün, gelb, rot oder neutral) als Stil aus App.xaml.</summary>
+    public static Microsoft.UI.Xaml.Style? StatusIconStyle(RunStatus status) => IconStyle(status switch
+    {
+        RunStatus.Success => "StatusIconSuccessStyle",
+        RunStatus.Warning => "StatusIconCautionStyle",
+        RunStatus.Error => "StatusIconCriticalStyle",
+        _ => "StatusIconNeutralStyle"
+    });
+
+    public static Microsoft.UI.Xaml.Style? IconStyle(string key) =>
+        Microsoft.UI.Xaml.Application.Current.Resources.TryGetValue(key, out var style) ? style as Microsoft.UI.Xaml.Style : null;
+
     /// <summary>Kultur passend zur UI-Sprache (für Zahlen- und Datumsformate).</summary>
     public static CultureInfo Culture
     {

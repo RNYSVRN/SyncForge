@@ -23,7 +23,7 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <FontIcon Glyph="{x:Bind ViewModel.StatusGlyph, Mode=OneWay}" FontSize="28" VerticalAlignment="Center"
-                          Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}" />
+                          Style="{x:Bind ViewModel.StatusStyle, Mode=OneWay}" />
                 <StackPanel Grid.Column="1" Spacing="2">
                     <TextBlock Text="{x:Bind ViewModel.Title, Mode=OneWay}" Style="{StaticResource TitleTextBlockStyle}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" />
                     <TextBlock Text="{x:Bind ViewModel.Subtitle, Mode=OneWay}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
@@ -65,7 +65,7 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
                                 <FontIcon Glyph="{x:Bind StatusGlyph}" FontSize="18" VerticalAlignment="Center"
-                                          Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}" />
+                                          Style="{x:Bind StatusStyle}" />
                                 <StackPanel Grid.Column="1" Spacing="2">
                                     <TextBlock Text="{x:Bind Path}" Style="{StaticResource BodyStrongTextBlockStyle}" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"
                                                ToolTipService.ToolTip="{x:Bind Path}" />

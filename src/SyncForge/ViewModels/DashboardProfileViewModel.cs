@@ -15,7 +15,7 @@ public sealed partial class DashboardProfileViewModel(SyncProfile profile) : Obs
 
     [ObservableProperty] public partial string Route { get; set; } = string.Empty;
     [ObservableProperty] public partial string StatusGlyph { get; set; } = string.Empty;
-    [ObservableProperty] public partial Brush? StatusBrush { get; set; }
+    [ObservableProperty] public partial Style? StatusStyle { get; set; }
     [ObservableProperty] public partial string LastRunLabel { get; set; } = string.Empty;
     [ObservableProperty] public partial string NextRunLabel { get; set; } = string.Empty;
     [ObservableProperty] public partial string ModeText { get; set; } = string.Empty;
@@ -41,13 +41,7 @@ public sealed partial class DashboardProfileViewModel(SyncProfile profile) : Obs
 
         var ran = p.LastRunAt is not null;
         StatusGlyph = ran ? Format.StatusGlyph(p.LastRunStatus) : ""; // Stoppuhr: noch nie gelaufen
-        StatusBrush = Resource(!ran ? "TextFillColorSecondaryBrush" : p.LastRunStatus switch
-        {
-            RunStatus.Success => "SystemFillColorSuccessBrush",
-            RunStatus.Warning => "SystemFillColorCautionBrush",
-            RunStatus.Error => "SystemFillColorCriticalBrush",
-            _ => "TextFillColorSecondaryBrush"
-        });
+        StatusStyle = Format.StatusIconStyle(ran ? p.LastRunStatus : RunStatus.None);
         NeedsAttention = ran && p.LastRunStatus is RunStatus.Warning or RunStatus.Error;
         LastRunLabel = p.LastRunAt is { } at
             ? Format.Text("Profiles_LastRun", Format.DateTime(at), Format.StatusName(p.LastRunStatus))
@@ -88,11 +82,5 @@ public sealed partial class DashboardProfileViewModel(SyncProfile profile) : Obs
     }
 
     /// <summary>Theme-Pinsel (der Indexer sucht auch in den Design-Wörterbüchern).</summary>
-    private static Brush? Resource(string key)
-    {
-        try { return Application.Current.Resources[key] as Brush; }
-        catch { return null; }
-    }
-
     public override string ToString() => $"{Name}, {LastRunLabel}, {NextRunLabel}"; // Name für Screenreader
 }

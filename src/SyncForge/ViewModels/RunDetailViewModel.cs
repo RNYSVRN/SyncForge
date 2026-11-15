@@ -2,13 +2,16 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using SyncForge.Core.Engine;
 using SyncForge.Core.History;
+using SyncForge.Core.Models;
 using SyncForge.Helpers;
 using SyncForge.Services;
 
 namespace SyncForge.ViewModels;
 
-public sealed record TargetEntryViewModel(long Id, string Path, string StatusGlyph, string StatusText, string SummaryText, bool CanOpen)
+public sealed record TargetEntryViewModel(long Id, string Path, string StatusGlyph, string StatusText, string SummaryText, bool CanOpen, RunStatus Status)
 {
+    public Microsoft.UI.Xaml.Style? StatusStyle => Format.StatusIconStyle(Status);
+
     public override string ToString() => $"{Path}, {StatusText}"; // Name für Screenreader
 }
 
@@ -44,6 +47,7 @@ public sealed partial class RunDetailViewModel : ObservableObject
     [ObservableProperty] public partial string Subtitle { get; set; } = string.Empty;
     [ObservableProperty] public partial string SummaryText { get; set; } = string.Empty;
     [ObservableProperty] public partial string StatusGlyph { get; set; } = string.Empty;
+    [ObservableProperty] public partial Microsoft.UI.Xaml.Style? StatusStyle { get; set; }
     [ObservableProperty] public partial string FilesCountText { get; set; } = string.Empty;
     [ObservableProperty] public partial bool HasNoFiles { get; set; }
     [ObservableProperty] public partial bool ShowTargetFilter { get; set; }
@@ -74,6 +78,7 @@ public sealed partial class RunDetailViewModel : ObservableObject
         var run = detail.Run;
         Title = run.ProfileName;
         StatusGlyph = Format.StatusGlyph(run.Status);
+        StatusStyle = Format.StatusIconStyle(run.Status);
         Subtitle = $"{Format.DateTime(run.StartedAt)} · {Format.StatusName(run.Status)} · {Localization.Get("Trigger_" + run.Trigger)}";
         SummaryText = Format.Text("Run_TotalSummary", Format.Number(run.Copied), Format.Number(run.Updated), Format.Number(run.Deleted),
             Format.Bytes(run.Bytes), Format.Duration(run.Duration));
@@ -100,7 +105,14 @@ public sealed partial class RunDetailViewModel : ObservableObject
                 ? string.Empty
                 : Format.Text("Run_ResultSummary", Format.Number(t.Copied), Format.Number(t.Updated), Format.Number(t.Deleted),
                     Format.Bytes(t.Bytes), Format.Duration(t.Duration));
-            Targets.Add(new TargetEntryViewModel(t.Id, t.TargetPath, glyph, status, summary, Directory.Exists(t.TargetPath)));
+            var targetStatus = t.Status switch
+            {
+                TargetRunStatus.Success => RunStatus.Success,
+                TargetRunStatus.Error => RunStatus.Error,
+                TargetRunStatus.Skipped => RunStatus.Warning,
+                _ => RunStatus.Cancelled
+            };
+            Targets.Add(new TargetEntryViewModel(t.Id, t.TargetPath, glyph, status, summary, Directory.Exists(t.TargetPath), targetStatus));
             if (t.Status != TargetRunStatus.Skipped) TargetFilters.Add(new TargetFilterOption(t.TargetPath, t.Id));
         }
         ShowTargetFilter = TargetFilters.Count > 2;

@@ -106,6 +106,21 @@
                 <Setter Property="CornerRadius" Value="{StaticResource OverlayCornerRadius}" />
                 <Setter Property="Padding" Value="20" />
             </Style>
+
+            <!-- Statussymbole (erfolgreich, Warnung, Fehler, neutral). Als Stil statt Pinsel aus dem Code,
+                 damit die Farbe dem App-Design folgt und nicht dem von Windows. -->
+            <Style x:Key="StatusIconSuccessStyle" TargetType="FontIcon">
+                <Setter Property="Foreground" Value="{ThemeResource SystemFillColorSuccessBrush}" />
+            </Style>
+            <Style x:Key="StatusIconCautionStyle" TargetType="FontIcon">
+                <Setter Property="Foreground" Value="{ThemeResource SystemFillColorCautionBrush}" />
+            </Style>
+            <Style x:Key="StatusIconCriticalStyle" TargetType="FontIcon">
+                <Setter Property="Foreground" Value="{ThemeResource SystemFillColorCriticalBrush}" />
+            </Style>
+            <Style x:Key="StatusIconNeutralStyle" TargetType="FontIcon">
+                <Setter Property="Foreground" Value="{ThemeResource TextFillColorSecondaryBrush}" />
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
