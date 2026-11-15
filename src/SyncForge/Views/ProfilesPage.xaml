@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="SyncForge.Views.ProfilesPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Background="Transparent">
+
+    <Grid Margin="{StaticResource PageMargin}" RowSpacing="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <TextBlock x:Uid="Profiles_Title" Text="Backup-Profile" Style="{StaticResource TitleTextBlockStyle}" VerticalAlignment="Center" />
+            <Button HorizontalAlignment="Right" Style="{StaticResource AccentButtonStyle}" IsEnabled="False">
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <FontIcon Glyph="&#xE710;" FontSize="14" />
+                    <TextBlock x:Uid="Profiles_Add" Text="Profil hinzufügen" />
+                </StackPanel>
+            </Button>
+        </Grid>
+
+        <!-- Leerer Zustand -->
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="12" MaxWidth="420">
+            <FontIcon Glyph="&#xE895;" FontSize="48" Foreground="{ThemeResource TextFillColorTertiaryBrush}" />
+            <TextBlock x:Uid="Profiles_EmptyTitle" Text="Noch keine Profile" Style="{StaticResource SubtitleTextBlockStyle}" HorizontalAlignment="Center" />
+            <TextBlock x:Uid="Profiles_EmptyText" TextAlignment="Center" TextWrapping="Wrap" Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                       Text="Ein Profil legt fest, welche Ordner wohin synchronisiert werden, in welchem Modus und wann." />
+        </StackPanel>
+    </Grid>
+</Page>

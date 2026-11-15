@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Automatisch erzeugt aus tools/strings.csv - nicht von Hand bearbeiten. -->
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="Nav_Dashboard.Content" xml:space="preserve"><value>Overview</value></data>
+  <data name="Nav_Profiles.Content" xml:space="preserve"><value>Backup profiles</value></data>
+  <data name="Nav_History.Content" xml:space="preserve"><value>History</value></data>
+  <data name="Dashboard_Title.Text" xml:space="preserve"><value>Overview</value></data>
+  <data name="Dashboard_Welcome.Title" xml:space="preserve"><value>Welcome to SyncForge</value></data>
+  <data name="Dashboard_Welcome.Message" xml:space="preserve"><value>Create a backup profile to sync folders to one or more destinations.</value></data>
+  <data name="Dashboard_ProfilesCard.Text" xml:space="preserve"><value>Backup profiles</value></data>
+  <data name="Dashboard_LastRunCard.Text" xml:space="preserve"><value>Last run</value></data>
+  <data name="Dashboard_NextRunCard.Text" xml:space="preserve"><value>Next run</value></data>
+  <data name="Dashboard_NewProfileText.Text" xml:space="preserve"><value>New profile</value></data>
+  <data name="Profiles_Title.Text" xml:space="preserve"><value>Backup profiles</value></data>
+  <data name="Profiles_Add.Text" xml:space="preserve"><value>Add profile</value></data>
+  <data name="Profiles_EmptyTitle.Text" xml:space="preserve"><value>No profiles yet</value></data>
+  <data name="Profiles_EmptyText.Text" xml:space="preserve"><value>A profile defines which folders are synced where, in which mode and when.</value></data>
+  <data name="History_Title.Text" xml:space="preserve"><value>History</value></data>
+  <data name="History_EmptyTitle.Text" xml:space="preserve"><value>No runs yet</value></data>
+  <data name="History_EmptyText.Text" xml:space="preserve"><value>All sync runs will appear here, with details for every file.</value></data>
+  <data name="Settings_Title.Text" xml:space="preserve"><value>Settings</value></data>
+  <data name="Settings_SectionAppearance.Text" xml:space="preserve"><value>Appearance</value></data>
+  <data name="Settings_Theme.Header" xml:space="preserve"><value>App theme</value></data>
+  <data name="Settings_Theme.Description" xml:space="preserve"><value>Choose whether SyncForge appears light, dark or follows Windows.</value></data>
+  <data name="Theme_System.Content" xml:space="preserve"><value>Use Windows setting</value></data>
+  <data name="Theme_Light.Content" xml:space="preserve"><value>Light</value></data>
+  <data name="Theme_Dark.Content" xml:space="preserve"><value>Dark</value></data>
+  <data name="Settings_Language.Header" xml:space="preserve"><value>Language</value></data>
+  <data name="Settings_Language.Description" xml:space="preserve"><value>Display language of the app.</value></data>
+  <data name="Language_System.Content" xml:space="preserve"><value>Use Windows setting</value></data>
+  <data name="Settings_RestartInfo.Title" xml:space="preserve"><value>Restart required</value></data>
+  <data name="Settings_RestartInfo.Message" xml:space="preserve"><value>The language will change after SyncForge restarts.</value></data>
+  <data name="Settings_RestartButton.Content" xml:space="preserve"><value>Restart now</value></data>
+  <data name="Settings_SectionGeneral.Text" xml:space="preserve"><value>General</value></data>
+  <data name="Settings_Autostart.Header" xml:space="preserve"><value>Start with Windows</value></data>
+  <data name="Settings_Autostart.Description" xml:space="preserve"><value>SyncForge starts in the notification area when you sign in.</value></data>
+  <data name="Settings_Tray.Header" xml:space="preserve"><value>Keep running in the notification area</value></data>
+  <data name="Settings_Tray.Description" xml:space="preserve"><value>Schedules and monitoring keep running when the window is closed.</value></data>
+  <data name="Settings_Notifications.Header" xml:space="preserve"><value>Notifications</value></data>
+  <data name="Settings_Notifications.Description" xml:space="preserve"><value>Windows notifications after sync runs.</value></data>
+  <data name="Settings_NotifySuccess.Header" xml:space="preserve"><value>On success</value></data>
+  <data name="Settings_NotifyError.Header" xml:space="preserve"><value>On errors</value></data>
+  <data name="Settings_NotifyConflict.Header" xml:space="preserve"><value>On conflicts</value></data>
+  <data name="Settings_SectionPerformance.Text" xml:space="preserve"><value>Performance</value></data>
+  <data name="Settings_Parallel.Header" xml:space="preserve"><value>Parallel copy operations</value></data>
+  <data name="Settings_Parallel.Description" xml:space="preserve"><value>Number of files copied at the same time (1–16).</value></data>
+  <data name="Settings_Bandwidth.Header" xml:space="preserve"><value>Bandwidth limit (KB/s)</value></data>
+  <data name="Settings_Bandwidth.Description" xml:space="preserve"><value>0 = unlimited. Useful for network destinations.</value></data>
+  <data name="Settings_Battery.Header" xml:space="preserve"><value>Pause on battery power</value></data>
+  <data name="Settings_Metered.Header" xml:space="preserve"><value>Pause on metered connections</value></data>
+  <data name="Settings_Metered.Description" xml:space="preserve"><value>Applies to network destinations.</value></data>
+  <data name="Settings_SectionData.Text" xml:space="preserve"><value>Data &amp; retention</value></data>
+  <data name="Settings_Retention.Header" xml:space="preserve"><value>Keep history (days)</value></data>
+  <data name="Settings_Retention.Description" xml:space="preserve"><value>Older run logs are removed automatically.</value></data>
+  <data name="Settings_ImportExport.Header" xml:space="preserve"><value>Import &amp; export</value></data>
+  <data name="Settings_ImportExport.Description" xml:space="preserve"><value>Back up profiles and settings or move them to another PC.</value></data>
+  <data name="Settings_Import.Content" xml:space="preserve"><value>Import…</value></data>
+  <data name="Settings_Export.Content" xml:space="preserve"><value>Export…</value></data>
+  <data name="Settings_DataFolder.Header" xml:space="preserve"><value>Data folder</value></data>
+  <data name="Settings_SectionAbout.Text" xml:space="preserve"><value>About</value></data>
+  <data name="TitleBar_Back.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve"><value>Back</value></data>
+  <data name="TitleBar_Back.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Back</value></data>
+  <data name="TitleBar_PaneToggle.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve"><value>Navigation</value></data>
+  <data name="TitleBar_PaneToggle.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Toggle navigation</value></data>
+  <data name="Toggle_On" xml:space="preserve"><value>On</value></data>
+  <data name="Toggle_Off" xml:space="preserve"><value>Off</value></data>
+</root>

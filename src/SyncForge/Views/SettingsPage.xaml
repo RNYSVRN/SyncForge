@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="SyncForge.Views.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
+    Background="Transparent">
+
+    <!-- Das Grid zwischen ScrollViewer und StackPanel sorgt dafür, dass die zentrierte Maximalbreite
+         beim Ein-/Ausklappen der Navigation neu berechnet wird. -->
+    <ScrollViewer>
+        <Grid Padding="{StaticResource PageMargin}">
+        <StackPanel MaxWidth="1000" Spacing="{StaticResource SettingsCardSpacing}">
+            <TextBlock x:Uid="Settings_Title" Text="Einstellungen" Style="{StaticResource TitleTextBlockStyle}" Margin="0,0,0,4" />
+
+            <!-- Darstellung -->
+            <TextBlock x:Uid="Settings_SectionAppearance" Text="Darstellung" Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" />
+
+            <toolkit:SettingsCard x:Uid="Settings_Theme" Header="App-Design" Description="Wähle, ob SyncForge hell, dunkel oder wie Windows dargestellt wird.">
+                <toolkit:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xE790;" />
+                </toolkit:SettingsCard.HeaderIcon>
+                <ComboBox SelectedIndex="{x:Bind ViewModel.ThemeIndex, Mode=TwoWay}" MinWidth="200">
+                    <ComboBoxItem x:Uid="Theme_System" Content="Windows-Standard verwenden" />
+                    <ComboBoxItem x:Uid="Theme_Light" Content="Hell" />
+                    <ComboBoxItem x:Uid="Theme_Dark" Content="Dunkel" />
+                </ComboBox>
+            </toolkit:SettingsCard>
+
+            <toolkit:SettingsCard x:Uid="Settings_Language" Header="Sprache" Description="Sprache der Benutzeroberfläche.">
+                <toolkit:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xF2B7;" />
+                </toolkit:SettingsCard.HeaderIcon>
+                <ComboBox SelectedIndex="{x:Bind ViewModel.LanguageIndex, Mode=TwoWay}" MinWidth="200">
+                    <ComboBoxItem x:Uid="Language_System" Content="Windows-Standard verwenden" />
+                    <ComboBoxItem Content="Deutsch" />
+                    <ComboBoxItem Content="English" />
+                </ComboBox>
+            </toolkit:SettingsCard>
+
+            <InfoBar x:Uid="Settings_RestartInfo" IsOpen="{x:Bind ViewModel.IsRestartRequired, Mode=OneWay}" IsClosable="False" Severity="Informational"
+                     Title="Neustart erforderlich" Message="Die Sprache wird nach einem Neustart von SyncForge übernommen.">
+                <InfoBar.ActionButton>
+                    <Button x:Uid="Settings_RestartButton" Content="Jetzt neu starten" Command="{x:Bind ViewModel.RestartCommand}" />
+                </InfoBar.ActionButton>
+            </InfoBar>
+
+            <!-- Allgemein -->
+            <TextBlock x:Uid="Settings_SectionGeneral" Text="Allgemein" Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" />
+
+            <toolkit:SettingsCard x:Uid="Settings_Autostart" Header="Mit Windows starten" Description="SyncForge startet bei der Anmeldung im Infobereich.">
+                <toolkit:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xE7E8;" />
+                </toolkit:SettingsCard.HeaderIcon>
+                <ToggleSwitch OnContent="{StaticResource ToggleOnText}" OffContent="{StaticResource ToggleOffText}" IsOn="{x:Bind ViewModel.StartWithWindows, Mode=TwoWay}" />
+            </toolkit:SettingsCard>
+
+            <toolkit:SettingsCard x:Uid="Settings_Tray" Header="Beim Schließen in den Infobereich" Description="Zeitpläne und Überwachung laufen weiter, wenn das Fenster geschlossen wird.">
+                <toolkit:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xE737;" />
+                </toolkit:SettingsCard.HeaderIcon>
+                <ToggleSwitch OnContent="{StaticResource ToggleOnText}" OffContent="{StaticResource ToggleOffText}" IsOn="{x:Bind ViewModel.MinimizeToTray, Mode=TwoWay}" />
+            </toolkit:SettingsCard>
+
+            <toolkit:SettingsExpander x:Uid="Settings_Notifications" Header="Benachrichtigungen" Description="Windows-Benachrichtigungen nach Synchronisierungsläufen.">
+                <toolkit:SettingsExpander.HeaderIcon>
+                    <FontIcon Glyph="&#xEA8F;" />
+                </toolkit:SettingsExpander.HeaderIcon>
+                <toolkit:SettingsExpander.Items>
+                    <toolkit:SettingsCard x:Uid="Settings_NotifySuccess" Header="Bei Erfolg">
+                        <ToggleSwitch OnContent="{StaticResource ToggleOnText}" OffContent="{StaticResource ToggleOffText}" IsOn="{x:Bind ViewModel.NotifyOnSuccess, Mode=TwoWay}" />
+                    </toolkit:SettingsCard>
+                    <toolkit:SettingsCard x:Uid="Settings_NotifyError" Header="Bei Fehlern">
+                        <ToggleSwitch OnContent="{StaticResource ToggleOnText}" OffContent="{StaticResource ToggleOffText}" IsOn="{x:Bind ViewModel.NotifyOnError, Mode=TwoWay}" />
+                    </toolkit:SettingsCard>
+                    <toolkit:SettingsCard x:Uid="Settings_NotifyConflict" Header="Bei Konflikten">
+                        <ToggleSwitch OnContent="{StaticResource ToggleOnText}" OffContent="{StaticResource ToggleOffText}" IsOn="{x:Bind ViewModel.NotifyOnConflict, Mode=TwoWay}" />
+                    </toolkit:SettingsCard>
+                </toolkit:SettingsExpander.Items>
+            </toolkit:SettingsExpander>
+
+            <!-- Leistung -->
+            <TextBlock x:Uid="Settings_SectionPerformance" Text="Leistung" Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" />
+
+            <toolkit:SettingsCard x:Uid="Settings_Parallel" Header="Parallele Kopiervorgänge" Description="Anzahl der gleichzeitig kopierten Dateien (1–16).">
+                <toolkit:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xE9F5;" />
+                </toolkit:SettingsCard.HeaderIcon>
+                <NumberBox Value="{x:Bind ViewModel.MaxParallelCopies, Mode=TwoWay}" Minimum="1" Maximum="16" SpinButtonPlacementMode="Inline" MinWidth="140" />
+            </toolkit:SettingsCard>
+
+            <toolkit:SettingsCard x:Uid="Settings_Bandwidth" Header="Bandbreitenlimit (KB/s)" Description="0 = unbegrenzt. Sinnvoll bei Netzwerkzielen.">
+                <toolkit:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xEC05;" />
+                </toolkit:SettingsCard.HeaderIcon>
+                <NumberBox Value="{x:Bind ViewModel.BandwidthLimitKBps, Mode=TwoWay}" Minimum="0" SmallChange="1024" LargeChange="10240" SpinButtonPlacementMode="Inline" MinWidth="140" />
+            </toolkit:SettingsCard>
+
+            <toolkit:SettingsCard x:Uid="Settings_Battery" Header="Im Akkubetrieb pausieren">
+                <toolkit:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xE83F;" />
+                </toolkit:SettingsCard.HeaderIcon>
+                <ToggleSwitch OnContent="{StaticResource ToggleOnText}" OffContent="{StaticResource ToggleOffText}" IsOn="{x:Bind ViewModel.PauseOnBattery, Mode=TwoWay}" />
+            </toolkit:SettingsCard>
+
+            <toolkit:SettingsCard x:Uid="Settings_Metered" Header="Bei getakteter Verbindung pausieren" Description="Gilt für Netzwerkziele.">
+                <toolkit:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xE871;" />
+                </toolkit:SettingsCard.HeaderIcon>
+                <ToggleSwitch OnContent="{StaticResource ToggleOnText}" OffContent="{StaticResource ToggleOffText}" IsOn="{x:Bind ViewModel.PauseOnMeteredConnection, Mode=TwoWay}" />
+            </toolkit:SettingsCard>
+
+            <!-- Daten -->
+            <TextBlock x:Uid="Settings_SectionData" Text="Daten &amp; Aufbewahrung" Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" />
+
+            <toolkit:SettingsCard x:Uid="Settings_Retention" Header="Historie aufbewahren (Tage)" Description="Ältere Laufprotokolle werden automatisch entfernt.">
+                <toolkit:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xE81C;" />
+                </toolkit:SettingsCard.HeaderIcon>
+                <NumberBox Value="{x:Bind ViewModel.HistoryRetentionDays, Mode=TwoWay}" Minimum="1" Maximum="3650" SpinButtonPlacementMode="Inline" MinWidth="140" />
+            </toolkit:SettingsCard>
+
+            <toolkit:SettingsCard x:Uid="Settings_ImportExport" Header="Import &amp; Export" Description="Profile und Einstellungen sichern oder auf einen anderen PC übertragen.">
+                <toolkit:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xE8B5;" />
+                </toolkit:SettingsCard.HeaderIcon>
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <Button x:Uid="Settings_Import" Content="Importieren…" IsEnabled="False" />
+                    <Button x:Uid="Settings_Export" Content="Exportieren…" IsEnabled="False" />
+                </StackPanel>
+            </toolkit:SettingsCard>
+
+            <toolkit:SettingsCard x:Uid="Settings_DataFolder" Header="Datenordner" Description="{x:Bind ViewModel.DataDirectory}"
+                                  IsClickEnabled="True" Command="{x:Bind ViewModel.OpenDataDirectoryCommand}">
+                <toolkit:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xE838;" />
+                </toolkit:SettingsCard.HeaderIcon>
+                <toolkit:SettingsCard.ActionIcon>
+                    <FontIcon Glyph="&#xE8A7;" />
+                </toolkit:SettingsCard.ActionIcon>
+            </toolkit:SettingsCard>
+
+            <!-- Info -->
+            <TextBlock x:Uid="Settings_SectionAbout" Text="Info" Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" />
+
+            <toolkit:SettingsCard Header="SyncForge" Description="{x:Bind ViewModel.Version}">
+                <toolkit:SettingsCard.HeaderIcon>
+                    <BitmapIcon UriSource="ms-appx:///Assets/AppIcon.png" ShowAsMonochrome="False" />
+                </toolkit:SettingsCard.HeaderIcon>
+            </toolkit:SettingsCard>
+        </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</Page>

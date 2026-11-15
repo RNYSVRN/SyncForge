@@ -1,0 +1,64 @@
+Key;de-DE;en-US
+Nav_Dashboard.Content;Übersicht;Overview
+Nav_Profiles.Content;Backup-Profile;Backup profiles
+Nav_History.Content;Historie;History
+Dashboard_Title.Text;Übersicht;Overview
+Dashboard_Welcome.Title;Willkommen bei SyncForge;Welcome to SyncForge
+Dashboard_Welcome.Message;Lege ein Backup-Profil an, um Ordner in ein oder mehrere Ziele zu synchronisieren.;Create a backup profile to sync folders to one or more destinations.
+Dashboard_ProfilesCard.Text;Backup-Profile;Backup profiles
+Dashboard_LastRunCard.Text;Letzter Lauf;Last run
+Dashboard_NextRunCard.Text;Nächster Lauf;Next run
+Dashboard_NewProfileText.Text;Neues Profil;New profile
+Profiles_Title.Text;Backup-Profile;Backup profiles
+Profiles_Add.Text;Profil hinzufügen;Add profile
+Profiles_EmptyTitle.Text;Noch keine Profile;No profiles yet
+Profiles_EmptyText.Text;Ein Profil legt fest, welche Ordner wohin synchronisiert werden, in welchem Modus und wann.;A profile defines which folders are synced where, in which mode and when.
+History_Title.Text;Historie;History
+History_EmptyTitle.Text;Noch keine Läufe;No runs yet
+History_EmptyText.Text;Hier erscheinen alle Synchronisierungsläufe mit Details zu jeder Datei.;All sync runs will appear here, with details for every file.
+Settings_Title.Text;Einstellungen;Settings
+Settings_SectionAppearance.Text;Darstellung;Appearance
+Settings_Theme.Header;App-Design;App theme
+Settings_Theme.Description;Wähle, ob SyncForge hell, dunkel oder wie Windows dargestellt wird.;Choose whether SyncForge appears light, dark or follows Windows.
+Theme_System.Content;Windows-Standard verwenden;Use Windows setting
+Theme_Light.Content;Hell;Light
+Theme_Dark.Content;Dunkel;Dark
+Settings_Language.Header;Sprache;Language
+Settings_Language.Description;Sprache der Benutzeroberfläche.;Display language of the app.
+Language_System.Content;Windows-Standard verwenden;Use Windows setting
+Settings_RestartInfo.Title;Neustart erforderlich;Restart required
+Settings_RestartInfo.Message;Die Sprache wird nach einem Neustart von SyncForge übernommen.;The language will change after SyncForge restarts.
+Settings_RestartButton.Content;Jetzt neu starten;Restart now
+Settings_SectionGeneral.Text;Allgemein;General
+Settings_Autostart.Header;Mit Windows starten;Start with Windows
+Settings_Autostart.Description;SyncForge startet bei der Anmeldung im Infobereich.;SyncForge starts in the notification area when you sign in.
+Settings_Tray.Header;Beim Schließen in den Infobereich;Keep running in the notification area
+Settings_Tray.Description;Zeitpläne und Überwachung laufen weiter, wenn das Fenster geschlossen wird.;Schedules and monitoring keep running when the window is closed.
+Settings_Notifications.Header;Benachrichtigungen;Notifications
+Settings_Notifications.Description;Windows-Benachrichtigungen nach Synchronisierungsläufen.;Windows notifications after sync runs.
+Settings_NotifySuccess.Header;Bei Erfolg;On success
+Settings_NotifyError.Header;Bei Fehlern;On errors
+Settings_NotifyConflict.Header;Bei Konflikten;On conflicts
+Settings_SectionPerformance.Text;Leistung;Performance
+Settings_Parallel.Header;Parallele Kopiervorgänge;Parallel copy operations
+Settings_Parallel.Description;Anzahl der gleichzeitig kopierten Dateien (1–16).;Number of files copied at the same time (1–16).
+Settings_Bandwidth.Header;Bandbreitenlimit (KB/s);Bandwidth limit (KB/s)
+Settings_Bandwidth.Description;0 = unbegrenzt. Sinnvoll bei Netzwerkzielen.;0 = unlimited. Useful for network destinations.
+Settings_Battery.Header;Im Akkubetrieb pausieren;Pause on battery power
+Settings_Metered.Header;Bei getakteter Verbindung pausieren;Pause on metered connections
+Settings_Metered.Description;Gilt für Netzwerkziele.;Applies to network destinations.
+Settings_SectionData.Text;Daten & Aufbewahrung;Data & retention
+Settings_Retention.Header;Historie aufbewahren (Tage);Keep history (days)
+Settings_Retention.Description;Ältere Laufprotokolle werden automatisch entfernt.;Older run logs are removed automatically.
+Settings_ImportExport.Header;Import & Export;Import & export
+Settings_ImportExport.Description;Profile und Einstellungen sichern oder auf einen anderen PC übertragen.;Back up profiles and settings or move them to another PC.
+Settings_Import.Content;Importieren…;Import…
+Settings_Export.Content;Exportieren…;Export…
+Settings_DataFolder.Header;Datenordner;Data folder
+Settings_SectionAbout.Text;Info;About
+TitleBar_Back.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip;Zurück;Back
+TitleBar_Back.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Zurück;Back
+TitleBar_PaneToggle.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip;Navigation;Navigation
+TitleBar_PaneToggle.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Navigation umschalten;Toggle navigation
+Toggle_On;Ein;On
+Toggle_Off;Aus;Off
