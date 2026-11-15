@@ -557,4 +557,11 @@
   <data name="Editor_ShadowCopyHint.Title" xml:space="preserve"><value>Wirkt nur mit Administratorrechten</value></data>
   <data name="Editor_ShadowCopyHint.Message" xml:space="preserve"><value>SyncForge läuft gerade ohne. Richte für dieses Profil eine Aufgabe in der Windows-Aufgabenplanung ein (Mit höchsten Privilegien ausführen, Argumente: --run &quot;Profilname&quot;). Details stehen in der Hilfe unter Automatisierung.</value></data>
   <data name="Run_ShadowCopied" xml:space="preserve"><value>{0} gesperrte Datei(en) aus einer Schattenkopie gesichert.</value></data>
+  <data name="Editor_LowPriority.Header" xml:space="preserve"><value>Mit niedriger Priorität kopieren</value></data>
+  <data name="Editor_LowPriority.Description" xml:space="preserve"><value>Andere Programme haben beim Zugriff auf die Laufwerke Vorrang, der PC bleibt auch bei großen Läufen flüssig. Der Lauf kann dadurch länger dauern.</value></data>
+  <data name="Editor_OwnBandwidth.Header" xml:space="preserve"><value>Eigenes Bandbreitenlimit</value></data>
+  <data name="Editor_OwnBandwidth.Description" xml:space="preserve"><value>Sonst gilt das Limit aus den Einstellungen der App. Sinnvoll z. B. für ein NAS über WLAN.</value></data>
+  <data name="Editor_OwnBandwidthValue.Header" xml:space="preserve"><value>Höchstens (KB/s)</value></data>
+  <data name="Editor_OwnBandwidthValue.Description" xml:space="preserve"><value>0 = unbegrenzt</value></data>
+  <data name="Editor_OwnBandwidthBox.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Bandbreitenlimit in KB/s</value></data>
 </root>

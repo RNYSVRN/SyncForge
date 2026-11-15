@@ -17,6 +17,9 @@ public sealed class SyncExecutorOptions
 
     /// <summary>Dauerhaft gesperrte Quelldateien aus einer Volumeschattenkopie lesen (nur mit Administratorrechten).</summary>
     public bool UseShadowCopy { get; init; }
+
+    /// <summary>Dateien mit niedriger E/A-Priorität lesen und schreiben (andere Programme haben Vorrang).</summary>
+    public bool LowPriorityIo { get; init; }
     public int VersionsToKeep { get; init; } = 10;
     public int VersionMaxAgeDays { get; init; } = 90;
 }
@@ -338,6 +341,11 @@ public sealed class SyncExecutor
             await using (var input = new FileStream(source, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete, 0, fileOptions))
             await using (var output = new FileStream(temp, FileMode.CreateNew, FileAccess.Write, FileShare.None, 0, fileOptions))
             {
+                if (_options.LowPriorityIo)
+                {
+                    IoPriority.TrySetLow(input.SafeFileHandle);
+                    IoPriority.TrySetLow(output.SafeFileHandle);
+                }
                 if (input.Length > 0) output.SetLength(input.Length);
                 int read;
                 while ((read = await input.ReadAsync(buffer, ct)) > 0)

@@ -132,6 +132,12 @@ public sealed class SyncProfile
     /// <summary>Dauerhaft gesperrte Dateien (z. B. Outlook) aus einer Volumeschattenkopie lesen. Wirkt nur mit Administratorrechten.</summary>
     public bool UseShadowCopy { get; set; }
 
+    /// <summary>Mit niedriger E/A-Priorität kopieren, damit der PC bei großen Läufen flüssig bleibt.</summary>
+    public bool LowPriorityIo { get; set; }
+
+    /// <summary>Eigenes Bandbreitenlimit in KB/s (0 = unbegrenzt). null = Einstellung der App verwenden.</summary>
+    public int? BandwidthLimitKBps { get; set; }
+
     /// <summary>Warnen, wenn mehr als dieser Anteil (%) der Zieldateien gelöscht würde. 0 = aus.</summary>
     public int DeletionProtectionPercent { get; set; } = 25;
 

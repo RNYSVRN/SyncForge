@@ -15,7 +15,7 @@
 ## Leistung
 
 - **Parallele Kopiervorgänge**: wie viele Dateien gleichzeitig kopiert werden (1–16).
-- **Bandbreitenlimit**: begrenzt die Übertragungsrate aller Kopien in KB/s (0 = unbegrenzt), sinnvoll bei Netzwerkzielen.
+- **Bandbreitenlimit**: begrenzt die Übertragungsrate aller Kopien in KB/s (0 = unbegrenzt), sinnvoll bei Netzwerkzielen. Profile mit eigenem Limit nutzen ihres.
 - **Im Akkubetrieb pausieren** und **Bei getakteter Verbindung pausieren**: Beide gelten für automatische Läufe.
 
 ## Daten & Aufbewahrung
