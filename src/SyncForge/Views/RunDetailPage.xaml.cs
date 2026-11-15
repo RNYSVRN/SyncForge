@@ -39,6 +39,9 @@ public sealed partial class RunDetailPage : Page
         }
     }
 
+    private void ResolveConflicts_Click(object sender, RoutedEventArgs e) =>
+        App.MainWindow.Navigate(typeof(ConflictsPage), ViewModel.ProfileId);
+
     private async void Delete_Click(object sender, RoutedEventArgs e)
     {
         var dialog = new ContentDialog

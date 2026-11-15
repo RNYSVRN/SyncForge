@@ -398,3 +398,40 @@ Credentials_ErrorNotFound;{0} wurde nicht gefunden. Ist der Server eingeschaltet
 Credentials_ErrorConflict;Windows ist mit diesem Server bereits unter einem anderen Benutzer verbunden. Trenne die bestehende Verbindung (z. B. ein verbundenes Netzlaufwerk) oder verwende dieselben Anmeldedaten.;Windows is already connected to this server as a different user. Disconnect the existing connection (e.g. a mapped network drive) or use the same credentials.
 Validation_NetworkLogonFailed;Anmeldung an der Netzwerkfreigabe fehlgeschlagen;Sign-in to the network share failed
 Validation_NetworkCredentialConflict;Netzwerkfreigabe: Windows ist bereits unter einem anderen Benutzer verbunden;Network share: Windows is already connected as a different user
+Conflicts_Title.Text;Konflikte lösen;Resolve conflicts
+Conflicts_Intro.Text;Diese Dateien wurden seit dem letzten Lauf auf beiden Seiten geändert. Wähle je Datei, welche Fassung gilt. Ersetzte Fassungen landen im Papierkorb bzw. im Versionsordner.;These files were changed on both sides since the last run. Choose which version applies for each file. Replaced versions go to the Recycle Bin or the versions folder.
+Conflicts_None.Title;Keine offenen Konflikte;No open conflicts
+Conflicts_None.Message;Beide Seiten sind sich einig.;Both sides agree.
+Conflicts_SetAll.Content;Für alle übernehmen;Apply to all
+Conflicts_AllNewer.Text;Jeweils neuere Fassung;Newer version each time
+Conflicts_AllSource.Text;Quelle behalten;Keep source
+Conflicts_AllTarget.Text;Ziel behalten;Keep destination
+Conflicts_AllBoth.Text;Beide behalten;Keep both
+Conflicts_AllSkip.Text;Später entscheiden;Decide later
+Conflicts_TypeConflict.Text;Ordner auf der einen, Datei auf der anderen Seite. Bitte im Explorer umbenennen oder entfernen.;Folder on one side, file on the other. Please rename or remove it in Explorer.
+Conflicts_Choice.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Entscheidung;Decision
+Resolve_Skip.Content;Später entscheiden;Decide later
+Resolve_KeepSource.Content;Quelle behalten;Keep source
+Resolve_KeepTarget.Content;Ziel behalten;Keep destination
+Resolve_KeepBoth.Content;Beide behalten;Keep both
+Conflicts_Back.Content;Zurück;Back
+Conflicts_Apply.Content;Übernehmen;Apply
+Conflict_SourceVersion;Quelle: {0};Source: {0}
+Conflict_TargetVersion;Ziel: {0};Destination: {0}
+Conflict_Missing;nicht vorhanden;not present
+Conflict_Folder;Ordner;folder
+Conflict_Newer;neuer;newer
+Conflicts_Busy;Für dieses Profil läuft gerade eine Synchronisierung. Bitte warte, bis sie fertig ist.;A sync is currently running for this profile. Please wait until it has finished.
+Conflicts_Analyzing;Konflikte werden gesucht …;Looking for conflicts …
+Conflicts_Applying;Entscheidungen werden übernommen …;Applying decisions …
+Conflicts_TargetsUnavailable;{0} Ziel(e) nicht erreichbar, deren Konflikte fehlen hier.;{0} destination(s) not reachable, their conflicts are missing here.
+Conflicts_NothingChosen;Wähle zuerst bei mindestens einer Datei, welche Fassung gilt.;First choose which version applies for at least one file.
+Conflicts_Done;{0} Konflikt(e) gelöst.;{0} conflict(s) resolved.
+Conflicts_DoneErrors;Nicht alles hat geklappt: {0} Fehler. Details stehen in der Historie.;Not everything worked: {0} error(s). Details are in the history.
+Run_ConflictsBar.Title;Offene Konflikte;Open conflicts
+Run_ConflictsBar.Message;Einige Dateien wurden auf beiden Seiten geändert. SyncForge ändert sie nicht, bis du entscheidest.;Some files were changed on both sides. SyncForge leaves them unchanged until you decide.
+Run_ResolveConflicts.Content;Konflikte lösen;Resolve conflicts
+Detail_ConflictsBar.Title;Offene Konflikte;Open conflicts
+Detail_ConflictsBar.Message;Einige Dateien wurden auf beiden Seiten geändert und warten auf deine Entscheidung.;Some files were changed on both sides and are waiting for your decision.
+Detail_ResolveConflicts.Content;Konflikte lösen;Resolve conflicts
+Detail_Delete.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Eintrag löschen;Delete entry

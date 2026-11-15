@@ -38,6 +38,13 @@
 
             <TextBlock Text="{x:Bind ViewModel.SummaryText, Mode=OneWay}" TextWrapping="Wrap" />
 
+            <InfoBar x:Uid="Detail_ConflictsBar" IsOpen="{x:Bind ViewModel.CanResolveConflicts, Mode=OneWay}" IsClosable="False" Severity="Warning"
+                     Title="Offene Konflikte" Message="Einige Dateien wurden auf beiden Seiten geändert und warten auf deine Entscheidung.">
+                <InfoBar.ActionButton>
+                    <Button x:Uid="Detail_ResolveConflicts" Content="Konflikte lösen" Click="ResolveConflicts_Click" />
+                </InfoBar.ActionButton>
+            </InfoBar>
+
             <ItemsControl ItemsSource="{x:Bind ViewModel.Targets}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate x:DataType="vm:TargetEntryViewModel">
