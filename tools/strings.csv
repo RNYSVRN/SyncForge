@@ -155,13 +155,13 @@ Run_Comparing;Vergleiche Inhalte… {0} von {1} Dateien;Comparing contents… {0
 Run_Scanning;Lese Ordner… {0} Einträge;Reading folders… {0} items
 Run_DeletionWarning;{0} Dateien ({1} %) würden in {2} gelöscht. Bitte prüfe die geplanten Änderungen, bevor du startest.;{0} files ({1} %) would be deleted in {2}. Please review the planned changes before you start.
 Run_NoTargetReady;Kein Ziel ist erreichbar.;No destination is reachable.
-Run_UpToDate;Alles aktuell – keine Änderungen nötig.;Everything is up to date – no changes needed.
+Run_UpToDate;Alles aktuell, keine Änderungen nötig.;Everything is up to date. No changes needed.
 Run_Waiting;Wartet…;Waiting…
 Run_Deleting;Lösche…;Deleting…
 Run_Finishing;Schließe ab…;Finishing…
 Run_Copying;Kopiere…;Copying…
 Run_ProgressDetail;{0} von {1} Schritten · {2} von {3} · {4};{0} of {1} steps · {2} of {3} · {4}
-Run_TargetUnavailable;Nicht erreichbar – wird übersprungen;Not reachable – will be skipped
+Run_TargetUnavailable;Nicht erreichbar, wird übersprungen;Not reachable, will be skipped
 Run_TargetReady;Bereit;Ready
 Run_PlanSummary;{0} neu · {1} geändert · {2} zu löschen · {3} unverändert · {4} zu kopieren;{0} new · {1} changed · {2} to delete · {3} unchanged · {4} to copy
 Run_MoreActions;… und {0} weitere;… and {0} more
@@ -208,7 +208,7 @@ Trigger_Watcher;Überwachung;Monitoring
 Trigger_Event;Ereignis;Event
 Detail_AllTargets;Alle Ziele;All destinations
 Detail_FilesCount;{0} Einträge;{0} entries
-Detail_FilesCountLimited;{0} Einträge – die ersten {1} werden angezeigt. Grenze die Suche ein.;{0} entries – showing the first {1}. Narrow down the search.
+Detail_FilesCountLimited;{0} Einträge, die ersten {1} werden angezeigt. Grenze die Suche ein.;{0} entries, showing the first {1}. Narrow down the search.
 Action_Deleted;Gelöscht;Deleted
 Action_DirectoryDeleted;Ordner gelöscht;Folder deleted
 Action_DirectoryCreated;Ordner angelegt;Folder created
@@ -233,11 +233,11 @@ Detail_FilesCountOne;1 Eintrag;1 entry
 Run_TargetDoneOneError;Abgeschlossen mit 1 Fehler;Finished with 1 error
 Run_AlreadyRunning;Dieses Profil wird gerade synchronisiert (z. B. durch einen Zeitplan). Bitte warte, bis der Lauf beendet ist.;This profile is being synced right now (e.g. by a schedule). Please wait until the run has finished.
 Run_SkippedProtection;{0} Ziel(e) wegen Löschschutz übersprungen.;{0} destination(s) skipped by deletion protection.
-Validation_DeletionProtection;Löschschutz: zu viele Löschungen – automatischer Lauf übersprungen;Deletion protection: too many deletions – automatic run skipped
+Validation_DeletionProtection;Löschschutz: zu viele Löschungen, automatischer Lauf übersprungen;Deletion protection: too many deletions, automatic run skipped
 Tray_Open;SyncForge öffnen;Open SyncForge
 Tray_SyncAll;Alle Profile jetzt synchronisieren;Sync all profiles now
 Tray_Exit;Beenden;Exit
-Tray_Running;SyncForge – synchronisiert ({0});SyncForge – syncing ({0})
+Tray_Running;SyncForge: synchronisiert ({0});SyncForge: syncing ({0})
 Notify_Title;{0}: {1};{0}: {1}
 Notify_ShowDetails;Details anzeigen;Show details
 Editor_SectionAutomation.Text;Automatisierung;Automation
@@ -259,13 +259,13 @@ Editor_RunAtStartup.Header;Beim Start von SyncForge synchronisieren;Sync when Sy
 Editor_RunAtStartup.Description;Zusammen mit „Mit Windows starten“ also bei jeder Anmeldung.;Combined with “Start with Windows” this means at every sign-in.
 Editor_RunOnDrive.Header;Wenn ein Ziel-Laufwerk angeschlossen wird;When a destination drive is connected
 Editor_RunOnDrive.Description;Z. B. beim Einstecken der USB-Festplatte, auf der ein Ziel liegt.;E.g. when plugging in the USB drive that holds a destination.
-Editor_AutomationInfo.Message;Automatische Läufe finden statt, solange SyncForge läuft – auch geschlossen im Infobereich. Bei automatischen Läufen wird ein Ziel übersprungen, wenn der Löschschutz anschlägt.;Automatic runs happen while SyncForge is running – also when closed to the notification area. In automatic runs a destination is skipped if deletion protection is triggered.
+Editor_AutomationInfo.Message;Automatische Läufe finden statt, solange SyncForge läuft, auch geschlossen im Infobereich. Bei automatischen Läufen wird ein Ziel übersprungen, wenn der Löschschutz anschlägt.;Automatic runs happen while SyncForge is running, also when closed to the notification area. In automatic runs a destination is skipped if deletion protection is triggered.
 Editor_ErrorNoDays;Bitte wähle mindestens einen Wochentag.;Please choose at least one weekday.
 Mode_VersionedItem.Content;Versioniert;Versioned
 Mode_TwoWayItem.Content;Zwei-Wege;Two-way
 Mode_MirrorDescription;Das Ziel wird zur exakten Kopie der Quelle, inklusive Löschungen.;The destination becomes an exact copy of the source, including deletions.
 Mode_VersionedDescription;Wie Spiegeln, aber überschriebene und gelöschte Dateien werden im Ziel aufbewahrt (Ordner .syncforge_versions) und lassen sich wiederherstellen.;Like mirror, but overwritten and deleted files are kept in the destination (folder .syncforge_versions) and can be restored.
-Mode_TwoWayDescription;Änderungen auf beiden Seiten werden übernommen – auch Löschungen. Wurde eine Datei auf beiden Seiten geändert, entscheidet die Konfliktregel.;Changes on both sides are applied – including deletions. If a file was changed on both sides, the conflict rule decides.
+Mode_TwoWayDescription;Änderungen auf beiden Seiten werden übernommen, auch Löschungen. Wurde eine Datei auf beiden Seiten geändert, entscheidet die Konfliktregel.;Changes on both sides are applied, including deletions. If a file was changed on both sides, the conflict rule decides.
 Editor_VersionsToKeep.Header;Fassungen je Datei behalten;Versions to keep per file
 Editor_VersionsToKeep.Description;0 = unbegrenzt;0 = unlimited
 Editor_VersionMaxAge.Header;Fassungen entfernen nach (Tagen);Remove versions after (days)
@@ -281,13 +281,13 @@ Run_Conflicts;{0} Konflikt(e);{0} conflict(s)
 Run_PlanToSource;{0} zur Quelle;{0} to source
 Run_DriveMoved;Laufwerk gefunden unter {0};drive found at {0}
 Action_InSource;in der Quelle;in source
-Action_RenameConflict;Konflikt – Zielfassung bleibt als „{0}“ erhalten;Conflict – destination version kept as “{0}”
-Action_Conflict;Konflikt – wird nicht geändert;Conflict – left unchanged
-Action_ConflictKeptBoth;Konflikt – beide Fassungen behalten;Conflict – both versions kept
-Action_ConflictOpen;Konflikt – offen;Conflict – unresolved
+Action_RenameConflict;Konflikt: Zielfassung bleibt als „{0}“ erhalten;Conflict: destination version kept as “{0}”
+Action_Conflict;Konflikt: wird nicht geändert;Conflict: left unchanged
+Action_ConflictKeptBoth;Konflikt: beide Fassungen behalten;Conflict: both versions kept
+Action_ConflictOpen;Konflikt: offen;Conflict: unresolved
 Detail_FilterConflicts.Text;Konflikte;Conflicts
 Profiles_Versions.Text;Versionen;Versions
-Versions_Title;Versionen – {0};Versions – {0}
+Versions_Title;Versionen: {0};Versions: {0}
 Versions_RootTarget;Ziel: {0};Destination: {0}
 Versions_RootSource;Quelle: {0};Source: {0}
 Versions_Count;{0} Fassungen;{0} versions
@@ -337,10 +337,23 @@ Legal_Title.Text;Lizenzen & Rechtliches;Licenses & legal
 Legal_TabApp.Text;SyncForge;SyncForge
 Legal_TabPrivacy.Text;Datenschutz;Privacy
 Legal_TabThirdParty.Text;Drittanbieter;Third party
-Legal_Copyright.Text;© 2026 Ronny Severin. Alle Rechte vorbehalten.;© 2026 Ronny Severin. All rights reserved.
+Legal_Copyright.Text;© 2026 Ronny Severin · Open Source unter der MIT-Lizenz;© 2026 Ronny Severin · Open source under the MIT License
 Legal_ThirdPartyIntro.Text;SyncForge verwendet die folgenden Komponenten. Vielen Dank an alle Autorinnen und Autoren. Die vollständigen Lizenztexte findest du jeweils beim Aufklappen.;SyncForge uses the following components. Many thanks to all their authors. Expand an entry to see the full license text.
 Legal_Version;Version {0};Version {0}
 Legal_Packages;Pakete: {0};Packages: {0}
 Legal_OpenFullText;Volltext öffnen;Open full text
 Legal_LicenseMissing;Lizenztext nicht gefunden.;License text not found.
-Legal_Truncated;… Text gekürzt – vollständig über „Volltext öffnen“.;… text shortened – see “Open full text” for the complete version.
+Legal_Truncated;… Text gekürzt. Vollständig über „Volltext öffnen“.;… text shortened. See “Open full text” for the complete version.
+Nav_Support.Content;Unterstützen;Support
+Support_Title.Text;SyncForge unterstützen;Support SyncForge
+Support_Headline.Text;Kostenlos, und das bleibt so.;Free, and it stays that way.
+Support_Text.Text;SyncForge ist kostenlos und Open Source, ohne Werbung, ohne Abo und ohne Datensammlung. Wenn dir die App Zeit und Nerven spart, freue ich mich über einen Kaffee. Jede Unterstützung hilft, SyncForge weiterzuentwickeln.;SyncForge is free and open source, with no ads, no subscription and no data collection. If the app saves you time and nerves, I'd be happy about a coffee. Every bit of support helps to keep developing SyncForge.
+Support_KofiButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Auf Ko-fi einen Kaffee spendieren;Buy me a coffee on Ko-fi
+Support_Voluntary.Text;Freiwillig: Alle Funktionen stehen allen kostenlos zur Verfügung.;Voluntary: all features are free for everyone.
+Support_OtherWays.Text;Auch so hilfst du weiter;Other ways to help
+Support_ShareTitle.Text;Weiterempfehlen;Spread the word
+Support_ShareText.Text;Erzähl Freunden und Kollegen von SyncForge.;Tell friends and colleagues about SyncForge.
+Support_RateTitle.Text;Stern auf GitHub;Star on GitHub
+Support_RateText.Text;Ein Stern für SyncForge auf GitHub hilft anderen, das Projekt zu finden.;A star for SyncForge on GitHub helps others find the project.
+Support_FeedbackTitle.Text;Feedback geben;Give feedback
+Support_FeedbackText.Text;Ideen und Fehlermeldungen (gern als Issue auf GitHub) machen SyncForge besser.;Ideas and bug reports (ideally as an issue on GitHub) make SyncForge better.

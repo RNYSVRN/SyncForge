@@ -53,7 +53,7 @@ public static partial class ContentService
             .ToList();
     }
 
-    /// <summary>Rechtstext ("eula" oder "privacy") in der passenden Sprache.</summary>
+    /// <summary>Rechtstext ("license" oder "privacy") in der passenden Sprache.</summary>
     public static string LoadLegal(string name)
     {
         var path = Path.Combine(AssetsRoot, "Legal", ContentLanguage, name + ".md");

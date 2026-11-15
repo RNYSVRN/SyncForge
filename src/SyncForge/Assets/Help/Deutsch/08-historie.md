@@ -1,21 +1,21 @@
 <!-- glyph:E9D2 -->
 # Historie
 
-Die Historie speichert jeden Lauf – manuell oder automatisch – mit allen Details.
+Die Historie speichert jeden Lauf (manuell oder automatisch) mit allen Details.
 
 ## Übersicht
 
 - **Filter** nach Profil (auch bereits gelöschte Profile) und Status.
 - **Kennzahlen der letzten 30 Tage:** Anzahl der Läufe, Erfolgsquote, übertragene Daten und durchschnittliche Dauer.
-- **Diagramm „Übertragene Daten pro Tag“** – fahre mit der Maus über eine Säule für Datum, Datenmenge und Anzahl der Läufe.
-- **Laufliste** – neueste zuerst; mit **Weitere laden** gehst du weiter zurück.
+- **Diagramm „Übertragene Daten pro Tag“**: fahre mit der Maus über eine Säule für Datum, Datenmenge und Anzahl der Läufe.
+- **Laufliste**: neueste zuerst; mit **Weitere laden** gehst du weiter zurück.
 
 ## Status
 
-- **Erfolgreich** – alle Ziele ohne Fehler synchronisiert.
-- **Mit Warnungen** – mindestens ein Ziel wurde übersprungen (nicht erreichbar oder Löschschutz).
-- **Fehlgeschlagen** – mindestens eine Datei konnte nicht verarbeitet werden, oder kein Ziel war erreichbar.
-- **Abgebrochen** – der Lauf wurde gestoppt.
+- **Erfolgreich**: alle Ziele ohne Fehler synchronisiert.
+- **Mit Warnungen**: mindestens ein Ziel wurde übersprungen (nicht erreichbar oder Löschschutz).
+- **Fehlgeschlagen**: mindestens eine Datei konnte nicht verarbeitet werden, oder kein Ziel war erreichbar.
+- **Abgebrochen**: der Lauf wurde gestoppt.
 
 ## Laufdetails
 

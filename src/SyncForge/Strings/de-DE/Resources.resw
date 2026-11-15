@@ -161,13 +161,13 @@
   <data name="Run_Scanning" xml:space="preserve"><value>Lese Ordner… {0} Einträge</value></data>
   <data name="Run_DeletionWarning" xml:space="preserve"><value>{0} Dateien ({1} %) würden in {2} gelöscht. Bitte prüfe die geplanten Änderungen, bevor du startest.</value></data>
   <data name="Run_NoTargetReady" xml:space="preserve"><value>Kein Ziel ist erreichbar.</value></data>
-  <data name="Run_UpToDate" xml:space="preserve"><value>Alles aktuell – keine Änderungen nötig.</value></data>
+  <data name="Run_UpToDate" xml:space="preserve"><value>Alles aktuell, keine Änderungen nötig.</value></data>
   <data name="Run_Waiting" xml:space="preserve"><value>Wartet…</value></data>
   <data name="Run_Deleting" xml:space="preserve"><value>Lösche…</value></data>
   <data name="Run_Finishing" xml:space="preserve"><value>Schließe ab…</value></data>
   <data name="Run_Copying" xml:space="preserve"><value>Kopiere…</value></data>
   <data name="Run_ProgressDetail" xml:space="preserve"><value>{0} von {1} Schritten · {2} von {3} · {4}</value></data>
-  <data name="Run_TargetUnavailable" xml:space="preserve"><value>Nicht erreichbar – wird übersprungen</value></data>
+  <data name="Run_TargetUnavailable" xml:space="preserve"><value>Nicht erreichbar, wird übersprungen</value></data>
   <data name="Run_TargetReady" xml:space="preserve"><value>Bereit</value></data>
   <data name="Run_PlanSummary" xml:space="preserve"><value>{0} neu · {1} geändert · {2} zu löschen · {3} unverändert · {4} zu kopieren</value></data>
   <data name="Run_MoreActions" xml:space="preserve"><value>… und {0} weitere</value></data>
@@ -214,7 +214,7 @@
   <data name="Trigger_Event" xml:space="preserve"><value>Ereignis</value></data>
   <data name="Detail_AllTargets" xml:space="preserve"><value>Alle Ziele</value></data>
   <data name="Detail_FilesCount" xml:space="preserve"><value>{0} Einträge</value></data>
-  <data name="Detail_FilesCountLimited" xml:space="preserve"><value>{0} Einträge – die ersten {1} werden angezeigt. Grenze die Suche ein.</value></data>
+  <data name="Detail_FilesCountLimited" xml:space="preserve"><value>{0} Einträge, die ersten {1} werden angezeigt. Grenze die Suche ein.</value></data>
   <data name="Action_Deleted" xml:space="preserve"><value>Gelöscht</value></data>
   <data name="Action_DirectoryDeleted" xml:space="preserve"><value>Ordner gelöscht</value></data>
   <data name="Action_DirectoryCreated" xml:space="preserve"><value>Ordner angelegt</value></data>
@@ -239,11 +239,11 @@
   <data name="Run_TargetDoneOneError" xml:space="preserve"><value>Abgeschlossen mit 1 Fehler</value></data>
   <data name="Run_AlreadyRunning" xml:space="preserve"><value>Dieses Profil wird gerade synchronisiert (z. B. durch einen Zeitplan). Bitte warte, bis der Lauf beendet ist.</value></data>
   <data name="Run_SkippedProtection" xml:space="preserve"><value>{0} Ziel(e) wegen Löschschutz übersprungen.</value></data>
-  <data name="Validation_DeletionProtection" xml:space="preserve"><value>Löschschutz: zu viele Löschungen – automatischer Lauf übersprungen</value></data>
+  <data name="Validation_DeletionProtection" xml:space="preserve"><value>Löschschutz: zu viele Löschungen, automatischer Lauf übersprungen</value></data>
   <data name="Tray_Open" xml:space="preserve"><value>SyncForge öffnen</value></data>
   <data name="Tray_SyncAll" xml:space="preserve"><value>Alle Profile jetzt synchronisieren</value></data>
   <data name="Tray_Exit" xml:space="preserve"><value>Beenden</value></data>
-  <data name="Tray_Running" xml:space="preserve"><value>SyncForge – synchronisiert ({0})</value></data>
+  <data name="Tray_Running" xml:space="preserve"><value>SyncForge: synchronisiert ({0})</value></data>
   <data name="Notify_Title" xml:space="preserve"><value>{0}: {1}</value></data>
   <data name="Notify_ShowDetails" xml:space="preserve"><value>Details anzeigen</value></data>
   <data name="Editor_SectionAutomation.Text" xml:space="preserve"><value>Automatisierung</value></data>
@@ -265,13 +265,13 @@
   <data name="Editor_RunAtStartup.Description" xml:space="preserve"><value>Zusammen mit „Mit Windows starten“ also bei jeder Anmeldung.</value></data>
   <data name="Editor_RunOnDrive.Header" xml:space="preserve"><value>Wenn ein Ziel-Laufwerk angeschlossen wird</value></data>
   <data name="Editor_RunOnDrive.Description" xml:space="preserve"><value>Z. B. beim Einstecken der USB-Festplatte, auf der ein Ziel liegt.</value></data>
-  <data name="Editor_AutomationInfo.Message" xml:space="preserve"><value>Automatische Läufe finden statt, solange SyncForge läuft – auch geschlossen im Infobereich. Bei automatischen Läufen wird ein Ziel übersprungen, wenn der Löschschutz anschlägt.</value></data>
+  <data name="Editor_AutomationInfo.Message" xml:space="preserve"><value>Automatische Läufe finden statt, solange SyncForge läuft, auch geschlossen im Infobereich. Bei automatischen Läufen wird ein Ziel übersprungen, wenn der Löschschutz anschlägt.</value></data>
   <data name="Editor_ErrorNoDays" xml:space="preserve"><value>Bitte wähle mindestens einen Wochentag.</value></data>
   <data name="Mode_VersionedItem.Content" xml:space="preserve"><value>Versioniert</value></data>
   <data name="Mode_TwoWayItem.Content" xml:space="preserve"><value>Zwei-Wege</value></data>
   <data name="Mode_MirrorDescription" xml:space="preserve"><value>Das Ziel wird zur exakten Kopie der Quelle, inklusive Löschungen.</value></data>
   <data name="Mode_VersionedDescription" xml:space="preserve"><value>Wie Spiegeln, aber überschriebene und gelöschte Dateien werden im Ziel aufbewahrt (Ordner .syncforge_versions) und lassen sich wiederherstellen.</value></data>
-  <data name="Mode_TwoWayDescription" xml:space="preserve"><value>Änderungen auf beiden Seiten werden übernommen – auch Löschungen. Wurde eine Datei auf beiden Seiten geändert, entscheidet die Konfliktregel.</value></data>
+  <data name="Mode_TwoWayDescription" xml:space="preserve"><value>Änderungen auf beiden Seiten werden übernommen, auch Löschungen. Wurde eine Datei auf beiden Seiten geändert, entscheidet die Konfliktregel.</value></data>
   <data name="Editor_VersionsToKeep.Header" xml:space="preserve"><value>Fassungen je Datei behalten</value></data>
   <data name="Editor_VersionsToKeep.Description" xml:space="preserve"><value>0 = unbegrenzt</value></data>
   <data name="Editor_VersionMaxAge.Header" xml:space="preserve"><value>Fassungen entfernen nach (Tagen)</value></data>
@@ -287,13 +287,13 @@
   <data name="Run_PlanToSource" xml:space="preserve"><value>{0} zur Quelle</value></data>
   <data name="Run_DriveMoved" xml:space="preserve"><value>Laufwerk gefunden unter {0}</value></data>
   <data name="Action_InSource" xml:space="preserve"><value>in der Quelle</value></data>
-  <data name="Action_RenameConflict" xml:space="preserve"><value>Konflikt – Zielfassung bleibt als „{0}“ erhalten</value></data>
-  <data name="Action_Conflict" xml:space="preserve"><value>Konflikt – wird nicht geändert</value></data>
-  <data name="Action_ConflictKeptBoth" xml:space="preserve"><value>Konflikt – beide Fassungen behalten</value></data>
-  <data name="Action_ConflictOpen" xml:space="preserve"><value>Konflikt – offen</value></data>
+  <data name="Action_RenameConflict" xml:space="preserve"><value>Konflikt: Zielfassung bleibt als „{0}“ erhalten</value></data>
+  <data name="Action_Conflict" xml:space="preserve"><value>Konflikt: wird nicht geändert</value></data>
+  <data name="Action_ConflictKeptBoth" xml:space="preserve"><value>Konflikt: beide Fassungen behalten</value></data>
+  <data name="Action_ConflictOpen" xml:space="preserve"><value>Konflikt: offen</value></data>
   <data name="Detail_FilterConflicts.Text" xml:space="preserve"><value>Konflikte</value></data>
   <data name="Profiles_Versions.Text" xml:space="preserve"><value>Versionen</value></data>
-  <data name="Versions_Title" xml:space="preserve"><value>Versionen – {0}</value></data>
+  <data name="Versions_Title" xml:space="preserve"><value>Versionen: {0}</value></data>
   <data name="Versions_RootTarget" xml:space="preserve"><value>Ziel: {0}</value></data>
   <data name="Versions_RootSource" xml:space="preserve"><value>Quelle: {0}</value></data>
   <data name="Versions_Count" xml:space="preserve"><value>{0} Fassungen</value></data>
@@ -343,11 +343,24 @@
   <data name="Legal_TabApp.Text" xml:space="preserve"><value>SyncForge</value></data>
   <data name="Legal_TabPrivacy.Text" xml:space="preserve"><value>Datenschutz</value></data>
   <data name="Legal_TabThirdParty.Text" xml:space="preserve"><value>Drittanbieter</value></data>
-  <data name="Legal_Copyright.Text" xml:space="preserve"><value>© 2026 Ronny Severin. Alle Rechte vorbehalten.</value></data>
+  <data name="Legal_Copyright.Text" xml:space="preserve"><value>© 2026 Ronny Severin · Open Source unter der MIT-Lizenz</value></data>
   <data name="Legal_ThirdPartyIntro.Text" xml:space="preserve"><value>SyncForge verwendet die folgenden Komponenten. Vielen Dank an alle Autorinnen und Autoren. Die vollständigen Lizenztexte findest du jeweils beim Aufklappen.</value></data>
   <data name="Legal_Version" xml:space="preserve"><value>Version {0}</value></data>
   <data name="Legal_Packages" xml:space="preserve"><value>Pakete: {0}</value></data>
   <data name="Legal_OpenFullText" xml:space="preserve"><value>Volltext öffnen</value></data>
   <data name="Legal_LicenseMissing" xml:space="preserve"><value>Lizenztext nicht gefunden.</value></data>
-  <data name="Legal_Truncated" xml:space="preserve"><value>… Text gekürzt – vollständig über „Volltext öffnen“.</value></data>
+  <data name="Legal_Truncated" xml:space="preserve"><value>… Text gekürzt. Vollständig über „Volltext öffnen“.</value></data>
+  <data name="Nav_Support.Content" xml:space="preserve"><value>Unterstützen</value></data>
+  <data name="Support_Title.Text" xml:space="preserve"><value>SyncForge unterstützen</value></data>
+  <data name="Support_Headline.Text" xml:space="preserve"><value>Kostenlos, und das bleibt so.</value></data>
+  <data name="Support_Text.Text" xml:space="preserve"><value>SyncForge ist kostenlos und Open Source, ohne Werbung, ohne Abo und ohne Datensammlung. Wenn dir die App Zeit und Nerven spart, freue ich mich über einen Kaffee. Jede Unterstützung hilft, SyncForge weiterzuentwickeln.</value></data>
+  <data name="Support_KofiButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Auf Ko-fi einen Kaffee spendieren</value></data>
+  <data name="Support_Voluntary.Text" xml:space="preserve"><value>Freiwillig: Alle Funktionen stehen allen kostenlos zur Verfügung.</value></data>
+  <data name="Support_OtherWays.Text" xml:space="preserve"><value>Auch so hilfst du weiter</value></data>
+  <data name="Support_ShareTitle.Text" xml:space="preserve"><value>Weiterempfehlen</value></data>
+  <data name="Support_ShareText.Text" xml:space="preserve"><value>Erzähl Freunden und Kollegen von SyncForge.</value></data>
+  <data name="Support_RateTitle.Text" xml:space="preserve"><value>Stern auf GitHub</value></data>
+  <data name="Support_RateText.Text" xml:space="preserve"><value>Ein Stern für SyncForge auf GitHub hilft anderen, das Projekt zu finden.</value></data>
+  <data name="Support_FeedbackTitle.Text" xml:space="preserve"><value>Feedback geben</value></data>
+  <data name="Support_FeedbackText.Text" xml:space="preserve"><value>Ideen und Fehlermeldungen (gern als Issue auf GitHub) machen SyncForge besser.</value></data>
 </root>

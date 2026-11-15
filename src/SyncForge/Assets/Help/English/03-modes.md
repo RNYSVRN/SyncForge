@@ -17,7 +17,7 @@ In the profile you set **how many versions per file** to keep and **after how ma
 
 ## Two-way
 
-Changes on **both sides** are applied – including deletions:
+Changes on **both sides** are applied, including deletions:
 
 - A file was only created or changed on one side → it is copied to the other side.
 - A file was deleted on one side and left unchanged on the other → it is deleted there as well.
@@ -29,9 +29,9 @@ To do this, SyncForge remembers the common state of both sides after every run. 
 
 A conflict occurs when a file was **changed on both sides** since the last run. What happens is set in the profile under **On conflicts**:
 
-- **Newer version wins** – the file with the more recent modification date replaces the other (with equal dates, the source wins).
-- **Source wins** – the source version replaces the destination version.
-- **Keep both** – the source version keeps the name; the destination version is saved as `Name (conflict date time).ext` on both sides.
-- **Leave unchanged, just report** – both versions stay as they are. The conflict appears in the history (filter **Conflicts**) and again on every run until you resolve it yourself.
+- **Newer version wins**: the file with the more recent modification date replaces the other (with equal dates, the source wins).
+- **Source wins**: the source version replaces the destination version.
+- **Keep both**: the source version keeps the name; the destination version is saved as `Name (conflict date time).ext` on both sides.
+- **Leave unchanged, just report**: both versions stay as they are. The conflict appears in the history (filter **Conflicts**) and again on every run until you resolve it yourself.
 
 > Tip: With **Notifications › On conflicts** in the settings you learn about conflicts immediately.

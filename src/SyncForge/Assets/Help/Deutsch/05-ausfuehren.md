@@ -13,7 +13,7 @@ Mit **Jetzt synchronisieren** startest du den Lauf direkt aus der Vorschau.
 
 ## Löschschutz
 
-Würde ein Lauf mehr als den im Profil eingestellten Anteil der Dateien löschen (Standard: 25 %), zeigt SyncForge eine Warnung und startet **nicht automatisch**. Prüfe dann die geplanten Änderungen – häufige Ursachen sind ein falsch gewählter Quellordner oder eine leere, nicht eingesteckte Quelle. Mit **0** schaltest du den Löschschutz ab.
+Würde ein Lauf mehr als den im Profil eingestellten Anteil der Dateien löschen (Standard: 25 %), zeigt SyncForge eine Warnung und startet **nicht automatisch**. Prüfe dann die geplanten Änderungen. Häufige Ursachen sind ein falsch gewählter Quellordner oder eine leere, nicht eingesteckte Quelle. Mit **0** schaltest du den Löschschutz ab.
 
 Bei **automatischen Läufen** wird ein betroffenes Ziel übersprungen statt nachzufragen; der Grund steht in der Historie.
 

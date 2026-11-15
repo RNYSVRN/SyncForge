@@ -1,6 +1,6 @@
 # Datenschutzerklärung
 
-> ENTWURF – Vor einer Veröffentlichung (z. B. im Microsoft Store) rechtlich prüfen lassen und Kontaktdaten ergänzen.
+> ENTWURF: Vor einer Veröffentlichung rechtlich prüfen lassen und Kontaktdaten ergänzen.
 
 Stand: November 2026
 
@@ -14,11 +14,11 @@ Um Ordner zu synchronisieren, liest und schreibt SyncForge die Dateien und Ordne
 
 Lokal gespeichert werden:
 
-- **Einstellungen** (`settings.json`) – z. B. Design, Sprache, Benachrichtigungen.
-- **Backup-Profile** (`profiles.json`) – Pfade von Quellen und Zielen, Filter, Zeitpläne, Seriennummer und Bezeichnung von Ziel-Laufwerken.
-- **Historie** (`history.db`) – Zeitpunkt und Ergebnis jedes Laufs sowie die Namen und Pfade der verarbeiteten Dateien.
-- **Zwei-Wege-Stand** (Ordner `state`) – Pfade, Größen und Änderungsdaten der zuletzt abgeglichenen Dateien.
-- **Fehlerprotokoll** (`crash.log`) – nur bei unerwarteten Fehlern; kann Dateipfade enthalten.
+- **Einstellungen** (`settings.json`): z. B. Design, Sprache, Benachrichtigungen.
+- **Backup-Profile** (`profiles.json`): Pfade von Quellen und Zielen, Filter, Zeitpläne, Seriennummer und Bezeichnung von Ziel-Laufwerken.
+- **Historie** (`history.db`): Zeitpunkt und Ergebnis jedes Laufs sowie die Namen und Pfade der verarbeiteten Dateien.
+- **Zwei-Wege-Stand** (Ordner `state`): Pfade, Größen und Änderungsdaten der zuletzt abgeglichenen Dateien.
+- **Fehlerprotokoll** (`crash.log`): nur bei unerwarteten Fehlern; kann Dateipfade enthalten.
 
 Diese Daten liegen im Ordner `%LOCALAPPDATA%\SyncForge` (bei Installation als App-Paket im geschützten Datenbereich der App) und verlassen deinen PC nicht. Du kannst sie jederzeit über **Einstellungen › Datenordner** einsehen, die Historie in den Einstellungen löschen und alle Daten durch Deinstallation bzw. Löschen des Ordners entfernen.
 
@@ -29,8 +29,12 @@ SyncForge greift nur auf Netzwerkfreigaben oder Cloud-Ordner zu, die du selbst a
 ## Windows-Funktionen
 
 - **Benachrichtigungen** werden über Windows angezeigt und enthalten Profilnamen und eine Zusammenfassung des Laufs.
-- **Autostart** wird – wenn du ihn einschaltest – in Windows eingetragen.
-- Bei Bezug über den **Microsoft Store** verarbeitet Microsoft Daten zu Kauf und Installation nach eigenen Datenschutzbestimmungen; darauf hat der Anbieter keinen Einfluss.
+- **Autostart** wird in Windows eingetragen, wenn du ihn einschaltest.
+- Beim **Herunterladen** von SyncForge (z. B. von GitHub) gelten für den Download die Datenschutzhinweise der jeweiligen Plattform.
+
+## Unterstützung über Ko-fi
+
+Unter **Unterstützen** findest du einen Link zu Ko-fi. Ein Klick darauf öffnet die Ko-fi-Seite in deinem Browser; SyncForge selbst überträgt dabei keine Daten. Was auf der Ko-fi-Seite und bei einer freiwilligen Unterstützung verarbeitet wird, richtet sich nach den Datenschutzbestimmungen von Ko-fi und des gewählten Zahlungsdienstleisters. Der Anbieter erhält dabei nur die Angaben, die Ko-fi an Empfänger von Unterstützungen weitergibt (z. B. den von dir angegebenen Namen und eine Nachricht).
 
 ## Deine Rechte
 

@@ -1,6 +1,6 @@
 # Privacy statement
 
-> DRAFT – Have this reviewed by a legal professional and add contact details before publication (e.g. in the Microsoft Store).
+> DRAFT: Have this reviewed by a legal professional and add contact details before publication.
 
 Last updated: November 2026
 
@@ -14,11 +14,11 @@ To sync folders, SyncForge reads and writes the files and folders you define as 
 
 Stored locally:
 
-- **Settings** (`settings.json`) – e.g. theme, language, notifications.
-- **Backup profiles** (`profiles.json`) – paths of sources and destinations, filters, schedules, serial number and label of destination drives.
-- **History** (`history.db`) – time and result of every run and the names and paths of the processed files.
-- **Two-way state** (folder `state`) – paths, sizes and modification dates of the last synced files.
-- **Error log** (`crash.log`) – only after unexpected errors; may contain file paths.
+- **Settings** (`settings.json`): e.g. theme, language, notifications.
+- **Backup profiles** (`profiles.json`): paths of sources and destinations, filters, schedules, serial number and label of destination drives.
+- **History** (`history.db`): time and result of every run and the names and paths of the processed files.
+- **Two-way state** (folder `state`): paths, sizes and modification dates of the last synced files.
+- **Error log** (`crash.log`): only after unexpected errors; may contain file paths.
 
 This data is stored in the folder `%LOCALAPPDATA%\SyncForge` (when installed as an app package, in the app's protected data area) and never leaves your PC. You can view it at any time via **Settings › Data folder**, clear the history in the settings, and remove all data by uninstalling or deleting the folder.
 
@@ -30,7 +30,11 @@ SyncForge only accesses network shares or cloud folders that you set up as desti
 
 - **Notifications** are shown by Windows and contain profile names and a summary of the run.
 - **Startup** is registered with Windows if you turn it on.
-- If obtained through the **Microsoft Store**, Microsoft processes purchase and installation data under its own privacy terms; the provider has no influence on this.
+- When **downloading** SyncForge (e.g. from GitHub), the privacy notes of the respective platform apply to the download.
+
+## Support via Ko-fi
+
+Under **Support** you find a link to Ko-fi. Clicking it opens the Ko-fi page in your browser; SyncForge itself transmits no data. What is processed on the Ko-fi page and when you voluntarily support the project is governed by the privacy terms of Ko-fi and the payment provider you choose. The provider only receives the information Ko-fi passes on to recipients of support (e.g. the name you entered and a message).
 
 ## Your rights
 

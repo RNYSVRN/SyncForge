@@ -37,7 +37,7 @@ public sealed class ComponentItem(ThirdPartyComponent component)
     public override string ToString() => $"{Name}, {License}";
 }
 
-/// <summary>Lizenzen &amp; Rechtliches: Nutzungsbedingungen, Datenschutz und Drittanbieter-Lizenzen.</summary>
+/// <summary>Lizenzen &amp; Rechtliches: MIT-Lizenz von SyncForge, Datenschutz und Drittanbieter-Lizenzen.</summary>
 public sealed partial class LegalPage : Page
 {
     private bool _thirdPartyLoaded;
@@ -47,7 +47,7 @@ public sealed partial class LegalPage : Page
         InitializeComponent();
         var version = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion.Split('+')[0] ?? "0.0.0";
         VersionText.Text = Format.Text("Legal_Version", version);
-        EulaView.SetMarkdown(ContentService.LoadLegal("eula"));
+        LicenseView.SetMarkdown(ContentService.LoadLegal("license"));
         PrivacyView.SetMarkdown(ContentService.LoadLegal("privacy"));
     }
 

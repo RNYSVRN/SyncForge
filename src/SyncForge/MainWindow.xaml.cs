@@ -19,6 +19,7 @@ public sealed partial class MainWindow : Window
         ["History"] = typeof(HistoryPage),
         ["Settings"] = typeof(SettingsPage),
         ["Help"] = typeof(HelpPage),
+        ["Support"] = typeof(SupportPage),
         ["Legal"] = typeof(LegalPage),
     };
 
@@ -56,6 +57,9 @@ public sealed partial class MainWindow : Window
         App.Services.GetRequiredService<ThemeService>().Initialize(this, _settings.Current.Theme);
 
         NavView.SelectedItem = NavView.MenuItems[0];
+
+        // Dampf über der Kaffeetasse ("Unterstützen"), Farbe folgt dem Symbol (Hover, Auswahl, Design).
+        Controls.CoffeeSteam.Attach(SupportIcon, SupportIcon, () => SupportIcon.Foreground);
     }
 
     public void NavigateTo(string tag)

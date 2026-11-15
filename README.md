@@ -1,6 +1,8 @@
 # SyncForge
 
 Native Windows-11-App (WinUI 3, .NET 10) zum Synchronisieren von Ordnern in ein oder mehrere Ziele.
+Kostenlos und Open Source unter der [MIT-Lizenz](LICENSE), © 2026 Ronny Severin.
+Freiwillige Unterstützung: [ko-fi.com/rnysvrn](https://ko-fi.com/rnysvrn) (Seite „Unterstützen“ in der App).
 Funktionsumfang und Etappenplan: siehe [SPEC.md](SPEC.md).
 
 ## Voraussetzungen
@@ -29,11 +31,11 @@ Deinstallieren: `Get-AppxPackage SyncForge | Remove-AppxPackage`. Die installier
 AppData-Bereich), getrennt vom unpaketierten Entwicklungs-Build.
 
 ## Hilfe, Rechtstexte und Lizenzen
-- Hilfe: `src/SyncForge/Assets/Help/Deutsch|English/*.md` – ein Thema pro Datei, Reihenfolge nach Dateiname,
+- Hilfe: `src/SyncForge/Assets/Help/Deutsch|English/*.md`: ein Thema pro Datei, Reihenfolge nach Dateiname,
   erste Zeile `<!-- glyph:E7C1 -->` = Symbol (Segoe Fluent Icons). Unterstützt: `#`/`##`/`###`, Absätze, `-`/`1.` Listen,
   `> Hinweis`, `**fett**`, `` `Code` ``.
-- Nutzungsbedingungen und Datenschutz: `src/SyncForge/Assets/Legal/Deutsch|English/eula.md` bzw. `privacy.md`
-  (**Entwurf – vor Veröffentlichung rechtlich prüfen und Kontaktdaten eintragen**).
+- Lizenz-Seite und Datenschutz: `src/SyncForge/Assets/Legal/Deutsch|English/license.md` bzw. `privacy.md`
+  (Datenschutz: **Entwurf, vor Veröffentlichung prüfen und Kontaktdaten eintragen**).
 - Drittanbieter-Lizenzen: nach jedem Paket-Update `powershell -File tools\Collect-Licenses.ps1` ausführen
   (liest die verwendeten Paketversionen aus dem Build und übernimmt die Lizenztexte aus den NuGet-Paketen).
 
@@ -69,8 +71,8 @@ src/SyncForge/
   Services/              Einstellungen, Design, Lokalisierung,
                          SyncCoordinator (alle Läufe), AutomationService (Zeitplan, Überwachung, Laufwerke),
                          TrayIcon (Infobereich, Win32), NotificationService, StartupService (Autostart)
-  Strings/<Sprache>/     Resources.resw – generiert, nicht von Hand bearbeiten
-  Assets/                App-Icon – generiert
+  Strings/<Sprache>/     Resources.resw (generiert, nicht von Hand bearbeiten)
+  Assets/                App-Icon (generiert)
 tools/
   strings.csv            Alle UI-Texte (Deutsch/Englisch) an einer Stelle
   Generate-Strings.ps1   strings.csv → .resw

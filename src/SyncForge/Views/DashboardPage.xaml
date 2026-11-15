@@ -5,8 +5,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     Background="Transparent">
 
+    <!-- Grid zwischen ScrollViewer und StackPanel: zentrierte Maximalbreite wird bei Größenänderung neu berechnet. -->
     <ScrollViewer>
-        <StackPanel Margin="{StaticResource PageMargin}" Spacing="16" MaxWidth="1100" HorizontalAlignment="Stretch">
+        <Grid Padding="{StaticResource PageMargin}">
+        <StackPanel Spacing="16" MaxWidth="1100" HorizontalAlignment="Stretch">
             <TextBlock x:Uid="Dashboard_Title" Text="Übersicht" Style="{StaticResource TitleTextBlockStyle}" />
 
             <InfoBar x:Uid="Dashboard_Welcome" IsOpen="True" IsClosable="True" Severity="Informational"
@@ -53,5 +55,6 @@
                 </StackPanel>
             </Button>
         </StackPanel>
+        </Grid>
     </ScrollViewer>
 </Page>

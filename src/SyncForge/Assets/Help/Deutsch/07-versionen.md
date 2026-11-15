@@ -7,9 +7,9 @@ Im Modus **Versioniert** bewahrt SyncForge überschriebene und gelöschte Dateie
 2. Suche die Datei (Suchfeld oben rechts). Dateien, die es aktuell nicht mehr gibt, sind als **aktuell nicht vorhanden** gekennzeichnet.
 3. Wähle rechts die gewünschte Fassung (neueste oben) und eine Aktion:
 
-- **In der Quelle wiederherstellen** – kopiert die Fassung an ihren ursprünglichen Ort in der Quelle. Beim nächsten Lauf gelangt sie auch ins Ziel; die dort bisher aktuelle Fassung wird dabei selbst als Version aufbewahrt.
-- **Speichern unter…** – speichert die Fassung an einem beliebigen Ort, ohne die Quelle zu verändern.
-- **Im Explorer anzeigen** – öffnet den Versionsordner mit markierter Datei.
+- **In der Quelle wiederherstellen**: kopiert die Fassung an ihren ursprünglichen Ort in der Quelle. Beim nächsten Lauf gelangt sie auch ins Ziel; die dort bisher aktuelle Fassung wird dabei selbst als Version aufbewahrt.
+- **Speichern unter…**: speichert die Fassung an einem beliebigen Ort, ohne die Quelle zu verändern.
+- **Im Explorer anzeigen**: öffnet den Versionsordner mit markierter Datei.
 
 Die Fassung im Versionsordner bleibt bei allen Aktionen erhalten.
 

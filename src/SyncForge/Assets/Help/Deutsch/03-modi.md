@@ -7,7 +7,7 @@ Der Modus legt fest, wie Quelle und Ziel zueinander stehen.
 
 Das Ziel wird zur **exakten Kopie der Quelle**. Neue und geänderte Dateien werden kopiert, und Dateien, die es in der Quelle nicht mehr gibt, werden im Ziel **gelöscht**.
 
-Gelöschte Dateien landen – auf lokalen Laufwerken und wenn eingeschaltet – im **Papierkorb**. Auf Netzlaufwerken ist kein Papierkorb möglich; dort wird endgültig gelöscht.
+Gelöschte Dateien landen auf lokalen Laufwerken (wenn eingeschaltet) im **Papierkorb**. Auf Netzlaufwerken ist kein Papierkorb möglich; dort wird endgültig gelöscht.
 
 ## Versioniert
 
@@ -17,7 +17,7 @@ Im Profil legst du fest, **wie viele Fassungen je Datei** behalten werden und **
 
 ## Zwei-Wege
 
-Änderungen auf **beiden Seiten** werden übernommen – auch Löschungen:
+Änderungen auf **beiden Seiten** werden übernommen, auch Löschungen:
 
 - Eine Datei wurde nur auf einer Seite neu angelegt oder geändert → sie wird auf die andere Seite kopiert.
 - Eine Datei wurde auf einer Seite gelöscht und auf der anderen nicht verändert → sie wird auch dort gelöscht.
@@ -29,9 +29,9 @@ Dafür merkt sich SyncForge nach jedem Lauf den gemeinsamen Stand beider Seiten.
 
 Ein Konflikt entsteht, wenn eine Datei seit dem letzten Lauf auf **beiden Seiten geändert** wurde. Was dann passiert, wählst du im Profil unter **Bei Konflikten**:
 
-- **Neuere Fassung gewinnt** – die Datei mit dem jüngeren Änderungsdatum ersetzt die andere (bei gleichem Datum gewinnt die Quelle).
-- **Quelle gewinnt** – die Fassung aus der Quelle ersetzt die im Ziel.
-- **Beide behalten** – die Quellfassung behält den Namen, die Zielfassung wird als `Name (Konflikt Datum Uhrzeit).ext` auf beiden Seiten gespeichert.
-- **Nicht ändern, nur melden** – beide Fassungen bleiben, wie sie sind. Der Konflikt erscheint in der Historie (Filter **Konflikte**) und bei jedem Lauf erneut, bis du ihn selbst auflöst.
+- **Neuere Fassung gewinnt**: die Datei mit dem jüngeren Änderungsdatum ersetzt die andere (bei gleichem Datum gewinnt die Quelle).
+- **Quelle gewinnt**: die Fassung aus der Quelle ersetzt die im Ziel.
+- **Beide behalten**: die Quellfassung behält den Namen, die Zielfassung wird als `Name (Konflikt Datum Uhrzeit).ext` auf beiden Seiten gespeichert.
+- **Nicht ändern, nur melden**: beide Fassungen bleiben, wie sie sind. Der Konflikt erscheint in der Historie (Filter **Konflikte**) und bei jedem Lauf erneut, bis du ihn selbst auflöst.
 
 > Tipp: Mit **Benachrichtigungen › Bei Konflikten** in den Einstellungen erfährst du sofort davon.

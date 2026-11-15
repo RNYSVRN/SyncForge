@@ -25,7 +25,7 @@
 
         <ScrollViewer x:Name="Scroller" Grid.Row="2">
             <Grid Padding="0,8,0,36">
-                <!-- SyncForge: Copyright + Nutzungsbedingungen -->
+                <!-- SyncForge: Copyright + MIT-Lizenz -->
                 <StackPanel x:Name="AppPanel" MaxWidth="1000" Spacing="12">
                     <Border Style="{StaticResource CardBorderStyle}">
                         <Grid ColumnSpacing="16">
@@ -37,11 +37,11 @@
                             <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="2">
                                 <TextBlock Text="SyncForge" Style="{StaticResource SubtitleTextBlockStyle}" />
                                 <TextBlock x:Name="VersionText" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
-                                <TextBlock x:Uid="Legal_Copyright" Text="© 2026 Ronny Severin. Alle Rechte vorbehalten." IsTextSelectionEnabled="True" />
+                                <TextBlock x:Uid="Legal_Copyright" Text="© 2026 Ronny Severin · Open Source unter der MIT-Lizenz" IsTextSelectionEnabled="True" />
                             </StackPanel>
                         </Grid>
                     </Border>
-                    <controls:MarkdownView x:Name="EulaView" Margin="0,8,0,0" />
+                    <controls:MarkdownView x:Name="LicenseView" Margin="0,8,0,0" />
                 </StackPanel>
 
                 <!-- Datenschutz -->

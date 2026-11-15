@@ -228,7 +228,7 @@
                         <ToggleSwitch IsOn="{x:Bind ViewModel.RunWhenTargetConnected, Mode=TwoWay}" OnContent="{StaticResource ToggleOnText}" OffContent="{StaticResource ToggleOffText}" />
                     </toolkit:SettingsCard>
                     <InfoBar x:Uid="Editor_AutomationInfo" IsOpen="True" IsClosable="False" Severity="Informational" Margin="0,4,0,0"
-                             Message="Automatische Läufe finden statt, solange SyncForge läuft – auch geschlossen im Infobereich. Bei automatischen Läufen wird ein Ziel übersprungen, wenn der Löschschutz anschlägt." />
+                             Message="Automatische Läufe finden statt, solange SyncForge läuft, auch geschlossen im Infobereich. Bei automatischen Läufen wird ein Ziel übersprungen, wenn der Löschschutz anschlägt." />
 
                     <!-- Sicherheit -->
                     <TextBlock x:Uid="Editor_SectionSafety" Text="Sicherheit" Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" />

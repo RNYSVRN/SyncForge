@@ -13,7 +13,7 @@ The preview analyzes source and destinations **without changing anything**. For 
 
 ## Deletion protection
 
-If a run would delete more than the share of files set in the profile (default: 25 %), SyncForge shows a warning and does **not start automatically**. Review the planned changes – common causes are a wrong source folder or an empty source that isn't plugged in. Set the value to **0** to turn deletion protection off.
+If a run would delete more than the share of files set in the profile (default: 25 %), SyncForge shows a warning and does **not start automatically**. Review the planned changes. Common causes are a wrong source folder or an empty source that isn't plugged in. Set the value to **0** to turn deletion protection off.
 
 In **automatic runs** an affected destination is skipped instead of asking; the reason is shown in the history.
 
