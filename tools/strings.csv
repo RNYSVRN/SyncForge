@@ -520,3 +520,12 @@ Wizard_Back.Content;Zurück;Back
 Wizard_Next.Content;Weiter;Next
 Wizard_CreatePreview.Content;Anlegen und Vorschau zeigen;Create and show preview
 Wizard_Create.Content;Profil anlegen;Create profile
+Hint_InvalidPath;Kein gültiger Pfad (vollständig angeben, z. B. D:\Backup).;Not a valid path (enter it in full, e.g. D:\Backup).
+Hint_NetworkCheckedOnSave;Netzwerkfreigabe, wird beim Speichern geprüft.;Network share, checked when saving.
+Hint_SourceFound;Ordner gefunden.;Folder found.
+Hint_SourceMissing;Ordner nicht gefunden.;Folder not found.
+Hint_DriveNotReady;Laufwerk nicht angeschlossen. Gesichert wird, sobald es wieder da ist.;Drive not connected. The backup runs as soon as it is back.
+Hint_SameDrive;{0} · Gleiches Laufwerk wie eine Quelle: schützt nicht vor einem Ausfall des Laufwerks.;{0} · Same drive as a source: does not protect against the drive failing.
+Hint_LowSpace;{0} · Nur noch wenig Platz frei.;{0} · Little free space left.
+Editor_SavePreview.Content;Speichern und Vorschau;Save and preview
+Editor_TargetPathBox.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Zielordner;Destination folder

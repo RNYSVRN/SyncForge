@@ -56,7 +56,12 @@
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="Auto" />
                                                     <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
                                                 </Grid.RowDefinitions>
+                                                <StackPanel Grid.Row="1" Grid.ColumnSpan="4" Orientation="Horizontal" Spacing="6" Visibility="{x:Bind HasHint, Mode=OneWay}">
+                                                    <FontIcon Glyph="{x:Bind HintGlyph, Mode=OneWay}" Foreground="{x:Bind HintBrush, Mode=OneWay}" FontSize="12" />
+                                                    <TextBlock Text="{x:Bind HintText, Mode=OneWay}" Style="{StaticResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                                                </StackPanel>
                                                 <TextBox Text="{x:Bind Path, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Uid="Editor_PathBox"
                                                          PlaceholderText="C:\Benutzer\Name\Dokumente" VerticalAlignment="Center" />
                                                 <Button Grid.Column="1" Tag="{x:Bind}" Click="SourceCredentials_Click" VerticalAlignment="Center"
@@ -72,7 +77,7 @@
                                                         x:Uid="Editor_RemoveSource" ToolTipService.ToolTip="Quelle entfernen">
                                                     <FontIcon Glyph="&#xE74D;" FontSize="16" />
                                                 </Button>
-                                                <TextBlock Grid.Row="1" Grid.ColumnSpan="4" Text="{x:Bind SubfolderText, Mode=OneWay}" Visibility="{x:Bind ShowSubfolder, Mode=OneWay}"
+                                                <TextBlock Grid.Row="2" Grid.ColumnSpan="4" Text="{x:Bind SubfolderText, Mode=OneWay}" Visibility="{x:Bind ShowSubfolder, Mode=OneWay}"
                                                            Style="{StaticResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
                                             </Grid>
                                         </DataTemplate>
@@ -108,7 +113,16 @@
                                                 <ColumnDefinition Width="Auto" />
                                                 <ColumnDefinition Width="Auto" />
                                             </Grid.ColumnDefinitions>
-                                            <TextBox Text="{x:Bind Path, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" PlaceholderText="D:\Backup" VerticalAlignment="Center" />
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+                                            <StackPanel Grid.Row="1" Grid.ColumnSpan="5" Orientation="Horizontal" Spacing="6" Margin="0,4,0,0" Visibility="{x:Bind HasHint, Mode=OneWay}">
+                                                <FontIcon Glyph="{x:Bind HintGlyph, Mode=OneWay}" Foreground="{x:Bind HintBrush, Mode=OneWay}" FontSize="12" />
+                                                <TextBlock Text="{x:Bind HintText, Mode=OneWay}" Style="{StaticResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" TextWrapping="Wrap" />
+                                            </StackPanel>
+                                            <TextBox Text="{x:Bind Path, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" PlaceholderText="D:\Backup" VerticalAlignment="Center"
+                                                     x:Uid="Editor_TargetPathBox" />
                                             <Button Grid.Column="1" Tag="{x:Bind}" Click="TargetCredentials_Click" VerticalAlignment="Center"
                                                     Visibility="{x:Bind IsNetworkPath, Mode=OneWay}"
                                                     x:Uid="Editor_Credentials" ToolTipService.ToolTip="Anmeldedaten für die Netzwerkfreigabe">
@@ -301,6 +315,7 @@
         <Border Grid.Row="1" BorderThickness="0,1,0,0" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" Padding="36,16">
             <StackPanel MaxWidth="1000" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8">
                 <Button x:Uid="Common_CancelButton" Content="Abbrechen" Click="Cancel_Click" MinWidth="120" />
+                <Button x:Uid="Editor_SavePreview" Content="Speichern und Vorschau" Click="SavePreview_Click" />
                 <Button x:Uid="Editor_Save" Content="Speichern" Click="Save_Click" MinWidth="120" Style="{StaticResource AccentButtonStyle}" />
             </StackPanel>
         </Border>
