@@ -25,6 +25,15 @@ If this list is empty, all files are included. Otherwise only files matching at 
 - **Exclude system files** (on by default)
 - **Minimum and maximum size** in MB (0 = no limit)
 
+## Online-only files
+
+Cloud services such as OneDrive, Dropbox or Google Drive keep many files only as placeholders on the PC; the content is in the cloud. If SyncForge read such files, the cloud service would first download them completely, possibly many gigabytes.
+
+- **Skip** (default): online-only files are neither downloaded nor synced. An existing copy in the destination is kept and not deleted. Preview and result show how many files were skipped.
+- **Download and back up**: online-only files are downloaded and backed up like all other files. Afterwards they are also stored locally on the PC.
+
+> Tip: To back up a cloud folder completely, right-click it in Explorer and choose **Always keep on this device**, or choose **Download and back up**.
+
 ## Always excluded
 
 The versions folder `.syncforge_versions` and SyncForge's own temporary files (`.~sf_….tmp`) are never part of the content. Links to folders (symlinks, junctions) are not followed.

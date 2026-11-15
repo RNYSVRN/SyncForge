@@ -41,7 +41,7 @@ public sealed class SyncExecutor
     public async Task<SyncResult> ExecuteAsync(SyncPlan plan, IProgress<SyncProgress>? progress = null, CancellationToken ct = default)
     {
         var sw = Stopwatch.StartNew();
-        var result = new SyncResult { TargetRoot = plan.TargetRoot };
+        var result = new SyncResult { TargetRoot = plan.TargetRoot, SkippedCloudFiles = plan.SkippedCloudFiles };
         var reporter = new ProgressReporter(plan, progress);
         var recycle = new Dictionary<SyncSide, bool>
         {

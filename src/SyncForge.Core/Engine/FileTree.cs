@@ -2,7 +2,24 @@ using SyncForge.Core.Filtering;
 
 namespace SyncForge.Core.Engine;
 
-internal sealed record FileTreeEntry(string RelativePath, bool IsDirectory, long Size, DateTime LastWriteUtc, FileAttributes Attributes);
+internal sealed record FileTreeEntry(string RelativePath, bool IsDirectory, long Size, DateTime LastWriteUtc, FileAttributes Attributes)
+{
+    /// <summary>
+    /// Datei ist nur online verfügbar (Cloud-Platzhalter von OneDrive, Dropbox, Google Drive …):
+    /// Lesen würde einen Download auslösen. Metadaten (Größe, Datum) sind ohne Download verfügbar.
+    /// </summary>
+    public bool IsCloudOnly => !IsDirectory && CloudFiles.IsCloudOnly(Attributes);
+}
+
+/// <summary>Erkennung von Cloud-Platzhaltern anhand der Windows-Dateiattribute.</summary>
+public static class CloudFiles
+{
+    private const FileAttributes RecallOnOpen = (FileAttributes)0x00040000;       // FILE_ATTRIBUTE_RECALL_ON_OPEN
+    private const FileAttributes RecallOnDataAccess = (FileAttributes)0x00400000; // FILE_ATTRIBUTE_RECALL_ON_DATA_ACCESS
+
+    public static bool IsCloudOnly(FileAttributes attributes) =>
+        (attributes & (FileAttributes.Offline | RecallOnOpen | RecallOnDataAccess)) != 0;
+}
 
 /// <summary>Liest einen Verzeichnisbaum gefiltert ein (ausgeschlossene Ordner werden gar nicht betreten).</summary>
 internal static class FileTree

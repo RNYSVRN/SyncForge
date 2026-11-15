@@ -61,6 +61,10 @@ public sealed class SyncPlan
     /// <summary>Anzahl der (gefilterten) Dateien, die vorher im Ziel lagen.</summary>
     public int ExistingTargetFileCount { get; set; }
     public int UnchangedFileCount { get; set; }
+
+    /// <summary>Übersprungene, nur online verfügbare Dateien (werden weder kopiert noch im Ziel gelöscht).</summary>
+    public int SkippedCloudFiles { get; set; }
+    public long SkippedCloudBytes { get; set; }
     public int SourceFileCount { get; set; }
     public long SourceBytes { get; set; }
 

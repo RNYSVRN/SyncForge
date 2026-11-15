@@ -96,7 +96,7 @@
                     <!-- Synchronisierung -->
                     <TextBlock x:Uid="Editor_SectionSync" Text="Synchronisierung" Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" />
                     <toolkit:SettingsExpander x:Uid="Editor_Mode" Header="Modus" Description="{x:Bind ViewModel.ModeDescription, Mode=OneWay}"
-                                              IsExpanded="True">
+                                              IsExpanded="{x:Bind ViewModel.HasModeOptions, Mode=OneWay}">
                         <toolkit:SettingsExpander.HeaderIcon><FontIcon Glyph="&#xE8AB;" /></toolkit:SettingsExpander.HeaderIcon>
                         <ComboBox SelectedIndex="{x:Bind ViewModel.ModeIndex, Mode=TwoWay}" MinWidth="200">
                             <ComboBoxItem x:Uid="Mode_MirrorItem" Content="Spiegeln" />
@@ -149,6 +149,13 @@
                                                   HorizontalContentAlignment="Stretch" ContentAlignment="Vertical">
                                 <TextBox Text="{x:Bind ViewModel.IncludePatterns, Mode=TwoWay}" AcceptsReturn="True" TextWrapping="Wrap"
                                          MinHeight="64" FontFamily="Consolas" />
+                            </toolkit:SettingsCard>
+                            <toolkit:SettingsCard x:Uid="Editor_CloudFiles" Header="Nur online verfügbare Dateien"
+                                                  Description="Dateien aus OneDrive, Dropbox &amp; Co., die nicht lokal gespeichert sind. Überspringen verhindert ungewollte Downloads. Vorhandene Kopien im Ziel bleiben erhalten.">
+                                <ComboBox SelectedIndex="{x:Bind ViewModel.CloudFilesIndex, Mode=TwoWay}" MinWidth="220">
+                                    <ComboBoxItem x:Uid="CloudFiles_Skip" Content="Überspringen" />
+                                    <ComboBoxItem x:Uid="CloudFiles_Download" Content="Herunterladen und sichern" />
+                                </ComboBox>
                             </toolkit:SettingsCard>
                             <toolkit:SettingsCard x:Uid="Editor_ExcludeHidden" Header="Versteckte Dateien ausschließen">
                                 <ToggleSwitch IsOn="{x:Bind ViewModel.ExcludeHidden, Mode=TwoWay}" OnContent="{StaticResource ToggleOnText}" OffContent="{StaticResource ToggleOffText}" />

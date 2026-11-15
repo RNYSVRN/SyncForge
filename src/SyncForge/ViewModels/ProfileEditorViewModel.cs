@@ -39,13 +39,15 @@ public sealed partial class ProfileEditorViewModel : ObservableObject
     [ObservableProperty] public partial string Name { get; set; } = string.Empty;
     [ObservableProperty] public partial string SourcePath { get; set; } = string.Empty;
     [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(IsVersioned), nameof(IsTwoWay), nameof(ModeDescription))]
+    [NotifyPropertyChangedFor(nameof(IsVersioned), nameof(IsTwoWay), nameof(HasModeOptions), nameof(ModeDescription))]
     public partial int ModeIndex { get; set; }
     [ObservableProperty] public partial int ConflictIndex { get; set; }
     [ObservableProperty] public partial double VersionsToKeep { get; set; }
     [ObservableProperty] public partial double VersionMaxAgeDays { get; set; }
     public bool IsVersioned => ModeIndex == (int)SyncMode.Versioned;
     public bool IsTwoWay => ModeIndex == (int)SyncMode.TwoWay;
+    /// <summary>Modus hat Unteroptionen (Aufbewahrung bzw. Konfliktregel): Abschnitt aufklappen.</summary>
+    public bool HasModeOptions => IsVersioned || IsTwoWay;
     public string ModeDescription => Localization.Get(ModeIndex switch
     {
         (int)SyncMode.Versioned => "Mode_VersionedDescription",
@@ -58,6 +60,7 @@ public sealed partial class ProfileEditorViewModel : ObservableObject
     [ObservableProperty] public partial string ExcludePatterns { get; set; } = string.Empty;
     [ObservableProperty] public partial string IncludePatterns { get; set; } = string.Empty;
     [ObservableProperty] public partial bool ExcludeHidden { get; set; }
+    [ObservableProperty] public partial int CloudFilesIndex { get; set; }
     [ObservableProperty] public partial bool ExcludeSystem { get; set; }
     [ObservableProperty] public partial double MinSizeMb { get; set; }
     [ObservableProperty] public partial double MaxSizeMb { get; set; }
@@ -102,6 +105,7 @@ public sealed partial class ProfileEditorViewModel : ObservableObject
         ExcludePatterns = string.Join(Environment.NewLine, _profile.Filter.ExcludePatterns);
         IncludePatterns = string.Join(Environment.NewLine, _profile.Filter.IncludePatterns);
         ExcludeHidden = _profile.Filter.ExcludeHidden;
+        CloudFilesIndex = (int)_profile.Filter.CloudFiles;
         ExcludeSystem = _profile.Filter.ExcludeSystem;
         MinSizeMb = _profile.Filter.MinSizeBytes / Megabyte;
         MaxSizeMb = _profile.Filter.MaxSizeBytes / Megabyte;
@@ -160,6 +164,7 @@ public sealed partial class ProfileEditorViewModel : ObservableObject
             ExcludePatterns = SplitLines(ExcludePatterns),
             IncludePatterns = SplitLines(IncludePatterns),
             ExcludeHidden = ExcludeHidden,
+            CloudFiles = (CloudFileMode)CloudFilesIndex,
             ExcludeSystem = ExcludeSystem,
             MinSizeBytes = ToBytes(MinSizeMb),
             MaxSizeBytes = ToBytes(MaxSizeMb)

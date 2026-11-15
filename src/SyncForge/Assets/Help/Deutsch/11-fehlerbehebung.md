@@ -13,6 +13,10 @@ Meist ist sie gerade in einem anderen Programm geöffnet (z. B. Outlook-Datendat
 
 Prüfe in der Vorschau, welche Dateien gelöscht würden. Ist alles in Ordnung (z. B. du hast bewusst viel aufgeräumt), starte den Lauf über **Jetzt synchronisieren** oder passe die Schwelle im Profil an.
 
+## Dateien aus OneDrive werden übersprungen
+
+Das sind Dateien, die nur online verfügbar sind. SyncForge lädt sie standardmäßig nicht herunter, damit eine Sicherung nicht unbemerkt große Datenmengen aus der Cloud zieht. Im Profil unter **Filter › Nur online verfügbare Dateien** kannst du **Herunterladen und sichern** wählen, oder du hältst den Ordner im Explorer dauerhaft lokal vor.
+
 ## Ich sehe keine Benachrichtigungen
 
 Prüfe in den Windows-Einstellungen unter System › Benachrichtigungen, ob Benachrichtigungen für SyncForge erlaubt sind und ob **Bitte nicht stören** aktiv ist. In diesem Fall landen Benachrichtigungen still in der Mitteilungszentrale (Windows-Taste + N).
