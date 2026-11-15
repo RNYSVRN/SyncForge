@@ -156,6 +156,44 @@ public sealed class HistoryStoreTests : IDisposable
     }
 
     [Fact]
+    public void Migration_FromSchema1_KeepsRuns_AndAddsNewColumns()
+    {
+        var path = Path.Combine(_folder.Root, "alt.db");
+        using (var db = new SqliteConnection($"Data Source={path}"))
+        {
+            db.Open();
+            using var cmd = db.CreateCommand();
+            cmd.CommandText = """
+                CREATE TABLE runs (id INTEGER PRIMARY KEY AUTOINCREMENT, profile_id TEXT NOT NULL, profile_name TEXT NOT NULL,
+                  started_at INTEGER NOT NULL, duration_ms INTEGER NOT NULL, status INTEGER NOT NULL, trigger INTEGER NOT NULL,
+                  copied INTEGER NOT NULL, updated INTEGER NOT NULL, deleted INTEGER NOT NULL, bytes INTEGER NOT NULL,
+                  errors INTEGER NOT NULL, targets_total INTEGER NOT NULL, targets_skipped INTEGER NOT NULL);
+                CREATE TABLE run_targets (id INTEGER PRIMARY KEY AUTOINCREMENT, run_id INTEGER NOT NULL REFERENCES runs(id) ON DELETE CASCADE,
+                  target_path TEXT NOT NULL, status INTEGER NOT NULL, copied INTEGER NOT NULL, updated INTEGER NOT NULL, deleted INTEGER NOT NULL,
+                  bytes INTEGER NOT NULL, errors INTEGER NOT NULL, duration_ms INTEGER NOT NULL, message TEXT);
+                CREATE TABLE run_files (id INTEGER PRIMARY KEY AUTOINCREMENT, run_id INTEGER NOT NULL REFERENCES runs(id) ON DELETE CASCADE,
+                  target_id INTEGER NOT NULL REFERENCES run_targets(id) ON DELETE CASCADE, kind INTEGER NOT NULL, path TEXT NOT NULL,
+                  size INTEGER NOT NULL, error TEXT);
+                INSERT INTO runs VALUES (1, '11111111-1111-1111-1111-111111111111', 'Alt', 1700000000000, 1000, 1, 0, 1, 0, 0, 10, 0, 1, 0);
+                INSERT INTO run_targets VALUES (1, 1, 'D:\Ziel', 0, 1, 0, 0, 10, 0, 1000, NULL);
+                INSERT INTO run_files VALUES (1, 1, 1, 1, 'a.txt', 10, NULL);
+                PRAGMA user_version = 1;
+                """;
+            cmd.ExecuteNonQuery();
+        }
+
+        var store = new HistoryStore(path);
+        store.Initialize();
+
+        var run = Assert.Single(store.GetRuns(new RunQuery()));
+        Assert.Equal("Alt", run.ProfileName);
+        Assert.Equal(0, run.Conflicts);
+        Assert.Equal(SyncSide.Target, Assert.Single(store.GetFiles(1).Items).Side);
+        store.AddRun(FakeRun("Neu", DateTimeOffset.Now)); // Schreiben mit neuem Schema funktioniert
+        Assert.Equal(2, store.GetRuns(new RunQuery()).Count);
+    }
+
+    [Fact]
     public void Clear_RemovesEverything_AndRaisesChanged()
     {
         _store.AddRun(FakeRun("A", DateTimeOffset.Now));

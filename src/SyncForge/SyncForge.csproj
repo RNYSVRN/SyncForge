@@ -18,16 +18,39 @@
     <!-- Eigener Einstiegspunkt (Program.cs) für Einzelinstanz-Weiterleitung -->
     <DefineConstants>$(DefineConstants);DISABLE_XAML_GENERATED_MAIN</DefineConstants>
 
-    <!-- Entwicklung: unpaketiert starten. MSIX folgt in Etappe 4. -->
-    <WindowsPackageType>None</WindowsPackageType>
     <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
 
     <DefaultLanguage>de-DE</DefaultLanguage>
     <SatelliteResourceLanguages>de;en</SatelliteResourceLanguages>
 
     <Product>SyncForge</Product>
-    <Version>0.1.0</Version>
+    <Version>0.4.0</Version>
   </PropertyGroup>
+
+  <!-- Entwicklung: unpaketiert starten (schneller, kein Signieren nötig). -->
+  <PropertyGroup Condition="'$(Packaged)' != 'true'">
+    <WindowsPackageType>None</WindowsPackageType>
+  </PropertyGroup>
+
+  <!-- MSIX-Paket: dotnet publish ... -p:Packaged=true (siehe tools\Build-Msix.ps1) -->
+  <PropertyGroup Condition="'$(Packaged)' == 'true'">
+    <WindowsPackageType>MSIX</WindowsPackageType>
+    <EnableMsixTooling>true</EnableMsixTooling>
+    <GenerateAppxPackageOnBuild>true</GenerateAppxPackageOnBuild>
+    <AppxBundle>Never</AppxBundle>
+    <AppxPackageSigningEnabled>false</AppxPackageSigningEnabled>
+    <AppxPackageDir>$(MSBuildProjectDirectory)\..\..\artifacts\msix\</AppxPackageDir>
+    <DefineConstants>$(DefineConstants);PACKAGED</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(Packaged)' == 'true'">
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools.MSIX" Version="1.7.261102100" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Packaged)' != 'true'">
+    <None Remove="Package.appxmanifest" />
+    <Content Remove="Package.appxmanifest" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="2.6.5" />

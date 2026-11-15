@@ -56,13 +56,25 @@ public sealed class SyncCoordinator
         foreach (var cts in _running.Values) cts.Cancel();
     }
 
+    /// <summary>Zwei-Wege-Stände (gemeinsamer Stand nach dem letzten Lauf je Profil und Ziel).</summary>
+    public static string StateDirectory => Path.Combine(SettingsService.DataDirectory, "state");
+
+    public static string ConflictLabel => Localization.Get("Conflict_Label");
+
     public SyncExecutorOptions BuildOptions(SyncProfile profile) => new()
     {
         MaxParallelCopies = _settings.Current.MaxParallelCopies,
         BandwidthLimitKBps = _settings.Current.BandwidthLimitKBps,
         VerifyAfterCopy = profile.VerifyAfterCopy,
-        DeleteToRecycleBin = profile.DeleteToRecycleBin
+        DeleteToRecycleBin = profile.DeleteToRecycleBin,
+        KeepVersions = profile.Mode == SyncMode.Versioned,
+        VersionsToKeep = profile.VersionsToKeep,
+        VersionMaxAgeDays = profile.VersionMaxAgeDays
     };
+
+    /// <summary>Analyse mit den App-Vorgaben (Zwei-Wege-Stand, lokalisierte Konfliktbezeichnung).</summary>
+    public static Task<ProfileAnalysis> AnalyzeAsync(SyncProfile profile, IProgress<SyncProgress>? progress, CancellationToken ct) =>
+        ProfileRunner.AnalyzeAsync(profile, progress, ct, StateDirectory, ConflictLabel);
 
     /// <summary>
     /// Automatischer Lauf ohne Oberfläche. Schlägt der Löschschutz an, wird das betroffene Ziel
@@ -78,12 +90,20 @@ public sealed class SyncCoordinator
 
         try
         {
-            var analysis = await ProfileRunner.AnalyzeAsync(profile, null, cts.Token);
+            var analysis = await AnalyzeAsync(profile, null, cts.Token);
             if (analysis.SourceMissing)
             {
                 foreach (var t in profile.Targets.Where(t => t.Enabled))
                     analysis.Targets.Add(new TargetAnalysis { Target = t, Status = TargetStatus.Error, ValidationError = SyncValidationError.SourceMissing });
             }
+            // Überwachung ohne tatsächliche Änderung (z. B. das Echo eigener Schreibvorgänge im Zwei-Wege-Modus):
+            // nichts tun und nichts protokollieren.
+            if (trigger == RunTrigger.Watcher && !analysis.SourceMissing
+                && analysis.Targets.All(t => t.Status == TargetStatus.Ready && t.Plan is { HasChanges: false } && t.Plan.ConflictCount == 0))
+            {
+                return null;
+            }
+
             foreach (var warned in analysis.DeletionWarnings.ToList())
             {
                 warned.Status = TargetStatus.Error;
@@ -146,6 +166,8 @@ public sealed class SyncCoordinator
         var summary = copied + updated + deleted == 0 && run.Status == RunStatus.Success
             ? Localization.Get("Run_UpToDate")
             : Format.Text("Run_TotalSummary", Format.Number(copied), Format.Number(updated), Format.Number(deleted), Format.Bytes(bytes), Format.Duration(run.Duration));
+        var conflicts = run.Results.Sum(r => r.Conflicts);
+        if (conflicts > 0) summary += " " + Format.Text("Run_Conflicts", Format.Number(conflicts));
         var errors = run.Results.Sum(r => r.Errors.Count);
         if (errors > 0) summary += " " + Format.Text("History_RunErrors", Format.Number(errors)) + ".";
         if (run.Skipped.Count > 0)

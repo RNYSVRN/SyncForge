@@ -95,14 +95,34 @@
 
                     <!-- Synchronisierung -->
                     <TextBlock x:Uid="Editor_SectionSync" Text="Synchronisierung" Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" />
-                    <toolkit:SettingsCard x:Uid="Editor_Mode" Header="Modus" Description="Spiegeln: Das Ziel wird zur exakten Kopie der Quelle, inklusive Löschungen.">
-                        <toolkit:SettingsCard.HeaderIcon><FontIcon Glyph="&#xE8AB;" /></toolkit:SettingsCard.HeaderIcon>
+                    <toolkit:SettingsExpander x:Uid="Editor_Mode" Header="Modus" Description="{x:Bind ViewModel.ModeDescription, Mode=OneWay}"
+                                              IsExpanded="True">
+                        <toolkit:SettingsExpander.HeaderIcon><FontIcon Glyph="&#xE8AB;" /></toolkit:SettingsExpander.HeaderIcon>
                         <ComboBox SelectedIndex="{x:Bind ViewModel.ModeIndex, Mode=TwoWay}" MinWidth="200">
                             <ComboBoxItem x:Uid="Mode_MirrorItem" Content="Spiegeln" />
-                            <ComboBoxItem x:Uid="Mode_VersionedItem" Content="Versioniert (folgt)" IsEnabled="False" />
-                            <ComboBoxItem x:Uid="Mode_TwoWayItem" Content="Zwei-Wege (folgt)" IsEnabled="False" />
+                            <ComboBoxItem x:Uid="Mode_VersionedItem" Content="Versioniert" />
+                            <ComboBoxItem x:Uid="Mode_TwoWayItem" Content="Zwei-Wege" />
                         </ComboBox>
-                    </toolkit:SettingsCard>
+                        <toolkit:SettingsExpander.Items>
+                            <toolkit:SettingsCard x:Uid="Editor_VersionsToKeep" Header="Fassungen je Datei behalten" Description="0 = unbegrenzt"
+                                                  Visibility="{x:Bind ViewModel.IsVersioned, Mode=OneWay}">
+                                <NumberBox Value="{x:Bind ViewModel.VersionsToKeep, Mode=TwoWay}" Minimum="0" Maximum="1000" SpinButtonPlacementMode="Inline" MinWidth="140" />
+                            </toolkit:SettingsCard>
+                            <toolkit:SettingsCard x:Uid="Editor_VersionMaxAge" Header="Fassungen entfernen nach (Tagen)" Description="0 = nie"
+                                                  Visibility="{x:Bind ViewModel.IsVersioned, Mode=OneWay}">
+                                <NumberBox Value="{x:Bind ViewModel.VersionMaxAgeDays, Mode=TwoWay}" Minimum="0" Maximum="3650" SpinButtonPlacementMode="Inline" MinWidth="140" />
+                            </toolkit:SettingsCard>
+                            <toolkit:SettingsCard x:Uid="Editor_Conflict" Header="Bei Konflikten" Description="Wenn eine Datei seit dem letzten Lauf auf beiden Seiten geändert wurde."
+                                                  Visibility="{x:Bind ViewModel.IsTwoWay, Mode=OneWay}">
+                                <ComboBox SelectedIndex="{x:Bind ViewModel.ConflictIndex, Mode=TwoWay}" MinWidth="220">
+                                    <ComboBoxItem x:Uid="Conflict_NewerWins" Content="Neuere Fassung gewinnt" />
+                                    <ComboBoxItem x:Uid="Conflict_SourceWins" Content="Quelle gewinnt" />
+                                    <ComboBoxItem x:Uid="Conflict_KeepBoth" Content="Beide behalten" />
+                                    <ComboBoxItem x:Uid="Conflict_Ask" Content="Nicht ändern, nur melden" />
+                                </ComboBox>
+                            </toolkit:SettingsCard>
+                        </toolkit:SettingsExpander.Items>
+                    </toolkit:SettingsExpander>
                     <toolkit:SettingsCard x:Uid="Editor_Compare" Header="Änderungen erkennen" Description="Inhaltsvergleich findet auch Änderungen ohne neues Datum, ist aber deutlich langsamer.">
                         <toolkit:SettingsCard.HeaderIcon><FontIcon Glyph="&#xE9D5;" /></toolkit:SettingsCard.HeaderIcon>
                         <ComboBox SelectedIndex="{x:Bind ViewModel.CompareIndex, Mode=TwoWay}" MinWidth="200">

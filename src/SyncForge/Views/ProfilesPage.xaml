@@ -72,6 +72,9 @@
                                             <MenuFlyoutItem x:Uid="Profiles_Edit" Text="Bearbeiten" Tag="{x:Bind}" Click="Edit_Click">
                                                 <MenuFlyoutItem.Icon><FontIcon Glyph="&#xE70F;" /></MenuFlyoutItem.Icon>
                                             </MenuFlyoutItem>
+                                            <MenuFlyoutItem x:Uid="Profiles_Versions" Text="Versionen" Tag="{x:Bind}" Click="Versions_Click">
+                                                <MenuFlyoutItem.Icon><FontIcon Glyph="&#xE81C;" /></MenuFlyoutItem.Icon>
+                                            </MenuFlyoutItem>
                                             <MenuFlyoutItem x:Uid="Profiles_Duplicate" Text="Duplizieren" Tag="{x:Bind}" Click="Duplicate_Click">
                                                 <MenuFlyoutItem.Icon><FontIcon Glyph="&#xE8C8;" /></MenuFlyoutItem.Icon>
                                             </MenuFlyoutItem>

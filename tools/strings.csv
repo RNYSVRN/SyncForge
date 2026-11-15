@@ -111,10 +111,7 @@ MultiTarget_Sequential.Content;Nacheinander;One after another
 MultiTarget_Parallel.Content;Gleichzeitig;At the same time
 Editor_SectionSync.Text;Synchronisierung;Synchronization
 Editor_Mode.Header;Modus;Mode
-Editor_Mode.Description;Spiegeln: Das Ziel wird zur exakten Kopie der Quelle, inklusive Löschungen.;Mirror: the destination becomes an exact copy of the source, including deletions.
 Mode_MirrorItem.Content;Spiegeln;Mirror
-Mode_VersionedItem.Content;Versioniert (folgt);Versioned (coming soon)
-Mode_TwoWayItem.Content;Zwei-Wege (folgt);Two-way (coming soon)
 Editor_Compare.Header;Änderungen erkennen;Detect changes
 Editor_Compare.Description;Inhaltsvergleich findet auch Änderungen ohne neues Datum, ist aber deutlich langsamer.;Content comparison also finds changes without a new date, but is much slower.
 Compare_SizeDate.Content;Größe und Datum;Size and date
@@ -264,3 +261,68 @@ Editor_RunOnDrive.Header;Wenn ein Ziel-Laufwerk angeschlossen wird;When a destin
 Editor_RunOnDrive.Description;Z. B. beim Einstecken der USB-Festplatte, auf der ein Ziel liegt.;E.g. when plugging in the USB drive that holds a destination.
 Editor_AutomationInfo.Message;Automatische Läufe finden statt, solange SyncForge läuft – auch geschlossen im Infobereich. Bei automatischen Läufen wird ein Ziel übersprungen, wenn der Löschschutz anschlägt.;Automatic runs happen while SyncForge is running – also when closed to the notification area. In automatic runs a destination is skipped if deletion protection is triggered.
 Editor_ErrorNoDays;Bitte wähle mindestens einen Wochentag.;Please choose at least one weekday.
+Mode_VersionedItem.Content;Versioniert;Versioned
+Mode_TwoWayItem.Content;Zwei-Wege;Two-way
+Mode_MirrorDescription;Das Ziel wird zur exakten Kopie der Quelle, inklusive Löschungen.;The destination becomes an exact copy of the source, including deletions.
+Mode_VersionedDescription;Wie Spiegeln, aber überschriebene und gelöschte Dateien werden im Ziel aufbewahrt (Ordner .syncforge_versions) und lassen sich wiederherstellen.;Like mirror, but overwritten and deleted files are kept in the destination (folder .syncforge_versions) and can be restored.
+Mode_TwoWayDescription;Änderungen auf beiden Seiten werden übernommen – auch Löschungen. Wurde eine Datei auf beiden Seiten geändert, entscheidet die Konfliktregel.;Changes on both sides are applied – including deletions. If a file was changed on both sides, the conflict rule decides.
+Editor_VersionsToKeep.Header;Fassungen je Datei behalten;Versions to keep per file
+Editor_VersionsToKeep.Description;0 = unbegrenzt;0 = unlimited
+Editor_VersionMaxAge.Header;Fassungen entfernen nach (Tagen);Remove versions after (days)
+Editor_VersionMaxAge.Description;0 = nie;0 = never
+Editor_Conflict.Header;Bei Konflikten;On conflicts
+Editor_Conflict.Description;Wenn eine Datei seit dem letzten Lauf auf beiden Seiten geändert wurde.;When a file was changed on both sides since the last run.
+Conflict_NewerWins.Content;Neuere Fassung gewinnt;Newer version wins
+Conflict_SourceWins.Content;Quelle gewinnt;Source wins
+Conflict_KeepBoth.Content;Beide behalten;Keep both
+Conflict_Ask.Content;Nicht ändern, nur melden;Leave unchanged, just report
+Conflict_Label;Konflikt;conflict
+Run_Conflicts;{0} Konflikt(e);{0} conflict(s)
+Run_PlanToSource;{0} zur Quelle;{0} to source
+Run_DriveMoved;Laufwerk gefunden unter {0};drive found at {0}
+Action_InSource;in der Quelle;in source
+Action_RenameConflict;Konflikt – Zielfassung bleibt als „{0}“ erhalten;Conflict – destination version kept as “{0}”
+Action_Conflict;Konflikt – wird nicht geändert;Conflict – left unchanged
+Action_ConflictKeptBoth;Konflikt – beide Fassungen behalten;Conflict – both versions kept
+Action_ConflictOpen;Konflikt – offen;Conflict – unresolved
+Detail_FilterConflicts.Text;Konflikte;Conflicts
+Profiles_Versions.Text;Versionen;Versions
+Versions_Title;Versionen – {0};Versions – {0}
+Versions_RootTarget;Ziel: {0};Destination: {0}
+Versions_RootSource;Quelle: {0};Source: {0}
+Versions_Count;{0} Fassungen;{0} versions
+Versions_CountOne;1 Fassung;1 version
+Versions_Deleted;aktuell nicht vorhanden;currently not present
+Versions_Restored;Wiederhergestellt: {0};Restored: {0}
+Versions_RestoreFailed;Wiederherstellen fehlgeschlagen: {0};Restore failed: {0}
+Versions_Search.PlaceholderText;Dateien durchsuchen;Search files
+Versions_NoMatches.Text;Keine Dateien gefunden.;No files found.
+Versions_VersionsHeader.Text;Fassungen;Versions
+Versions_Restore.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip;In der Quelle wiederherstellen;Restore in source
+Versions_SaveAs.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip;Speichern unter…;Save as…
+Versions_Show.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip;Im Explorer anzeigen;Show in Explorer
+Versions_EmptyTitle.Text;Noch keine früheren Fassungen;No earlier versions yet
+Versions_EmptyText.Text;Im Modus „Versioniert“ werden überschriebene und gelöschte Dateien aufbewahrt und erscheinen hier.;In “Versioned” mode, overwritten and deleted files are kept and appear here.
+Versions_RestoreTitle;Fassung wiederherstellen?;Restore version?
+Versions_RestoreText;Die Fassung vom {1} wird nach {0} kopiert. Beim nächsten Lauf gelangt sie auch ins Ziel.;The version from {1} will be copied to {0}. The next run will also bring it to the destination.
+Versions_RestoreOverwrite;Die Fassung vom {1} ersetzt die aktuelle Datei {0}. Beim nächsten Lauf wird die bisherige Fassung im Ziel als Version aufbewahrt.;The version from {1} replaces the current file {0}. On the next run the previous version is kept as a version in the destination.
+Versions_RestoreButton;Wiederherstellen;Restore
+Versions_AnyFile;Datei;File
+ImportExport_FileType;SyncForge-Sicherung;SyncForge backup
+ImportExport_ExportedTitle;Export abgeschlossen;Export complete
+ImportExport_ExportedText;Profile und Einstellungen wurden gespeichert: {0};Profiles and settings were saved: {0}
+ImportExport_InvalidTitle;Keine gültige Sicherung;Not a valid backup
+ImportExport_InvalidText;Die Datei ist keine SyncForge-Sicherung oder stammt aus einer neueren Version.;The file is not a SyncForge backup or comes from a newer version.
+ImportExport_IncludeSettings;Auch die Einstellungen übernehmen (Design, Benachrichtigungen, Leistung …);Also apply the settings (theme, notifications, performance …)
+ImportExport_ImportText;Die Sicherung vom {1} enthält {0} Profil(e). Profile mit gleicher Kennung werden ersetzt, die übrigen hinzugefügt.;The backup from {1} contains {0} profile(s). Profiles with the same ID are replaced, the others are added.
+ImportExport_ImportTitle;Sicherung importieren;Import backup
+ImportExport_ImportButton;Importieren;Import
+Common_Ok;OK;OK
+Profiles_More.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Weitere Optionen;More options
+Editor_BrowseTarget.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Durchsuchen;Browse
+Editor_TargetEnabled.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Ziel aktiv;Destination enabled
+Editor_RemoveTarget.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Ziel entfernen;Remove destination
+Detail_OpenFolder.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Ordner öffnen;Open folder
+Versions_Restore.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;In der Quelle wiederherstellen;Restore in source
+Versions_SaveAs.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Speichern unter;Save as
+Versions_Show.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Im Explorer anzeigen;Show in Explorer

@@ -69,6 +69,7 @@ public sealed partial class RunDetailViewModel : ObservableObject
         Subtitle = $"{Format.DateTime(run.StartedAt)} · {Format.StatusName(run.Status)} · {Localization.Get("Trigger_" + run.Trigger)}";
         SummaryText = Format.Text("Run_TotalSummary", Format.Number(run.Copied), Format.Number(run.Updated), Format.Number(run.Deleted),
             Format.Bytes(run.Bytes), Format.Duration(run.Duration));
+        if (run.Conflicts > 0) SummaryText += " " + Format.Text("Run_Conflicts", Format.Number(run.Conflicts)) + ".";
 
         _loading = true;
         Targets.Clear();
@@ -118,14 +119,17 @@ public sealed partial class RunDetailViewModel : ObservableObject
 
     private static FileItemViewModel ToItem(RunFileEntry f)
     {
-        if (f.Error is not null) return new FileItemViewModel("", f.Path, f.Error, true);
+        if (f.Error is not null) return new FileItemViewModel("\uEA39", f.Path, f.Error, true);
+        var side = f.Side == SyncSide.Source ? " · " + Localization.Get("Action_InSource") : string.Empty;
         return f.Kind switch
         {
-            SyncActionKind.CopyNew => new("", f.Path, Localization.Get("Action_CopyNew") + " · " + Format.Bytes(f.Size), false),
-            SyncActionKind.Update => new("", f.Path, Localization.Get("Action_Update") + " · " + Format.Bytes(f.Size), false),
-            SyncActionKind.DeleteFile => new("", f.Path, Localization.Get("Action_Deleted"), false),
-            SyncActionKind.DeleteDirectory => new("", f.Path + "\\", Localization.Get("Action_DirectoryDeleted"), false),
-            _ => new("", f.Path + "\\", Localization.Get("Action_DirectoryCreated"), false)
+            SyncActionKind.CopyNew => new("\uE710", f.Path, Localization.Get("Action_CopyNew") + " · " + Format.Bytes(f.Size) + side, false),
+            SyncActionKind.Update => new("\uE72C", f.Path, Localization.Get("Action_Update") + " · " + Format.Bytes(f.Size) + side, false),
+            SyncActionKind.DeleteFile => new("\uE74D", f.Path, Localization.Get("Action_Deleted") + side, false),
+            SyncActionKind.DeleteDirectory => new("\uE74D", f.Path + "\\", Localization.Get("Action_DirectoryDeleted") + side, false),
+            SyncActionKind.RenameConflict => new("\uE7BA", f.Path, Localization.Get("Action_ConflictKeptBoth"), false),
+            SyncActionKind.Conflict => new("\uE7BA", f.Path, Localization.Get("Action_ConflictOpen"), false),
+            _ => new("\uE8F4", f.Path + "\\", Localization.Get("Action_DirectoryCreated") + side, false)
         };
     }
 }

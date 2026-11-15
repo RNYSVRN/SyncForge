@@ -122,7 +122,7 @@ public sealed partial class SyncRunViewModel : ObservableObject
 
         try
         {
-            _analysis = await ProfileRunner.AnalyzeAsync(profile, progress, _cts.Token);
+            _analysis = await SyncCoordinator.AnalyzeAsync(profile, progress, _cts.Token);
         }
         catch (OperationCanceledException)
         {
@@ -258,6 +258,10 @@ public sealed partial class SyncRunViewModel : ObservableObject
                     vm.SummaryText = Format.Text("Run_PlanSummary",
                         Format.Number(plan.CopyNewCount), Format.Number(plan.UpdateCount), Format.Number(plan.DeleteFileCount),
                         Format.Number(plan.UnchangedFileCount), Format.Bytes(plan.BytesToCopy));
+                    if (plan.ToSourceCount > 0) vm.SummaryText += " · " + Format.Text("Run_PlanToSource", Format.Number(plan.ToSourceCount));
+                    if (plan.ConflictCount > 0) vm.SummaryText += " · " + Format.Text("Run_Conflicts", Format.Number(plan.ConflictCount));
+                    if (ta.ResolvedPath is { } resolved && !string.Equals(resolved, ta.Target.Path, StringComparison.OrdinalIgnoreCase))
+                        vm.StatusText += " · " + Format.Text("Run_DriveMoved", resolved);
                     foreach (var a in plan.Actions.Take(MaxListedActions)) vm.Actions.Add(ToItem(a));
                     vm.HasActions = vm.Actions.Count > 0;
                     if (plan.Actions.Count > MaxListedActions)
@@ -314,12 +318,19 @@ public sealed partial class SyncRunViewModel : ObservableObject
         ShowMessage = true;
     }
 
-    private static ActionItemViewModel ToItem(SyncAction a) => a.Kind switch
+    private static ActionItemViewModel ToItem(SyncAction a)
     {
-        SyncActionKind.CopyNew => new("", a.RelativePath, Localization.Get("Action_CopyNew") + " · " + Format.Bytes(a.Size)),
-        SyncActionKind.Update => new("", a.RelativePath, Localization.Get("Action_Update") + " · " + Format.Bytes(a.Size)),
-        SyncActionKind.DeleteFile => new("", a.RelativePath, Localization.Get("Action_DeleteFile")),
-        SyncActionKind.DeleteDirectory => new("", a.RelativePath + "\\", Localization.Get("Action_DeleteDirectory")),
-        _ => new("", a.RelativePath + "\\", Localization.Get("Action_CreateDirectory"))
-    };
+        // Zwei-Wege: Aktionen, die die Quelle verändern, kennzeichnen.
+        var side = a.Side == SyncSide.Source ? " · " + Localization.Get("Action_InSource") : string.Empty;
+        return a.Kind switch
+        {
+            SyncActionKind.CopyNew => new("\uE710", a.RelativePath, Localization.Get("Action_CopyNew") + " · " + Format.Bytes(a.Size) + side),
+            SyncActionKind.Update => new("\uE72C", a.RelativePath, Localization.Get("Action_Update") + " · " + Format.Bytes(a.Size) + side),
+            SyncActionKind.DeleteFile => new("\uE74D", a.RelativePath, Localization.Get("Action_DeleteFile") + side),
+            SyncActionKind.DeleteDirectory => new("\uE74D", a.RelativePath + "\\", Localization.Get("Action_DeleteDirectory") + side),
+            SyncActionKind.RenameConflict => new("\uE7BA", a.RelativePath, Format.Text("Action_RenameConflict", Path.GetFileName(a.NewRelativePath ?? string.Empty))),
+            SyncActionKind.Conflict => new("\uE7BA", a.RelativePath, Localization.Get("Action_Conflict")),
+            _ => new("\uE8F4", a.RelativePath + "\\", Localization.Get("Action_CreateDirectory") + side)
+        };
+    }
 }

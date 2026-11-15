@@ -117,10 +117,7 @@
   <data name="MultiTarget_Parallel.Content" xml:space="preserve"><value>At the same time</value></data>
   <data name="Editor_SectionSync.Text" xml:space="preserve"><value>Synchronization</value></data>
   <data name="Editor_Mode.Header" xml:space="preserve"><value>Mode</value></data>
-  <data name="Editor_Mode.Description" xml:space="preserve"><value>Mirror: the destination becomes an exact copy of the source, including deletions.</value></data>
   <data name="Mode_MirrorItem.Content" xml:space="preserve"><value>Mirror</value></data>
-  <data name="Mode_VersionedItem.Content" xml:space="preserve"><value>Versioned (coming soon)</value></data>
-  <data name="Mode_TwoWayItem.Content" xml:space="preserve"><value>Two-way (coming soon)</value></data>
   <data name="Editor_Compare.Header" xml:space="preserve"><value>Detect changes</value></data>
   <data name="Editor_Compare.Description" xml:space="preserve"><value>Content comparison also finds changes without a new date, but is much slower.</value></data>
   <data name="Compare_SizeDate.Content" xml:space="preserve"><value>Size and date</value></data>
@@ -270,4 +267,69 @@
   <data name="Editor_RunOnDrive.Description" xml:space="preserve"><value>E.g. when plugging in the USB drive that holds a destination.</value></data>
   <data name="Editor_AutomationInfo.Message" xml:space="preserve"><value>Automatic runs happen while SyncForge is running – also when closed to the notification area. In automatic runs a destination is skipped if deletion protection is triggered.</value></data>
   <data name="Editor_ErrorNoDays" xml:space="preserve"><value>Please choose at least one weekday.</value></data>
+  <data name="Mode_VersionedItem.Content" xml:space="preserve"><value>Versioned</value></data>
+  <data name="Mode_TwoWayItem.Content" xml:space="preserve"><value>Two-way</value></data>
+  <data name="Mode_MirrorDescription" xml:space="preserve"><value>The destination becomes an exact copy of the source, including deletions.</value></data>
+  <data name="Mode_VersionedDescription" xml:space="preserve"><value>Like mirror, but overwritten and deleted files are kept in the destination (folder .syncforge_versions) and can be restored.</value></data>
+  <data name="Mode_TwoWayDescription" xml:space="preserve"><value>Changes on both sides are applied – including deletions. If a file was changed on both sides, the conflict rule decides.</value></data>
+  <data name="Editor_VersionsToKeep.Header" xml:space="preserve"><value>Versions to keep per file</value></data>
+  <data name="Editor_VersionsToKeep.Description" xml:space="preserve"><value>0 = unlimited</value></data>
+  <data name="Editor_VersionMaxAge.Header" xml:space="preserve"><value>Remove versions after (days)</value></data>
+  <data name="Editor_VersionMaxAge.Description" xml:space="preserve"><value>0 = never</value></data>
+  <data name="Editor_Conflict.Header" xml:space="preserve"><value>On conflicts</value></data>
+  <data name="Editor_Conflict.Description" xml:space="preserve"><value>When a file was changed on both sides since the last run.</value></data>
+  <data name="Conflict_NewerWins.Content" xml:space="preserve"><value>Newer version wins</value></data>
+  <data name="Conflict_SourceWins.Content" xml:space="preserve"><value>Source wins</value></data>
+  <data name="Conflict_KeepBoth.Content" xml:space="preserve"><value>Keep both</value></data>
+  <data name="Conflict_Ask.Content" xml:space="preserve"><value>Leave unchanged, just report</value></data>
+  <data name="Conflict_Label" xml:space="preserve"><value>conflict</value></data>
+  <data name="Run_Conflicts" xml:space="preserve"><value>{0} conflict(s)</value></data>
+  <data name="Run_PlanToSource" xml:space="preserve"><value>{0} to source</value></data>
+  <data name="Run_DriveMoved" xml:space="preserve"><value>drive found at {0}</value></data>
+  <data name="Action_InSource" xml:space="preserve"><value>in source</value></data>
+  <data name="Action_RenameConflict" xml:space="preserve"><value>Conflict – destination version kept as “{0}”</value></data>
+  <data name="Action_Conflict" xml:space="preserve"><value>Conflict – left unchanged</value></data>
+  <data name="Action_ConflictKeptBoth" xml:space="preserve"><value>Conflict – both versions kept</value></data>
+  <data name="Action_ConflictOpen" xml:space="preserve"><value>Conflict – unresolved</value></data>
+  <data name="Detail_FilterConflicts.Text" xml:space="preserve"><value>Conflicts</value></data>
+  <data name="Profiles_Versions.Text" xml:space="preserve"><value>Versions</value></data>
+  <data name="Versions_Title" xml:space="preserve"><value>Versions – {0}</value></data>
+  <data name="Versions_RootTarget" xml:space="preserve"><value>Destination: {0}</value></data>
+  <data name="Versions_RootSource" xml:space="preserve"><value>Source: {0}</value></data>
+  <data name="Versions_Count" xml:space="preserve"><value>{0} versions</value></data>
+  <data name="Versions_CountOne" xml:space="preserve"><value>1 version</value></data>
+  <data name="Versions_Deleted" xml:space="preserve"><value>currently not present</value></data>
+  <data name="Versions_Restored" xml:space="preserve"><value>Restored: {0}</value></data>
+  <data name="Versions_RestoreFailed" xml:space="preserve"><value>Restore failed: {0}</value></data>
+  <data name="Versions_Search.PlaceholderText" xml:space="preserve"><value>Search files</value></data>
+  <data name="Versions_NoMatches.Text" xml:space="preserve"><value>No files found.</value></data>
+  <data name="Versions_VersionsHeader.Text" xml:space="preserve"><value>Versions</value></data>
+  <data name="Versions_Restore.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve"><value>Restore in source</value></data>
+  <data name="Versions_SaveAs.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve"><value>Save as…</value></data>
+  <data name="Versions_Show.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve"><value>Show in Explorer</value></data>
+  <data name="Versions_EmptyTitle.Text" xml:space="preserve"><value>No earlier versions yet</value></data>
+  <data name="Versions_EmptyText.Text" xml:space="preserve"><value>In “Versioned” mode, overwritten and deleted files are kept and appear here.</value></data>
+  <data name="Versions_RestoreTitle" xml:space="preserve"><value>Restore version?</value></data>
+  <data name="Versions_RestoreText" xml:space="preserve"><value>The version from {1} will be copied to {0}. The next run will also bring it to the destination.</value></data>
+  <data name="Versions_RestoreOverwrite" xml:space="preserve"><value>The version from {1} replaces the current file {0}. On the next run the previous version is kept as a version in the destination.</value></data>
+  <data name="Versions_RestoreButton" xml:space="preserve"><value>Restore</value></data>
+  <data name="Versions_AnyFile" xml:space="preserve"><value>File</value></data>
+  <data name="ImportExport_FileType" xml:space="preserve"><value>SyncForge backup</value></data>
+  <data name="ImportExport_ExportedTitle" xml:space="preserve"><value>Export complete</value></data>
+  <data name="ImportExport_ExportedText" xml:space="preserve"><value>Profiles and settings were saved: {0}</value></data>
+  <data name="ImportExport_InvalidTitle" xml:space="preserve"><value>Not a valid backup</value></data>
+  <data name="ImportExport_InvalidText" xml:space="preserve"><value>The file is not a SyncForge backup or comes from a newer version.</value></data>
+  <data name="ImportExport_IncludeSettings" xml:space="preserve"><value>Also apply the settings (theme, notifications, performance …)</value></data>
+  <data name="ImportExport_ImportText" xml:space="preserve"><value>The backup from {1} contains {0} profile(s). Profiles with the same ID are replaced, the others are added.</value></data>
+  <data name="ImportExport_ImportTitle" xml:space="preserve"><value>Import backup</value></data>
+  <data name="ImportExport_ImportButton" xml:space="preserve"><value>Import</value></data>
+  <data name="Common_Ok" xml:space="preserve"><value>OK</value></data>
+  <data name="Profiles_More.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>More options</value></data>
+  <data name="Editor_BrowseTarget.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Browse</value></data>
+  <data name="Editor_TargetEnabled.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Destination enabled</value></data>
+  <data name="Editor_RemoveTarget.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Remove destination</value></data>
+  <data name="Detail_OpenFolder.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Open folder</value></data>
+  <data name="Versions_Restore.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Restore in source</value></data>
+  <data name="Versions_SaveAs.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Save as</value></data>
+  <data name="Versions_Show.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Show in Explorer</value></data>
 </root>

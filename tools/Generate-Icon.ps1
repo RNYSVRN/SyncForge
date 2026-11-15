@@ -144,3 +144,36 @@ foreach ($p in $pngs) { $w.Write($p) }
 $w.Flush()
 [System.IO.File]::WriteAllBytes((Join-Path $assets 'SyncForge.ico'), $out.ToArray())
 Write-Host "Icon erzeugt in $assets"
+
+# --- MSIX-Grafiken (Assets\Package): Icon zentriert auf transparenter Fläche ---
+$pkg = Join-Path $assets 'Package'
+New-Item -ItemType Directory -Force $pkg | Out-Null
+
+function Save-Canvas([string]$name, [int]$w, [int]$h, [double]$iconRatio) {
+    $iconSize = [int]([Math]::Min($w, $h) * $iconRatio)
+    $icon = New-IconBitmap $iconSize
+    $canvas = [System.Drawing.Bitmap]::new($w, $h)
+    $g = [System.Drawing.Graphics]::FromImage($canvas)
+    $g.Clear([System.Drawing.Color]::Transparent)
+    $g.InterpolationMode = 'HighQualityBicubic'
+    $g.DrawImage($icon, [int](($w - $iconSize) / 2), [int](($h - $iconSize) / 2), $iconSize, $iconSize)
+    $g.Dispose()
+    $canvas.Save((Join-Path $pkg $name), [System.Drawing.Imaging.ImageFormat]::Png)
+    $canvas.Dispose(); $icon.Dispose()
+}
+
+foreach ($scale in 100, 200) {
+    $f = $scale / 100
+    Save-Canvas "Square44x44Logo.scale-$scale.png" (44 * $f) (44 * $f) 1.0
+    Save-Canvas "Square150x150Logo.scale-$scale.png" (150 * $f) (150 * $f) 0.6
+    Save-Canvas "Wide310x150Logo.scale-$scale.png" (310 * $f) (150 * $f) 0.6
+    Save-Canvas "StoreLogo.scale-$scale.png" (50 * $f) (50 * $f) 1.0
+    Save-Canvas "SplashScreen.scale-$scale.png" (620 * $f) (300 * $f) 0.5
+}
+# Taskleiste/Startmenü: feste Größen, "unplated" = ohne Kachelhintergrund
+foreach ($size in 16, 24, 32, 48, 256) {
+    Save-Canvas "Square44x44Logo.targetsize-$size.png" $size $size 1.0
+    Save-Canvas "Square44x44Logo.targetsize-${size}_altform-unplated.png" $size $size 1.0
+    Save-Canvas "Square44x44Logo.targetsize-${size}_altform-lightunplated.png" $size $size 1.0
+}
+Write-Host "MSIX-Grafiken erzeugt in $pkg"

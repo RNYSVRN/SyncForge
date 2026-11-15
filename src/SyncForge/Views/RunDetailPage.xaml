@@ -81,6 +81,7 @@
                 <SelectorBarItem x:Uid="Detail_FilterUpdated" Text="Geändert" Tag="Updated" />
                 <SelectorBarItem x:Uid="Detail_FilterDeleted" Text="Gelöscht" Tag="Deleted" />
                 <SelectorBarItem x:Uid="Detail_FilterErrors" Text="Fehler" Tag="Errors" />
+                <SelectorBarItem x:Uid="Detail_FilterConflicts" Text="Konflikte" Tag="Conflicts" />
             </SelectorBar>
             <ComboBox Grid.Column="1" MinWidth="200" MaxWidth="320" VerticalAlignment="Center"
                       ItemsSource="{x:Bind ViewModel.TargetFilters}" SelectedItem="{x:Bind ViewModel.SelectedTarget, Mode=TwoWay}"

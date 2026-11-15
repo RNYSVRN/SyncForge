@@ -47,7 +47,8 @@ public sealed class NotificationService
     {
         if (!_registered) return;
         var status = e.Run.Status;
-        var wanted = status switch
+        var hasConflicts = e.Run.Results.Any(r => r.Conflicts > 0);
+        var wanted = (hasConflicts && _settings.Current.NotifyOnConflict) || status switch
         {
             RunStatus.Success => _settings.Current.NotifyOnSuccess,
             RunStatus.Warning or RunStatus.Error => _settings.Current.NotifyOnError,

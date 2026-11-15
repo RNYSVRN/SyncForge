@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  MSIX-Paket für SyncForge. Gebaut wird es mit:
+    dotnet publish src\SyncForge\SyncForge.csproj -c Release -p:Platform=x64 -p:Packaged=true
+  (siehe tools\Build-Msix.ps1). Debug-Builds laufen unpaketiert.
+-->
+<Package
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  xmlns:uap5="http://schemas.microsoft.com/appx/manifest/uap/windows10/5"
+  xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
+  xmlns:com="http://schemas.microsoft.com/appx/manifest/com/windows10"
+  xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10"
+  IgnorableNamespaces="uap uap5 rescap com desktop">
+
+  <!-- Publisher muss dem Antragsteller des Signaturzertifikats entsprechen (tools\Install-Msix.ps1). -->
+  <Identity Name="SyncForge" Publisher="CN=SyncForge Dev" Version="0.4.0.0" />
+
+  <Properties>
+    <DisplayName>SyncForge</DisplayName>
+    <PublisherDisplayName>SyncForge</PublisherDisplayName>
+    <Logo>Assets\Package\StoreLogo.png</Logo>
+  </Properties>
+
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.22000.0" MaxVersionTested="10.0.26100.0" />
+  </Dependencies>
+
+  <Resources>
+    <Resource Language="x-generate" />
+  </Resources>
+
+  <Applications>
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="$targetentrypoint$">
+      <uap:VisualElements
+        DisplayName="SyncForge"
+        Description="Ordner in ein oder mehrere Ziele synchronisieren"
+        BackgroundColor="transparent"
+        Square150x150Logo="Assets\Package\Square150x150Logo.png"
+        Square44x44Logo="Assets\Package\Square44x44Logo.png">
+        <uap:DefaultTile Wide310x150Logo="Assets\Package\Wide310x150Logo.png" />
+        <uap:SplashScreen Image="Assets\Package\SplashScreen.png" />
+      </uap:VisualElements>
+
+      <Extensions>
+        <!-- "Mit Windows starten" (wird in den Einstellungen ein-/ausgeschaltet) -->
+        <uap5:Extension Category="windows.startupTask">
+          <uap5:StartupTask TaskId="SyncForgeStartup" Enabled="false" DisplayName="SyncForge" />
+        </uap5:Extension>
+
+        <!-- Klick auf eine Benachrichtigung startet/aktiviert SyncForge -->
+        <com:Extension Category="windows.comServer">
+          <com:ComServer>
+            <com:ExeServer Executable="SyncForge.exe" Arguments="----AppNotificationActivated:" DisplayName="SyncForge">
+              <com:Class Id="3F0B6E0C-6A57-4C8E-9D1B-6B4C1E2A7D51" DisplayName="SyncForge" />
+            </com:ExeServer>
+          </com:ComServer>
+        </com:Extension>
+        <desktop:Extension Category="windows.toastNotificationActivation">
+          <desktop:ToastNotificationActivation ToastActivatorCLSID="3F0B6E0C-6A57-4C8E-9D1B-6B4C1E2A7D51" />
+        </desktop:Extension>
+      </Extensions>
+    </Application>
+  </Applications>
+
+  <Capabilities>
+    <rescap:Capability Name="runFullTrust" />
+  </Capabilities>
+</Package>

@@ -27,7 +27,8 @@ public enum FileFilter
     New,
     Updated,
     Deleted,
-    Errors
+    Errors,
+    Conflicts
 }
 
 /// <summary>Ein Lauf in der Übersicht (eine Zeile der Historie).</summary>
@@ -45,7 +46,8 @@ public sealed record RunSummary(
     long Bytes,
     int Errors,
     int TargetsTotal,
-    int TargetsSkipped);
+    int TargetsSkipped,
+    int Conflicts = 0);
 
 public sealed record TargetRunEntry(
     long Id,
@@ -61,7 +63,7 @@ public sealed record TargetRunEntry(
 
 public sealed record RunDetail(RunSummary Run, IReadOnlyList<TargetRunEntry> Targets);
 
-public sealed record RunFileEntry(long TargetId, SyncActionKind Kind, string Path, long Size, string? Error);
+public sealed record RunFileEntry(long TargetId, SyncActionKind Kind, string Path, long Size, string? Error, SyncSide Side = SyncSide.Target);
 
 public sealed record RunQuery
 {

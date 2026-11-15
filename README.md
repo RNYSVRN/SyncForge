@@ -19,6 +19,22 @@ dotnet build SyncForge.sln -c Debug -p:Platform=x64
 dotnet test --project tests\SyncForge.Core.Tests\SyncForge.Core.Tests.csproj
 ```
 
+## MSIX-Paket
+```powershell
+powershell -File tools\Build-Msix.ps1                       # baut artifacts\msix\...\SyncForge_x.y.z.0_x64.msix
+powershell -ExecutionPolicy Bypass -File tools\Install-Msix.ps1   # als Administrator: Testzertifikat, signieren, installieren
+```
+`Install-Msix.ps1` legt ein selbstsigniertes Zertifikat „CN=SyncForge Dev“ an und vertraut ihm für App-Pakete.
+Deinstallieren: `Get-AppxPackage SyncForge | Remove-AppxPackage`. Die installierte App hat eigene Daten (paketierter
+AppData-Bereich), getrennt vom unpaketierten Entwicklungs-Build.
+
+## Sync-Modi
+| Modus | Verhalten |
+|---|---|
+| Spiegeln | Ziel = exakte Kopie der Quelle (inkl. Löschungen; optional Papierkorb) |
+| Versioniert | wie Spiegeln, überschriebene/gelöschte Dateien landen in `Ziel\.syncforge_versions\` (Seite „Versionen“ zum Wiederherstellen) |
+| Zwei-Wege | Änderungen und Löschungen in beide Richtungen; Stand nach dem letzten Lauf in `%LOCALAPPDATA%\SyncForge\state\`; Konflikte: neuere gewinnt / Quelle gewinnt / beide behalten / nur melden |
+
 ## Projektstruktur
 ```
 src/SyncForge.Core/      Sync-Logik ohne UI (testbar)
@@ -30,6 +46,9 @@ src/SyncForge.Core/      Sync-Logik ohne UI (testbar)
   Storage/ProfileStore   profiles.json
   History/HistoryStore   history.db (SQLite): Läufe, Ergebnisse je Ziel, Datei-Protokoll, Statistiken
   Scheduling/            Zeitplan-Berechnung (Intervall, täglich, Wochentage, Nachholen)
+  Versioning/            Versionsordner: verschieben, auflisten, wiederherstellen, aufräumen
+  Engine/TwoWayPlanner   Zwei-Wege-Abgleich mit gemeinsamem Stand und Konfliktregeln
+  Engine/VolumeResolver  USB-/lokale Ziele über die Volume-ID (auch unter anderem Laufwerksbuchstaben)
 tests/SyncForge.Core.Tests/  xUnit-Tests gegen echte Temp-Ordner
 src/SyncForge/
   App.xaml(.cs)          Start, DI-Container, Sprache, Fehlerprotokoll

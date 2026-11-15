@@ -7,3 +7,4 @@ AppPackages/
 BundleArtifacts/
 *.msix
 *.appx
+artifacts/

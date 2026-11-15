@@ -10,7 +10,7 @@ namespace SyncForge.Core.History;
 /// </summary>
 public sealed class HistoryStore
 {
-    private const int SchemaVersion = 1;
+    private const int SchemaVersion = 2;
     private readonly string _connectionString;
 
     public HistoryStore(string databasePath)
@@ -34,6 +34,14 @@ public sealed class HistoryStore
         Execute(db, "PRAGMA journal_mode=WAL;");
         var version = Convert.ToInt32(Scalar(db, "PRAGMA user_version;"));
         if (version >= SchemaVersion) return;
+        if (version == 1)
+        {
+            // Migration 1 -> 2: Richtung je Datei (Zwei-Wege) und Konflikte je Lauf.
+            Execute(db, "ALTER TABLE run_files ADD COLUMN side INTEGER NOT NULL DEFAULT 0;");
+            Execute(db, "ALTER TABLE runs ADD COLUMN conflicts INTEGER NOT NULL DEFAULT 0;");
+            Execute(db, $"PRAGMA user_version = {SchemaVersion};");
+            return;
+        }
 
         Execute(db, """
             CREATE TABLE IF NOT EXISTS runs (
@@ -50,7 +58,8 @@ public sealed class HistoryStore
                 bytes           INTEGER NOT NULL,
                 errors          INTEGER NOT NULL,
                 targets_total   INTEGER NOT NULL,
-                targets_skipped INTEGER NOT NULL
+                targets_skipped INTEGER NOT NULL,
+                conflicts       INTEGER NOT NULL DEFAULT 0
             );
             CREATE INDEX IF NOT EXISTS ix_runs_started ON runs(started_at);
             CREATE INDEX IF NOT EXISTS ix_runs_profile ON runs(profile_id);
@@ -77,7 +86,8 @@ public sealed class HistoryStore
                 kind      INTEGER NOT NULL,
                 path      TEXT    NOT NULL,
                 size      INTEGER NOT NULL,
-                error     TEXT
+                error     TEXT,
+                side      INTEGER NOT NULL DEFAULT 0
             );
             CREATE INDEX IF NOT EXISTS ix_files_run ON run_files(run_id);
             """);
@@ -96,8 +106,8 @@ public sealed class HistoryStore
                 cmd.Transaction = tx;
                 cmd.CommandText = """
                     INSERT INTO runs (profile_id, profile_name, started_at, duration_ms, status, trigger,
-                                      copied, updated, deleted, bytes, errors, targets_total, targets_skipped)
-                    VALUES ($pid, $pname, $start, $dur, $status, $trigger, $copied, $updated, $deleted, $bytes, $errors, $tt, $ts);
+                                      copied, updated, deleted, bytes, errors, targets_total, targets_skipped, conflicts)
+                    VALUES ($pid, $pname, $start, $dur, $status, $trigger, $copied, $updated, $deleted, $bytes, $errors, $tt, $ts, $conflicts);
                     SELECT last_insert_rowid();
                     """;
                 cmd.Parameters.AddWithValue("$pid", run.Profile.Id.ToString());
@@ -113,6 +123,7 @@ public sealed class HistoryStore
                 cmd.Parameters.AddWithValue("$errors", run.Results.Sum(r => r.Errors.Count));
                 cmd.Parameters.AddWithValue("$tt", run.Results.Count + run.Skipped.Count);
                 cmd.Parameters.AddWithValue("$ts", run.Skipped.Count);
+                cmd.Parameters.AddWithValue("$conflicts", run.Results.Sum(r => r.Conflicts));
                 runId = (long)cmd.ExecuteScalar()!;
             }
 
@@ -136,13 +147,14 @@ public sealed class HistoryStore
 
             using var fileCmd = db.CreateCommand();
             fileCmd.Transaction = tx;
-            fileCmd.CommandText = "INSERT INTO run_files (run_id, target_id, kind, path, size, error) VALUES ($run, $target, $kind, $path, $size, $error);";
+            fileCmd.CommandText = "INSERT INTO run_files (run_id, target_id, kind, path, size, error, side) VALUES ($run, $target, $kind, $path, $size, $error, $side);";
             var fRun = fileCmd.Parameters.Add("$run", SqliteType.Integer);
             var fTarget = fileCmd.Parameters.Add("$target", SqliteType.Integer);
             var fKind = fileCmd.Parameters.Add("$kind", SqliteType.Integer);
             var fPath = fileCmd.Parameters.Add("$path", SqliteType.Text);
             var fSize = fileCmd.Parameters.Add("$size", SqliteType.Integer);
             var fError = fileCmd.Parameters.Add("$error", SqliteType.Text);
+            var fSide = fileCmd.Parameters.Add("$side", SqliteType.Integer);
             fileCmd.Prepare();
 
             foreach (var r in run.Results)
@@ -167,6 +179,7 @@ public sealed class HistoryStore
                     fPath.Value = f.RelativePath;
                     fSize.Value = f.Size;
                     fError.Value = (object?)f.Error ?? DBNull.Value;
+                    fSide.Value = (int)f.Side;
                     fileCmd.ExecuteNonQuery();
                 }
             }
@@ -255,6 +268,7 @@ public sealed class HistoryStore
             case FileFilter.Updated: where.Add($"kind = {(int)SyncActionKind.Update} AND error IS NULL"); break;
             case FileFilter.Deleted: where.Add($"kind IN ({(int)SyncActionKind.DeleteFile},{(int)SyncActionKind.DeleteDirectory}) AND error IS NULL"); break;
             case FileFilter.Errors: where.Add("error IS NOT NULL"); break;
+            case FileFilter.Conflicts: where.Add($"kind IN ({(int)SyncActionKind.Conflict},{(int)SyncActionKind.RenameConflict})"); break;
         }
         if (!string.IsNullOrWhiteSpace(search))
         {
@@ -275,14 +289,14 @@ public sealed class HistoryStore
         var items = new List<RunFileEntry>();
         using (var cmd = db.CreateCommand())
         {
-            cmd.CommandText = $"SELECT target_id, kind, path, size, error FROM run_files WHERE {whereSql} ORDER BY id LIMIT $limit;";
+            cmd.CommandText = $"SELECT target_id, kind, path, size, error, side FROM run_files WHERE {whereSql} ORDER BY id LIMIT $limit;";
             foreach (var (n, v) in parameters) cmd.Parameters.AddWithValue(n, v);
             cmd.Parameters.AddWithValue("$limit", limit);
             using var reader = cmd.ExecuteReader();
             while (reader.Read())
             {
                 items.Add(new RunFileEntry(reader.GetInt64(0), (SyncActionKind)reader.GetInt32(1), reader.GetString(2),
-                    reader.GetInt64(3), reader.IsDBNull(4) ? null : reader.GetString(4)));
+                    reader.GetInt64(3), reader.IsDBNull(4) ? null : reader.GetString(4), (SyncSide)reader.GetInt32(5)));
             }
         }
         return (items, total);
@@ -381,13 +395,13 @@ public sealed class HistoryStore
     }
 
     private const string RunColumns =
-        "id, profile_id, profile_name, started_at, duration_ms, status, trigger, copied, updated, deleted, bytes, errors, targets_total, targets_skipped";
+        "id, profile_id, profile_name, started_at, duration_ms, status, trigger, copied, updated, deleted, bytes, errors, targets_total, targets_skipped, conflicts";
 
     private static RunSummary ReadRun(SqliteDataReader r) => new(
         r.GetInt64(0), Guid.Parse(r.GetString(1)), r.GetString(2),
         DateTimeOffset.FromUnixTimeMilliseconds(r.GetInt64(3)).ToLocalTime(),
         TimeSpan.FromMilliseconds(r.GetInt64(4)), (RunStatus)r.GetInt32(5), (RunTrigger)r.GetInt32(6),
-        r.GetInt32(7), r.GetInt32(8), r.GetInt32(9), r.GetInt64(10), r.GetInt32(11), r.GetInt32(12), r.GetInt32(13));
+        r.GetInt32(7), r.GetInt32(8), r.GetInt32(9), r.GetInt64(10), r.GetInt32(11), r.GetInt32(12), r.GetInt32(13), r.GetInt32(14));
 
     private SqliteConnection Open()
     {

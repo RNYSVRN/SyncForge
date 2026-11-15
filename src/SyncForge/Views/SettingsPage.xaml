@@ -132,8 +132,8 @@
                     <FontIcon Glyph="&#xE8B5;" />
                 </toolkit:SettingsCard.HeaderIcon>
                 <StackPanel Orientation="Horizontal" Spacing="8">
-                    <Button x:Uid="Settings_Import" Content="Importieren…" IsEnabled="False" />
-                    <Button x:Uid="Settings_Export" Content="Exportieren…" IsEnabled="False" />
+                    <Button x:Uid="Settings_Import" Content="Importieren…" Click="Import_Click" />
+                    <Button x:Uid="Settings_Export" Content="Exportieren…" Click="Export_Click" />
                 </StackPanel>
             </toolkit:SettingsCard>
 

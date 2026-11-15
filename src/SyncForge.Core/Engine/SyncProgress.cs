@@ -27,7 +27,7 @@ public sealed record SyncProgress(
 public sealed record SyncError(string RelativePath, string Message);
 
 /// <summary>Protokolleintrag einer ausgeführten (oder fehlgeschlagenen) Dateiaktion.</summary>
-public sealed record SyncFileRecord(SyncActionKind Kind, string RelativePath, long Size, string? Error = null)
+public sealed record SyncFileRecord(SyncActionKind Kind, string RelativePath, long Size, string? Error = null, SyncSide Side = SyncSide.Target)
 {
     public bool Failed => Error is not null;
 }
@@ -41,6 +41,7 @@ public sealed class SyncResult
     public int DeletedFiles { get; set; }
     public int DeletedDirectories { get; set; }
     public int CreatedDirectories { get; set; }
+    public int Conflicts { get; set; }
     public long BytesCopied { get; set; }
     public TimeSpan Duration { get; set; }
     public bool Cancelled { get; set; }

@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using SyncForge.Core.Versioning;
 
 namespace SyncForge.Core.Engine;
 
@@ -9,12 +10,18 @@ public sealed class SyncExecutorOptions
     public int BandwidthLimitKBps { get; init; }
     public bool VerifyAfterCopy { get; init; }
     public bool DeleteToRecycleBin { get; init; } = true;
+
+    /// <summary>Überschriebene/gelöschte Dateien in den Versionsordner verschieben statt löschen.</summary>
+    public bool KeepVersions { get; init; }
+    public int VersionsToKeep { get; init; } = 10;
+    public int VersionMaxAgeDays { get; init; } = 90;
 }
 
 /// <summary>
 /// Führt einen <see cref="SyncPlan"/> aus. Kopien landen zuerst in einer Temp-Datei im Zielordner und
 /// ersetzen das Original erst nach vollständigem (und optional geprüftem) Schreiben – ein Abbruch hinterlässt
 /// nie halbe Dateien. Fehler einzelner Dateien brechen den Lauf nicht ab, sie werden gesammelt.
+/// Jede Aktion verändert die Seite <see cref="SyncAction.Side"/>; Kopien kommen von der jeweils anderen Seite.
 /// </summary>
 public sealed class SyncExecutor
 {
@@ -23,6 +30,7 @@ public sealed class SyncExecutor
 
     private readonly SyncExecutorOptions _options;
     private readonly BandwidthThrottle? _throttle;
+    private readonly DateTimeOffset _versionStamp = DateTimeOffset.Now;
 
     public SyncExecutor(SyncExecutorOptions options)
     {
@@ -35,35 +43,49 @@ public sealed class SyncExecutor
         var sw = Stopwatch.StartNew();
         var result = new SyncResult { TargetRoot = plan.TargetRoot };
         var reporter = new ProgressReporter(plan, progress);
-        var useRecycleBin = _options.DeleteToRecycleBin && RecycleBin.IsSupported(plan.TargetRoot);
+        var recycle = new Dictionary<SyncSide, bool>
+        {
+            [SyncSide.Target] = _options.DeleteToRecycleBin && RecycleBin.IsSupported(plan.TargetRoot),
+            [SyncSide.Source] = _options.DeleteToRecycleBin && RecycleBin.IsSupported(plan.SourceRoot)
+        };
 
         try
         {
             Directory.CreateDirectory(plan.TargetRoot);
 
-            // 1. Typkonflikte + Ordner anlegen (sequenziell, Reihenfolge wichtig)
-            foreach (var action in plan.Actions.Where(a => a.IsTypeConflict || a.Kind == SyncActionKind.CreateDirectory))
+            // 1. Konflikte/Typkonflikte auflösen und Ordner anlegen (sequenziell, Reihenfolge wichtig)
+            foreach (var action in plan.Actions.Where(a =>
+                         a.IsTypeConflict || a.Kind is SyncActionKind.CreateDirectory or SyncActionKind.RenameConflict or SyncActionKind.Conflict))
             {
                 ct.ThrowIfCancellationRequested();
                 Run(result, action, () =>
                 {
-                    var path = Combine(plan.TargetRoot, action.RelativePath);
+                    var root = RootOf(plan, action.Side);
+                    var path = Path.Combine(root, action.RelativePath);
                     switch (action.Kind)
                     {
                         case SyncActionKind.CreateDirectory:
                             Directory.CreateDirectory(path);
                             result.CreatedDirectories++;
-                            break;
+                            return true;
+                        case SyncActionKind.RenameConflict:
+                            File.Move(path, Path.Combine(root, action.NewRelativePath!));
+                            result.Conflicts++;
+                            return true;
+                        case SyncActionKind.Conflict:
+                            result.Conflicts++;
+                            return true; // nur protokollieren
                         case SyncActionKind.DeleteFile:
-                            DeleteFile(path, useRecycleBin);
+                            RemoveFile(root, action.RelativePath, recycle[action.Side]);
                             result.DeletedFiles++;
-                            break;
+                            return true;
                         case SyncActionKind.DeleteDirectory:
-                            DeleteDirectory(path, recursive: true, useRecycleBin);
+                            if (recycle[action.Side]) RecycleBin.Delete(path);
+                            else Directory.Delete(path, recursive: true);
                             result.DeletedDirectories++;
-                            break;
+                            return true;
                     }
-                    return true;
+                    return false;
                 });
                 reporter.ItemDone(action.RelativePath, SyncPhase.Copying);
             }
@@ -82,7 +104,7 @@ public sealed class SyncExecutor
                             if (action.Kind == SyncActionKind.CopyNew) result.Copied++;
                             else result.Updated++;
                             result.BytesCopied += action.Size;
-                            result.Files.Add(new SyncFileRecord(action.Kind, action.RelativePath, action.Size));
+                            result.Files.Add(new SyncFileRecord(action.Kind, action.RelativePath, action.Size, Side: action.Side));
                         }
                     }
                     catch (OperationCanceledException) when (token.IsCancellationRequested)
@@ -94,7 +116,7 @@ public sealed class SyncExecutor
                         lock (result)
                         {
                             result.Errors.Add(new SyncError(action.RelativePath, ex.Message));
-                            result.Files.Add(new SyncFileRecord(action.Kind, action.RelativePath, action.Size, ex.Message));
+                            result.Files.Add(new SyncFileRecord(action.Kind, action.RelativePath, action.Size, ex.Message, action.Side));
                         }
                     }
                     reporter.ItemDone(action.RelativePath, SyncPhase.Copying);
@@ -106,21 +128,30 @@ public sealed class SyncExecutor
                 ct.ThrowIfCancellationRequested();
                 Run(result, action, () =>
                 {
-                    var path = Combine(plan.TargetRoot, action.RelativePath);
+                    var root = RootOf(plan, action.Side);
+                    var path = Path.Combine(root, action.RelativePath);
                     if (action.Kind == SyncActionKind.DeleteFile)
                     {
                         if (!File.Exists(path)) return false;
-                        DeleteFile(path, useRecycleBin);
+                        RemoveFile(root, action.RelativePath, recycle[action.Side]);
                         result.DeletedFiles++;
                         return true;
                     }
                     // Nicht rekursiv: enthält der Ordner ausgeschlossene Dateien, bleibt er bestehen.
                     if (!Directory.Exists(path) || Directory.EnumerateFileSystemEntries(path).Any()) return false;
-                    DeleteDirectory(path, recursive: false, useRecycleBin);
+                    if (recycle[action.Side]) RecycleBin.Delete(path);
+                    else Directory.Delete(path);
                     result.DeletedDirectories++;
                     return true;
                 });
                 reporter.ItemDone(action.RelativePath, SyncPhase.Deleting);
+            }
+
+            if (_options.KeepVersions)
+            {
+                VersionStore.Prune(plan.TargetRoot, _options.VersionsToKeep, _options.VersionMaxAgeDays);
+                if (plan.Actions.Any(a => a.Side == SyncSide.Source))
+                    VersionStore.Prune(plan.SourceRoot, _options.VersionsToKeep, _options.VersionMaxAgeDays);
             }
         }
         catch (OperationCanceledException)
@@ -137,24 +168,28 @@ public sealed class SyncExecutor
         return result;
     }
 
+    private static string RootOf(SyncPlan plan, SyncSide side) => side == SyncSide.Target ? plan.TargetRoot : plan.SourceRoot;
+    private static string OtherRoot(SyncPlan plan, SyncSide side) => side == SyncSide.Target ? plan.SourceRoot : plan.TargetRoot;
+
     /// <summary>Führt eine sequenzielle Aktion aus und protokolliert sie (work gibt false zurück = nichts zu tun).</summary>
     private static void Run(SyncResult result, SyncAction action, Func<bool> work)
     {
         try
         {
-            if (work()) result.Files.Add(new SyncFileRecord(action.Kind, action.RelativePath, action.Size));
+            if (work()) result.Files.Add(new SyncFileRecord(action.Kind, action.RelativePath, action.Size, Side: action.Side));
         }
         catch (Exception ex) when (ex is not OperationCanceledException)
         {
             result.Errors.Add(new SyncError(action.RelativePath, ex.Message));
-            result.Files.Add(new SyncFileRecord(action.Kind, action.RelativePath, action.Size, ex.Message));
+            result.Files.Add(new SyncFileRecord(action.Kind, action.RelativePath, action.Size, ex.Message, action.Side));
         }
     }
 
     private async Task CopyFileAsync(SyncPlan plan, SyncAction action, ProgressReporter reporter, CancellationToken ct)
     {
-        var source = Combine(plan.SourceRoot, action.RelativePath);
-        var target = Combine(plan.TargetRoot, action.RelativePath);
+        var toRoot = RootOf(plan, action.Side);
+        var source = Path.Combine(OtherRoot(plan, action.Side), action.RelativePath);
+        var target = Path.Combine(toRoot, action.RelativePath);
         var targetDir = Path.GetDirectoryName(target)!;
         Directory.CreateDirectory(targetDir);
         var temp = Path.Combine(targetDir, $"{TempPrefix}{Guid.NewGuid():N}.tmp");
@@ -189,8 +224,15 @@ public sealed class SyncExecutor
 
             if (File.Exists(target))
             {
-                var attrs = File.GetAttributes(target);
-                if (attrs.HasFlag(FileAttributes.ReadOnly)) File.SetAttributes(target, attrs & ~FileAttributes.ReadOnly);
+                if (_options.KeepVersions)
+                {
+                    VersionStore.MoveToVersions(toRoot, action.RelativePath, _versionStamp);
+                }
+                else
+                {
+                    var attrs = File.GetAttributes(target);
+                    if (attrs.HasFlag(FileAttributes.ReadOnly)) File.SetAttributes(target, attrs & ~FileAttributes.ReadOnly);
+                }
             }
             File.Move(temp, target, overwrite: true);
             File.SetAttributes(target, info.Attributes & ~(FileAttributes.Archive | FileAttributes.Normal) | FileAttributes.Archive);
@@ -202,26 +244,25 @@ public sealed class SyncExecutor
         }
     }
 
-    private static void DeleteFile(string path, bool useRecycleBin)
+    /// <summary>Löscht eine Datei – bzw. verschiebt sie in den Versionsordner oder Papierkorb.</summary>
+    private void RemoveFile(string root, string relativePath, bool useRecycleBin)
     {
+        if (_options.KeepVersions)
+        {
+            VersionStore.MoveToVersions(root, relativePath, _versionStamp);
+            return;
+        }
+        var path = Path.Combine(root, relativePath);
         var attrs = File.GetAttributes(path);
         if (attrs.HasFlag(FileAttributes.ReadOnly)) File.SetAttributes(path, attrs & ~FileAttributes.ReadOnly);
         if (useRecycleBin) RecycleBin.Delete(path);
         else File.Delete(path);
     }
 
-    private static void DeleteDirectory(string path, bool recursive, bool useRecycleBin)
-    {
-        if (useRecycleBin) RecycleBin.Delete(path);
-        else Directory.Delete(path, recursive);
-    }
-
     private static void TryDelete(string path)
     {
         try { if (File.Exists(path)) File.Delete(path); } catch { /* Aufräumen ist best effort */ }
     }
-
-    private static string Combine(string root, string relative) => Path.Combine(root, relative);
 
     /// <summary>Begrenzt die Gesamtrate aller parallelen Kopien.</summary>
     private sealed class BandwidthThrottle(long bytesPerSecond)

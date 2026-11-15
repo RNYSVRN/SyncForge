@@ -59,6 +59,12 @@ public sealed class SyncProfile
 
     public AutomationSettings Automation { get; set; } = new();
 
+    /// <summary>Modus "Versioniert": so viele Fassungen je Datei behalten (0 = unbegrenzt).</summary>
+    public int VersionsToKeep { get; set; } = 10;
+
+    /// <summary>Modus "Versioniert": Fassungen nach so vielen Tagen entfernen (0 = nie).</summary>
+    public int VersionMaxAgeDays { get; set; } = 90;
+
     /// <summary>Gelöschte Dateien in den Papierkorb verschieben (nur lokale Laufwerke).</summary>
     public bool DeleteToRecycleBin { get; set; } = true;
 
@@ -84,6 +90,12 @@ public sealed class SyncTarget
     public Guid Id { get; set; } = Guid.NewGuid();
     public string Path { get; set; } = string.Empty;
     public bool Enabled { get; set; } = true;
+
+    /// <summary>Seriennummer des Laufwerks (lokale/USB-Ziele) – erkennt das Laufwerk auch unter anderem Buchstaben.</summary>
+    public uint? VolumeSerial { get; set; }
+
+    /// <summary>Bezeichnung des Laufwerks zur Anzeige (z. B. "Backup-HDD").</summary>
+    public string? VolumeLabel { get; set; }
 }
 
 public sealed class FilterSettings

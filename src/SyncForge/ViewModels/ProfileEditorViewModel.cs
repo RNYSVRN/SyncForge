@@ -38,7 +38,20 @@ public sealed partial class ProfileEditorViewModel : ObservableObject
     [ObservableProperty] public partial string PageTitle { get; set; } = string.Empty;
     [ObservableProperty] public partial string Name { get; set; } = string.Empty;
     [ObservableProperty] public partial string SourcePath { get; set; } = string.Empty;
-    [ObservableProperty] public partial int ModeIndex { get; set; }
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsVersioned), nameof(IsTwoWay), nameof(ModeDescription))]
+    public partial int ModeIndex { get; set; }
+    [ObservableProperty] public partial int ConflictIndex { get; set; }
+    [ObservableProperty] public partial double VersionsToKeep { get; set; }
+    [ObservableProperty] public partial double VersionMaxAgeDays { get; set; }
+    public bool IsVersioned => ModeIndex == (int)SyncMode.Versioned;
+    public bool IsTwoWay => ModeIndex == (int)SyncMode.TwoWay;
+    public string ModeDescription => Localization.Get(ModeIndex switch
+    {
+        (int)SyncMode.Versioned => "Mode_VersionedDescription",
+        (int)SyncMode.TwoWay => "Mode_TwoWayDescription",
+        _ => "Mode_MirrorDescription"
+    });
     [ObservableProperty] public partial int CompareIndex { get; set; }
     [ObservableProperty] public partial int MultiTargetIndex { get; set; }
     [ObservableProperty] public partial bool VerifyAfterCopy { get; set; }
@@ -80,6 +93,9 @@ public sealed partial class ProfileEditorViewModel : ObservableObject
         Name = _profile.Name;
         SourcePath = _profile.SourcePath;
         ModeIndex = (int)_profile.Mode;
+        ConflictIndex = (int)_profile.ConflictResolution;
+        VersionsToKeep = _profile.VersionsToKeep;
+        VersionMaxAgeDays = _profile.VersionMaxAgeDays;
         CompareIndex = (int)_profile.CompareMode;
         MultiTargetIndex = (int)_profile.MultiTargetMode;
         VerifyAfterCopy = _profile.VerifyAfterCopy;
@@ -133,6 +149,9 @@ public sealed partial class ProfileEditorViewModel : ObservableObject
         _profile.Name = Name.Trim();
         _profile.SourcePath = NormalizePath(SourcePath);
         _profile.Mode = (SyncMode)ModeIndex;
+        _profile.ConflictResolution = (ConflictResolution)ConflictIndex;
+        _profile.VersionsToKeep = double.IsNaN(VersionsToKeep) ? 10 : (int)Math.Clamp(VersionsToKeep, 0, 1000);
+        _profile.VersionMaxAgeDays = double.IsNaN(VersionMaxAgeDays) ? 90 : (int)Math.Clamp(VersionMaxAgeDays, 0, 3650);
         _profile.CompareMode = (CompareMode)CompareIndex;
         _profile.MultiTargetMode = (MultiTargetMode)MultiTargetIndex;
         _profile.VerifyAfterCopy = VerifyAfterCopy;
@@ -149,7 +168,7 @@ public sealed partial class ProfileEditorViewModel : ObservableObject
         _profile.DeletionProtectionPercent = double.IsNaN(DeletionProtectionPercent) ? 25 : (int)Math.Clamp(DeletionProtectionPercent, 0, 100);
         _profile.Targets = Targets
             .Where(t => !string.IsNullOrWhiteSpace(t.Path))
-            .Select(t => new SyncTarget { Id = t.Id, Path = NormalizePath(t.Path), Enabled = t.Enabled })
+            .Select(t => CreateTarget(t))
             .ToList();
 
         var automation = new AutomationSettings
@@ -213,6 +232,33 @@ public sealed partial class ProfileEditorViewModel : ObservableObject
         if (MaxSizeMb > 0 && MinSizeMb > MaxSizeMb) return Localization.Get("Editor_ErrorSizeRange");
         if (IsWeekly && !Days.Any(d => d.IsSelected)) return Localization.Get("Editor_ErrorNoDays");
         return null;
+    }
+
+    /// <summary>
+    /// Ziel mit Volume-ID: Für lokale/USB-Laufwerke (außer dem Systemlaufwerk) wird die Seriennummer gespeichert,
+    /// damit das Laufwerk auch unter anderem Buchstaben erkannt und nie ein fremdes beschrieben wird.
+    /// </summary>
+    private static SyncTarget CreateTarget(TargetItemViewModel t)
+    {
+        var target = new SyncTarget { Id = t.Id, Path = NormalizePath(t.Path), Enabled = t.Enabled };
+        try
+        {
+            var root = System.IO.Path.GetPathRoot(target.Path);
+            var systemRoot = System.IO.Path.GetPathRoot(Environment.SystemDirectory);
+            if (!string.IsNullOrEmpty(root) && !root.StartsWith(@"\\", StringComparison.Ordinal)
+                && !string.Equals(root, systemRoot, StringComparison.OrdinalIgnoreCase)
+                && new DriveInfo(root).DriveType is DriveType.Fixed or DriveType.Removable
+                && VolumeResolver.GetVolume(root) is { } volume)
+            {
+                target.VolumeSerial = volume.Serial;
+                target.VolumeLabel = volume.Label;
+            }
+        }
+        catch (Exception ex) when (ex is IOException or ArgumentException or UnauthorizedAccessException)
+        {
+            // Laufwerk nicht bereit: ohne Volume-ID speichern.
+        }
+        return target;
     }
 
     private static bool IsValidPath(string path)

@@ -44,6 +44,8 @@ internal static class FileTree
                 var entryRel = rel.Length == 0 ? entry.Name : rel + "\\" + entry.Name;
                 if (entry is DirectoryInfo sub)
                 {
+                    // Versionsordner gehört nicht zum Inhalt (weder kopieren noch löschen).
+                    if (rel.Length == 0 && string.Equals(sub.Name, Versioning.VersionStore.FolderName, StringComparison.OrdinalIgnoreCase)) continue;
                     if (filter.IsDirectoryExcluded(entryRel, sub.Attributes)) continue;
                     // Verknüpfungen (Symlinks/Junctions) nicht verfolgen: Endlosschleifen vermeiden.
                     if (sub.LinkTarget is not null) continue;

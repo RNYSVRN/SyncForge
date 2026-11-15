@@ -37,6 +37,13 @@ public sealed class SettingsService
         }
     }
 
+    /// <summary>Ersetzt alle Einstellungen (z. B. beim Import) und speichert.</summary>
+    public void Replace(AppSettings settings)
+    {
+        Current = settings;
+        Save();
+    }
+
     public void Save()
     {
         Directory.CreateDirectory(DataDirectory);

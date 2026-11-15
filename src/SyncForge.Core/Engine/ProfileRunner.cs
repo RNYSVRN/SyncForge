@@ -16,6 +16,8 @@ public sealed class TargetAnalysis
     public TargetStatus Status { get; set; }
     public SyncPlan? Plan { get; set; }
     public SyncValidationError? ValidationError { get; set; }
+    /// <summary>Tatsächlich verwendeter Pfad (bei Volume-ID ggf. mit anderem Laufwerksbuchstaben).</summary>
+    public string? ResolvedPath { get; set; }
     public string? ErrorMessage { get; set; }
 }
 
@@ -51,7 +53,8 @@ public sealed class ProfileRunResult
 /// <summary>Analysiert und synchronisiert ein Profil über alle aktivierten Ziele.</summary>
 public static class ProfileRunner
 {
-    public static async Task<ProfileAnalysis> AnalyzeAsync(SyncProfile profile, IProgress<SyncProgress>? progress = null, CancellationToken ct = default)
+    public static async Task<ProfileAnalysis> AnalyzeAsync(SyncProfile profile, IProgress<SyncProgress>? progress = null, CancellationToken ct = default,
+        string? stateDirectory = null, string conflictLabel = "Konflikt")
     {
         var analysis = new ProfileAnalysis { Profile = profile };
         if (!Directory.Exists(profile.SourcePath))
@@ -66,16 +69,22 @@ public static class ProfileRunner
             var ta = new TargetAnalysis { Target = target };
             analysis.Targets.Add(ta);
 
-            if (!IsTargetReachable(target.Path))
+            // USB-/lokale Ziele über die Volume-ID finden (auch unter anderem Laufwerksbuchstaben).
+            var path = VolumeResolver.Resolve(target.Path, target.VolumeSerial);
+            if (path is null || !IsTargetReachable(path))
             {
                 ta.Status = TargetStatus.Unavailable;
                 ta.ValidationError = SyncValidationError.TargetUnavailable;
                 continue;
             }
+            ta.ResolvedPath = path;
 
             try
             {
-                ta.Plan = await SyncPlanner.CreateMirrorPlanAsync(profile.SourcePath, target.Path, profile.Filter, profile.CompareMode, progress, ct);
+                ta.Plan = profile.Mode == SyncMode.TwoWay
+                    ? await TwoWayPlanner.CreatePlanAsync(profile.SourcePath, path, profile.Filter, profile.CompareMode, profile.ConflictResolution,
+                        stateDirectory is null ? null : Path.Combine(stateDirectory, $"{profile.Id:N}_{target.Id:N}.json"), conflictLabel, progress, ct)
+                    : await SyncPlanner.CreateMirrorPlanAsync(profile.SourcePath, path, profile.Filter, profile.CompareMode, progress, ct);
                 ta.Status = TargetStatus.Ready;
             }
             catch (SyncValidationException ex)
@@ -102,17 +111,27 @@ public static class ProfileRunner
         var executor = new SyncExecutor(options);
         var ready = analysis.ReadyTargets.ToList();
 
+        async Task<SyncResult> RunOne(SyncPlan plan)
+        {
+            var result = await executor.ExecuteAsync(plan, progress, ct);
+            if (plan.Mode == SyncMode.TwoWay && !result.Cancelled)
+            {
+                try { await Task.Run(() => TwoWayPlanner.UpdateState(plan), CancellationToken.None); }
+                catch (Exception ex) { result.Errors.Add(new SyncError(string.Empty, ex.Message)); }
+            }
+            return result;
+        }
+
         if (analysis.Profile.MultiTargetMode == MultiTargetMode.Parallel && ready.Count > 1)
         {
-            var results = await Task.WhenAll(ready.Select(t => executor.ExecuteAsync(t.Plan!, progress, ct)));
-            run.Results.AddRange(results);
+            run.Results.AddRange(await Task.WhenAll(ready.Select(t => RunOne(t.Plan!))));
         }
         else
         {
             foreach (var t in ready)
             {
                 if (ct.IsCancellationRequested) break;
-                run.Results.Add(await executor.ExecuteAsync(t.Plan!, progress, ct));
+                run.Results.Add(await RunOne(t.Plan!));
             }
         }
 
@@ -124,7 +143,7 @@ public static class ProfileRunner
     /// <summary>
     /// Ziel erreichbar, wenn das Laufwerk bzw. die Netzwerkfreigabe existiert. Der Zielordner selbst
     /// darf fehlen – er wird angelegt. So wird ein ausgestecktes USB-Laufwerk übersprungen statt
-    /// versehentlich auf ein anderes Laufwerk mit gleichem Buchstaben geschrieben … (Volume-ID folgt in Etappe 4).
+    /// versehentlich auf ein anderes Laufwerk geschrieben (siehe auch <see cref="VolumeResolver"/>).
     /// </summary>
     public static bool IsTargetReachable(string path)
     {

@@ -53,6 +53,11 @@ public sealed partial class ProfilesPage : Page
         if (ItemOf(sender) is { } item) App.MainWindow.Navigate(typeof(SyncRunPage), new SyncRunRequest(item.Id, PreviewOnly: false));
     }
 
+    private void Versions_Click(object sender, RoutedEventArgs e)
+    {
+        if (ItemOf(sender) is { } item) App.MainWindow.Navigate(typeof(VersionsPage), item.Id);
+    }
+
     private void Duplicate_Click(object sender, RoutedEventArgs e)
     {
         if (ItemOf(sender) is { } item) ViewModel.Duplicate(item);

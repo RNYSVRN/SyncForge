@@ -37,12 +37,14 @@ public partial class App : Application
             .AddSingleton<SyncCoordinator>()
             .AddSingleton<AutomationService>()
             .AddSingleton<NotificationService>()
+            .AddSingleton<ImportExportService>()
             .AddTransient<HistoryViewModel>()
             .AddTransient<RunDetailViewModel>()
             .AddTransient<SettingsViewModel>()
             .AddTransient<ProfilesViewModel>()
             .AddTransient<ProfileEditorViewModel>()
             .AddTransient<SyncRunViewModel>()
+            .AddTransient<VersionsViewModel>()
             .BuildServiceProvider();
 
         // Sprache muss gesetzt sein, bevor XAML-Ressourcen geladen werden.
