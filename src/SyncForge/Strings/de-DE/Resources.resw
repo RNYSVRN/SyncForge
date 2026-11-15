@@ -369,4 +369,7 @@
   <data name="CloudFiles_Download.Content" xml:space="preserve"><value>Herunterladen und sichern</value></data>
   <data name="Run_PlanCloudSkipped" xml:space="preserve"><value>{0} nur online (übersprungen)</value></data>
   <data name="Run_CloudSkipped" xml:space="preserve"><value>{0} nur online verfügbare Datei(en) übersprungen.</value></data>
+  <data name="Run_PlanUnreadable" xml:space="preserve"><value>{0} Ordner nicht lesbar (ausgelassen)</value></data>
+  <data name="Run_Unreadable" xml:space="preserve"><value>{0} Ordner konnten nicht gelesen werden und wurden ausgelassen.</value></data>
+  <data name="Run_RootLost" xml:space="preserve"><value>Abgebrochen, {0} war nicht mehr erreichbar</value></data>
 </root>

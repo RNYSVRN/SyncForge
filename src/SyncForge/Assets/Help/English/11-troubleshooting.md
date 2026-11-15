@@ -7,7 +7,15 @@ The drive or network share is not available, e.g. because the USB drive is not p
 
 ## A file could not be copied
 
-Usually it is open in another program (e.g. Outlook data files). Close the program; the file is copied on the next run. The exact message is shown in the history under **Errors**.
+Usually it is open in another program (e.g. Outlook data files). SyncForge waits out short locks, for example by a virus scanner, and retries several times. If the file stays locked, close the program; the file is copied on the next run. The exact message is shown in the history under **Errors**.
+
+## Folders could not be read
+
+SyncForge had no access to these folders, e.g. because of missing permissions or because the network connection dropped briefly during the analysis. What such a folder contains is then unknown. That is why nothing is copied into it and, above all, nothing is deleted, not even on the other side. As soon as access works again, the folder is synced normally on the next run.
+
+## The run stopped because a drive was no longer reachable
+
+The USB drive was unplugged during the run or the connection to the NAS dropped. SyncForge then ends the run right away instead of trying every remaining file one by one. Files already copied are complete, there are never half-written files. The rest is caught up on the next run.
 
 ## Deletion protection was triggered
 

@@ -260,6 +260,7 @@ public sealed partial class SyncRunViewModel : ObservableObject
                         Format.Number(plan.UnchangedFileCount), Format.Bytes(plan.BytesToCopy));
                     if (plan.ToSourceCount > 0) vm.SummaryText += " · " + Format.Text("Run_PlanToSource", Format.Number(plan.ToSourceCount));
                     if (plan.SkippedCloudFiles > 0) vm.SummaryText += " · " + Format.Text("Run_PlanCloudSkipped", Format.Number(plan.SkippedCloudFiles));
+                    if (plan.UnreadableFolders.Count > 0) vm.SummaryText += " · " + Format.Text("Run_PlanUnreadable", Format.Number(plan.UnreadableFolders.Count));
                     if (plan.ConflictCount > 0) vm.SummaryText += " · " + Format.Text("Run_Conflicts", Format.Number(plan.ConflictCount));
                     if (ta.ResolvedPath is { } resolved && !string.Equals(resolved, ta.Target.Path, StringComparison.OrdinalIgnoreCase))
                         vm.StatusText += " · " + Format.Text("Run_DriveMoved", resolved);
@@ -286,6 +287,7 @@ public sealed partial class SyncRunViewModel : ObservableObject
             t.ProgressPercent = 100;
             t.StatusGlyph = r.Cancelled ? "" : r.Errors.Count > 0 ? "" : "";
             t.StatusText = r.Cancelled ? Localization.Get("Status_Cancelled")
+                : r.LostRoot is not null ? Format.Text("Run_RootLost", r.LostRoot)
                 : r.Errors.Count > 0 ? Format.Text(r.Errors.Count == 1 ? "Run_TargetDoneOneError" : "Run_TargetDoneErrors", Format.Number(r.Errors.Count))
                 : Localization.Get("Run_TargetDone");
             t.SummaryText = Format.Text("Run_ResultSummary", Format.Number(r.Copied), Format.Number(r.Updated),

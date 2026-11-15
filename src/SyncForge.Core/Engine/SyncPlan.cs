@@ -68,6 +68,12 @@ public sealed class SyncPlan
     public int SourceFileCount { get; set; }
     public long SourceBytes { get; set; }
 
+    /// <summary>
+    /// Ordner (vollständige Pfade, beide Seiten), deren Inhalt nicht gelesen werden konnte, z. B. wegen fehlender
+    /// Rechte oder eines Netzwerkfehlers. Darin wird nichts kopiert oder gelöscht.
+    /// </summary>
+    public List<string> UnreadableFolders { get; } = [];
+
     public int CopyNewCount => Actions.Count(a => a.Kind == SyncActionKind.CopyNew);
     public int UpdateCount => Actions.Count(a => a.Kind == SyncActionKind.Update);
     public int DeleteFileCount => Actions.Count(a => a.Kind == SyncActionKind.DeleteFile);

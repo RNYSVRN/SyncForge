@@ -369,4 +369,7 @@
   <data name="CloudFiles_Download.Content" xml:space="preserve"><value>Download and back up</value></data>
   <data name="Run_PlanCloudSkipped" xml:space="preserve"><value>{0} online-only (skipped)</value></data>
   <data name="Run_CloudSkipped" xml:space="preserve"><value>{0} online-only file(s) skipped.</value></data>
+  <data name="Run_PlanUnreadable" xml:space="preserve"><value>{0} folder(s) unreadable (skipped)</value></data>
+  <data name="Run_Unreadable" xml:space="preserve"><value>{0} folder(s) could not be read and were skipped.</value></data>
+  <data name="Run_RootLost" xml:space="preserve"><value>Stopped, {0} was no longer reachable</value></data>
 </root>

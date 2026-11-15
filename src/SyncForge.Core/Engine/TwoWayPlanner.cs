@@ -35,11 +35,13 @@ public static class TwoWayPlanner
         var filter = new PathFilter(filterSettings);
         var skipCloud = filterSettings.CloudFiles == CloudFileMode.Skip;
         progress?.Report(new SyncProgress(targetRoot, SyncPhase.Scanning, null, 0, 0, 0, 0));
-        var source = await Task.Run(() => FileTree.Scan(sourceRoot, filter, ct), ct);
+        var sourceUnreadable = new List<string>();
+        var targetUnreadable = new List<string>();
+        var source = await Task.Run(() => FileTree.Scan(sourceRoot, filter, ct, null, sourceUnreadable), ct);
         var targetMissing = !Directory.Exists(targetRoot);
         var target = targetMissing
             ? new Dictionary<string, FileTreeEntry>(StringComparer.OrdinalIgnoreCase)
-            : await Task.Run(() => FileTree.Scan(targetRoot, filter, ct), ct);
+            : await Task.Run(() => FileTree.Scan(targetRoot, filter, ct, null, targetUnreadable), ct);
         var state = TwoWayState.Load(statePath);
 
         var plan = new SyncPlan
@@ -47,6 +49,9 @@ public static class TwoWayPlanner
             SourceRoot = sourceRoot, TargetRoot = targetRoot, TargetRootMissing = targetMissing,
             Mode = SyncMode.TwoWay, StatePath = statePath, Filter = filterSettings
         };
+        plan.UnreadableFolders.AddRange(sourceUnreadable.Select(r => Path.Combine(sourceRoot, r)));
+        plan.UnreadableFolders.AddRange(targetUnreadable.Select(r => Path.Combine(targetRoot, r)));
+        var unreadable = sourceUnreadable.Concat(targetUnreadable).ToList();
         plan.ExistingTargetFileCount = target.Values.Count(e => !e.IsDirectory);
         plan.SourceFileCount = source.Values.Count(e => !e.IsDirectory);
         plan.SourceBytes = source.Values.Where(e => !e.IsDirectory).Sum(e => e.Size);
@@ -62,6 +67,8 @@ public static class TwoWayPlanner
         foreach (var path in allPaths)
         {
             ct.ThrowIfCancellationRequested();
+            // In einem unlesbaren Ordner (auf einer der Seiten) ist der Zustand unbekannt: nichts tun.
+            if (unreadable.Count > 0 && FileTree.IsInsideUnreadable(path, unreadable)) continue;
             source.TryGetValue(path, out var s);
             target.TryGetValue(path, out var t);
             state.TryGetValue(path, out var b);
@@ -161,9 +168,20 @@ public static class TwoWayPlanner
     {
         if (plan.StatePath is null || plan.Filter is null) return;
         var filter = new PathFilter(plan.Filter);
-        var source = FileTree.Scan(plan.SourceRoot, filter, CancellationToken.None);
-        var target = FileTree.Scan(plan.TargetRoot, filter, CancellationToken.None);
-        TwoWayState.Save(plan.StatePath, TwoWayState.Capture(source, target));
+        var unreadable = new List<string>();
+        var source = FileTree.Scan(plan.SourceRoot, filter, CancellationToken.None, null, unreadable);
+        var target = FileTree.Scan(plan.TargetRoot, filter, CancellationToken.None, null, unreadable);
+        var state = TwoWayState.Capture(source, target);
+
+        // Unlesbare Bereiche: bisherigen Stand behalten, sonst gälten die Dateien dort beim nächsten Mal als neu.
+        if (unreadable.Count > 0)
+        {
+            foreach (var (path, entry) in TwoWayState.Load(plan.StatePath))
+            {
+                if (FileTree.IsInsideUnreadable(path, unreadable)) state[path] = entry;
+            }
+        }
+        TwoWayState.Save(plan.StatePath, state);
     }
 
     internal static bool SameFile(FileTreeEntry a, FileTreeEntry b) =>
