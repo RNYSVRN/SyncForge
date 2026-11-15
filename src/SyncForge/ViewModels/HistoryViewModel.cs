@@ -19,6 +19,7 @@ public sealed class RunItemViewModel(RunSummary run)
     public string ProfileName => run.ProfileName;
     public string DateText => Format.DateTime(run.StartedAt);
     public string StatusGlyph => Format.StatusGlyph(run.Status);
+    public Microsoft.UI.Xaml.Style? StatusStyle => Format.StatusIconStyle(run.Status);
     public string StatusText => Format.StatusName(run.Status);
     public string DurationText => Format.Duration(run.Duration);
     public string BytesText => Format.Bytes(run.Bytes);

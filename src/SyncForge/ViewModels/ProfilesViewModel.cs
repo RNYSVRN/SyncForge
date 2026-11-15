@@ -32,6 +32,8 @@ public sealed class ProfileItemViewModel(SyncProfile profile)
     /// <summary>Segoe-Fluent-Glyph für den Status des letzten Laufs.</summary>
     public string StatusGlyph => Format.StatusGlyph(Profile.LastRunStatus);
 
+    public Microsoft.UI.Xaml.Style? StatusStyle => Format.StatusIconStyle(Profile.LastRunAt is null ? RunStatus.None : Profile.LastRunStatus);
+
     public override string ToString() => $"{Name}, {LastRunText}"; // Name für Screenreader
 }
 
