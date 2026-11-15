@@ -18,8 +18,8 @@
 </div>
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/dark/01-overview.png">
-  <img alt="SyncForge-Übersicht mit vier Backup-Profilen" src="docs/screenshots/light/01-overview.png">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/de/dark/01-overview.png">
+  <img alt="SyncForge-Übersicht mit vier Backup-Profilen" src="docs/screenshots/de/light/01-overview.png">
 </picture>
 
 SyncForge sichert deine Ordner auf lokale Laufwerke, USB-Festplatten, Netzwerkfreigaben (NAS) und in Cloud-Ordner.
@@ -61,39 +61,39 @@ auf Deutsch und Englisch.
 
 ## Screenshots
 
-Die Screenshots folgen deinem GitHub-Design und zeigen die englische Oberfläche. Beide vollständigen Sätze (hell und
-dunkel) stehen in den Galerien am Ende dieses Abschnitts.
+Die Screenshots folgen deinem GitHub-Design. Beide vollständigen Sätze (hell und dunkel) stehen in den Galerien am Ende
+dieses Abschnitts.
 
 ### Assistent
 Vorlage wählen, vorgeschlagene Ordner prüfen, Ziel auswählen. Fertig.
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/dark/04-wizard.png">
-  <img alt="Assistent für ein neues Backup-Profil mit sechs Vorlagen" src="docs/screenshots/light/04-wizard.png">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/de/dark/04-wizard.png">
+  <img alt="Assistent für ein neues Backup-Profil mit sechs Vorlagen" src="docs/screenshots/de/light/04-wizard.png">
 </picture>
 
 ### Vorschau
 Bevor etwas passiert, siehst du jede geplante Änderung pro Ziel.
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/dark/05-preview.png">
-  <img alt="Vorschau mit neuen, geänderten und gelöschten Dateien pro Ziel" src="docs/screenshots/light/05-preview.png">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/de/dark/05-preview.png">
+  <img alt="Vorschau mit neuen, geänderten und gelöschten Dateien pro Ziel" src="docs/screenshots/de/light/05-preview.png">
 </picture>
 
 ### Historie
 Jeder Lauf mit Statistik, Tagesdiagramm, Filtern und CSV-Export.
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/dark/07-history.png">
-  <img alt="Historie mit Kennzahlen, Diagramm und Laufliste" src="docs/screenshots/light/07-history.png">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/de/dark/07-history.png">
+  <img alt="Historie mit Kennzahlen, Diagramm und Laufliste" src="docs/screenshots/de/light/07-history.png">
 </picture>
 
 ### Profil-Editor
 Alle Einstellungen eines Profils auf einer Seite, mit sofortigen Hinweisen zu Pfaden und Laufwerken.
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/dark/03-editor.png">
-  <img alt="Profil-Editor mit Quellen und Zielen" src="docs/screenshots/light/03-editor.png">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/de/dark/03-editor.png">
+  <img alt="Profil-Editor mit Quellen und Zielen" src="docs/screenshots/de/light/03-editor.png">
 </picture>
 
 <details>
@@ -101,50 +101,50 @@ Alle Einstellungen eines Profils auf einer Seite, mit sofortigen Hinweisen zu Pf
 
 #### Backup-Profile
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/dark/02-profiles.png">
-  <img alt="Liste der Backup-Profile" src="docs/screenshots/light/02-profiles.png">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/de/dark/02-profiles.png">
+  <img alt="Liste der Backup-Profile" src="docs/screenshots/de/light/02-profiles.png">
 </picture>
 
 #### Versionen wiederherstellen
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/dark/06-versions.png">
-  <img alt="Frühere Fassungen von Dateien mit Wiederherstellen-Schaltflächen" src="docs/screenshots/light/06-versions.png">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/de/dark/06-versions.png">
+  <img alt="Frühere Fassungen von Dateien mit Wiederherstellen-Schaltflächen" src="docs/screenshots/de/light/06-versions.png">
 </picture>
 
 #### Laufdetails
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/dark/08-run-details.png">
-  <img alt="Details eines Laufs mit jeder kopierten Datei" src="docs/screenshots/light/08-run-details.png">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/de/dark/08-run-details.png">
+  <img alt="Details eines Laufs mit jeder kopierten Datei" src="docs/screenshots/de/light/08-run-details.png">
 </picture>
 
 #### Konflikte lösen
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/dark/09-conflicts.png">
-  <img alt="Eine auf beiden Seiten geänderte Datei mit Auswahl der Fassung" src="docs/screenshots/light/09-conflicts.png">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/de/dark/09-conflicts.png">
+  <img alt="Eine auf beiden Seiten geänderte Datei mit Auswahl der Fassung" src="docs/screenshots/de/light/09-conflicts.png">
 </picture>
 
 #### Einstellungen
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/dark/10-settings.png">
-  <img alt="Einstellungen für Design, Sprache, Autostart und Leistung" src="docs/screenshots/light/10-settings.png">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/de/dark/10-settings.png">
+  <img alt="Einstellungen für Design, Sprache, Autostart und Leistung" src="docs/screenshots/de/light/10-settings.png">
 </picture>
 
 #### Eingebaute Hilfe
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/dark/11-help.png">
-  <img alt="Eingebaute Hilfe mit Suche" src="docs/screenshots/light/11-help.png">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/de/dark/11-help.png">
+  <img alt="Eingebaute Hilfe mit Suche" src="docs/screenshots/de/light/11-help.png">
 </picture>
 
 #### Unterstützen
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/dark/12-support.png">
-  <img alt="Seite Unterstützen" src="docs/screenshots/light/12-support.png">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/de/dark/12-support.png">
+  <img alt="Seite Unterstützen" src="docs/screenshots/de/light/12-support.png">
 </picture>
 
 #### Lizenzen & Rechtliches
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/dark/13-licenses.png">
-  <img alt="Lizenz, Datenschutz und Drittanbieter-Lizenzen" src="docs/screenshots/light/13-licenses.png">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/de/dark/13-licenses.png">
+  <img alt="Lizenz, Datenschutz und Drittanbieter-Lizenzen" src="docs/screenshots/de/light/13-licenses.png">
 </picture>
 
 </details>
@@ -154,13 +154,13 @@ Alle Einstellungen eines Profils auf einer Seite, mit sofortigen Hinweisen zu Pf
 
 | | |
 |---|---|
-| <img src="docs/screenshots/light/01-overview.png" alt="Übersicht"> | <img src="docs/screenshots/light/02-profiles.png" alt="Backup-Profile"> |
-| <img src="docs/screenshots/light/03-editor.png" alt="Profil-Editor"> | <img src="docs/screenshots/light/04-wizard.png" alt="Assistent"> |
-| <img src="docs/screenshots/light/05-preview.png" alt="Vorschau"> | <img src="docs/screenshots/light/06-versions.png" alt="Versionen"> |
-| <img src="docs/screenshots/light/07-history.png" alt="Historie"> | <img src="docs/screenshots/light/08-run-details.png" alt="Laufdetails"> |
-| <img src="docs/screenshots/light/09-conflicts.png" alt="Konflikte"> | <img src="docs/screenshots/light/10-settings.png" alt="Einstellungen"> |
-| <img src="docs/screenshots/light/11-help.png" alt="Hilfe"> | <img src="docs/screenshots/light/12-support.png" alt="Unterstützen"> |
-| <img src="docs/screenshots/light/13-licenses.png" alt="Lizenzen & Rechtliches"> | |
+| <img src="docs/screenshots/de/light/01-overview.png" alt="Übersicht"> | <img src="docs/screenshots/de/light/02-profiles.png" alt="Backup-Profile"> |
+| <img src="docs/screenshots/de/light/03-editor.png" alt="Profil-Editor"> | <img src="docs/screenshots/de/light/04-wizard.png" alt="Assistent"> |
+| <img src="docs/screenshots/de/light/05-preview.png" alt="Vorschau"> | <img src="docs/screenshots/de/light/06-versions.png" alt="Versionen"> |
+| <img src="docs/screenshots/de/light/07-history.png" alt="Historie"> | <img src="docs/screenshots/de/light/08-run-details.png" alt="Laufdetails"> |
+| <img src="docs/screenshots/de/light/09-conflicts.png" alt="Konflikte"> | <img src="docs/screenshots/de/light/10-settings.png" alt="Einstellungen"> |
+| <img src="docs/screenshots/de/light/11-help.png" alt="Hilfe"> | <img src="docs/screenshots/de/light/12-support.png" alt="Unterstützen"> |
+| <img src="docs/screenshots/de/light/13-licenses.png" alt="Lizenzen & Rechtliches"> | |
 
 </details>
 
@@ -169,13 +169,13 @@ Alle Einstellungen eines Profils auf einer Seite, mit sofortigen Hinweisen zu Pf
 
 | | |
 |---|---|
-| <img src="docs/screenshots/dark/01-overview.png" alt="Übersicht"> | <img src="docs/screenshots/dark/02-profiles.png" alt="Backup-Profile"> |
-| <img src="docs/screenshots/dark/03-editor.png" alt="Profil-Editor"> | <img src="docs/screenshots/dark/04-wizard.png" alt="Assistent"> |
-| <img src="docs/screenshots/dark/05-preview.png" alt="Vorschau"> | <img src="docs/screenshots/dark/06-versions.png" alt="Versionen"> |
-| <img src="docs/screenshots/dark/07-history.png" alt="Historie"> | <img src="docs/screenshots/dark/08-run-details.png" alt="Laufdetails"> |
-| <img src="docs/screenshots/dark/09-conflicts.png" alt="Konflikte"> | <img src="docs/screenshots/dark/10-settings.png" alt="Einstellungen"> |
-| <img src="docs/screenshots/dark/11-help.png" alt="Hilfe"> | <img src="docs/screenshots/dark/12-support.png" alt="Unterstützen"> |
-| <img src="docs/screenshots/dark/13-licenses.png" alt="Lizenzen & Rechtliches"> | |
+| <img src="docs/screenshots/de/dark/01-overview.png" alt="Übersicht"> | <img src="docs/screenshots/de/dark/02-profiles.png" alt="Backup-Profile"> |
+| <img src="docs/screenshots/de/dark/03-editor.png" alt="Profil-Editor"> | <img src="docs/screenshots/de/dark/04-wizard.png" alt="Assistent"> |
+| <img src="docs/screenshots/de/dark/05-preview.png" alt="Vorschau"> | <img src="docs/screenshots/de/dark/06-versions.png" alt="Versionen"> |
+| <img src="docs/screenshots/de/dark/07-history.png" alt="Historie"> | <img src="docs/screenshots/de/dark/08-run-details.png" alt="Laufdetails"> |
+| <img src="docs/screenshots/de/dark/09-conflicts.png" alt="Konflikte"> | <img src="docs/screenshots/de/dark/10-settings.png" alt="Einstellungen"> |
+| <img src="docs/screenshots/de/dark/11-help.png" alt="Hilfe"> | <img src="docs/screenshots/de/dark/12-support.png" alt="Unterstützen"> |
+| <img src="docs/screenshots/de/dark/13-licenses.png" alt="Lizenzen & Rechtliches"> | |
 
 </details>
 
@@ -286,7 +286,7 @@ AppData-Bereich), getrennt vom unpaketierten Entwicklungs-Build.
   (liest die verwendeten Paketversionen aus dem Build und übernimmt die Lizenztexte aus den NuGet-Paketen).
 
 ## Screenshots
-Die Bilder in `docs/screenshots/light|dark/` zeigen Demo-Daten (Fenster 1280 × 800, englische Oberfläche). Wenn sich
+Die Bilder in `docs/screenshots/light|dark/` (englisch) und `docs/screenshots/de/light|dark/` (deutsch) zeigen Demo-Daten (Fenster 1280 × 800). Wenn sich
 Seiten ändern, beide Designs neu aufnehmen, damit die README einheitlich bleibt.
 
 ## Sync-Modi
@@ -332,7 +332,7 @@ src/SyncForge/
   Strings/<Sprache>/     Resources.resw (generiert, nicht von Hand bearbeiten)
   Assets/                App-Icon, Hilfe, Rechtstexte, Lizenzen
 installer/               Inno-Setup-Skript und winget-Vorlagen
-docs/screenshots/        Screenshots für die README (hell und dunkel)
+docs/screenshots/        Screenshots für die README (englisch und deutsch, hell und dunkel)
 tools/
   strings.csv            Alle UI-Texte (Deutsch/Englisch) an einer Stelle
   Generate-Strings.ps1   strings.csv → .resw

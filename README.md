@@ -277,7 +277,8 @@ area), separate from the unpackaged development build.
   (reads the package versions used by the build and takes the license texts from the NuGet packages).
 
 ## Screenshots
-The images in `docs/screenshots/light|dark/` show demo data (window 1280 × 800, English UI). When pages change,
+The images in `docs/screenshots/light|dark/` (English) and `docs/screenshots/de/light|dark/` (German, used by
+README.de.md) show demo data (window 1280 × 800). When pages change,
 take them again in both themes so the README stays consistent.
 
 ## Sync modes
@@ -323,7 +324,7 @@ src/SyncForge/
   Strings/<language>/    Resources.resw (generated, do not edit by hand)
   Assets/                App icon, help, legal texts, licenses
 installer/               Inno Setup script and winget templates
-docs/screenshots/        README screenshots (light and dark)
+docs/screenshots/        README screenshots (English and German, light and dark)
 tools/
   strings.csv            All UI texts (German/English) in one place
   Generate-Strings.ps1   strings.csv -> .resw
