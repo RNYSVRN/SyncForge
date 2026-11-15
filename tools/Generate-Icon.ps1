@@ -12,9 +12,11 @@ function C([string]$hex, [int]$a = 255) {
     [System.Drawing.Color]::FromArgb($a, ($v -shr 16) -band 255, ($v -shr 8) -band 255, $v -band 255)
 }
 
-# Wolke als Pfad (Kreise + Grundflaeche), $d = Einzug fuer Kontur/Innenflaeche
+# Wolke als Pfad (Kreise + Grundflaeche), $d = Einzug fuer Kontur/Innenflaeche.
+# Bewusst GraphicsPath mit FillMode Winding (= Vereinigung) statt Region: Regionen fuellt GDI+ ohne
+# Kantenglaettung, das ergab sichtbare Treppenstufen bei groesseren Darstellungen.
 function New-CloudRegion([single]$s, [single]$d) {
-    $region = [System.Drawing.Region]::new([System.Drawing.RectangleF]::Empty)
+    $region = [System.Drawing.Drawing2D.GraphicsPath]::new([System.Drawing.Drawing2D.FillMode]::Winding)
     $circles = @(
         @(0.30, 0.56, 0.17),   # links
         @(0.50, 0.42, 0.235),  # oben
@@ -22,17 +24,13 @@ function New-CloudRegion([single]$s, [single]$d) {
     )
     foreach ($c in $circles) {
         $r = ($c[2] * $s) - $d
-        $p = [System.Drawing.Drawing2D.GraphicsPath]::new()
-        $p.AddEllipse([single]($c[0] * $s - $r), [single]($c[1] * $s - $r), [single](2 * $r), [single](2 * $r))
-        $region.Union($p)
+        # Alle Teilformen gleich orientiert: Winding-Fuellung ergibt ihre Vereinigung.
+        $region.AddEllipse([single]($c[0] * $s - $r), [single]($c[1] * $s - $r), [single](2 * $r), [single](2 * $r))
     }
-    # Grundflaeche mit runder Unterkante
+    # Grundflaeche zwischen den Kreisen
     $x0 = 0.30 * $s; $x1 = 0.72 * $s; $y0 = 0.50 * $s; $y1 = 0.73 * $s - $d
-    $rr = (0.23 * $s - $d) - (0.50 * $s - $d) + 0.05 * $s
-    $p = [System.Drawing.Drawing2D.GraphicsPath]::new()
-    $p.AddRectangle([System.Drawing.RectangleF]::new($x0, $y0, $x1 - $x0, $y1 - $y0))
-    $region.Union($p)
-    return $region
+    $region.AddRectangle([System.Drawing.RectangleF]::new($x0, $y0, $x1 - $x0, $y1 - $y0))
+    return , $region
 }
 
 function Draw-Arrow($g, [single]$cx, [single]$cy, [single]$r, [single]$startDeg, [single]$sweepDeg, [single]$w, $brush) {
@@ -45,10 +43,14 @@ function Draw-Arrow($g, [single]$cx, [single]$cy, [single]$r, [single]$startDeg,
     $tx = -[Math]::Sin($a); $ty = [Math]::Cos($a)        # Tangente
     $nx = [Math]::Cos($a); $ny = [Math]::Sin($a)         # Radial
     $h = $w * 1.25; $hw = $w * 1.0
+    # Grundlinie der Spitze leicht in den Bogen zurueckversetzt: Ueberlappung statt Stossfuge
+    # (sonst bleibt durch die Kantenglaettung eine feine helle Linie zwischen Bogen und Spitze).
+    $back = $w * 0.12
+    $bx = $px - $tx * $back; $by = $py - $ty * $back
     $pts = [System.Drawing.PointF[]]@(
         [System.Drawing.PointF]::new($px + $tx * $h, $py + $ty * $h),
-        [System.Drawing.PointF]::new($px + $nx * $hw, $py + $ny * $hw),
-        [System.Drawing.PointF]::new($px - $nx * $hw, $py - $ny * $hw)
+        [System.Drawing.PointF]::new($bx + $nx * $hw, $by + $ny * $hw),
+        [System.Drawing.PointF]::new($bx - $nx * $hw, $by - $ny * $hw)
     )
     $g.FillPolygon($brush, $pts)
 }
@@ -65,12 +67,12 @@ function New-IconBitmap([int]$size) {
 
     # Wolke: Kontur, dann Innenflaeche mit Verlauf
     $outer = New-CloudRegion $s 0
-    $g.FillRegion([System.Drawing.SolidBrush]::new((C '#5B9BD5')), $outer)
+    $g.FillPath([System.Drawing.SolidBrush]::new((C '#5B9BD5')), $outer)
     $inner = New-CloudRegion $s $border
     $cloudBrush = [System.Drawing.Drawing2D.LinearGradientBrush]::new(
         [System.Drawing.PointF]::new(0, 0.18 * $s), [System.Drawing.PointF]::new(0, 0.75 * $s),
         (C '#FFFFFF'), (C '#B9DBF7'))
-    $g.FillRegion($cloudBrush, $inner)
+    $g.FillPath($cloudBrush, $inner)
 
     # Sync-Plakette unten rechts: weisse Freistellung, dann Pfeile
     $cx = 0.665 * $s; $cy = 0.69 * $s
@@ -162,7 +164,8 @@ function Save-Canvas([string]$name, [int]$w, [int]$h, [double]$iconRatio) {
     $canvas.Dispose(); $icon.Dispose()
 }
 
-foreach ($scale in 100, 200) {
+# Alle Skalierungsstufen, damit Windows bei 125-400 % Anzeigeskalierung nichts hochrechnen muss.
+foreach ($scale in 100, 125, 150, 200, 400) {
     $f = $scale / 100
     Save-Canvas "Square44x44Logo.scale-$scale.png" (44 * $f) (44 * $f) 1.0
     Save-Canvas "Square150x150Logo.scale-$scale.png" (150 * $f) (150 * $f) 0.6
@@ -171,7 +174,7 @@ foreach ($scale in 100, 200) {
     Save-Canvas "SplashScreen.scale-$scale.png" (620 * $f) (300 * $f) 0.5
 }
 # Taskleiste/Startmenü: feste Größen, "unplated" = ohne Kachelhintergrund
-foreach ($size in 16, 24, 32, 48, 256) {
+foreach ($size in 16, 20, 24, 30, 32, 36, 40, 48, 60, 64, 72, 80, 96, 256) {
     Save-Canvas "Square44x44Logo.targetsize-$size.png" $size $size 1.0
     Save-Canvas "Square44x44Logo.targetsize-${size}_altform-unplated.png" $size $size 1.0
     Save-Canvas "Square44x44Logo.targetsize-${size}_altform-lightunplated.png" $size $size 1.0

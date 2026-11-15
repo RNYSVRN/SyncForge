@@ -9,8 +9,6 @@
   <data name="Nav_Profiles.Content" xml:space="preserve"><value>Backup-Profile</value></data>
   <data name="Nav_History.Content" xml:space="preserve"><value>Historie</value></data>
   <data name="Dashboard_Title.Text" xml:space="preserve"><value>Übersicht</value></data>
-  <data name="Dashboard_Welcome.Title" xml:space="preserve"><value>Willkommen bei SyncForge</value></data>
-  <data name="Dashboard_Welcome.Message" xml:space="preserve"><value>Lege ein Backup-Profil an, um Ordner in ein oder mehrere Ziele zu synchronisieren.</value></data>
   <data name="Dashboard_ProfilesCard.Text" xml:space="preserve"><value>Backup-Profile</value></data>
   <data name="Dashboard_LastRunCard.Text" xml:space="preserve"><value>Letzter Lauf</value></data>
   <data name="Dashboard_NextRunCard.Text" xml:space="preserve"><value>Nächster Lauf</value></data>
@@ -457,4 +455,23 @@
   <data name="Editor_DriveFolder" xml:space="preserve"><value>Laufwerk</value></data>
   <data name="Editor_ErrorSourcesOverlap" xml:space="preserve"><value>Quellen dürfen sich nicht überschneiden (eine liegt in der anderen):</value></data>
   <data name="Editor_MultiSourceInfo.Message" xml:space="preserve"><value>Jede Quelle landet in einem eigenen Unterordner der Ziele. Bereits vorhandene Dateien im Ziel bleiben unverändert.</value></data>
+  <data name="Dashboard_SyncAll.Text" xml:space="preserve"><value>Alle synchronisieren</value></data>
+  <data name="Dashboard_EmptyTitle.Text" xml:space="preserve"><value>Willkommen bei SyncForge</value></data>
+  <data name="Dashboard_EmptyText.Text" xml:space="preserve"><value>Lege ein Backup-Profil an: Wähle einen oder mehrere Ordner und ein Ziel, zum Beispiel eine USB-Festplatte oder dein NAS. Vor jedem Lauf siehst du, was passieren wird.</value></data>
+  <data name="Dashboard_CreateFirst.Text" xml:space="preserve"><value>Erstes Profil anlegen</value></data>
+  <data name="Dashboard_YourProfiles.Text" xml:space="preserve"><value>Deine Profile</value></data>
+  <data name="Dashboard_RunNow.Content" xml:space="preserve"><value>Jetzt synchronisieren</value></data>
+  <data name="Dashboard_Preview.Content" xml:space="preserve"><value>Vorschau</value></data>
+  <data name="Dashboard_Edit.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve"><value>Bearbeiten</value></data>
+  <data name="Dashboard_Edit.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Profil bearbeiten</value></data>
+  <data name="Dashboard_NextRun" xml:space="preserve"><value>Nächster Lauf: {0}</value></data>
+  <data name="Dashboard_OnChanges" xml:space="preserve"><value>Bei Änderungen</value></data>
+  <data name="Dashboard_OnDrive" xml:space="preserve"><value>Beim Anschließen des Laufwerks</value></data>
+  <data name="Dashboard_ManualOnly" xml:space="preserve"><value>Nur manuell</value></data>
+  <data name="Dashboard_AttentionTitle" xml:space="preserve"><value>Bitte prüfen</value></data>
+  <data name="Dashboard_AttentionOne" xml:space="preserve"><value>Beim letzten Lauf eines Profils gab es Fehler oder Warnungen. Details stehen in der Historie.</value></data>
+  <data name="Dashboard_AttentionMany" xml:space="preserve"><value>Beim letzten Lauf von {0} Profilen gab es Fehler oder Warnungen. Details stehen in der Historie.</value></data>
+  <data name="Dashboard_SyncAllButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Alle synchronisieren</value></data>
+  <data name="Dashboard_NewProfileButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Neues Profil</value></data>
+  <data name="Dashboard_CreateFirstButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Erstes Profil anlegen</value></data>
 </root>
