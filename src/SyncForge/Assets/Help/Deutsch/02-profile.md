@@ -29,6 +29,12 @@ Jedes Ziel lässt sich einzeln aktivieren oder deaktivieren. Ein Ziel darf nicht
 
 **Mehrere Ziele** werden wahlweise **nacheinander** oder **gleichzeitig** synchronisiert. Ist ein Ziel nicht erreichbar (z. B. USB-Festplatte nicht angeschlossen), wird es übersprungen; die übrigen Ziele werden trotzdem gesichert.
 
+## Netzwerkfreigaben mit Anmeldung
+
+Verlangt dein NAS einen eigenen Benutzernamen und ein Kennwort, erscheint neben einem Netzwerkpfad (`\\server\freigabe\...`) ein **Schlüsselsymbol**. Darüber hinterlegst du die Anmeldedaten. SyncForge testet sie sofort und speichert sie sicher in der **Windows-Anmeldeinformationsverwaltung**, nie in den Profilen oder in Export-Dateien. Sie gelten für alle Profile mit derselben Freigabe.
+
+Vor jedem Lauf verbindet sich SyncForge damit automatisch, auch bei Zeitplänen und im Infobereich. Ist die Freigabe schon erreichbar (etwa weil Windows bereits verbunden ist), werden die gespeicherten Daten gar nicht gebraucht. Entfernen kannst du sie im selben Dialog.
+
 ## USB-Laufwerke werden am Laufwerk erkannt
 
 Für lokale und USB-Ziele merkt sich SyncForge beim Speichern die **Seriennummer des Laufwerks**. Bekommt die Festplatte beim nächsten Anschließen einen anderen Laufwerksbuchstaben, findet SyncForge sie trotzdem. Steckt unter dem alten Buchstaben ein anderes Laufwerk, wird es nie beschrieben.

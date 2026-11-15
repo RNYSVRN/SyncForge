@@ -5,6 +5,10 @@
 
 The drive or network share is not available, e.g. because the USB drive is not plugged in or the NAS is switched off. As soon as the destination is back, it is backed up on the next run. With **When a destination drive is connected** this happens automatically.
 
+## Sign-in to the network share failed
+
+The user name or password is wrong (or no longer valid), e.g. after a password change on the NAS. Open the profile and enter the credentials again using the key icon. If SyncForge reports that Windows is **already connected as a different user**: Windows allows only one sign-in per server at a time. Disconnect the mapped network drive in Explorer or use the same credentials there.
+
 ## A file could not be copied
 
 Usually it is open in another program (e.g. Outlook data files). SyncForge waits out short locks, for example by a virus scanner, and retries several times. If the file stays locked, close the program; the file is copied on the next run. The exact message is shown in the history under **Errors**.

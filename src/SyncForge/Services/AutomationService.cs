@@ -189,7 +189,8 @@ public sealed class AutomationService : IDisposable
     {
         if (_disposed) return;
         var wanted = _profiles.Profiles
-            .Where(p => p.Automation.WatchForChanges && Directory.Exists(p.SourcePath))
+            // Netzwerkquelle mit gespeicherten Anmeldedaten: erst verbinden, sonst gäbe es sie scheinbar nicht.
+            .Where(p => p.Automation.WatchForChanges && Core.Network.NetworkShares.EnsureAccess(p.SourcePath).Success && Directory.Exists(p.SourcePath))
             .ToDictionary(p => p.Id);
 
         foreach (var (id, w) in _watchers.ToArray())

@@ -12,6 +12,11 @@ public sealed partial class TargetItemViewModel : ObservableObject
     public Guid Id { get; init; } = Guid.NewGuid();
     [ObservableProperty] public partial string Path { get; set; } = string.Empty;
     [ObservableProperty] public partial bool Enabled { get; set; } = true;
+
+    /// <summary>Netzwerkfreigabe (\\server\freigabe): Anmeldedaten-Knopf anzeigen.</summary>
+    public bool IsNetworkPath => Core.Network.NetworkShares.IsNetworkPath(Path);
+
+    partial void OnPathChanged(string value) => OnPropertyChanged(nameof(IsNetworkPath));
 }
 
 public sealed partial class DayOptionViewModel : ObservableObject
@@ -38,6 +43,10 @@ public sealed partial class ProfileEditorViewModel : ObservableObject
     [ObservableProperty] public partial string PageTitle { get; set; } = string.Empty;
     [ObservableProperty] public partial string Name { get; set; } = string.Empty;
     [ObservableProperty] public partial string SourcePath { get; set; } = string.Empty;
+
+    public bool SourceIsNetworkPath => Core.Network.NetworkShares.IsNetworkPath(SourcePath);
+
+    partial void OnSourcePathChanged(string value) => OnPropertyChanged(nameof(SourceIsNetworkPath));
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsVersioned), nameof(IsTwoWay), nameof(HasModeOptions), nameof(ModeDescription))]
     public partial int ModeIndex { get; set; }
@@ -213,7 +222,9 @@ public sealed partial class ProfileEditorViewModel : ObservableObject
         if (string.IsNullOrWhiteSpace(Name)) return Localization.Get("Editor_ErrorName");
         if (string.IsNullOrWhiteSpace(SourcePath)) return Localization.Get("Editor_ErrorSourceEmpty");
         if (!IsValidPath(SourcePath)) return Localization.Get("Editor_ErrorPathInvalid");
-        if (!Directory.Exists(SourcePath)) return Localization.Get("Editor_ErrorSourceMissing");
+        Core.Network.NetworkShares.EnsureAccess(SourcePath); // Netzwerkquelle mit gespeicherten Anmeldedaten
+        if (!Directory.Exists(SourcePath))
+            return Localization.Get(SourceIsNetworkPath ? "Editor_ErrorSourceNetwork" : "Editor_ErrorSourceMissing");
 
         var targets = Targets.Where(t => !string.IsNullOrWhiteSpace(t.Path)).ToList();
         if (targets.Count == 0) return Localization.Get("Editor_ErrorNoTarget");

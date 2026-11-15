@@ -388,4 +388,20 @@
   <data name="Update_NotifyText" xml:space="preserve"><value>Auf der Download-Seite findest du das Setup und die Neuerungen.</value></data>
   <data name="Support_RateLink.Content" xml:space="preserve"><value>SyncForge auf GitHub</value></data>
   <data name="Support_FeedbackLink.Content" xml:space="preserve"><value>Issue erstellen</value></data>
+  <data name="Editor_Credentials.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve"><value>Anmeldedaten für die Netzwerkfreigabe</value></data>
+  <data name="Editor_Credentials.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Anmeldedaten</value></data>
+  <data name="Editor_ErrorSourceNetwork" xml:space="preserve"><value>Netzwerkfreigabe nicht erreichbar. Ist der Server eingeschaltet? Falls nötig, hinterlege Anmeldedaten über das Schlüsselsymbol.</value></data>
+  <data name="Credentials_Title" xml:space="preserve"><value>Anmeldedaten für die Netzwerkfreigabe</value></data>
+  <data name="Credentials_Text" xml:space="preserve"><value>SyncForge meldet sich mit diesen Daten an {0} an. Sie werden sicher in der Windows-Anmeldeinformationsverwaltung gespeichert und gelten für alle Profile mit dieser Freigabe.</value></data>
+  <data name="Credentials_User" xml:space="preserve"><value>Benutzername</value></data>
+  <data name="Credentials_UserPlaceholder" xml:space="preserve"><value>z. B. NAS\benutzer oder benutzer</value></data>
+  <data name="Credentials_Password" xml:space="preserve"><value>Kennwort</value></data>
+  <data name="Credentials_Save" xml:space="preserve"><value>Testen und speichern</value></data>
+  <data name="Credentials_Remove" xml:space="preserve"><value>Anmeldedaten entfernen</value></data>
+  <data name="Credentials_Missing" xml:space="preserve"><value>Bitte Benutzername und Kennwort eingeben.</value></data>
+  <data name="Credentials_ErrorLogon" xml:space="preserve"><value>Anmeldung fehlgeschlagen. Bitte Benutzername und Kennwort prüfen.</value></data>
+  <data name="Credentials_ErrorNotFound" xml:space="preserve"><value>{0} wurde nicht gefunden. Ist der Server eingeschaltet und im Netzwerk erreichbar?</value></data>
+  <data name="Credentials_ErrorConflict" xml:space="preserve"><value>Windows ist mit diesem Server bereits unter einem anderen Benutzer verbunden. Trenne die bestehende Verbindung (z. B. ein verbundenes Netzlaufwerk) oder verwende dieselben Anmeldedaten.</value></data>
+  <data name="Validation_NetworkLogonFailed" xml:space="preserve"><value>Anmeldung an der Netzwerkfreigabe fehlgeschlagen</value></data>
+  <data name="Validation_NetworkCredentialConflict" xml:space="preserve"><value>Netzwerkfreigabe: Windows ist bereits unter einem anderen Benutzer verbunden</value></data>
 </root>

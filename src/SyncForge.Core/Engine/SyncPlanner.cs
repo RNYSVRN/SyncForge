@@ -1,4 +1,4 @@
-using SyncForge.Core.Filtering;
+﻿using SyncForge.Core.Filtering;
 using SyncForge.Core.Models;
 
 namespace SyncForge.Core.Engine;
@@ -187,7 +187,11 @@ public enum SyncValidationError
     SourceInsideTarget,
     TargetUnavailable,
     /// <summary>Automatischer Lauf übersprungen, weil der Löschschutz angeschlagen hat.</summary>
-    DeletionProtection
+    DeletionProtection,
+    /// <summary>Netzwerkfreigabe: Benutzername oder Kennwort falsch.</summary>
+    NetworkLogonFailed,
+    /// <summary>Netzwerkfreigabe: Windows ist mit dem Server schon unter einem anderen Benutzer verbunden.</summary>
+    NetworkCredentialConflict
 }
 
 public sealed class SyncValidationException(SyncValidationError error, string path)

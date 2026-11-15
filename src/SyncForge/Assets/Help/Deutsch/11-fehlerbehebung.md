@@ -5,6 +5,10 @@
 
 Das Laufwerk bzw. die Netzwerkfreigabe ist nicht verfügbar, z. B. weil die USB-Festplatte nicht angeschlossen oder das NAS ausgeschaltet ist. Sobald das Ziel wieder da ist, wird es beim nächsten Lauf gesichert. Mit **Wenn ein Ziel-Laufwerk angeschlossen wird** geschieht das automatisch.
 
+## Anmeldung an der Netzwerkfreigabe fehlgeschlagen
+
+Benutzername oder Kennwort stimmen nicht (mehr), etwa nach einer Kennwortänderung am NAS. Öffne das Profil und trage die Anmeldedaten über das Schlüsselsymbol neu ein. Meldet SyncForge, dass Windows **bereits unter einem anderen Benutzer verbunden** ist: Windows erlaubt pro Server nur eine Anmeldung gleichzeitig. Trenne das verbundene Netzlaufwerk im Explorer oder verwende dort dieselben Anmeldedaten.
+
 ## Eine Datei konnte nicht kopiert werden
 
 Meist ist sie gerade in einem anderen Programm geöffnet (z. B. Outlook-Datendateien). Kurze Sperren, etwa durch einen Virenscanner, wartet SyncForge ab und versucht es mehrmals. Bleibt die Datei gesperrt, schließe das Programm; die Datei wird beim nächsten Lauf kopiert. Die genaue Meldung steht in der Historie unter **Fehler**.
