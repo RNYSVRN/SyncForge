@@ -535,4 +535,7 @@
   <data name="Hint_LowSpace" xml:space="preserve"><value>{0} · Little free space left.</value></data>
   <data name="Editor_SavePreview.Content" xml:space="preserve"><value>Save and preview</value></data>
   <data name="Editor_TargetPathBox.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Destination folder</value></data>
+  <data name="Profiles_AddButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Add profile</value></data>
+  <data name="Editor_AddSource.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Add source</value></data>
+  <data name="Editor_AddTarget.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Add destination</value></data>
 </root>

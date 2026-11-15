@@ -314,9 +314,13 @@
         <!-- Aktionsleiste -->
         <Border Grid.Row="1" BorderThickness="0,1,0,0" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" Padding="36,16">
             <StackPanel MaxWidth="1000" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8">
-                <Button x:Uid="Common_CancelButton" Content="Abbrechen" Click="Cancel_Click" MinWidth="120" />
+                <Button x:Uid="Common_CancelButton" Content="Abbrechen" Click="Cancel_Click" MinWidth="120">
+                    <Button.KeyboardAccelerators><KeyboardAccelerator Key="Escape" /></Button.KeyboardAccelerators>
+                </Button>
                 <Button x:Uid="Editor_SavePreview" Content="Speichern und Vorschau" Click="SavePreview_Click" />
-                <Button x:Uid="Editor_Save" Content="Speichern" Click="Save_Click" MinWidth="120" Style="{StaticResource AccentButtonStyle}" />
+                <Button x:Uid="Editor_Save" Content="Speichern" Click="Save_Click" MinWidth="120" Style="{StaticResource AccentButtonStyle}">
+                    <Button.KeyboardAccelerators><KeyboardAccelerator Modifiers="Control" Key="S" /></Button.KeyboardAccelerators>
+                </Button>
             </StackPanel>
         </Border>
     </Grid>

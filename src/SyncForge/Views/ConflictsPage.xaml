@@ -99,7 +99,9 @@
 
         <Border Grid.Row="1" BorderThickness="0,1,0,0" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" Padding="36,16">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8">
-                <Button x:Uid="Conflicts_Back" Content="Zurück" Click="Back_Click" MinWidth="120" />
+                <Button x:Uid="Conflicts_Back" Content="Zurück" Click="Back_Click" MinWidth="120">
+                    <Button.KeyboardAccelerators><KeyboardAccelerator Key="Escape" /></Button.KeyboardAccelerators>
+                </Button>
                 <Button x:Uid="Conflicts_Apply" Content="Übernehmen" Click="Apply_Click" MinWidth="120" Style="{StaticResource AccentButtonStyle}"
                         IsEnabled="{x:Bind ViewModel.HasConflicts, Mode=OneWay}" />
             </StackPanel>

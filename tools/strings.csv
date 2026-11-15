@@ -529,3 +529,6 @@ Hint_SameDrive;{0} · Gleiches Laufwerk wie eine Quelle: schützt nicht vor eine
 Hint_LowSpace;{0} · Nur noch wenig Platz frei.;{0} · Little free space left.
 Editor_SavePreview.Content;Speichern und Vorschau;Save and preview
 Editor_TargetPathBox.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Zielordner;Destination folder
+Profiles_AddButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Profil hinzufügen;Add profile
+Editor_AddSource.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Quelle hinzufügen;Add source
+Editor_AddTarget.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Ziel hinzufügen;Add destination

@@ -535,4 +535,7 @@
   <data name="Hint_LowSpace" xml:space="preserve"><value>{0} · Nur noch wenig Platz frei.</value></data>
   <data name="Editor_SavePreview.Content" xml:space="preserve"><value>Speichern und Vorschau</value></data>
   <data name="Editor_TargetPathBox.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Zielordner</value></data>
+  <data name="Profiles_AddButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Profil hinzufügen</value></data>
+  <data name="Editor_AddSource.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Quelle hinzufügen</value></data>
+  <data name="Editor_AddTarget.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Ziel hinzufügen</value></data>
 </root>

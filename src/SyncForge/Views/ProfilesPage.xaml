@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Page
     x:Class="SyncForge.Views.ProfilesPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -14,7 +14,7 @@
 
         <Grid MaxWidth="1000">
             <TextBlock x:Uid="Profiles_Title" Text="Backup-Profile" Style="{StaticResource TitleTextBlockStyle}" VerticalAlignment="Center" />
-            <Button HorizontalAlignment="Right" Style="{StaticResource AccentButtonStyle}" Click="Add_Click">
+            <Button x:Uid="Profiles_AddButton" HorizontalAlignment="Right" Style="{StaticResource AccentButtonStyle}" Click="Add_Click">
                 <StackPanel Orientation="Horizontal" Spacing="8">
                     <FontIcon Glyph="&#xE710;" FontSize="14" />
                     <TextBlock x:Uid="Profiles_Add" Text="Profil hinzufügen" />

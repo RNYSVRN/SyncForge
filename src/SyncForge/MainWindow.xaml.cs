@@ -63,11 +63,30 @@ public sealed partial class MainWindow : Window
         // Dampf über der Kaffeetasse ("Unterstützen"), Farbe folgt dem Symbol (Hover, Auswahl, Design).
         Controls.CoffeeSteam.Attach(SupportIcon, SupportIcon, () => SupportIcon.Foreground);
 
+        AddGlobalShortcuts();
+
         // Laufende Synchronisierungen in der Navigation anzeigen (Meldungen kommen von Hintergrund-Threads).
         _coordinator = App.Services.GetRequiredService<SyncCoordinator>();
         ActivityList.ItemsSource = _activities;
         _coordinator.ActivityChanged += (_, _) => DispatcherQueue.TryEnqueue(RefreshActivities);
         RefreshActivities();
+    }
+
+    /// <summary>Tastenkürzel im ganzen Fenster: Alt+Links zurück, Strg+N neues Profil, F1 Hilfe.</summary>
+    private void AddGlobalShortcuts()
+    {
+        if (Content is not UIElement root) return;
+        void Add(Windows.System.VirtualKey key, Windows.System.VirtualKeyModifiers modifiers, Action action)
+        {
+            var accelerator = new Microsoft.UI.Xaml.Input.KeyboardAccelerator { Key = key, Modifiers = modifiers };
+            accelerator.Invoked += (_, args) => { action(); args.Handled = true; };
+            root.KeyboardAccelerators.Add(accelerator);
+        }
+        Add(Windows.System.VirtualKey.Left, Windows.System.VirtualKeyModifiers.Menu, () => { if (ContentFrame.CanGoBack) ContentFrame.GoBack(); });
+        Add(Windows.System.VirtualKey.N, Windows.System.VirtualKeyModifiers.Control, () => Navigate(typeof(WizardPage)));
+        Add(Windows.System.VirtualKey.F1, Windows.System.VirtualKeyModifiers.None, () => NavigateTo("Help"));
+        // Nur die Tastenkürzel selbst, keine zusätzlichen Hinweise an jedem Element einblenden.
+        root.KeyboardAcceleratorPlacementMode = Microsoft.UI.Xaml.Input.KeyboardAcceleratorPlacementMode.Hidden;
     }
 
     private readonly SyncCoordinator _coordinator;
