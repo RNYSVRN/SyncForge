@@ -13,9 +13,11 @@ In der Liste unter **Backup-Profile** siehst du für jedes Profil Quelle, Anzahl
 
 Ein Klick auf das Profil öffnet ebenfalls den Editor. Beim Löschen eines Profils bleiben alle Dateien in Quelle und Zielen unverändert.
 
-## Quelle
+## Quellen
 
-Der Quellordner wird mit allen Unterordnern synchronisiert. Er muss beim Speichern existieren.
+Ein Quellordner wird mit allen Unterordnern synchronisiert und muss beim Speichern existieren. Über **Quelle hinzufügen** sicherst du mehrere Ordner in einem Profil, etwa Dokumente und Bilder.
+
+Bei **mehreren Quellen** landet jede in einem eigenen Unterordner der Ziele, benannt nach dem Ordner (z. B. `D:\Backup\Dokumente` und `D:\Backup\Bilder`). Der Name wird beim Hinzufügen festgelegt und ändert sich danach nicht mehr. Wechselst du von einer auf mehrere Quellen, bleiben bereits gesicherte Dateien im Ziel unverändert liegen. Quellen dürfen sich nicht überschneiden. Ist eine Quelle nicht erreichbar, werden die übrigen trotzdem synchronisiert.
 
 ## Ziele
 

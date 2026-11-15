@@ -41,13 +41,74 @@ public enum RunStatus
     Cancelled
 }
 
-/// <summary>Ein Backup-Profil: eine Quelle wird in ein oder mehrere Ziele synchronisiert.</summary>
+/// <summary>
+/// Eine Quelle eines Profils. Bei mehreren Quellen landet jede in einem eigenen Unterordner der Ziele
+/// (<see cref="TargetFolder"/>); bei nur einer Quelle ist er leer und es wird direkt ins Ziel synchronisiert.
+/// </summary>
+public sealed class SyncSource
+{
+    public Guid Id { get; set; } = Guid.NewGuid();
+    public string Path { get; set; } = string.Empty;
+
+    /// <summary>Unterordner in jedem Ziel ("" = Ziel selbst). Wird beim Hinzufügen festgelegt und bleibt danach stabil.</summary>
+    public string TargetFolder { get; set; } = string.Empty;
+
+    /// <summary>Ordner im Ziel, in den diese Quelle synchronisiert wird.</summary>
+    public string TargetRootFor(string targetPath) =>
+        string.IsNullOrEmpty(TargetFolder) ? targetPath : System.IO.Path.Combine(targetPath, TargetFolder);
+
+    /// <summary>Anzeigename: Ordnername der Quelle (bei Laufwerken der Pfad selbst).</summary>
+    public string DisplayName
+    {
+        get
+        {
+            var trimmed = Path.Trim().TrimEnd('\\', '/');
+            if (trimmed.Length <= 2) return Path; // Laufwerk
+            return trimmed.Split('\\', '/').LastOrDefault(s => s.Length > 0) ?? Path;
+        }
+    }
+}
+
+/// <summary>Ein Backup-Profil: eine oder mehrere Quellen werden in ein oder mehrere Ziele synchronisiert.</summary>
 public sealed class SyncProfile
 {
     public Guid Id { get; set; } = Guid.NewGuid();
     public string Name { get; set; } = string.Empty;
-    public string SourcePath { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Erste Quelle. Bleibt für ältere Profile und Export-Dateien erhalten (dort gab es nur diese eine Quelle)
+    /// und steht deshalb vor <see cref="Sources"/>: Beim Laden wird sie zuerst gelesen und von einer
+    /// vorhandenen Quellenliste ersetzt.
+    /// </summary>
+    public string SourcePath
+    {
+        get => Sources.FirstOrDefault()?.Path ?? string.Empty;
+        set
+        {
+            if (Sources.Count == 0) { if (!string.IsNullOrEmpty(value)) Sources.Add(new SyncSource { Path = value }); }
+            else Sources[0].Path = value;
+        }
+    }
+
+    public List<SyncSource> Sources { get; set; } = [];
     public List<SyncTarget> Targets { get; set; } = [];
+
+    /// <summary>
+    /// Eindeutiger Unterordnername im Ziel für eine neue Quelle: Ordnername der Quelle (bei Laufwerken
+    /// "Laufwerk C"), bei Gleichstand mit Zähler.
+    /// </summary>
+    public static string SuggestTargetFolder(string sourcePath, IEnumerable<string> taken, string driveLabel = "Laufwerk")
+    {
+        var trimmed = sourcePath.Trim().TrimEnd('\\', '/');
+        var name = trimmed.Length >= 2 && trimmed[1] == ':' && trimmed.Length <= 2
+            ? $"{driveLabel} {char.ToUpperInvariant(trimmed[0])}" // Laufwerk, z. B. "D:\"
+            : trimmed.Split('\\', '/').LastOrDefault(s => s.Length > 0) ?? "Quelle"; // auch \\server\freigabe
+        foreach (var c in System.IO.Path.GetInvalidFileNameChars()) name = name.Replace(c, '_');
+        var used = new HashSet<string>(taken, StringComparer.OrdinalIgnoreCase);
+        var candidate = name;
+        for (var i = 2; used.Contains(candidate); i++) candidate = $"{name} ({i})";
+        return candidate;
+    }
 
     public SyncMode Mode { get; set; } = SyncMode.Mirror;
     public CompareMode CompareMode { get; set; } = CompareMode.SizeAndDate;

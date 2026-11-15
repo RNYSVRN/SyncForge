@@ -1,4 +1,4 @@
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using SyncForge.Core.Models;
 using SyncForge.Core.Storage;
@@ -18,7 +18,8 @@ public sealed class ProfileItemViewModel(SyncProfile profile)
         get
         {
             var targets = Profile.Targets.Count(t => t.Enabled);
-            return Format.Text(targets == 1 ? "Profiles_RouteOne" : "Profiles_RouteMany", Profile.SourcePath, targets);
+            var sources = Profile.Sources.Count > 1 ? Format.Text("Profiles_SourcesMany", Profile.Sources.Count) : Profile.SourcePath;
+            return Format.Text(targets == 1 ? "Profiles_RouteOne" : "Profiles_RouteMany", sources, targets);
         }
     }
 

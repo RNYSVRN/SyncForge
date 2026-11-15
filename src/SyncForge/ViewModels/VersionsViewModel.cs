@@ -1,4 +1,4 @@
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using SyncForge.Core.Engine;
 using SyncForge.Core.Models;
@@ -9,7 +9,8 @@ using SyncForge.Services;
 
 namespace SyncForge.ViewModels;
 
-public sealed record VersionRootOption(string Name, string Root)
+/// <param name="SourcePath">Quelle, zu der dieser Versionsordner gehört (Ziel der Wiederherstellung).</param>
+public sealed record VersionRootOption(string Name, string Root, string SourcePath)
 {
     public override string ToString() => Name;
 }
@@ -59,7 +60,7 @@ public sealed partial class VersionsViewModel : ObservableObject
     [ObservableProperty] public partial bool HasStatusMessage { get; set; }
 
     public bool HasSelection => SelectedFile is not null;
-    public string SourcePath => _profile?.SourcePath ?? string.Empty;
+    public string SourcePath => SelectedRoot?.SourcePath ?? _profile?.SourcePath ?? string.Empty;
 
     public void Load(Guid profileId)
     {
@@ -69,14 +70,21 @@ public sealed partial class VersionsViewModel : ObservableObject
 
         _loading = true;
         Roots.Clear();
-        foreach (var t in _profile.Targets)
+        // Versionsordner liegen je Quelle im jeweiligen Zielordner (bei mehreren Quellen im Unterordner der Quelle),
+        // im Zwei-Wege-Modus zusätzlich in der Quelle selbst.
+        foreach (var source in _profile.Sources)
         {
-            var path = VolumeResolver.Resolve(t.Path, t.VolumeSerial);
-            if (path is not null && Directory.Exists(VersionStore.VersionsRoot(path)))
-                Roots.Add(new VersionRootOption(Format.Text("Versions_RootTarget", path), path));
+            foreach (var t in _profile.Targets)
+            {
+                var path = VolumeResolver.Resolve(t.Path, t.VolumeSerial);
+                if (path is null) continue;
+                var root = source.TargetRootFor(path);
+                if (Directory.Exists(VersionStore.VersionsRoot(root)))
+                    Roots.Add(new VersionRootOption(Format.Text("Versions_RootTarget", root), root, source.Path));
+            }
+            if (Directory.Exists(VersionStore.VersionsRoot(source.Path)))
+                Roots.Add(new VersionRootOption(Format.Text("Versions_RootSource", source.Path), source.Path, source.Path));
         }
-        if (Directory.Exists(VersionStore.VersionsRoot(_profile.SourcePath)))
-            Roots.Add(new VersionRootOption(Format.Text("Versions_RootSource", _profile.SourcePath), _profile.SourcePath));
         HasRoots = Roots.Count > 0;
         ShowRootSelector = Roots.Count > 1;
         SelectedRoot = Roots.FirstOrDefault();

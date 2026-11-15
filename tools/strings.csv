@@ -93,9 +93,7 @@ Editor_SectionGeneral.Text;Allgemein;General
 Editor_Name.Header;Name;Name
 Editor_Name.Description;Wird in der Liste und in Benachrichtigungen angezeigt.;Shown in the list and in notifications.
 Editor_NameBox.PlaceholderText;z. B. Dokumente auf NAS;e.g. Documents to NAS
-Editor_SectionSource.Text;Quelle;Source
-Editor_Source.Header;Quellordner;Source folder
-Editor_Source.Description;Dieser Ordner wird mit allen Unterordnern synchronisiert.;This folder is synced including all subfolders.
+Editor_SectionSource.Text;Quellen;Sources
 Editor_PathBox.PlaceholderText;C:\Users\Name\Documents;C:\Users\Name\Documents
 Editor_Browse.Content;Durchsuchen…;Browse…
 Editor_SectionTargets.Text;Ziele;Destinations
@@ -443,3 +441,13 @@ Activity_Copying;{0} % erledigt;{0} % done
 Activity_Cancelling;Wird abgebrochen …;Cancelling …
 Tray_RunningOne;SyncForge: {0}, {1} %;SyncForge: {0}, {1} %
 Tray_RunningOneAnalyzing;SyncForge: {0} wird analysiert;SyncForge: analyzing {0}
+Profiles_SourcesMany;{0} Quellen;{0} sources
+Editor_Sources.Header;Quellordner;Source folders
+Editor_Sources.Description;Diese Ordner werden mit allen Unterordnern synchronisiert. Mehrere Quellen landen jeweils in einem eigenen Unterordner der Ziele.;These folders are synced including all subfolders. Multiple sources each go into their own subfolder of the destinations.
+Editor_AddSourceText.Text;Quelle hinzufügen;Add source
+Editor_RemoveSource.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip;Quelle entfernen;Remove source
+Editor_RemoveSource.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Quelle entfernen;Remove source
+Editor_SourceSubfolder;Im Ziel: Unterordner „{0}“;In the destination: subfolder "{0}"
+Editor_DriveFolder;Laufwerk;Drive
+Editor_ErrorSourcesOverlap;Quellen dürfen sich nicht überschneiden (eine liegt in der anderen):;Sources must not overlap (one is inside the other):
+Editor_MultiSourceInfo.Message;Jede Quelle landet in einem eigenen Unterordner der Ziele. Bereits vorhandene Dateien im Ziel bleiben unverändert.;Each source goes into its own subfolder of the destinations. Files already in the destination stay unchanged.

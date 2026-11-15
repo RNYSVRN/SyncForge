@@ -23,11 +23,33 @@ public sealed partial class ProfileEditorPage : Page
 
     private async void BrowseSource_Click(object sender, RoutedEventArgs e)
     {
-        if (await FolderPickerHelper.PickFolderAsync() is { } path)
+        if ((sender as FrameworkElement)?.Tag is SourceItemViewModel source && await FolderPickerHelper.PickFolderAsync() is { } path)
         {
-            ViewModel.SourcePath = path;
-            if (string.IsNullOrWhiteSpace(ViewModel.Name)) ViewModel.Name = Path.GetFileName(path.TrimEnd('\\')) is { Length: > 0 } n ? n : path;
+            source.Path = path;
+            SuggestName(path);
         }
+    }
+
+    private async void AddSource_Click(object sender, RoutedEventArgs e)
+    {
+        // Leere Zeile wiederverwenden, sonst neue anlegen, direkt mit Ordnerauswahl.
+        var path = await FolderPickerHelper.PickFolderAsync();
+        if (path is null) return;
+        var empty = ViewModel.Sources.FirstOrDefault(s => string.IsNullOrWhiteSpace(s.Path));
+        if (empty is not null) empty.Path = path;
+        else ViewModel.AddSource(path);
+        SuggestName(path);
+    }
+
+    private void RemoveSource_Click(object sender, RoutedEventArgs e)
+    {
+        if ((sender as FrameworkElement)?.Tag is SourceItemViewModel source) ViewModel.RemoveSource(source);
+    }
+
+    /// <summary>Neues Profil ohne Namen: Ordnername der ersten Quelle vorschlagen.</summary>
+    private void SuggestName(string path)
+    {
+        if (string.IsNullOrWhiteSpace(ViewModel.Name)) ViewModel.Name = Path.GetFileName(path.TrimEnd('\\')) is { Length: > 0 } n ? n : path;
     }
 
     private async void BrowseTarget_Click(object sender, RoutedEventArgs e)
@@ -48,8 +70,11 @@ public sealed partial class ProfileEditorPage : Page
         else ViewModel.AddTarget(path);
     }
 
-    private async void SourceCredentials_Click(object sender, RoutedEventArgs e) =>
-        await NetworkCredentialDialog.ShowAsync(this, ViewModel.SourcePath);
+    private async void SourceCredentials_Click(object sender, RoutedEventArgs e)
+    {
+        if ((sender as FrameworkElement)?.Tag is SourceItemViewModel source)
+            await NetworkCredentialDialog.ShowAsync(this, source.Path);
+    }
 
     private async void TargetCredentials_Click(object sender, RoutedEventArgs e)
     {

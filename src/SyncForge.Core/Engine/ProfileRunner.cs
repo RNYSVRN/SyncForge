@@ -14,6 +14,8 @@ public enum TargetStatus
 public sealed class TargetAnalysis
 {
     public required SyncTarget Target { get; init; }
+    /// <summary>Quelle, die in dieses Ziel synchronisiert wird (bei mehreren Quellen gibt es je Quelle einen Eintrag).</summary>
+    public SyncSource? Source { get; init; }
     public TargetStatus Status { get; set; }
     public SyncPlan? Plan { get; set; }
     public SyncValidationError? ValidationError { get; set; }
@@ -26,7 +28,10 @@ public sealed class ProfileAnalysis
 {
     public required SyncProfile Profile { get; init; }
     public List<TargetAnalysis> Targets { get; } = [];
-    public bool SourceMissing { get; set; }
+    /// <summary>Quellen, die nicht erreichbar waren (die übrigen werden trotzdem synchronisiert).</summary>
+    public List<SyncSource> MissingSources { get; } = [];
+    /// <summary>Keine einzige Quelle erreichbar.</summary>
+    public bool SourceMissing => Profile.Sources.Count == 0 || MissingSources.Count >= Profile.Sources.Count;
 
     public IEnumerable<TargetAnalysis> ReadyTargets => Targets.Where(t => t.Status == TargetStatus.Ready && t.Plan is not null);
 
@@ -59,17 +64,32 @@ public static class ProfileRunner
     {
         var analysis = new ProfileAnalysis { Profile = profile };
         // Netzwerkfreigaben mit gespeicherten Anmeldedaten vorher verbinden (sonst wären sie "nicht vorhanden").
-        await Task.Run(() => NetworkShares.EnsureAccess(profile.SourcePath), ct);
-        if (!Directory.Exists(profile.SourcePath))
+        var sources = new List<SyncSource>();
+        foreach (var source in profile.Sources.Where(s => !string.IsNullOrWhiteSpace(s.Path)))
         {
-            analysis.SourceMissing = true;
-            return analysis;
+            await Task.Run(() => NetworkShares.EnsureAccess(source.Path), ct);
+            if (Directory.Exists(source.Path)) sources.Add(source);
+            else analysis.MissingSources.Add(source);
+        }
+        var enabledTargets = profile.Targets.Where(t => t.Enabled && !string.IsNullOrWhiteSpace(t.Path)).ToList();
+        foreach (var missing in analysis.MissingSources)
+        foreach (var target in enabledTargets)
+            analysis.Targets.Add(new TargetAnalysis { Target = target, Source = missing, Status = TargetStatus.Error, ValidationError = SyncValidationError.SourceMissing });
+        if (sources.Count == 0) return analysis;
+
+        // Mehrere Quellen brauchen getrennte Unterordner, sonst würde eine Quelle die andere im Ziel löschen.
+        // Der Editor legt sie fest; fehlen sie (z. B. von Hand bearbeitete Datei), werden sie hier eindeutig vergeben.
+        if (profile.Sources.Count > 1)
+        {
+            foreach (var s in profile.Sources.Where(s => string.IsNullOrEmpty(s.TargetFolder)))
+                s.TargetFolder = SyncProfile.SuggestTargetFolder(s.Path, profile.Sources.Select(x => x.TargetFolder));
         }
 
-        foreach (var target in profile.Targets.Where(t => t.Enabled && !string.IsNullOrWhiteSpace(t.Path)))
+        foreach (var source in sources)
+        foreach (var target in enabledTargets)
         {
             ct.ThrowIfCancellationRequested();
-            var ta = new TargetAnalysis { Target = target };
+            var ta = new TargetAnalysis { Target = target, Source = source };
             analysis.Targets.Add(ta);
 
             // USB-/lokale Ziele über die Volume-ID finden (auch unter anderem Laufwerksbuchstaben).
@@ -94,13 +114,14 @@ public static class ProfileRunner
                 continue;
             }
             ta.ResolvedPath = path;
+            var targetRoot = source.TargetRootFor(path);
 
             try
             {
                 ta.Plan = profile.Mode == SyncMode.TwoWay
-                    ? await TwoWayPlanner.CreatePlanAsync(profile.SourcePath, path, profile.Filter, profile.CompareMode, profile.ConflictResolution,
-                        stateDirectory is null ? null : Path.Combine(stateDirectory, $"{profile.Id:N}_{target.Id:N}.json"), conflictLabel, progress, ct)
-                    : await SyncPlanner.CreateMirrorPlanAsync(profile.SourcePath, path, profile.Filter, profile.CompareMode, progress, ct);
+                    ? await TwoWayPlanner.CreatePlanAsync(source.Path, targetRoot, profile.Filter, profile.CompareMode, profile.ConflictResolution,
+                        stateDirectory is null ? null : Path.Combine(stateDirectory, StateFileName(profile, source, target)), conflictLabel, progress, ct)
+                    : await SyncPlanner.CreateMirrorPlanAsync(source.Path, targetRoot, profile.Filter, profile.CompareMode, progress, ct);
                 ta.Status = TargetStatus.Ready;
             }
             catch (SyncValidationException ex)
@@ -116,6 +137,13 @@ public static class ProfileRunner
         }
         return analysis;
     }
+
+    /// <summary>
+    /// Datei mit dem Zwei-Wege-Stand je Quelle und Ziel. Eine Quelle ohne Unterordner (das bisherige Einzel-Quellen-Profil)
+    /// behält ihren alten Namen, damit vorhandene Stände weiter gelten.
+    /// </summary>
+    public static string StateFileName(SyncProfile profile, SyncSource source, SyncTarget target) =>
+        string.IsNullOrEmpty(source.TargetFolder) ? $"{profile.Id:N}_{target.Id:N}.json" : $"{profile.Id:N}_{target.Id:N}_{source.Id:N}.json";
 
     public static async Task<ProfileRunResult> ExecuteAsync(ProfileAnalysis analysis, SyncExecutorOptions options,
         IProgress<SyncProgress>? progress = null, CancellationToken ct = default)

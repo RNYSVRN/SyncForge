@@ -1,4 +1,4 @@
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using SyncForge.Core.Engine;
 using SyncForge.Core.Models;
@@ -17,6 +17,25 @@ public sealed partial class TargetItemViewModel : ObservableObject
     public bool IsNetworkPath => Core.Network.NetworkShares.IsNetworkPath(Path);
 
     partial void OnPathChanged(string value) => OnPropertyChanged(nameof(IsNetworkPath));
+}
+
+public sealed partial class SourceItemViewModel : ObservableObject
+{
+    public Guid Id { get; init; } = Guid.NewGuid();
+    /// <summary>Bereits festgelegter Unterordner im Ziel ("" = noch keiner bzw. direkt ins Ziel).</summary>
+    public string TargetFolder { get; set; } = string.Empty;
+    [ObservableProperty] public partial string Path { get; set; } = string.Empty;
+    [ObservableProperty] public partial string SubfolderText { get; set; } = string.Empty;
+    [ObservableProperty] public partial bool ShowSubfolder { get; set; }
+
+    public bool IsNetworkPath => Core.Network.NetworkShares.IsNetworkPath(Path);
+    public event EventHandler? PathEdited;
+
+    partial void OnPathChanged(string value)
+    {
+        OnPropertyChanged(nameof(IsNetworkPath));
+        PathEdited?.Invoke(this, EventArgs.Empty);
+    }
 }
 
 public sealed partial class DayOptionViewModel : ObservableObject
@@ -42,11 +61,60 @@ public sealed partial class ProfileEditorViewModel : ObservableObject
     [ObservableProperty] public partial bool IsNew { get; set; }
     [ObservableProperty] public partial string PageTitle { get; set; } = string.Empty;
     [ObservableProperty] public partial string Name { get; set; } = string.Empty;
-    [ObservableProperty] public partial string SourcePath { get; set; } = string.Empty;
+    public ObservableCollection<SourceItemViewModel> Sources { get; } = [];
 
-    public bool SourceIsNetworkPath => Core.Network.NetworkShares.IsNetworkPath(SourcePath);
+    /// <summary>Mehrere Quellen: Jede bekommt einen eigenen Unterordner im Ziel (Hinweis im Editor).</summary>
+    [ObservableProperty] public partial bool HasMultipleSources { get; set; }
 
-    partial void OnSourcePathChanged(string value) => OnPropertyChanged(nameof(SourceIsNetworkPath));
+    public SourceItemViewModel AddSource(string path = "")
+    {
+        var item = new SourceItemViewModel { Path = path };
+        item.PathEdited += (_, _) => RefreshSubfolders();
+        Sources.Add(item);
+        RefreshSubfolders();
+        return item;
+    }
+
+    public void RemoveSource(SourceItemViewModel source)
+    {
+        Sources.Remove(source);
+        if (Sources.Count == 0) AddSource();
+        RefreshSubfolders();
+    }
+
+    /// <summary>
+    /// Unterordner je Quelle: vorhandene bleiben, neue werden aus dem Ordnernamen gebildet (eindeutig).
+    /// Bei nur einer Quelle bleibt es, wie es ist (neu: direkt ins Ziel).
+    /// </summary>
+    private List<string> FinalTargetFolders()
+    {
+        var used = Sources.Where(s => s.Path.Trim().Length > 0).ToList();
+        if (used.Count <= 1) return Sources.Select(s => s.TargetFolder).ToList();
+        var taken = Sources.Select(s => s.TargetFolder).Where(f => f.Length > 0).ToList();
+        var result = new List<string>();
+        foreach (var s in Sources)
+        {
+            var folder = s.TargetFolder;
+            if (folder.Length == 0 && s.Path.Trim().Length > 0)
+            {
+                folder = SyncProfile.SuggestTargetFolder(s.Path, taken, Localization.Get("Editor_DriveFolder"));
+                taken.Add(folder);
+            }
+            result.Add(folder);
+        }
+        return result;
+    }
+
+    private void RefreshSubfolders()
+    {
+        var folders = FinalTargetFolders();
+        HasMultipleSources = Sources.Count(s => s.Path.Trim().Length > 0) > 1;
+        for (var i = 0; i < Sources.Count; i++)
+        {
+            Sources[i].ShowSubfolder = HasMultipleSources && folders[i].Length > 0;
+            Sources[i].SubfolderText = Helpers.Format.Text("Editor_SourceSubfolder", folders[i]);
+        }
+    }
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsVersioned), nameof(IsTwoWay), nameof(HasModeOptions), nameof(ModeDescription))]
     public partial int ModeIndex { get; set; }
@@ -103,7 +171,15 @@ public sealed partial class ProfileEditorViewModel : ObservableObject
         PageTitle = Localization.Get(IsNew ? "Editor_TitleNew" : "Editor_TitleEdit");
 
         Name = _profile.Name;
-        SourcePath = _profile.SourcePath;
+        Sources.Clear();
+        foreach (var s in _profile.Sources)
+        {
+            var item = new SourceItemViewModel { Id = s.Id, TargetFolder = s.TargetFolder, Path = s.Path };
+            item.PathEdited += (_, _) => RefreshSubfolders();
+            Sources.Add(item);
+        }
+        if (Sources.Count == 0) AddSource();
+        RefreshSubfolders();
         ModeIndex = (int)_profile.Mode;
         ConflictIndex = (int)_profile.ConflictResolution;
         VersionsToKeep = _profile.VersionsToKeep;
@@ -160,7 +236,11 @@ public sealed partial class ProfileEditorViewModel : ObservableObject
         if (error is not null) return null;
 
         _profile.Name = Name.Trim();
-        _profile.SourcePath = NormalizePath(SourcePath);
+        var folders = FinalTargetFolders();
+        _profile.Sources = Sources
+            .Select((s, i) => new SyncSource { Id = s.Id, Path = NormalizePath(s.Path), TargetFolder = folders[i] })
+            .Where(s => s.Path.Length > 0)
+            .ToList();
         _profile.Mode = (SyncMode)ModeIndex;
         _profile.ConflictResolution = (ConflictResolution)ConflictIndex;
         _profile.VersionsToKeep = double.IsNaN(VersionsToKeep) ? 10 : (int)Math.Clamp(VersionsToKeep, 0, 1000);
@@ -220,25 +300,44 @@ public sealed partial class ProfileEditorViewModel : ObservableObject
     private string? Validate()
     {
         if (string.IsNullOrWhiteSpace(Name)) return Localization.Get("Editor_ErrorName");
-        if (string.IsNullOrWhiteSpace(SourcePath)) return Localization.Get("Editor_ErrorSourceEmpty");
-        if (!IsValidPath(SourcePath)) return Localization.Get("Editor_ErrorPathInvalid");
-        Core.Network.NetworkShares.EnsureAccess(SourcePath); // Netzwerkquelle mit gespeicherten Anmeldedaten
-        if (!Directory.Exists(SourcePath))
-            return Localization.Get(SourceIsNetworkPath ? "Editor_ErrorSourceNetwork" : "Editor_ErrorSourceMissing");
+        var sources = Sources.Where(s => !string.IsNullOrWhiteSpace(s.Path)).ToList();
+        if (sources.Count == 0) return Localization.Get("Editor_ErrorSourceEmpty");
+        foreach (var s in sources)
+        {
+            if (!IsValidPath(s.Path)) return Localization.Get("Editor_ErrorPathInvalid") + " " + s.Path;
+            Core.Network.NetworkShares.EnsureAccess(s.Path); // Netzwerkquelle mit gespeicherten Anmeldedaten
+            if (!Directory.Exists(s.Path))
+                return Localization.Get(s.IsNetworkPath ? "Editor_ErrorSourceNetwork" : "Editor_ErrorSourceMissing") + " " + s.Path;
+        }
+        // Quellen dürfen sich nicht überschneiden (sonst würden Dateien doppelt gesichert).
+        for (var i = 0; i < sources.Count; i++)
+        for (var j = i + 1; j < sources.Count; j++)
+        {
+            try { SyncPlanner.ValidatePaths(sources[i].Path, sources[j].Path); }
+            catch (SyncValidationException) { return Localization.Get("Editor_ErrorSourcesOverlap") + " " + sources[j].Path; }
+        }
 
         var targets = Targets.Where(t => !string.IsNullOrWhiteSpace(t.Path)).ToList();
         if (targets.Count == 0) return Localization.Get("Editor_ErrorNoTarget");
 
+        var folders = FinalTargetFolders();
         foreach (var t in targets)
         {
             if (!IsValidPath(t.Path)) return Localization.Get("Editor_ErrorPathInvalid") + " " + t.Path;
-            try
+            for (var i = 0; i < Sources.Count; i++)
             {
-                SyncPlanner.ValidatePaths(SourcePath, t.Path);
-            }
-            catch (SyncValidationException ex)
-            {
-                return Localization.Get("Validation_" + ex.Error) + " " + t.Path;
+                var s = Sources[i];
+                if (string.IsNullOrWhiteSpace(s.Path)) continue;
+                var root = string.IsNullOrEmpty(folders[i]) ? t.Path : System.IO.Path.Combine(t.Path, folders[i]);
+                try
+                {
+                    SyncPlanner.ValidatePaths(s.Path, t.Path);
+                    SyncPlanner.ValidatePaths(s.Path, root);
+                }
+                catch (SyncValidationException ex)
+                {
+                    return Localization.Get("Validation_" + ex.Error) + " " + t.Path;
+                }
             }
         }
 

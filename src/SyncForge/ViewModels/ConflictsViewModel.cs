@@ -1,4 +1,4 @@
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using SyncForge.Core.Engine;
 using SyncForge.Core.History;
@@ -106,7 +106,7 @@ public sealed partial class ConflictsViewModel : ObservableObject
                 Groups.Add(group);
             }
             var unavailable = analysis.Targets.Count(t => t.Status != TargetStatus.Ready);
-            if (analysis.SourceMissing) Show(Localization.Get("Validation_SourceMissing") + " " + _profile.SourcePath, Microsoft.UI.Xaml.Controls.InfoBarSeverity.Error);
+            if (analysis.SourceMissing) Show(Localization.Get("Validation_SourceMissing") + " " + string.Join(", ", _profile.Sources.Select(s => s.Path)), Microsoft.UI.Xaml.Controls.InfoBarSeverity.Error);
             else if (unavailable > 0) Show(Format.Text("Conflicts_TargetsUnavailable", Format.Number(unavailable)), Microsoft.UI.Xaml.Controls.InfoBarSeverity.Warning);
         }
         catch (Exception ex) when (ex is not OperationCanceledException)
