@@ -1,7 +1,5 @@
 # Privacy statement
 
-> DRAFT: Have this reviewed by a legal professional and add contact details before publication.
-
 Last updated: November 2026
 
 ## In short
@@ -53,4 +51,4 @@ Since the provider receives no personal data from you, there is no data about wh
 ## Contact
 
 Ronny Severin
-[Add contact address/e-mail before publication]
+Questions about privacy are welcome via [GitHub](https://github.com/RNYSVRN/SyncForge/issues).

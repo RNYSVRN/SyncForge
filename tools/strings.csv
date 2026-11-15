@@ -380,3 +380,5 @@ Update_InfoTitle;Update verfügbar;Update available
 Update_InfoMessage;SyncForge {0} ist erschienen. Du verwendest Version {1}.;SyncForge {0} has been released. You are using version {1}.
 Update_NotifyTitle;SyncForge {0} ist verfügbar;SyncForge {0} is available
 Update_NotifyText;Auf der Download-Seite findest du das Setup und die Neuerungen.;The download page has the installer and the release notes.
+Support_RateLink.Content;SyncForge auf GitHub;SyncForge on GitHub
+Support_FeedbackLink.Content;Issue erstellen;Open an issue

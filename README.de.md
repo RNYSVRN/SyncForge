@@ -104,7 +104,6 @@ AppData-Bereich), getrennt vom unpaketierten Entwicklungs-Build.
   erste Zeile `<!-- glyph:E7C1 -->` = Symbol (Segoe Fluent Icons). Unterstützt: `#`/`##`/`###`, Absätze, `-`/`1.` Listen,
   `> Hinweis`, `**fett**`, `` `Code` ``.
 - Lizenz-Seite und Datenschutz: `src/SyncForge/Assets/Legal/Deutsch|English/license.md` bzw. `privacy.md`
-  (Datenschutz: **Entwurf, vor Veröffentlichung prüfen und Kontaktdaten eintragen**).
 - Drittanbieter-Lizenzen: nach jedem Paket-Update `powershell -File tools\Collect-Licenses.ps1` ausführen
   (liest die verwendeten Paketversionen aus dem Build und übernimmt die Lizenztexte aus den NuGet-Paketen).
 

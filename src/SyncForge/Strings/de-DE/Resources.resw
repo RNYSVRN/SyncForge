@@ -386,4 +386,6 @@
   <data name="Update_InfoMessage" xml:space="preserve"><value>SyncForge {0} ist erschienen. Du verwendest Version {1}.</value></data>
   <data name="Update_NotifyTitle" xml:space="preserve"><value>SyncForge {0} ist verfügbar</value></data>
   <data name="Update_NotifyText" xml:space="preserve"><value>Auf der Download-Seite findest du das Setup und die Neuerungen.</value></data>
+  <data name="Support_RateLink.Content" xml:space="preserve"><value>SyncForge auf GitHub</value></data>
+  <data name="Support_FeedbackLink.Content" xml:space="preserve"><value>Issue erstellen</value></data>
 </root>

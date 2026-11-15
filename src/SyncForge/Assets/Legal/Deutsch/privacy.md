@@ -1,7 +1,5 @@
 # Datenschutzerklärung
 
-> ENTWURF: Vor einer Veröffentlichung rechtlich prüfen lassen und Kontaktdaten ergänzen.
-
 Stand: November 2026
 
 ## Kurz gesagt
@@ -53,4 +51,4 @@ Da der Anbieter keine personenbezogenen Daten von dir erhält, liegen keine Date
 ## Kontakt
 
 Ronny Severin
-[Kontaktadresse/E-Mail vor Veröffentlichung eintragen]
+Fragen zum Datenschutz gern über [GitHub](https://github.com/RNYSVRN/SyncForge/issues).

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Page
     x:Class="SyncForge.Views.SupportPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -68,6 +68,8 @@
                             <TextBlock x:Uid="Support_RateTitle" Text="Stern auf GitHub" Style="{StaticResource BodyStrongTextBlockStyle}" />
                             <TextBlock x:Uid="Support_RateText" Text="Ein Stern für SyncForge auf GitHub hilft anderen, das Projekt zu finden." TextWrapping="Wrap"
                                        Style="{StaticResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                            <HyperlinkButton x:Uid="Support_RateLink" Content="SyncForge auf GitHub" Padding="0" NavigateUri="https://github.com/RNYSVRN/SyncForge"
+                                             ToolTipService.ToolTip="github.com/RNYSVRN/SyncForge" />
                         </StackPanel>
                     </Border>
                     <Border Grid.Column="2" Style="{StaticResource CardBorderStyle}">
@@ -76,6 +78,8 @@
                             <TextBlock x:Uid="Support_FeedbackTitle" Text="Feedback geben" Style="{StaticResource BodyStrongTextBlockStyle}" />
                             <TextBlock x:Uid="Support_FeedbackText" Text="Ideen und Fehlermeldungen (gern als Issue auf GitHub) machen SyncForge besser." TextWrapping="Wrap"
                                        Style="{StaticResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                            <HyperlinkButton x:Uid="Support_FeedbackLink" Content="Issue erstellen" Padding="0" NavigateUri="https://github.com/RNYSVRN/SyncForge/issues/new"
+                                             ToolTipService.ToolTip="github.com/RNYSVRN/SyncForge/issues" />
                         </StackPanel>
                     </Border>
                 </Grid>
