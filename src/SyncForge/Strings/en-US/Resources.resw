@@ -99,9 +99,7 @@
   <data name="Editor_Name.Header" xml:space="preserve"><value>Name</value></data>
   <data name="Editor_Name.Description" xml:space="preserve"><value>Shown in the list and in notifications.</value></data>
   <data name="Editor_NameBox.PlaceholderText" xml:space="preserve"><value>e.g. Documents to NAS</value></data>
-  <data name="Editor_SectionSource.Text" xml:space="preserve"><value>Source</value></data>
-  <data name="Editor_Source.Header" xml:space="preserve"><value>Source folder</value></data>
-  <data name="Editor_Source.Description" xml:space="preserve"><value>This folder is synced including all subfolders.</value></data>
+  <data name="Editor_SectionSource.Text" xml:space="preserve"><value>Sources</value></data>
   <data name="Editor_PathBox.PlaceholderText" xml:space="preserve"><value>C:\Users\Name\Documents</value></data>
   <data name="Editor_Browse.Content" xml:space="preserve"><value>Browse…</value></data>
   <data name="Editor_SectionTargets.Text" xml:space="preserve"><value>Destinations</value></data>
@@ -449,4 +447,14 @@
   <data name="Activity_Cancelling" xml:space="preserve"><value>Cancelling …</value></data>
   <data name="Tray_RunningOne" xml:space="preserve"><value>SyncForge: {0}, {1} %</value></data>
   <data name="Tray_RunningOneAnalyzing" xml:space="preserve"><value>SyncForge: analyzing {0}</value></data>
+  <data name="Profiles_SourcesMany" xml:space="preserve"><value>{0} sources</value></data>
+  <data name="Editor_Sources.Header" xml:space="preserve"><value>Source folders</value></data>
+  <data name="Editor_Sources.Description" xml:space="preserve"><value>These folders are synced including all subfolders. Multiple sources each go into their own subfolder of the destinations.</value></data>
+  <data name="Editor_AddSourceText.Text" xml:space="preserve"><value>Add source</value></data>
+  <data name="Editor_RemoveSource.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve"><value>Remove source</value></data>
+  <data name="Editor_RemoveSource.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Remove source</value></data>
+  <data name="Editor_SourceSubfolder" xml:space="preserve"><value>In the destination: subfolder &quot;{0}&quot;</value></data>
+  <data name="Editor_DriveFolder" xml:space="preserve"><value>Drive</value></data>
+  <data name="Editor_ErrorSourcesOverlap" xml:space="preserve"><value>Sources must not overlap (one is inside the other):</value></data>
+  <data name="Editor_MultiSourceInfo.Message" xml:space="preserve"><value>Each source goes into its own subfolder of the destinations. Files already in the destination stay unchanged.</value></data>
 </root>

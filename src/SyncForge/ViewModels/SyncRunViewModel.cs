@@ -112,7 +112,7 @@ public sealed partial class SyncRunViewModel : ObservableObject
         }
 
         Title = profile.Name;
-        Subtitle = profile.SourcePath;
+        Subtitle = string.Join("  ·  ", profile.Sources.Select(s => s.Path));
         State = RunState.Analyzing;
         AnalyzeText = Localization.Get("Run_Analyzing");
         _cts = new CancellationTokenSource();
@@ -137,7 +137,7 @@ public sealed partial class SyncRunViewModel : ObservableObject
 
         if (_analysis.SourceMissing)
         {
-            Fail(Localization.Get("Validation_SourceMissing") + " " + profile.SourcePath);
+            Fail(Localization.Get("Validation_SourceMissing") + " " + string.Join(", ", profile.Sources.Select(s => s.Path)));
             return;
         }
 
@@ -151,7 +151,7 @@ public sealed partial class SyncRunViewModel : ObservableObject
         {
             ShowDeletionWarning = true;
             DeletionWarningText = string.Join(Environment.NewLine, warnings.Select(w =>
-                Format.Text("Run_DeletionWarning", Format.Number(w.Plan!.DeleteFileCount), w.Plan.DeletePercent.ToString("0", Format.Culture), w.Target.Path)));
+                Format.Text("Run_DeletionWarning", Format.Number(w.Plan!.DeleteFileCount), w.Plan.DeletePercent.ToString("0", Format.Culture), w.Plan.TargetRoot)));
         }
 
         if (!_analysis.ReadyTargets.Any())
@@ -247,7 +247,10 @@ public sealed partial class SyncRunViewModel : ObservableObject
         _byRoot.Clear();
         foreach (var ta in analysis.Targets)
         {
-            var vm = new TargetRunViewModel { TargetPath = ta.Target.Path, PlanRoot = ta.Plan?.TargetRoot };
+            // Bei mehreren Quellen: "Quelle  →  Zielordner", sonst wie bisher das Ziel.
+            var multi = analysis.Profile.Sources.Count > 1 && ta.Source is not null;
+            var shownTarget = ta.Plan?.TargetRoot ?? (ta.Source is { } src ? src.TargetRootFor(ta.Target.Path) : ta.Target.Path);
+            var vm = new TargetRunViewModel { TargetPath = multi ? $"{ta.Source!.DisplayName}  →  {shownTarget}" : shownTarget, PlanRoot = ta.Plan?.TargetRoot };
             switch (ta.Status)
             {
                 case TargetStatus.Unavailable:

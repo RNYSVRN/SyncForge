@@ -1,4 +1,4 @@
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using Microsoft.Windows.System.Power;
 using SyncForge.Core.History;
 using SyncForge.Core.Models;
@@ -190,7 +190,7 @@ public sealed class AutomationService : IDisposable
         if (_disposed) return;
         var wanted = _profiles.Profiles
             // Netzwerkquelle mit gespeicherten Anmeldedaten: erst verbinden, sonst gäbe es sie scheinbar nicht.
-            .Where(p => p.Automation.WatchForChanges && Core.Network.NetworkShares.EnsureAccess(p.SourcePath).Success && Directory.Exists(p.SourcePath))
+            .Where(p => p.Automation.WatchForChanges && WatchableSources(p).Any())
             .ToDictionary(p => p.Id);
 
         foreach (var (id, w) in _watchers.ToArray())
@@ -237,7 +237,7 @@ public sealed class AutomationService : IDisposable
     /// <summary>Überwacht einen Quellordner und meldet sich erst, wenn eine Weile Ruhe ist (Entprellung).</summary>
     private sealed class ProfileWatcher : IDisposable
     {
-        private readonly FileSystemWatcher _fsw;
+        private readonly List<FileSystemWatcher> _watchers = [];
         private readonly Timer _debounce;
         private readonly TimeSpan _delay;
         private readonly string _signature;
@@ -249,31 +249,46 @@ public sealed class AutomationService : IDisposable
             _signature = Signature(profile);
             _delay = TimeSpan.FromSeconds(Math.Clamp(profile.Automation.WatchDelaySeconds, 2, 3600));
             _debounce = new Timer(_ => fired(), null, Timeout.Infinite, Timeout.Infinite);
-            _fsw = new FileSystemWatcher(profile.SourcePath)
+            // Jede erreichbare Quelle des Profils überwachen; Änderungen in einer davon starten den Lauf.
+            foreach (var path in WatchableSources(profile))
             {
-                IncludeSubdirectories = true,
-                InternalBufferSize = 64 * 1024,
-                NotifyFilter = NotifyFilters.FileName | NotifyFilters.DirectoryName | NotifyFilters.LastWrite | NotifyFilters.Size
-            };
-            _fsw.Changed += (_, _) => Restart();
-            _fsw.Created += (_, _) => Restart();
-            _fsw.Deleted += (_, _) => Restart();
-            _fsw.Renamed += (_, _) => Restart();
-            _fsw.Error += (_, _) => Restart(); // Pufferüberlauf: sicherheitshalber synchronisieren
-            _fsw.EnableRaisingEvents = true;
+                var fsw = new FileSystemWatcher(path)
+                {
+                    IncludeSubdirectories = true,
+                    InternalBufferSize = 64 * 1024,
+                    NotifyFilter = NotifyFilters.FileName | NotifyFilters.DirectoryName | NotifyFilters.LastWrite | NotifyFilters.Size
+                };
+                fsw.Changed += (_, _) => Restart();
+                fsw.Created += (_, _) => Restart();
+                fsw.Deleted += (_, _) => Restart();
+                fsw.Renamed += (_, _) => Restart();
+                fsw.Error += (_, _) => Restart(); // Pufferüberlauf: sicherheitshalber synchronisieren
+                fsw.EnableRaisingEvents = true;
+                _watchers.Add(fsw);
+            }
         }
 
         public bool Matches(SyncProfile p) => Signature(p) == _signature;
 
         public void Restart() => _debounce.Change(_delay, Timeout.InfiniteTimeSpan);
 
-        private static string Signature(SyncProfile p) => $"{p.SourcePath}|{p.Automation.WatchDelaySeconds}";
+        private static string Signature(SyncProfile p) =>
+            string.Join("|", p.Sources.Select(s => s.Path)) + "|" + p.Automation.WatchDelaySeconds;
 
         public void Dispose()
         {
-            _fsw.EnableRaisingEvents = false;
-            _fsw.Dispose();
+            foreach (var fsw in _watchers)
+            {
+                fsw.EnableRaisingEvents = false;
+                fsw.Dispose();
+            }
             _debounce.Dispose();
         }
     }
+
+    /// <summary>Quellen, die sich überwachen lassen (Netzwerkquellen mit gespeicherten Anmeldedaten werden vorher verbunden).</summary>
+    private static IEnumerable<string> WatchableSources(SyncProfile p) =>
+        p.Sources.Select(s => s.Path)
+            .Where(path => !string.IsNullOrWhiteSpace(path) && Core.Network.NetworkShares.EnsureAccess(path).Success && Directory.Exists(path))
+            .ToList();
 }

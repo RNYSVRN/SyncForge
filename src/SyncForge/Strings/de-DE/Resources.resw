@@ -99,9 +99,7 @@
   <data name="Editor_Name.Header" xml:space="preserve"><value>Name</value></data>
   <data name="Editor_Name.Description" xml:space="preserve"><value>Wird in der Liste und in Benachrichtigungen angezeigt.</value></data>
   <data name="Editor_NameBox.PlaceholderText" xml:space="preserve"><value>z. B. Dokumente auf NAS</value></data>
-  <data name="Editor_SectionSource.Text" xml:space="preserve"><value>Quelle</value></data>
-  <data name="Editor_Source.Header" xml:space="preserve"><value>Quellordner</value></data>
-  <data name="Editor_Source.Description" xml:space="preserve"><value>Dieser Ordner wird mit allen Unterordnern synchronisiert.</value></data>
+  <data name="Editor_SectionSource.Text" xml:space="preserve"><value>Quellen</value></data>
   <data name="Editor_PathBox.PlaceholderText" xml:space="preserve"><value>C:\Users\Name\Documents</value></data>
   <data name="Editor_Browse.Content" xml:space="preserve"><value>Durchsuchen…</value></data>
   <data name="Editor_SectionTargets.Text" xml:space="preserve"><value>Ziele</value></data>
@@ -449,4 +447,14 @@
   <data name="Activity_Cancelling" xml:space="preserve"><value>Wird abgebrochen …</value></data>
   <data name="Tray_RunningOne" xml:space="preserve"><value>SyncForge: {0}, {1} %</value></data>
   <data name="Tray_RunningOneAnalyzing" xml:space="preserve"><value>SyncForge: {0} wird analysiert</value></data>
+  <data name="Profiles_SourcesMany" xml:space="preserve"><value>{0} Quellen</value></data>
+  <data name="Editor_Sources.Header" xml:space="preserve"><value>Quellordner</value></data>
+  <data name="Editor_Sources.Description" xml:space="preserve"><value>Diese Ordner werden mit allen Unterordnern synchronisiert. Mehrere Quellen landen jeweils in einem eigenen Unterordner der Ziele.</value></data>
+  <data name="Editor_AddSourceText.Text" xml:space="preserve"><value>Quelle hinzufügen</value></data>
+  <data name="Editor_RemoveSource.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve"><value>Quelle entfernen</value></data>
+  <data name="Editor_RemoveSource.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Quelle entfernen</value></data>
+  <data name="Editor_SourceSubfolder" xml:space="preserve"><value>Im Ziel: Unterordner „{0}“</value></data>
+  <data name="Editor_DriveFolder" xml:space="preserve"><value>Laufwerk</value></data>
+  <data name="Editor_ErrorSourcesOverlap" xml:space="preserve"><value>Quellen dürfen sich nicht überschneiden (eine liegt in der anderen):</value></data>
+  <data name="Editor_MultiSourceInfo.Message" xml:space="preserve"><value>Jede Quelle landet in einem eigenen Unterordner der Ziele. Bereits vorhandene Dateien im Ziel bleiben unverändert.</value></data>
 </root>

@@ -134,11 +134,7 @@ public sealed class SyncCoordinator
         {
             var progress = ProgressFor(profileId);
             var analysis = await AnalyzeAsync(profile, progress, cts.Token);
-            if (analysis.SourceMissing)
-            {
-                foreach (var t in profile.Targets.Where(t => t.Enabled))
-                    analysis.Targets.Add(new TargetAnalysis { Target = t, Status = TargetStatus.Error, ValidationError = SyncValidationError.SourceMissing });
-            }
+            // Fehlende Quellen stehen bereits als Einträge "Quelle fehlt" in der Analyse.
             // Überwachung ohne tatsächliche Änderung (z. B. das Echo eigener Schreibvorgänge im Zwei-Wege-Modus):
             // nichts tun und nichts protokollieren.
             if (trigger == RunTrigger.Watcher && !analysis.SourceMissing

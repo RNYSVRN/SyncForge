@@ -13,9 +13,11 @@ The list under **Backup profiles** shows source, number of destinations, mode an
 
 Clicking a profile also opens the editor. Deleting a profile never touches the files in the source or destinations.
 
-## Source
+## Sources
 
-The source folder is synced including all subfolders. It must exist when you save.
+A source folder is synced including all subfolders and must exist when you save. With **Add source** you back up several folders in one profile, e.g. documents and pictures.
+
+With **multiple sources**, each goes into its own subfolder of the destinations, named after the folder (e.g. `D:\Backup\Documents` and `D:\Backup\Pictures`). The name is set when the source is added and does not change afterwards. If you switch from one to several sources, files already backed up in the destination stay unchanged. Sources must not overlap. If a source is not reachable, the others are still synced.
 
 ## Destinations
 
