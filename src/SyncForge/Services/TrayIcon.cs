@@ -59,8 +59,12 @@ public sealed partial class TrayIcon : IDisposable
         Add();
     }
 
+    /// <summary>Aktueller Tooltip-Text.</summary>
+    public string ToolTip => _toolTip;
+
     public void SetToolTip(string text)
     {
+        if (text == _toolTip) return;
         _toolTip = text.Length > 127 ? text[..127] : text;
         if (!_added) return;
         var data = CreateData(NIF_TIP | NIF_SHOWTIP);

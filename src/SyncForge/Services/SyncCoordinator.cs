@@ -1,4 +1,4 @@
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using SyncForge.Core.Engine;
 using SyncForge.Core.History;
 using SyncForge.Core.Models;
@@ -26,7 +26,9 @@ public sealed class SyncCoordinator
     private readonly ProfileStore _profiles;
     private readonly HistoryStore _history;
     private readonly SettingsService _settings;
-    private readonly ConcurrentDictionary<Guid, CancellationTokenSource> _running = new();
+    private readonly ConcurrentDictionary<Guid, RunActivity> _running = new();
+    private long _lastActivityEventMs = -1000;
+    private readonly System.Diagnostics.Stopwatch _clock = System.Diagnostics.Stopwatch.StartNew();
 
     public SyncCoordinator(ProfileStore profiles, HistoryStore history, SettingsService settings)
     {
@@ -38,22 +40,62 @@ public sealed class SyncCoordinator
     public event EventHandler<Guid>? RunStarted;
     public event EventHandler<RunCompletedEventArgs>? RunCompleted;
 
+    /// <summary>Laufende Synchronisierungen oder ihr Fortschritt haben sich geändert (beliebiger Thread, gedrosselt).</summary>
+    public event EventHandler? ActivityChanged;
+
     public bool IsRunning(Guid profileId) => _running.ContainsKey(profileId);
     public int RunningCount => _running.Count;
+
+    /// <summary>Alle laufenden Synchronisierungen, älteste zuerst.</summary>
+    public IReadOnlyList<RunActivity> Activities => _running.Values.OrderBy(a => a.StartedAt).ToList();
+
+    /// <summary>Fortschritt eines laufenden Profils an die zentrale Anzeige melden (synchron, ohne UI-Thread).</summary>
+    public IProgress<SyncProgress> ProgressFor(Guid profileId) => new ActivityProgress(this, profileId);
+
+    public void Cancel(Guid profileId)
+    {
+        if (_running.TryGetValue(profileId, out var activity)) activity.Cancel();
+        RaiseActivityChanged(force: true);
+    }
+
+    private void RaiseActivityChanged(bool force)
+    {
+        var now = _clock.ElapsedMilliseconds;
+        var last = Interlocked.Read(ref _lastActivityEventMs);
+        if (!force && (now - last < 250 || Interlocked.CompareExchange(ref _lastActivityEventMs, now, last) != last)) return;
+        if (force) Interlocked.Exchange(ref _lastActivityEventMs, now);
+        ActivityChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    private sealed class ActivityProgress(SyncCoordinator owner, Guid profileId) : IProgress<SyncProgress>
+    {
+        public void Report(SyncProgress value)
+        {
+            if (!owner._running.TryGetValue(profileId, out var activity)) return;
+            activity.Report(value);
+            owner.RaiseActivityChanged(force: false);
+        }
+    }
 
     /// <summary>Reserviert ein Profil für einen manuellen Lauf (UI). False, wenn es gerade läuft.</summary>
     public bool TryBegin(Guid profileId, CancellationTokenSource cts)
     {
-        if (!_running.TryAdd(profileId, cts)) return false;
+        var name = _profiles.Get(profileId)?.Name ?? string.Empty;
+        if (!_running.TryAdd(profileId, new RunActivity(profileId, name, cts))) return false;
         RunStarted?.Invoke(this, profileId);
+        RaiseActivityChanged(force: true);
         return true;
     }
 
-    public void End(Guid profileId) => _running.TryRemove(profileId, out _);
+    public void End(Guid profileId)
+    {
+        _running.TryRemove(profileId, out _);
+        RaiseActivityChanged(force: true);
+    }
 
     public void CancelAll()
     {
-        foreach (var cts in _running.Values) cts.Cancel();
+        foreach (var activity in _running.Values) activity.Cancel();
     }
 
     /// <summary>Zwei-Wege-Stände (gemeinsamer Stand nach dem letzten Lauf je Profil und Ziel).</summary>
@@ -90,7 +132,8 @@ public sealed class SyncCoordinator
 
         try
         {
-            var analysis = await AnalyzeAsync(profile, null, cts.Token);
+            var progress = ProgressFor(profileId);
+            var analysis = await AnalyzeAsync(profile, progress, cts.Token);
             if (analysis.SourceMissing)
             {
                 foreach (var t in profile.Targets.Where(t => t.Enabled))
@@ -110,7 +153,7 @@ public sealed class SyncCoordinator
                 warned.ValidationError = SyncValidationError.DeletionProtection;
             }
 
-            var run = await ProfileRunner.ExecuteAsync(analysis, BuildOptions(profile), null, cts.Token);
+            var run = await ProfileRunner.ExecuteAsync(analysis, BuildOptions(profile), progress, cts.Token);
             return Record(run, trigger);
         }
         catch (OperationCanceledException)

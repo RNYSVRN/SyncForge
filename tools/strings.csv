@@ -435,3 +435,11 @@ Detail_ConflictsBar.Title;Offene Konflikte;Open conflicts
 Detail_ConflictsBar.Message;Einige Dateien wurden auf beiden Seiten geändert und warten auf deine Entscheidung.;Some files were changed on both sides and are waiting for your decision.
 Detail_ResolveConflicts.Content;Konflikte lösen;Resolve conflicts
 Detail_Delete.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Eintrag löschen;Delete entry
+Activity_Cancel.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip;Abbrechen;Cancel
+Activity_Cancel.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Synchronisierung abbrechen;Cancel sync
+Activity_Analyzing;Wird analysiert …;Analyzing …
+Activity_Scanning;{0} Dateien gefunden …;{0} files found …
+Activity_Copying;{0} % erledigt;{0} % done
+Activity_Cancelling;Wird abgebrochen …;Cancelling …
+Tray_RunningOne;SyncForge: {0}, {1} %;SyncForge: {0}, {1} %
+Tray_RunningOneAnalyzing;SyncForge: {0} wird analysiert;SyncForge: analyzing {0}

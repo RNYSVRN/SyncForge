@@ -207,7 +207,8 @@ public sealed partial class SyncRunViewModel : ObservableObject
             t.StatusText = Localization.Get("Run_Waiting");
         }
 
-        var progress = new Progress<SyncProgress>(OnProgress);
+        // Eigene Anzeige auf dieser Seite und zentrale Aktivitätsanzeige (Navigation, Infobereich).
+        var progress = new CompositeProgress<SyncProgress>(new Progress<SyncProgress>(OnProgress), _coordinator.ProgressFor(profileId));
         try
         {
             var run = await ProfileRunner.ExecuteAsync(_analysis, _coordinator.BuildOptions(_analysis.Profile), progress, _cts.Token);

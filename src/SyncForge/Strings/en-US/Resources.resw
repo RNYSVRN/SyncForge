@@ -441,4 +441,12 @@
   <data name="Detail_ConflictsBar.Message" xml:space="preserve"><value>Some files were changed on both sides and are waiting for your decision.</value></data>
   <data name="Detail_ResolveConflicts.Content" xml:space="preserve"><value>Resolve conflicts</value></data>
   <data name="Detail_Delete.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Delete entry</value></data>
+  <data name="Activity_Cancel.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve"><value>Cancel</value></data>
+  <data name="Activity_Cancel.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Cancel sync</value></data>
+  <data name="Activity_Analyzing" xml:space="preserve"><value>Analyzing …</value></data>
+  <data name="Activity_Scanning" xml:space="preserve"><value>{0} files found …</value></data>
+  <data name="Activity_Copying" xml:space="preserve"><value>{0} % done</value></data>
+  <data name="Activity_Cancelling" xml:space="preserve"><value>Cancelling …</value></data>
+  <data name="Tray_RunningOne" xml:space="preserve"><value>SyncForge: {0}, {1} %</value></data>
+  <data name="Tray_RunningOneAnalyzing" xml:space="preserve"><value>SyncForge: analyzing {0}</value></data>
 </root>
