@@ -1,16 +1,50 @@
 # SyncForge
 
-Native Windows-11-App (WinUI 3, .NET 10) zum Synchronisieren von Ordnern in ein oder mehrere Ziele.
-Kostenlos und Open Source unter der [MIT-Lizenz](LICENSE), © 2026 Ronny Severin.
-Freiwillige Unterstützung: [ko-fi.com/rnysvrn](https://ko-fi.com/rnysvrn) (Seite „Unterstützen“ in der App).
-Funktionsumfang und Etappenplan: siehe [SPEC.md](SPEC.md).
+**English** · [Deutsch](README.de.md)
 
-## Voraussetzungen
+[![Build](https://github.com/RNYSVRN/SyncForge/actions/workflows/build.yml/badge.svg)](https://github.com/RNYSVRN/SyncForge/actions/workflows/build.yml)
+
+A native Windows 11 app (WinUI 3, .NET 10) to sync and back up folders to one or more destinations:
+local drives, USB drives, network shares (NAS) and cloud folders.
+Free and open source under the [MIT license](LICENSE), © 2026 Ronny Severin.
+
+## Features
+- **Backup profiles** with one source and several destinations (one after another or at the same time)
+- **Modes:** mirror, versioned (restore older versions) and two-way with conflict rules
+- **Automatic:** schedules, real-time watching, on SyncForge start and when a destination drive is connected
+- **Safe:** preview before every run, deletion protection, Recycle Bin, optional checksums, never half-copied files
+- **Filters** for files and folders, size limits, online-only cloud files are not downloaded
+- **History** with statistics and details for every file
+- Notification area, start with Windows, notifications, light and dark theme, English and German
+
+## Installation
+Download the latest version from [Releases](https://github.com/RNYSVRN/SyncForge/releases):
+- `SyncForge-x.y.z-x64-Setup.exe`: installer, no administrator rights needed.
+- `SyncForge-x.y.z-x64.zip`: no installation, unzip and run `SyncForge.exe`.
+
+Requires Windows 11 (x64). The files are not code-signed, so Windows SmartScreen shows a notice on first launch:
+choose **More info** and then **Run anyway**. Every release lists the SHA-256 checksums.
+
+## Privacy
+SyncForge works entirely locally: no telemetry, no ads, no account. The only exception is the optional update check,
+which is off by default and asks GitHub once a day whether a new version exists.
+
+## Support
+SyncForge is free and will stay that way. If it saves you time and nerves, I'd be happy about a coffee:
+[ko-fi.com/rnysvrn](https://ko-fi.com/rnysvrn). A star on GitHub and feedback as an
+[issue](https://github.com/RNYSVRN/SyncForge/issues) help as well.
+
+---
+
+# Development
+Feature scope and stage plan (German): see [SPEC.md](SPEC.md).
+
+## Requirements
 - Windows 11
 - .NET 10 SDK (`winget install Microsoft.DotNet.SDK.10`)
-- Optional: Visual Studio 2026 mit Workload „WinUI-Anwendungsentwicklung“ zum Debuggen
+- Optional: Visual Studio 2026 with the "WinUI application development" workload for debugging
 
-## Bauen & Starten
+## Build & run
 ```powershell
 dotnet build SyncForge.sln -c Debug -p:Platform=x64
 .\src\SyncForge\bin\x64\Debug\net10.0-windows10.0.26100.0\SyncForge.exe
@@ -20,106 +54,104 @@ dotnet build SyncForge.sln -c Debug -p:Platform=x64
 ```powershell
 dotnet test --project tests\SyncForge.Core.Tests\SyncForge.Core.Tests.csproj
 ```
-
-## Veröffentlichen (GitHub Release, winget)
-Voraussetzung: Inno Setup 6 (`winget install JRSoftware.InnoSetup`). Version in `src/SyncForge/SyncForge.csproj` (`<Version>`) erhöhen, dann:
+The load test with 100,000 files runs only on demand:
 ```powershell
-powershell -ExecutionPolicy Bypass -File tools\Build-Release.ps1   # Repository: RNYSVRN/SyncForge (siehe AppInfo.cs)
+dotnet test --project tests\SyncForge.Core.Tests\SyncForge.Core.Tests.csproj -- --filter-class "*LoadTests" --explicit only
 ```
-Ergebnis in `artifacts\release\`:
-- `SyncForge-x.y.z-x64-Setup.exe`: Installationsprogramm, pro Benutzer ohne Administratorrechte nach
-  `%LOCALAPPDATA%\Programs\SyncForge`. Beendet eine laufende SyncForge-Instanz vor Update und Deinstallation.
-  Die Deinstallation entfernt Autostart-Eintrag und Benachrichtigungs-Registrierung und fragt, ob auch Einstellungen,
-  Profile und Historie gelöscht werden sollen (still: nie).
-- `SyncForge-x.y.z-x64.zip`: ohne Installation, entpacken und `SyncForge.exe` starten.
-- `SHA256SUMS.txt`: Prüfsummen für die Release-Beschreibung.
-- `winget\manifests\...`: winget-Manifest (Vorlagen in `installer\winget`), Prüfung mit `winget validate --manifest <Ordner>`.
 
-Ablauf mit GitHub Actions (`.github/workflows/build.yml`):
-- Jeder Push auf `main` und jeder Pull Request: Tests und Build.
-- Tag `vx.y.z` pushen (muss zur `<Version>` in der Projektdatei passen):
-  `git tag v0.5.0` und `git push origin v0.5.0`. Die Action baut Setup, ZIP und Prüfsummen, legt damit einen
-  **Release-Entwurf** an und stellt das winget-Manifest als Artefakt bereit. Auf GitHub die Neuerungen eintragen
-  und den Entwurf veröffentlichen.
+## Releases (GitHub, winget)
+GitHub Actions (`.github/workflows/build.yml`):
+- Every push to `main` and every pull request: tests and build.
+- Pushing a tag `vX.Y.Z` (must match `<Version>` in `src/SyncForge/SyncForge.csproj`), e.g.
+  `git tag v0.5.0` and `git push origin v0.5.0`: the action builds the installer, ZIP and checksums, creates a
+  **release draft** and uploads the winget manifest as an artifact. Add the release notes on GitHub and publish the draft.
 
-Ohne Action (lokal):
-1. GitHub Release mit dem Tag `vx.y.z` anlegen und Setup, ZIP und `SHA256SUMS.txt` anhängen.
-2. winget: Den Ordner `artifacts\release\winget\manifests\r\RonnySeverin\SyncForge\x.y.z` per Pull Request in
-   [microsoft/winget-pkgs](https://github.com/microsoft/winget-pkgs) unter demselben Pfad einreichen
-   (alternativ mit dem Werkzeug `wingetcreate`). Danach: `winget install RonnySeverin.SyncForge`.
-
-Die Dateien sind nicht signiert. Beim ersten Start aus dem Browser zeigt Windows SmartScreen deshalb einen Hinweis
-(„Weitere Informationen › Trotzdem ausführen“). Ist die intelligente App-Steuerung aktiv, blockiert Windows
-unsignierte Apps ganz.
-
-Mitgeliefert wird nur, was SyncForge braucht: Die KI-, ML-, Such- und Widget-Teile des Windows App SDK sind in der
-Projektdatei mit `ExcludeAssets="all"` ausgeschlossen (spart rund 60 MB). Die Ressourcendatei `SyncForge.pri`
-kopiert ein eigener Build-Schritt mit, ohne sie startet die unpaketierte App nicht.
-
-## MSIX-Paket
+Locally (requires Inno Setup 6: `winget install JRSoftware.InnoSetup`):
 ```powershell
-powershell -File tools\Build-Msix.ps1                       # baut artifacts\msix\...\SyncForge_x.y.z.0_x64.msix
-powershell -ExecutionPolicy Bypass -File tools\Install-Msix.ps1   # als Administrator: Testzertifikat, signieren, installieren
+powershell -ExecutionPolicy Bypass -File tools\Build-Release.ps1
 ```
-`Install-Msix.ps1` legt ein selbstsigniertes Zertifikat „CN=SyncForge Dev“ an und vertraut ihm für App-Pakete.
-Deinstallieren: `Get-AppxPackage SyncForge | Remove-AppxPackage`. Die installierte App hat eigene Daten (paketierter
-AppData-Bereich), getrennt vom unpaketierten Entwicklungs-Build.
+Output in `artifacts\release\`:
+- `SyncForge-x.y.z-x64-Setup.exe`: per-user installer (no admin rights) into `%LOCALAPPDATA%\Programs\SyncForge`.
+  Stops a running SyncForge before updating or uninstalling. Uninstalling removes the startup entry and the
+  notification registration and asks whether settings, profiles and history should be deleted too (silent: never).
+- `SyncForge-x.y.z-x64.zip`: portable, no installation.
+- `SHA256SUMS.txt`: checksums for the release notes.
+- `winget\manifests\...`: winget manifest (templates in `installer\winget`), check with `winget validate --manifest <folder>`.
 
-## Hilfe, Rechtstexte und Lizenzen
-- Hilfe: `src/SyncForge/Assets/Help/Deutsch|English/*.md`: ein Thema pro Datei, Reihenfolge nach Dateiname,
-  erste Zeile `<!-- glyph:E7C1 -->` = Symbol (Segoe Fluent Icons). Unterstützt: `#`/`##`/`###`, Absätze, `-`/`1.` Listen,
-  `> Hinweis`, `**fett**`, `` `Code` ``.
-- Lizenz-Seite und Datenschutz: `src/SyncForge/Assets/Legal/Deutsch|English/license.md` bzw. `privacy.md`
-  (Datenschutz: **Entwurf, vor Veröffentlichung prüfen und Kontaktdaten eintragen**).
-- Drittanbieter-Lizenzen: nach jedem Paket-Update `powershell -File tools\Collect-Licenses.ps1` ausführen
-  (liest die verwendeten Paketversionen aus dem Build und übernimmt die Lizenztexte aus den NuGet-Paketen).
+winget: submit the folder `winget\manifests\r\RonnySeverin\SyncForge\x.y.z` as a pull request to
+[microsoft/winget-pkgs](https://github.com/microsoft/winget-pkgs) under the same path (or use `wingetcreate`).
+Afterwards: `winget install RonnySeverin.SyncForge`.
 
-## Sync-Modi
-| Modus | Verhalten |
+Only what SyncForge needs is shipped: the AI, ML, search and widget parts of the Windows App SDK are excluded in the
+project file with `ExcludeAssets="all"` (saves about 60 MB). A custom build step copies the resource file
+`SyncForge.pri`, without it the unpackaged app does not start.
+
+## MSIX package
+```powershell
+powershell -File tools\Build-Msix.ps1                             # builds artifacts\msix\...\SyncForge_x.y.z.0_x64.msix
+powershell -ExecutionPolicy Bypass -File tools\Install-Msix.ps1   # as administrator: test certificate, sign, install
+```
+`Install-Msix.ps1` creates a self-signed certificate "CN=SyncForge Dev" and trusts it for app packages.
+Uninstall: `Get-AppxPackage SyncForge | Remove-AppxPackage`. The installed app has its own data (packaged AppData
+area), separate from the unpackaged development build.
+
+## Help, legal texts and licenses
+- Help: `src/SyncForge/Assets/Help/Deutsch|English/*.md`, one topic per file, ordered by file name,
+  first line `<!-- glyph:E7C1 -->` = icon (Segoe Fluent Icons). Supported: `#`/`##`/`###`, paragraphs, `-`/`1.` lists,
+  `> note`, `**bold**`, `` `code` ``.
+- License page and privacy statement: `src/SyncForge/Assets/Legal/Deutsch|English/license.md` and `privacy.md`.
+- Third-party licenses: run `powershell -File tools\Collect-Licenses.ps1` after every package update
+  (reads the package versions used by the build and takes the license texts from the NuGet packages).
+
+## Sync modes
+| Mode | Behavior |
 |---|---|
-| Spiegeln | Ziel = exakte Kopie der Quelle (inkl. Löschungen; optional Papierkorb) |
-| Versioniert | wie Spiegeln, überschriebene/gelöschte Dateien landen in `Ziel\.syncforge_versions\` (Seite „Versionen“ zum Wiederherstellen) |
-| Zwei-Wege | Änderungen und Löschungen in beide Richtungen; Stand nach dem letzten Lauf in `%LOCALAPPDATA%\SyncForge\state\`; Konflikte: neuere gewinnt / Quelle gewinnt / beide behalten / nur melden |
+| Mirror | Destination = exact copy of the source (including deletions, optionally to the Recycle Bin) |
+| Versioned | Like mirror, overwritten or deleted files go to `Destination\.syncforge_versions\` ("Versions" page to restore) |
+| Two-way | Changes and deletions in both directions, state after the last run in `%LOCALAPPDATA%\SyncForge\state\`. Conflicts: newer wins / source wins / keep both / report only |
 
-## Projektstruktur
+## Project structure
 ```
-src/SyncForge.Core/      Sync-Logik ohne UI (testbar)
-  Models/                Profil, Ziele, Filter-Einstellungen
-  Filtering/PathFilter   Ein-/Ausschlussmuster (*.tmp, ordner\, a\**\b)
-  Engine/SyncPlanner     Analyse: Quelle vs. Ziel -> Plan (verändert nichts)
-  Engine/SyncExecutor    Ausführung: Temp-Datei + Ersetzen, parallel, Abbruch, Papierkorb
-  Engine/ProfileRunner   Mehrere Ziele, Erreichbarkeit, Löschschutz
+src/SyncForge.Core/      Sync logic without UI (testable)
+  Models/                Profile, destinations, filter settings
+  Filtering/PathFilter   Include/exclude patterns (*.tmp, folder\, a\**\b)
+  Engine/SyncPlanner     Analysis: source vs. destination -> plan (changes nothing)
+  Engine/SyncExecutor    Execution: temp file + replace, parallel, cancel, Recycle Bin
+  Engine/ProfileRunner   Multiple destinations, reachability, deletion protection
+  Engine/TwoWayPlanner   Two-way sync with shared state and conflict rules
+  Engine/VolumeResolver  USB/local destinations via volume ID (also under another drive letter)
   Storage/ProfileStore   profiles.json
-  History/HistoryStore   history.db (SQLite): Läufe, Ergebnisse je Ziel, Datei-Protokoll, Statistiken
-  Scheduling/            Zeitplan-Berechnung (Intervall, täglich, Wochentage, Nachholen)
-  Versioning/            Versionsordner: verschieben, auflisten, wiederherstellen, aufräumen
-  Engine/TwoWayPlanner   Zwei-Wege-Abgleich mit gemeinsamem Stand und Konfliktregeln
-  Engine/VolumeResolver  USB-/lokale Ziele über die Volume-ID (auch unter anderem Laufwerksbuchstaben)
-tests/SyncForge.Core.Tests/  xUnit-Tests gegen echte Temp-Ordner
+  History/HistoryStore   history.db (SQLite): runs, results per destination, file log, statistics
+  Scheduling/            Schedule calculation (interval, daily, weekdays, catch-up)
+  Versioning/            Versions folder: move, list, restore, clean up
+  Updates/               Optional update check (GitHub Releases)
+tests/SyncForge.Core.Tests/  xUnit tests against real temp folders
 src/SyncForge/
-  App.xaml(.cs)          Start, DI-Container, Sprache, Fehlerprotokoll
-  MainWindow.xaml(.cs)   Titelleiste, Mica, NavigationView, Fenstergröße
-  Views/                 Übersicht, Profile, Profil-Editor, Vorschau/Lauf, Historie, Laufdetails, Einstellungen
-  Controls/              DailyBarChart (Datenmenge pro Tag)
+  App.xaml(.cs)          Startup, DI container, language, error log
+  MainWindow.xaml(.cs)   Title bar, Mica, NavigationView, window size
+  Views/                 Overview, profiles, profile editor, preview/run, history, run details, settings, help, legal
+  Controls/              DailyBarChart, MarkdownView, CoffeeSteam
   ViewModels/            MVVM (CommunityToolkit.Mvvm)
-  Program.cs             Einstiegspunkt mit Einzelinstanz-Weiterleitung
-  Services/              Einstellungen, Design, Lokalisierung,
-                         SyncCoordinator (alle Läufe), AutomationService (Zeitplan, Überwachung, Laufwerke),
-                         TrayIcon (Infobereich, Win32), NotificationService, StartupService (Autostart)
-  Strings/<Sprache>/     Resources.resw (generiert, nicht von Hand bearbeiten)
-  Assets/                App-Icon (generiert)
+  Program.cs             Entry point with single-instance redirection
+  Services/              Settings, theme, localization, SyncCoordinator (all runs),
+                         AutomationService (schedules, watching, drives), TrayIcon (Win32),
+                         NotificationService, StartupService, UpdateService
+  Strings/<language>/    Resources.resw (generated, do not edit by hand)
+  Assets/                App icon, help, legal texts, licenses
+installer/               Inno Setup script and winget templates
 tools/
-  strings.csv            Alle UI-Texte (Deutsch/Englisch) an einer Stelle
-  Generate-Strings.ps1   strings.csv → .resw
-  Generate-Icon.ps1      zeichnet AppIcon.png und SyncForge.ico
+  strings.csv            All UI texts (German/English) in one place
+  Generate-Strings.ps1   strings.csv -> .resw
+  Generate-Icon.ps1      draws AppIcon.png and SyncForge.ico
+  Build-Release.ps1      installer, ZIP, checksums, winget manifest
 ```
 
-## Texte übersetzen / ergänzen
-1. Zeile in `tools/strings.csv` ergänzen (`Schlüssel;Deutsch;Englisch`). Für XAML-Elemente lautet der Schlüssel
-   `<x:Uid>.<Eigenschaft>`, z. B. `Settings_Theme.Header`.
-2. `powershell -File tools/Generate-Strings.ps1` ausführen.
-3. Im Code: `Localization.Get("Schlüssel")`.
+## Translating / adding texts
+1. Add a line to `tools/strings.csv` (`Key;German;English`, no semicolons inside the texts). For XAML elements the key
+   is `<x:Uid>.<Property>`, e.g. `Settings_Theme.Header`.
+2. Run `powershell -File tools/Generate-Strings.ps1`.
+3. In code: `Localization.Get("Key")`.
 
-## Daten
-Einstellungen und Protokolle liegen unter `%LOCALAPPDATA%\SyncForge\`
-(`settings.json`, `profiles.json`, `history.db`, `crash.log` bei Fehlern).
+## Data
+Settings and logs are stored in `%LOCALAPPDATA%\SyncForge\`
+(`settings.json`, `profiles.json`, `history.db`, `state\`, `crash.log` after errors).
