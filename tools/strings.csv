@@ -363,3 +363,6 @@ CloudFiles_Skip.Content;Überspringen;Skip
 CloudFiles_Download.Content;Herunterladen und sichern;Download and back up
 Run_PlanCloudSkipped;{0} nur online (übersprungen);{0} online-only (skipped)
 Run_CloudSkipped;{0} nur online verfügbare Datei(en) übersprungen.;{0} online-only file(s) skipped.
+Run_PlanUnreadable;{0} Ordner nicht lesbar (ausgelassen);{0} folder(s) unreadable (skipped)
+Run_Unreadable;{0} Ordner konnten nicht gelesen werden und wurden ausgelassen.;{0} folder(s) could not be read and were skipped.
+Run_RootLost;Abgebrochen, {0} war nicht mehr erreichbar;Stopped, {0} was no longer reachable

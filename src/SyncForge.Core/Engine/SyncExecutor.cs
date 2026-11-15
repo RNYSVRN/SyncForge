@@ -1,3 +1,4 @@
+using System.Buffers;
 using System.Diagnostics;
 using SyncForge.Core.Versioning;
 
@@ -31,6 +32,8 @@ public sealed class SyncExecutor
     private readonly SyncExecutorOptions _options;
     private readonly BandwidthThrottle? _throttle;
     private readonly DateTimeOffset _versionStamp = DateTimeOffset.Now;
+    /// <summary>Zielordner, deren Existenz schon geprüft wurde (spart bei vielen Dateien je eine Abfrage).</summary>
+    private readonly System.Collections.Concurrent.ConcurrentDictionary<string, byte> _knownDirectories = new(StringComparer.OrdinalIgnoreCase);
 
     public SyncExecutor(SyncExecutorOptions options)
     {
@@ -41,13 +44,40 @@ public sealed class SyncExecutor
     public async Task<SyncResult> ExecuteAsync(SyncPlan plan, IProgress<SyncProgress>? progress = null, CancellationToken ct = default)
     {
         var sw = Stopwatch.StartNew();
-        var result = new SyncResult { TargetRoot = plan.TargetRoot, SkippedCloudFiles = plan.SkippedCloudFiles };
+        var result = new SyncResult
+        {
+            TargetRoot = plan.TargetRoot, SkippedCloudFiles = plan.SkippedCloudFiles, UnreadableFolders = plan.UnreadableFolders.Count
+        };
         var reporter = new ProgressReporter(plan, progress);
         var recycle = new Dictionary<SyncSide, bool>
         {
             [SyncSide.Target] = _options.DeleteToRecycleBin && RecycleBin.IsSupported(plan.TargetRoot),
             [SyncSide.Source] = _options.DeleteToRecycleBin && RecycleBin.IsSupported(plan.SourceRoot)
         };
+
+        // Eigenes Abbruchsignal: Verschwindet Quelle oder Ziel, werden die restlichen Aktionen nicht mehr
+        // einzeln versucht (das gäbe tausende gleichartige Fehler), sondern der Lauf endet mit einer Meldung.
+        using var lostCts = CancellationTokenSource.CreateLinkedTokenSource(ct);
+        var outerCt = ct;
+        ct = lostCts.Token;
+        string? lostMessage = null;
+
+        // Fehler einer Aktion: Liegt es daran, dass Quelle/Ziel verschwunden ist? Dann geordnet beenden.
+        bool HandleLostRoot(SyncAction action, Exception ex)
+        {
+            var root = ex is RootLostException rl ? rl.Root : FindLostRoot(plan, action);
+            if (root is null) return false;
+            lock (result)
+            {
+                if (result.LostRoot is null)
+                {
+                    result.LostRoot = root;
+                    lostMessage = ex is RootLostException ? root : ex.Message;
+                }
+            }
+            lostCts.Cancel();
+            return true;
+        }
 
         try
         {
@@ -58,13 +88,14 @@ public sealed class SyncExecutor
                          a.IsTypeConflict || a.Kind is SyncActionKind.CreateDirectory or SyncActionKind.RenameConflict or SyncActionKind.Conflict))
             {
                 ct.ThrowIfCancellationRequested();
-                Run(result, action, () =>
+                Run(result, action, HandleLostRoot, () =>
                 {
                     var root = RootOf(plan, action.Side);
                     var path = Path.Combine(root, action.RelativePath);
                     switch (action.Kind)
                     {
                         case SyncActionKind.CreateDirectory:
+                            EnsureRootExists(root);
                             Directory.CreateDirectory(path);
                             result.CreatedDirectories++;
                             return true;
@@ -111,6 +142,10 @@ public sealed class SyncExecutor
                     {
                         throw;
                     }
+                    catch (Exception ex) when (HandleLostRoot(action, ex))
+                    {
+                        throw new OperationCanceledException(token);
+                    }
                     catch (Exception ex)
                     {
                         lock (result)
@@ -126,7 +161,7 @@ public sealed class SyncExecutor
             foreach (var action in plan.Actions.Where(a => a.IsDelete && !a.IsTypeConflict))
             {
                 ct.ThrowIfCancellationRequested();
-                Run(result, action, () =>
+                Run(result, action, HandleLostRoot, () =>
                 {
                     var root = RootOf(plan, action.Side);
                     var path = Path.Combine(root, action.RelativePath);
@@ -154,13 +189,22 @@ public sealed class SyncExecutor
                     VersionStore.Prune(plan.SourceRoot, _options.VersionsToKeep, _options.VersionMaxAgeDays);
             }
         }
-        catch (OperationCanceledException)
+        catch (OperationCanceledException) when (result.LostRoot is null || outerCt.IsCancellationRequested)
         {
             result.Cancelled = true;
+        }
+        catch (OperationCanceledException)
+        {
+            // Quelle/Ziel verschwunden: kein Abbruch durch den Benutzer, sondern ein Fehler (siehe unten).
         }
         catch (Exception ex)
         {
             result.Errors.Add(new SyncError(string.Empty, ex.Message));
+        }
+
+        if (result.LostRoot is not null)
+        {
+            result.Errors.Add(new SyncError(result.LostRoot, lostMessage ?? result.LostRoot));
         }
 
         result.Duration = sw.Elapsed;
@@ -172,7 +216,7 @@ public sealed class SyncExecutor
     private static string OtherRoot(SyncPlan plan, SyncSide side) => side == SyncSide.Target ? plan.SourceRoot : plan.TargetRoot;
 
     /// <summary>Führt eine sequenzielle Aktion aus und protokolliert sie (work gibt false zurück = nichts zu tun).</summary>
-    private static void Run(SyncResult result, SyncAction action, Func<bool> work)
+    private static void Run(SyncResult result, SyncAction action, Func<SyncAction, Exception, bool> handleLostRoot, Func<bool> work)
     {
         try
         {
@@ -180,27 +224,85 @@ public sealed class SyncExecutor
         }
         catch (Exception ex) when (ex is not OperationCanceledException)
         {
+            if (handleLostRoot(action, ex)) return;
             result.Errors.Add(new SyncError(action.RelativePath, ex.Message));
             result.Files.Add(new SyncFileRecord(action.Kind, action.RelativePath, action.Size, ex.Message, action.Side));
         }
     }
 
+    /// <summary>Quelle/Ziel verschwunden (Laufwerk abgezogen, Netzwerk weg)?</summary>
+    private sealed class RootLostException(string root) : IOException(root)
+    {
+        public string Root { get; } = root;
+    }
+
+    /// <summary>Nach einem Fehler: Ist die betroffene Seite (bei Kopien auch die lesende) noch da?</summary>
+    private static string? FindLostRoot(SyncPlan plan, SyncAction action)
+    {
+        var root = RootOf(plan, action.Side);
+        if (!Directory.Exists(root)) return root;
+        if (action.IsCopy && !Directory.Exists(OtherRoot(plan, action.Side))) return OtherRoot(plan, action.Side);
+        return null;
+    }
+
+    /// <summary>
+    /// Vor dem Anlegen von Ordnern: Die Wurzel muss noch da sein. Sonst würde z. B. nach dem Trennen eines
+    /// Netzlaufwerks der Zielordner still neu angelegt und eine halbe Kopie entstehen.
+    /// </summary>
+    private static void EnsureRootExists(string root)
+    {
+        if (!Directory.Exists(root)) throw new RootLostException(root);
+    }
+
+    /// <summary>Datei kurzzeitig von einem anderen Programm gesperrt (Virenscanner, Indexdienst, Sicherung)?</summary>
+    private static bool IsSharingViolation(Exception ex) =>
+        ex is IOException && (ex.HResult & 0xFFFF) is 32 or 33; // ERROR_SHARING_VIOLATION, ERROR_LOCK_VIOLATION
+
+    private static readonly TimeSpan[] LockRetryDelays = [TimeSpan.FromMilliseconds(250), TimeSpan.FromMilliseconds(750), TimeSpan.FromMilliseconds(1500)];
+
     private async Task CopyFileAsync(SyncPlan plan, SyncAction action, ProgressReporter reporter, CancellationToken ct)
+    {
+        for (var attempt = 0; ; attempt++)
+        {
+            try
+            {
+                await CopyFileOnceAsync(plan, action, reporter, ct);
+                return;
+            }
+            catch (Exception ex) when (attempt < LockRetryDelays.Length && IsSharingViolation(ex))
+            {
+                await Task.Delay(LockRetryDelays[attempt], ct);
+            }
+        }
+    }
+
+    private async Task CopyFileOnceAsync(SyncPlan plan, SyncAction action, ProgressReporter reporter, CancellationToken ct)
     {
         var toRoot = RootOf(plan, action.Side);
         var source = Path.Combine(OtherRoot(plan, action.Side), action.RelativePath);
         var target = Path.Combine(toRoot, action.RelativePath);
         var targetDir = Path.GetDirectoryName(target)!;
-        Directory.CreateDirectory(targetDir);
+        if (!_knownDirectories.ContainsKey(targetDir))
+        {
+            if (!Directory.Exists(targetDir))
+            {
+                EnsureRootExists(toRoot);
+                Directory.CreateDirectory(targetDir);
+            }
+            _knownDirectories.TryAdd(targetDir, 0);
+        }
         var temp = Path.Combine(targetDir, $"{TempPrefix}{Guid.NewGuid():N}.tmp");
+        long reported = 0;
+        FileAttributes sourceAttributes;
 
+        // Puffer aus dem Pool und ohne zusätzliche FileStream-Puffer: Bei vielen kleinen Dateien sonst
+        // 2 MB neuer Speicher pro Datei. Asynchrone Ein-/Ausgabe lohnt sich erst bei größeren Dateien.
+        var buffer = ArrayPool<byte>.Shared.Rent((int)Math.Clamp(action.Size, 4096, BufferSize));
         try
         {
-            var buffer = new byte[BufferSize];
-            await using (var input = new FileStream(source, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete,
-                             BufferSize, FileOptions.Asynchronous | FileOptions.SequentialScan))
-            await using (var output = new FileStream(temp, FileMode.CreateNew, FileAccess.Write, FileShare.None,
-                             BufferSize, FileOptions.Asynchronous | FileOptions.SequentialScan))
+            var fileOptions = action.Size >= BufferSize ? FileOptions.Asynchronous | FileOptions.SequentialScan : FileOptions.SequentialScan;
+            await using (var input = new FileStream(source, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete, 0, fileOptions))
+            await using (var output = new FileStream(temp, FileMode.CreateNew, FileAccess.Write, FileShare.None, 0, fileOptions))
             {
                 if (input.Length > 0) output.SetLength(input.Length);
                 int read;
@@ -208,19 +310,21 @@ public sealed class SyncExecutor
                 {
                     await output.WriteAsync(buffer.AsMemory(0, read), ct);
                     reporter.Bytes(read, action.RelativePath);
+                    reported += read;
                     if (_throttle is not null) await _throttle.WaitAsync(read, ct);
                 }
                 output.SetLength(output.Position);
+
+                // Zeitstempel über die offenen Handles übernehmen (spart je Datei mehrere zusätzliche Öffnungen).
+                sourceAttributes = File.GetAttributes(input.SafeFileHandle);
+                File.SetCreationTimeUtc(output.SafeFileHandle, File.GetCreationTimeUtc(input.SafeFileHandle));
+                File.SetLastWriteTimeUtc(output.SafeFileHandle, File.GetLastWriteTimeUtc(input.SafeFileHandle));
             }
 
             if (_options.VerifyAfterCopy && !await FileHasher.AreEqualAsync(source, temp, ct))
             {
                 throw new IOException("Prüfsumme der Kopie stimmt nicht mit der Quelle überein.");
             }
-
-            var info = new FileInfo(source);
-            File.SetCreationTimeUtc(temp, info.CreationTimeUtc);
-            File.SetLastWriteTimeUtc(temp, info.LastWriteTimeUtc);
 
             if (File.Exists(target))
             {
@@ -235,14 +339,25 @@ public sealed class SyncExecutor
                 }
             }
             File.Move(temp, target, overwrite: true);
-            File.SetAttributes(target, info.Attributes & ~(FileAttributes.Archive | FileAttributes.Normal) | FileAttributes.Archive);
+
+            // Nur sinnvolle Attribute übernehmen. Cloud-Kennzeichen wie "Offline" gehören nicht an eine lokale Kopie.
+            var keep = sourceAttributes & CopiedAttributes;
+            if (keep != 0) File.SetAttributes(target, keep | FileAttributes.Archive);
         }
         catch
         {
             TryDelete(temp);
+            reporter.Rewind(reported); // bei erneutem Versuch nicht doppelt zählen
             throw;
         }
+        finally
+        {
+            ArrayPool<byte>.Shared.Return(buffer);
+        }
     }
+
+    private const FileAttributes CopiedAttributes =
+        FileAttributes.ReadOnly | FileAttributes.Hidden | FileAttributes.System | FileAttributes.NotContentIndexed;
 
     /// <summary>Löscht eine Datei – bzw. verschiebt sie in den Versionsordner oder Papierkorb.</summary>
     private void RemoveFile(string root, string relativePath, bool useRecycleBin)
@@ -288,6 +403,8 @@ public sealed class SyncExecutor
         private int _items;
         private long _bytes;
         private long _lastReportMs = -1000;
+
+        public void Rewind(long count) => Interlocked.Add(ref _bytes, -count);
 
         public void Bytes(int count, string file)
         {

@@ -28,14 +28,18 @@ public static class SyncPlanner
         var skipCloud = filterSettings.CloudFiles == CloudFileMode.Skip;
 
         progress?.Report(new SyncProgress(targetRoot, SyncPhase.Scanning, null, 0, 0, 0, 0));
+        var sourceUnreadable = new List<string>();
+        var targetUnreadable = new List<string>();
         var source = await Task.Run(() => FileTree.Scan(sourceRoot, filter, ct,
-            n => progress?.Report(new SyncProgress(targetRoot, SyncPhase.Scanning, null, n, 0, 0, 0))), ct);
+            n => progress?.Report(new SyncProgress(targetRoot, SyncPhase.Scanning, null, n, 0, 0, 0)), sourceUnreadable), ct);
         var targetMissing = !Directory.Exists(targetRoot);
         var target = targetMissing
             ? new Dictionary<string, FileTreeEntry>(StringComparer.OrdinalIgnoreCase)
-            : await Task.Run(() => FileTree.Scan(targetRoot, filter, ct), ct);
+            : await Task.Run(() => FileTree.Scan(targetRoot, filter, ct, null, targetUnreadable), ct);
 
         var plan = new SyncPlan { SourceRoot = sourceRoot, TargetRoot = targetRoot, TargetRootMissing = targetMissing };
+        plan.UnreadableFolders.AddRange(sourceUnreadable.Select(r => Path.Combine(sourceRoot, r)));
+        plan.UnreadableFolders.AddRange(targetUnreadable.Select(r => Path.Combine(targetRoot, r)));
         plan.ExistingTargetFileCount = target.Values.Count(e => !e.IsDirectory);
         plan.SourceFileCount = source.Values.Count(e => !e.IsDirectory);
         plan.SourceBytes = source.Values.Where(e => !e.IsDirectory).Sum(e => e.Size);
@@ -49,6 +53,8 @@ public static class SyncPlanner
         var compareCandidates = new List<(FileTreeEntry Src, FileTreeEntry Dst)>();
         foreach (var src in source.Values)
         {
+            // Zielordner unlesbar: was dort liegt, ist unbekannt, also nichts hineinschreiben.
+            if (targetUnreadable.Count > 0 && FileTree.IsInsideUnreadable(src.RelativePath, targetUnreadable)) continue;
             target.TryGetValue(src.RelativePath, out var dst);
 
             if (src.IsDirectory)
@@ -126,6 +132,8 @@ public static class SyncPlanner
         foreach (var dst in target.Values)
         {
             if (source.ContainsKey(dst.RelativePath)) continue;
+            // Quellordner unlesbar: Fehlt die Datei dort wirklich? Unbekannt, also nicht löschen.
+            if (sourceUnreadable.Count > 0 && FileTree.IsInsideUnreadable(dst.RelativePath, sourceUnreadable)) continue;
             if (dst.IsDirectory) deleteDirs.Add(new SyncAction(SyncActionKind.DeleteDirectory, dst.RelativePath, 0));
             else deleteFiles.Add(new SyncAction(SyncActionKind.DeleteFile, dst.RelativePath, dst.Size));
         }

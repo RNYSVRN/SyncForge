@@ -44,6 +44,13 @@ public sealed class SyncResult
     public int Conflicts { get; set; }
     /// <summary>Übersprungene, nur online verfügbare Dateien (aus dem Plan übernommen).</summary>
     public int SkippedCloudFiles { get; set; }
+    /// <summary>Unlesbare Ordner, die ausgelassen wurden (aus dem Plan übernommen).</summary>
+    public int UnreadableFolders { get; set; }
+    /// <summary>
+    /// Quelle oder Ziel war während des Laufs plötzlich nicht mehr erreichbar (USB-Laufwerk abgezogen,
+    /// Netzwerk getrennt). Der Lauf wurde dann geordnet beendet.
+    /// </summary>
+    public string? LostRoot { get; set; }
     public long BytesCopied { get; set; }
     public TimeSpan Duration { get; set; }
     public bool Cancelled { get; set; }

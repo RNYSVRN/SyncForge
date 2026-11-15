@@ -46,7 +46,7 @@ public sealed class ProfileRunResult
     public RunStatus Status =>
         Cancelled ? RunStatus.Cancelled
         : Results.Any(r => r.Errors.Count > 0) || (Results.Count == 0 && Skipped.Count > 0) ? RunStatus.Error
-        : Skipped.Count > 0 ? RunStatus.Warning
+        : Skipped.Count > 0 || Results.Any(r => r.UnreadableFolders > 0) ? RunStatus.Warning
         : RunStatus.Success;
 }
 

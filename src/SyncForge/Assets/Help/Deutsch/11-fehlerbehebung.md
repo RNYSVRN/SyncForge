@@ -7,7 +7,15 @@ Das Laufwerk bzw. die Netzwerkfreigabe ist nicht verfügbar, z. B. weil die USB-
 
 ## Eine Datei konnte nicht kopiert werden
 
-Meist ist sie gerade in einem anderen Programm geöffnet (z. B. Outlook-Datendateien). Schließe das Programm; die Datei wird beim nächsten Lauf kopiert. Die genaue Meldung steht in der Historie unter **Fehler**.
+Meist ist sie gerade in einem anderen Programm geöffnet (z. B. Outlook-Datendateien). Kurze Sperren, etwa durch einen Virenscanner, wartet SyncForge ab und versucht es mehrmals. Bleibt die Datei gesperrt, schließe das Programm; die Datei wird beim nächsten Lauf kopiert. Die genaue Meldung steht in der Historie unter **Fehler**.
+
+## Ordner konnten nicht gelesen werden
+
+SyncForge hatte keinen Zugriff auf diese Ordner, z. B. wegen fehlender Berechtigungen oder weil die Netzwerkverbindung während der Analyse kurz weg war. Was in einem solchen Ordner liegt, ist dann unbekannt. Deshalb wird darin nichts kopiert und vor allem nichts gelöscht, auch nicht auf der anderen Seite. Sobald der Zugriff wieder klappt, wird der Ordner beim nächsten Lauf normal abgeglichen.
+
+## Der Lauf wurde abgebrochen, weil ein Laufwerk nicht mehr erreichbar war
+
+Die USB-Festplatte wurde während des Laufs abgezogen oder die Verbindung zum NAS ist abgerissen. SyncForge beendet den Lauf dann sofort, statt jede weitere Datei einzeln zu versuchen. Bereits kopierte Dateien sind vollständig, halbe Dateien gibt es nicht. Beim nächsten Lauf wird der Rest nachgeholt.
 
 ## Der Löschschutz hat angeschlagen
 

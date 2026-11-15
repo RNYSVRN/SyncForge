@@ -27,12 +27,19 @@ internal static class FileTree
     private static readonly EnumerationOptions Options = new()
     {
         RecurseSubdirectories = false,
-        IgnoreInaccessible = true,
+        // Nicht still überspringen: Ein unlesbarer Ordner (fehlende Rechte, Netzwerk weg) muss gemeldet werden,
+        // sonst sähe sein Inhalt aus wie gelöscht und würde auf der anderen Seite entfernt.
+        IgnoreInaccessible = false,
         AttributesToSkip = 0,
         ReturnSpecialDirectories = false
     };
 
-    public static Dictionary<string, FileTreeEntry> Scan(string root, PathFilter filter, CancellationToken ct, Action<int>? onProgress = null)
+    /// <param name="unreadable">
+    /// Sammelt relative Pfade der Ordner, deren Inhalt nicht gelesen werden konnte ("" = Wurzel).
+    /// Was darunter liegt, ist unbekannt und darf weder gelöscht noch überschrieben werden.
+    /// </param>
+    public static Dictionary<string, FileTreeEntry> Scan(string root, PathFilter filter, CancellationToken ct, Action<int>? onProgress = null,
+        List<string>? unreadable = null)
     {
         var result = new Dictionary<string, FileTreeEntry>(StringComparer.OrdinalIgnoreCase);
         if (!Directory.Exists(root)) return result;
@@ -51,8 +58,9 @@ internal static class FileTree
             {
                 entries = dir.EnumerateFileSystemInfos("*", Options).ToList();
             }
-            catch (Exception ex) when (ex is UnauthorizedAccessException or IOException)
+            catch (Exception ex) when (ex is UnauthorizedAccessException or IOException or System.Security.SecurityException)
             {
+                unreadable?.Add(rel);
                 continue;
             }
 
@@ -79,6 +87,18 @@ internal static class FileTree
             onProgress?.Invoke(result.Count);
         }
         return result;
+    }
+
+    /// <summary>True, wenn der Pfad in einem unlesbaren Ordner liegt (sein Zustand also unbekannt ist).</summary>
+    public static bool IsInsideUnreadable(string relativePath, List<string> unreadable)
+    {
+        foreach (var dir in unreadable)
+        {
+            if (dir.Length == 0) return true;
+            if (relativePath.Length > dir.Length && relativePath[dir.Length] == '\\'
+                && relativePath.StartsWith(dir, StringComparison.OrdinalIgnoreCase)) return true;
+        }
+        return false;
     }
 
     /// <summary>Eigene Zwischendateien abgebrochener Kopien nie als Inhalt betrachten.</summary>
