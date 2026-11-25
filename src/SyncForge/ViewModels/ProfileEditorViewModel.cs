@@ -1,0 +1,372 @@
+﻿using System.Collections.ObjectModel;
+using CommunityToolkit.Mvvm.ComponentModel;
+using SyncForge.Core.Engine;
+using SyncForge.Core.Models;
+using SyncForge.Core.Storage;
+using SyncForge.Services;
+
+namespace SyncForge.ViewModels;
+
+public sealed partial class TargetItemViewModel : ObservableObject
+{
+    public Guid Id { get; init; } = Guid.NewGuid();
+    [ObservableProperty] public partial string Path { get; set; } = string.Empty;
+    [ObservableProperty] public partial bool Enabled { get; set; } = true;
+
+    /// <summary>Netzwerkfreigabe (\\server\freigabe): Anmeldedaten-Knopf anzeigen.</summary>
+    public bool IsNetworkPath => Core.Network.NetworkShares.IsNetworkPath(Path);
+    public event EventHandler? PathEdited;
+
+    [ObservableProperty] public partial string HintText { get; set; } = string.Empty;
+    [ObservableProperty] public partial string HintGlyph { get; set; } = string.Empty;
+    [ObservableProperty] public partial Microsoft.UI.Xaml.Media.Brush? HintBrush { get; set; }
+    [ObservableProperty] public partial bool HasHint { get; set; }
+
+    public void SetHint(PathHint hint)
+    {
+        HasHint = hint.Kind != HintKind.None;
+        HintText = hint.Text;
+        HintGlyph = hint.Glyph;
+        HintBrush = hint.Brush;
+    }
+
+    partial void OnPathChanged(string value)
+    {
+        OnPropertyChanged(nameof(IsNetworkPath));
+        PathEdited?.Invoke(this, EventArgs.Empty);
+    }
+}
+
+public sealed partial class SourceItemViewModel : ObservableObject
+{
+    public Guid Id { get; init; } = Guid.NewGuid();
+    /// <summary>Bereits festgelegter Unterordner im Ziel ("" = noch keiner bzw. direkt ins Ziel).</summary>
+    public string TargetFolder { get; set; } = string.Empty;
+    [ObservableProperty] public partial string Path { get; set; } = string.Empty;
+    [ObservableProperty] public partial string SubfolderText { get; set; } = string.Empty;
+    [ObservableProperty] public partial bool ShowSubfolder { get; set; }
+
+    public bool IsNetworkPath => Core.Network.NetworkShares.IsNetworkPath(Path);
+    public event EventHandler? PathEdited;
+
+    [ObservableProperty] public partial string HintText { get; set; } = string.Empty;
+    [ObservableProperty] public partial string HintGlyph { get; set; } = string.Empty;
+    [ObservableProperty] public partial Microsoft.UI.Xaml.Media.Brush? HintBrush { get; set; }
+    [ObservableProperty] public partial bool HasHint { get; set; }
+
+    partial void OnPathChanged(string value)
+    {
+        OnPropertyChanged(nameof(IsNetworkPath));
+        var hint = PathHints.ForSource(value);
+        HasHint = hint.Kind != HintKind.None;
+        HintText = hint.Text;
+        HintGlyph = hint.Glyph;
+        HintBrush = hint.Brush;
+        PathEdited?.Invoke(this, EventArgs.Empty);
+    }
+}
+
+public sealed partial class DayOptionViewModel : ObservableObject
+{
+    public required DayOfWeek Day { get; init; }
+    public required string Name { get; init; }
+    [ObservableProperty] public partial bool IsSelected { get; set; }
+}
+
+public sealed partial class ProfileEditorViewModel : ObservableObject
+{
+    private const double Megabyte = 1024 * 1024;
+    private readonly ProfileStore _store;
+    private SyncProfile _profile = new();
+
+    public ProfileEditorViewModel(ProfileStore store)
+    {
+        _store = store;
+    }
+
+    public ObservableCollection<TargetItemViewModel> Targets { get; } = [];
+
+    [ObservableProperty] public partial bool IsNew { get; set; }
+    [ObservableProperty] public partial string PageTitle { get; set; } = string.Empty;
+    [ObservableProperty] public partial string Name { get; set; } = string.Empty;
+    public ObservableCollection<SourceItemViewModel> Sources { get; } = [];
+
+    /// <summary>Mehrere Quellen: Jede bekommt einen eigenen Unterordner im Ziel (Hinweis im Editor).</summary>
+    [ObservableProperty] public partial bool HasMultipleSources { get; set; }
+
+    public SourceItemViewModel AddSource(string path = "")
+    {
+        var item = new SourceItemViewModel { Path = path };
+        item.PathEdited += (_, _) => RefreshSubfolders();
+        Sources.Add(item);
+        RefreshSubfolders();
+        return item;
+    }
+
+    public void RemoveSource(SourceItemViewModel source)
+    {
+        Sources.Remove(source);
+        if (Sources.Count == 0) AddSource();
+        RefreshSubfolders();
+    }
+
+    /// <summary>
+    /// Unterordner je Quelle: vorhandene bleiben, neue werden aus dem Ordnernamen gebildet (eindeutig).
+    /// Bei nur einer Quelle bleibt es, wie es ist (neu: direkt ins Ziel).
+    /// </summary>
+    private List<string> FinalTargetFolders() =>
+        ProfileValidation.TargetFolders(Sources.Select(s => (s.Path, s.TargetFolder)).ToList());
+
+    /// <summary>Hinweise unter den Zielen (hängen auch von den Quellen ab, z. B. "gleiches Laufwerk").</summary>
+    private void RefreshTargetHints()
+    {
+        var sources = Sources.Select(s => s.Path).ToList();
+        foreach (var t in Targets) t.SetHint(PathHints.ForTarget(t.Path, sources));
+    }
+
+    private TargetItemViewModel Track(TargetItemViewModel target)
+    {
+        target.PathEdited += (_, _) => RefreshTargetHints();
+        return target;
+    }
+
+    private void RefreshSubfolders()
+    {
+        RefreshTargetHints();
+        var folders = FinalTargetFolders();
+        HasMultipleSources = Sources.Count(s => s.Path.Trim().Length > 0) > 1;
+        for (var i = 0; i < Sources.Count; i++)
+        {
+            Sources[i].ShowSubfolder = HasMultipleSources && folders[i].Length > 0;
+            Sources[i].SubfolderText = Helpers.Format.Text("Editor_SourceSubfolder", folders[i]);
+        }
+    }
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsVersioned), nameof(IsTwoWay), nameof(HasModeOptions), nameof(ModeDescription))]
+    public partial int ModeIndex { get; set; }
+    [ObservableProperty] public partial int ConflictIndex { get; set; }
+    [ObservableProperty] public partial double VersionsToKeep { get; set; }
+    [ObservableProperty] public partial double VersionMaxAgeDays { get; set; }
+    public bool IsVersioned => ModeIndex == (int)SyncMode.Versioned;
+    public bool IsTwoWay => ModeIndex == (int)SyncMode.TwoWay;
+    /// <summary>Modus hat Unteroptionen (Aufbewahrung bzw. Konfliktregel): Abschnitt aufklappen.</summary>
+    public bool HasModeOptions => IsVersioned || IsTwoWay;
+    public string ModeDescription => Localization.Get(ModeIndex switch
+    {
+        (int)SyncMode.Versioned => "Mode_VersionedDescription",
+        (int)SyncMode.TwoWay => "Mode_TwoWayDescription",
+        _ => "Mode_MirrorDescription"
+    });
+    [ObservableProperty] public partial int CompareIndex { get; set; }
+    [ObservableProperty] public partial int MultiTargetIndex { get; set; }
+    [ObservableProperty] public partial bool VerifyAfterCopy { get; set; }
+    [ObservableProperty] public partial bool LowPriorityIo { get; set; }
+    /// <summary>Eigenes Bandbreitenlimit statt der Einstellung der App.</summary>
+    [ObservableProperty] public partial bool UseOwnBandwidth { get; set; }
+    [ObservableProperty] public partial double OwnBandwidthKBps { get; set; }
+    [ObservableProperty] public partial string ExcludePatterns { get; set; } = string.Empty;
+    [ObservableProperty] public partial string IncludePatterns { get; set; } = string.Empty;
+    [ObservableProperty] public partial bool ExcludeHidden { get; set; }
+    [ObservableProperty] public partial int CloudFilesIndex { get; set; }
+    [ObservableProperty] public partial bool ExcludeSystem { get; set; }
+    [ObservableProperty] public partial double MinSizeMb { get; set; }
+    [ObservableProperty] public partial double MaxSizeMb { get; set; }
+    [ObservableProperty] public partial bool DeleteToRecycleBin { get; set; }
+    [ObservableProperty] public partial bool UseShadowCopy { get; set; }
+
+    /// <summary>Schattenkopien brauchen Administratorrechte: Hinweis, wenn SyncForge gerade ohne sie läuft.</summary>
+    public bool ShowShadowCopyHint => UseShadowCopy && !Core.Engine.ShadowCopySession.IsAvailable;
+
+    partial void OnUseShadowCopyChanged(bool value) => OnPropertyChanged(nameof(ShowShadowCopyHint));
+    [ObservableProperty] public partial double DeletionProtectionPercent { get; set; }
+    // Automatisierung
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsInterval), nameof(IsTimeBased), nameof(IsWeekly), nameof(HasSchedule))]
+    public partial int ScheduleIndex { get; set; }
+    [ObservableProperty] public partial double IntervalMinutes { get; set; }
+    [ObservableProperty] public partial TimeSpan TimeOfDay { get; set; }
+    [ObservableProperty] public partial bool CatchUpMissed { get; set; }
+    [ObservableProperty] public partial bool WatchForChanges { get; set; }
+    [ObservableProperty] public partial double WatchDelaySeconds { get; set; }
+    [ObservableProperty] public partial bool RunAtStartup { get; set; }
+    [ObservableProperty] public partial bool RunWhenTargetConnected { get; set; }
+    public ObservableCollection<DayOptionViewModel> Days { get; } = [];
+    public bool IsInterval => ScheduleIndex == (int)ScheduleKind.Interval;
+    public bool IsTimeBased => ScheduleIndex is (int)ScheduleKind.Daily or (int)ScheduleKind.Weekly;
+    public bool IsWeekly => ScheduleIndex == (int)ScheduleKind.Weekly;
+    public bool HasSchedule => ScheduleIndex != (int)ScheduleKind.None;
+
+    [ObservableProperty] public partial string ValidationMessage { get; set; } = string.Empty;
+    [ObservableProperty] public partial bool HasValidationMessage { get; set; }
+
+    public void Load(Guid? id)
+    {
+        var existing = id is { } guid ? _store.Get(guid) : null;
+        IsNew = existing is null;
+        _profile = existing?.Clone() ?? new SyncProfile();
+        PageTitle = Localization.Get(IsNew ? "Editor_TitleNew" : "Editor_TitleEdit");
+
+        Name = _profile.Name;
+        Sources.Clear();
+        foreach (var s in _profile.Sources)
+        {
+            var item = new SourceItemViewModel { Id = s.Id, TargetFolder = s.TargetFolder, Path = s.Path };
+            item.PathEdited += (_, _) => RefreshSubfolders();
+            Sources.Add(item);
+        }
+        if (Sources.Count == 0) AddSource();
+        RefreshSubfolders();
+        ModeIndex = (int)_profile.Mode;
+        ConflictIndex = (int)_profile.ConflictResolution;
+        VersionsToKeep = _profile.VersionsToKeep;
+        VersionMaxAgeDays = _profile.VersionMaxAgeDays;
+        CompareIndex = (int)_profile.CompareMode;
+        MultiTargetIndex = (int)_profile.MultiTargetMode;
+        VerifyAfterCopy = _profile.VerifyAfterCopy;
+        LowPriorityIo = _profile.LowPriorityIo;
+        UseOwnBandwidth = _profile.BandwidthLimitKBps is not null;
+        OwnBandwidthKBps = _profile.BandwidthLimitKBps ?? 10240;
+        ExcludePatterns = string.Join(Environment.NewLine, _profile.Filter.ExcludePatterns);
+        IncludePatterns = string.Join(Environment.NewLine, _profile.Filter.IncludePatterns);
+        ExcludeHidden = _profile.Filter.ExcludeHidden;
+        CloudFilesIndex = (int)_profile.Filter.CloudFiles;
+        ExcludeSystem = _profile.Filter.ExcludeSystem;
+        MinSizeMb = _profile.Filter.MinSizeBytes / Megabyte;
+        MaxSizeMb = _profile.Filter.MaxSizeBytes / Megabyte;
+        DeleteToRecycleBin = _profile.DeleteToRecycleBin;
+        UseShadowCopy = _profile.UseShadowCopy;
+        DeletionProtectionPercent = _profile.DeletionProtectionPercent;
+
+        var a = _profile.Automation;
+        ScheduleIndex = (int)a.Schedule;
+        IntervalMinutes = a.IntervalMinutes;
+        TimeOfDay = a.TimeOfDay.ToTimeSpan();
+        CatchUpMissed = a.CatchUpMissed;
+        WatchForChanges = a.WatchForChanges;
+        WatchDelaySeconds = a.WatchDelaySeconds;
+        RunAtStartup = a.RunAtStartup;
+        RunWhenTargetConnected = a.RunWhenTargetConnected;
+        Days.Clear();
+        var culture = Helpers.Format.Culture.DateTimeFormat;
+        for (var i = 0; i < 7; i++)
+        {
+            var day = (DayOfWeek)(((int)culture.FirstDayOfWeek + i) % 7);
+            Days.Add(new DayOptionViewModel { Day = day, Name = culture.GetAbbreviatedDayName(day), IsSelected = a.Days.Contains(day) });
+        }
+
+        Targets.Clear();
+        foreach (var t in _profile.Targets) Targets.Add(Track(new TargetItemViewModel { Id = t.Id, Path = t.Path, Enabled = t.Enabled }));
+        if (Targets.Count == 0) Targets.Add(Track(new TargetItemViewModel()));
+        RefreshTargetHints();
+    }
+
+    public void AddTarget(string path = "")
+    {
+        Targets.Add(Track(new TargetItemViewModel { Path = path }));
+        RefreshTargetHints();
+    }
+
+    public void RemoveTarget(TargetItemViewModel target)
+    {
+        Targets.Remove(target);
+        if (Targets.Count == 0) Targets.Add(Track(new TargetItemViewModel()));
+    }
+
+    /// <summary>Prüft die Eingaben und speichert. Gibt die Profil-Id zurück oder null bei Fehlern.</summary>
+    public Guid? Save()
+    {
+        var error = Validate();
+        ValidationMessage = error ?? string.Empty;
+        HasValidationMessage = error is not null;
+        if (error is not null) return null;
+
+        _profile.Name = Name.Trim();
+        var folders = FinalTargetFolders();
+        _profile.Sources = Sources
+            .Select((s, i) => new SyncSource { Id = s.Id, Path = NormalizePath(s.Path), TargetFolder = folders[i] })
+            .Where(s => s.Path.Length > 0)
+            .ToList();
+        _profile.Mode = (SyncMode)ModeIndex;
+        _profile.ConflictResolution = (ConflictResolution)ConflictIndex;
+        _profile.VersionsToKeep = double.IsNaN(VersionsToKeep) ? 10 : (int)Math.Clamp(VersionsToKeep, 0, 1000);
+        _profile.VersionMaxAgeDays = double.IsNaN(VersionMaxAgeDays) ? 90 : (int)Math.Clamp(VersionMaxAgeDays, 0, 3650);
+        _profile.CompareMode = (CompareMode)CompareIndex;
+        _profile.MultiTargetMode = (MultiTargetMode)MultiTargetIndex;
+        _profile.VerifyAfterCopy = VerifyAfterCopy;
+        _profile.LowPriorityIo = LowPriorityIo;
+        _profile.BandwidthLimitKBps = UseOwnBandwidth
+            ? (double.IsNaN(OwnBandwidthKBps) ? 0 : (int)Math.Clamp(Math.Round(OwnBandwidthKBps), 0, 10_000_000))
+            : null;
+        _profile.Filter = new FilterSettings
+        {
+            ExcludePatterns = SplitLines(ExcludePatterns),
+            IncludePatterns = SplitLines(IncludePatterns),
+            ExcludeHidden = ExcludeHidden,
+            CloudFiles = (CloudFileMode)CloudFilesIndex,
+            ExcludeSystem = ExcludeSystem,
+            MinSizeBytes = ToBytes(MinSizeMb),
+            MaxSizeBytes = ToBytes(MaxSizeMb)
+        };
+        _profile.DeleteToRecycleBin = DeleteToRecycleBin;
+        _profile.UseShadowCopy = UseShadowCopy;
+        _profile.DeletionProtectionPercent = double.IsNaN(DeletionProtectionPercent) ? 25 : (int)Math.Clamp(DeletionProtectionPercent, 0, 100);
+        _profile.Targets = Targets
+            .Where(t => !string.IsNullOrWhiteSpace(t.Path))
+            .Select(t => CreateTarget(t))
+            .ToList();
+
+        var automation = new AutomationSettings
+        {
+            Schedule = (ScheduleKind)ScheduleIndex,
+            IntervalMinutes = double.IsNaN(IntervalMinutes) ? 60 : (int)Math.Clamp(IntervalMinutes, 1, 7 * 24 * 60),
+            TimeOfDay = TimeOnly.FromTimeSpan(TimeOfDay),
+            Days = Days.Where(d => d.IsSelected).Select(d => d.Day).ToList(),
+            CatchUpMissed = CatchUpMissed,
+            WatchForChanges = WatchForChanges,
+            WatchDelaySeconds = double.IsNaN(WatchDelaySeconds) ? 30 : (int)Math.Clamp(WatchDelaySeconds, 2, 3600),
+            RunAtStartup = RunAtStartup,
+            RunWhenTargetConnected = RunWhenTargetConnected
+        };
+
+        // Inzwischen geänderte Laufzeitdaten (Hintergrundläufe) nicht mit dem Stand beim Öffnen überschreiben.
+        var current = _store.Get(_profile.Id);
+        if (current is not null)
+        {
+            _profile.LastRunAt = current.LastRunAt;
+            _profile.LastRunStatus = current.LastRunStatus;
+            _profile.LastRunSummary = current.LastRunSummary;
+            var old = current.Automation;
+            var scheduleChanged = old.Schedule != automation.Schedule || old.IntervalMinutes != automation.IntervalMinutes
+                || old.TimeOfDay != automation.TimeOfDay || !old.Days.Order().SequenceEqual(automation.Days.Order());
+            // Geänderter Zeitplan zählt ab jetzt (der Planer setzt den Bezugspunkt neu).
+            automation.ScheduleAnchor = scheduleChanged ? null : old.ScheduleAnchor;
+        }
+        _profile.Automation = automation;
+
+        _store.Save(_profile);
+        return _profile.Id;
+    }
+
+    private string? Validate()
+    {
+        if (string.IsNullOrWhiteSpace(Name)) return Localization.Get("Editor_ErrorName");
+        var folders = FinalTargetFolders();
+        var pathError = ProfileValidation.ValidatePaths(
+            Sources.Select((s, i) => (s.Path, folders[i])).ToList(),
+            Targets.Select(t => t.Path).ToList());
+        if (pathError is not null) return pathError;
+
+        if (MaxSizeMb > 0 && MinSizeMb > MaxSizeMb) return Localization.Get("Editor_ErrorSizeRange");
+        if (IsWeekly && !Days.Any(d => d.IsSelected)) return Localization.Get("Editor_ErrorNoDays");
+        return null;
+    }
+
+    private static SyncTarget CreateTarget(TargetItemViewModel t) => ProfileValidation.CreateTarget(t.Id, t.Path, t.Enabled);
+
+    private static string NormalizePath(string path) => ProfileValidation.NormalizePath(path);
+
+    private static List<string> SplitLines(string text) =>
+        text.Split(['\r', '\n'], StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).ToList();
+
+    private static long ToBytes(double mb) => double.IsNaN(mb) || mb <= 0 ? 0 : (long)(mb * Megabyte);
+}

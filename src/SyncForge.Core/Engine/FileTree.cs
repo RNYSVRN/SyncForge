@@ -1,0 +1,107 @@
+using SyncForge.Core.Filtering;
+
+namespace SyncForge.Core.Engine;
+
+internal sealed record FileTreeEntry(string RelativePath, bool IsDirectory, long Size, DateTime LastWriteUtc, FileAttributes Attributes)
+{
+    /// <summary>
+    /// Datei ist nur online verfügbar (Cloud-Platzhalter von OneDrive, Dropbox, Google Drive …):
+    /// Lesen würde einen Download auslösen. Metadaten (Größe, Datum) sind ohne Download verfügbar.
+    /// </summary>
+    public bool IsCloudOnly => !IsDirectory && CloudFiles.IsCloudOnly(Attributes);
+}
+
+/// <summary>Erkennung von Cloud-Platzhaltern anhand der Windows-Dateiattribute.</summary>
+public static class CloudFiles
+{
+    private const FileAttributes RecallOnOpen = (FileAttributes)0x00040000;       // FILE_ATTRIBUTE_RECALL_ON_OPEN
+    private const FileAttributes RecallOnDataAccess = (FileAttributes)0x00400000; // FILE_ATTRIBUTE_RECALL_ON_DATA_ACCESS
+
+    public static bool IsCloudOnly(FileAttributes attributes) =>
+        (attributes & (FileAttributes.Offline | RecallOnOpen | RecallOnDataAccess)) != 0;
+}
+
+/// <summary>Liest einen Verzeichnisbaum gefiltert ein (ausgeschlossene Ordner werden gar nicht betreten).</summary>
+internal static class FileTree
+{
+    private static readonly EnumerationOptions Options = new()
+    {
+        RecurseSubdirectories = false,
+        // Nicht still überspringen: Ein unlesbarer Ordner (fehlende Rechte, Netzwerk weg) muss gemeldet werden,
+        // sonst sähe sein Inhalt aus wie gelöscht und würde auf der anderen Seite entfernt.
+        IgnoreInaccessible = false,
+        AttributesToSkip = 0,
+        ReturnSpecialDirectories = false
+    };
+
+    /// <param name="unreadable">
+    /// Sammelt relative Pfade der Ordner, deren Inhalt nicht gelesen werden konnte ("" = Wurzel).
+    /// Was darunter liegt, ist unbekannt und darf weder gelöscht noch überschrieben werden.
+    /// </param>
+    public static Dictionary<string, FileTreeEntry> Scan(string root, PathFilter filter, CancellationToken ct, Action<int>? onProgress = null,
+        List<string>? unreadable = null)
+    {
+        var result = new Dictionary<string, FileTreeEntry>(StringComparer.OrdinalIgnoreCase);
+        if (!Directory.Exists(root)) return result;
+
+        var rootInfo = new DirectoryInfo(root);
+        var pending = new Stack<(DirectoryInfo Dir, string Rel)>();
+        pending.Push((rootInfo, string.Empty));
+
+        while (pending.Count > 0)
+        {
+            ct.ThrowIfCancellationRequested();
+            var (dir, rel) = pending.Pop();
+
+            IEnumerable<FileSystemInfo> entries;
+            try
+            {
+                entries = dir.EnumerateFileSystemInfos("*", Options).ToList();
+            }
+            catch (Exception ex) when (ex is UnauthorizedAccessException or IOException or System.Security.SecurityException)
+            {
+                unreadable?.Add(rel);
+                continue;
+            }
+
+            foreach (var entry in entries)
+            {
+                var entryRel = rel.Length == 0 ? entry.Name : rel + "\\" + entry.Name;
+                if (entry is DirectoryInfo sub)
+                {
+                    // Versionsordner gehört nicht zum Inhalt (weder kopieren noch löschen).
+                    if (rel.Length == 0 && string.Equals(sub.Name, Versioning.VersionStore.FolderName, StringComparison.OrdinalIgnoreCase)) continue;
+                    if (filter.IsDirectoryExcluded(entryRel, sub.Attributes)) continue;
+                    // Verknüpfungen (Symlinks/Junctions) nicht verfolgen: Endlosschleifen vermeiden.
+                    if (sub.LinkTarget is not null) continue;
+                    result[entryRel] = new FileTreeEntry(entryRel, true, 0, sub.LastWriteTimeUtc, sub.Attributes);
+                    pending.Push((sub, entryRel));
+                }
+                else if (entry is FileInfo file)
+                {
+                    if (filter.IsFileExcluded(entryRel, file.Attributes, file.Length)) continue;
+                    if (IsTempFile(file.Name)) continue;
+                    result[entryRel] = new FileTreeEntry(entryRel, false, file.Length, file.LastWriteTimeUtc, file.Attributes);
+                }
+            }
+            onProgress?.Invoke(result.Count);
+        }
+        return result;
+    }
+
+    /// <summary>True, wenn der Pfad in einem unlesbaren Ordner liegt (sein Zustand also unbekannt ist).</summary>
+    public static bool IsInsideUnreadable(string relativePath, List<string> unreadable)
+    {
+        foreach (var dir in unreadable)
+        {
+            if (dir.Length == 0) return true;
+            if (relativePath.Length > dir.Length && relativePath[dir.Length] == '\\'
+                && relativePath.StartsWith(dir, StringComparison.OrdinalIgnoreCase)) return true;
+        }
+        return false;
+    }
+
+    /// <summary>Eigene Zwischendateien abgebrochener Kopien nie als Inhalt betrachten.</summary>
+    internal static bool IsTempFile(string name) =>
+        name.StartsWith(SyncExecutor.TempPrefix, StringComparison.Ordinal) && name.EndsWith(".tmp", StringComparison.OrdinalIgnoreCase);
+}

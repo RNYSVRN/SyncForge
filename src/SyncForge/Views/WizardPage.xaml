@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="SyncForge.Views.WizardPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:vm="using:SyncForge.ViewModels"
+    Background="Transparent">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ScrollViewer>
+            <Grid Padding="{StaticResource PageMargin}">
+                <StackPanel MaxWidth="900" Spacing="16">
+                    <StackPanel Spacing="6">
+                        <TextBlock x:Uid="Wizard_Title" Text="Neues Backup-Profil" Style="{StaticResource TitleTextBlockStyle}" />
+                        <TextBlock Text="{x:Bind ViewModel.StepText, Mode=OneWay}" Style="{StaticResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                        <ProgressBar Value="{x:Bind ViewModel.StepProgress, Mode=OneWay}" Width="240" HorizontalAlignment="Left" />
+                    </StackPanel>
+
+                    <InfoBar IsOpen="{x:Bind ViewModel.HasError, Mode=OneWay}" IsClosable="False" Severity="Error" Message="{x:Bind ViewModel.Error, Mode=OneWay}" />
+
+                    <!-- 1. Vorlage -->
+                    <StackPanel Spacing="12" Visibility="{x:Bind ViewModel.IsTemplateStep, Mode=OneWay}">
+                        <TextBlock x:Uid="Wizard_TemplateHeading" Text="Was möchtest du sichern?" Style="{StaticResource SubtitleTextBlockStyle}" />
+                        <ItemsRepeater ItemsSource="{x:Bind ViewModel.Templates}">
+                            <ItemsRepeater.Layout>
+                                <UniformGridLayout MinItemWidth="260" MinColumnSpacing="12" MinRowSpacing="12" ItemsStretch="Fill" />
+                            </ItemsRepeater.Layout>
+                            <ItemsRepeater.ItemTemplate>
+                                <DataTemplate x:DataType="vm:WizardTemplate">
+                                    <Button Tag="{x:Bind}" Click="Template_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                            HorizontalContentAlignment="Left" VerticalContentAlignment="Top" Padding="16" MinHeight="120"
+                                            AutomationProperties.Name="{x:Bind Title}">
+                                        <StackPanel Spacing="8">
+                                            <FontIcon Glyph="{x:Bind Glyph}" FontSize="24" HorizontalAlignment="Left" Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}" />
+                                            <TextBlock Text="{x:Bind Title}" Style="{StaticResource BodyStrongTextBlockStyle}" TextWrapping="Wrap" />
+                                            <TextBlock Text="{x:Bind Text}" Style="{StaticResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" TextWrapping="Wrap" />
+                                        </StackPanel>
+                                    </Button>
+                                </DataTemplate>
+                            </ItemsRepeater.ItemTemplate>
+                        </ItemsRepeater>
+                    </StackPanel>
+
+                    <!-- 2. Quellen -->
+                    <StackPanel Spacing="12" Visibility="{x:Bind ViewModel.IsSourcesStep, Mode=OneWay}">
+                        <TextBlock x:Uid="Wizard_SourcesHeading" Text="Welche Ordner sollen gesichert werden?" Style="{StaticResource SubtitleTextBlockStyle}" />
+                        <TextBlock x:Uid="Wizard_SourcesText" TextWrapping="Wrap" Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   Text="Alle Unterordner werden mitgesichert. Bei mehreren Ordnern bekommt jeder im Ziel einen eigenen Unterordner." />
+                        <ItemsControl ItemsSource="{x:Bind ViewModel.Sources}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate x:DataType="vm:SourceItemViewModel">
+                                    <Grid ColumnSpacing="8" Margin="0,0,0,8">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBox Text="{x:Bind Path, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Uid="Editor_PathBox" PlaceholderText="C:\Benutzer\Name\Dokumente" />
+                                        <Button Grid.Column="1" Tag="{x:Bind}" Click="SourceCredentials_Click" Visibility="{x:Bind IsNetworkPath, Mode=OneWay}"
+                                                x:Uid="Editor_Credentials" ToolTipService.ToolTip="Anmeldedaten für die Netzwerkfreigabe">
+                                            <FontIcon Glyph="&#xE8D7;" FontSize="16" />
+                                        </Button>
+                                        <Button Grid.Column="2" Tag="{x:Bind}" Click="BrowseSource_Click" x:Uid="Editor_BrowseTarget" ToolTipService.ToolTip="Durchsuchen">
+                                            <FontIcon Glyph="&#xED25;" FontSize="16" />
+                                        </Button>
+                                        <Button Grid.Column="3" Tag="{x:Bind}" Click="RemoveSource_Click" x:Uid="Editor_RemoveSource" ToolTipService.ToolTip="Quelle entfernen">
+                                            <FontIcon Glyph="&#xE74D;" FontSize="16" />
+                                        </Button>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <Button x:Uid="Wizard_AddSourceButton" Click="AddSource_Click">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon Glyph="&#xE710;" FontSize="12" />
+                                <TextBlock x:Uid="Wizard_AddSource" Text="Weiteren Ordner hinzufügen" />
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+
+                    <!-- 3. Ziel -->
+                    <StackPanel Spacing="12" Visibility="{x:Bind ViewModel.IsTargetStep, Mode=OneWay}">
+                        <TextBlock x:Uid="Wizard_TargetHeading" Text="Wohin soll gesichert werden?" Style="{StaticResource SubtitleTextBlockStyle}" />
+                        <TextBlock x:Uid="Wizard_TargetText" TextWrapping="Wrap" Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   Text="Zum Beispiel ein Ordner auf einer USB-Festplatte, auf einem zweiten Laufwerk oder auf deinem NAS (\\server\freigabe). USB-Festplatten erkennt SyncForge auch unter einem anderen Laufwerksbuchstaben wieder." />
+                        <Grid ColumnSpacing="8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox Text="{x:Bind ViewModel.TargetPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Uid="Wizard_TargetBox" PlaceholderText="E:\Backup" />
+                            <Button Grid.Column="1" Click="TargetCredentials_Click" Visibility="{x:Bind ViewModel.TargetIsNetwork, Mode=OneWay}"
+                                    x:Uid="Editor_Credentials" ToolTipService.ToolTip="Anmeldedaten für die Netzwerkfreigabe">
+                                <FontIcon Glyph="&#xE8D7;" FontSize="16" />
+                            </Button>
+                            <Button Grid.Column="2" x:Uid="Editor_Browse" Content="Durchsuchen…" Click="BrowseTarget_Click" />
+                        </Grid>
+                        <TextBlock Text="{x:Bind ViewModel.TargetInfo, Mode=OneWay}" Style="{StaticResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                    </StackPanel>
+
+                    <!-- 4. Wann -->
+                    <StackPanel Spacing="12" Visibility="{x:Bind ViewModel.IsWhenStep, Mode=OneWay}">
+                        <TextBlock x:Uid="Wizard_WhenHeading" Text="Wann soll gesichert werden?" Style="{StaticResource SubtitleTextBlockStyle}" />
+                        <RadioButtons SelectedIndex="{x:Bind ViewModel.ScheduleIndex, Mode=TwoWay}" x:Uid="Wizard_ScheduleChoice">
+                            <RadioButton x:Uid="Wizard_WhenManual" Content="Nur wenn ich es starte" />
+                            <RadioButton x:Uid="Wizard_WhenDaily" Content="Täglich" />
+                            <RadioButton x:Uid="Wizard_WhenHourlyOption" Content="Stündlich" />
+                        </RadioButtons>
+                        <TimePicker Time="{x:Bind ViewModel.TimeOfDay, Mode=TwoWay}" Visibility="{x:Bind ViewModel.IsDaily, Mode=OneWay}" x:Uid="Wizard_Time" Margin="28,0,0,0" />
+                        <CheckBox IsChecked="{x:Bind ViewModel.Watch, Mode=TwoWay}" x:Uid="Wizard_WatchOption" Content="Zusätzlich bei Änderungen sofort sichern" />
+                        <CheckBox IsChecked="{x:Bind ViewModel.DriveConnect, Mode=TwoWay}" x:Uid="Wizard_DriveOption" Content="Sichern, sobald das Ziel-Laufwerk angeschlossen wird" />
+                        <TextBlock x:Uid="Wizard_WhenHint" TextWrapping="Wrap" Style="{StaticResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   Text="Automatische Läufe finden statt, solange SyncForge läuft, auch im Infobereich. Mit &quot;Mit Windows starten&quot; in den Einstellungen klappt das ab der Anmeldung." />
+                    </StackPanel>
+
+                    <!-- 5. Zusammenfassung -->
+                    <StackPanel Spacing="12" Visibility="{x:Bind ViewModel.IsSummaryStep, Mode=OneWay}">
+                        <TextBlock x:Uid="Wizard_SummaryHeading" Text="Fast fertig" Style="{StaticResource SubtitleTextBlockStyle}" />
+                        <TextBox Header="Name" x:Uid="Wizard_NameBox" Text="{x:Bind ViewModel.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MaxWidth="480" HorizontalAlignment="Left" MinWidth="320" />
+                        <Border Style="{StaticResource CardBorderStyle}" Padding="16">
+                            <Grid ColumnSpacing="16" RowSpacing="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <TextBlock x:Uid="Wizard_SummaryModeLabel" Text="Modus" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                                <TextBlock Grid.Column="1" Text="{x:Bind ViewModel.SummaryMode, Mode=OneWay}" TextWrapping="Wrap" />
+                                <TextBlock Grid.Row="1" x:Uid="Wizard_SummarySourcesLabel" Text="Quellen" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                                <TextBlock Grid.Row="1" Grid.Column="1" Text="{x:Bind ViewModel.SummarySources, Mode=OneWay}" TextWrapping="Wrap" />
+                                <TextBlock Grid.Row="2" x:Uid="Wizard_SummaryTargetLabel" Text="Ziel" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                                <TextBlock Grid.Row="2" Grid.Column="1" Text="{x:Bind ViewModel.SummaryTarget, Mode=OneWay}" TextWrapping="Wrap" />
+                                <TextBlock Grid.Row="3" x:Uid="Wizard_SummaryWhenLabel" Text="Wann" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                                <TextBlock Grid.Row="3" Grid.Column="1" Text="{x:Bind ViewModel.SummaryWhen, Mode=OneWay}" TextWrapping="Wrap" />
+                            </Grid>
+                        </Border>
+                        <HyperlinkButton x:Uid="Wizard_OpenEditor" Content="Weitere Einstellungen (Filter, Löschschutz …) im Editor festlegen" Click="CreateAndEdit_Click" Padding="0" />
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+
+        <Border Grid.Row="1" BorderThickness="0,1,0,0" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" Padding="24,16">
+            <Grid ColumnSpacing="8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Button x:Uid="Wizard_Cancel" Content="Abbrechen" Click="Cancel_Click" MinWidth="100">
+                    <Button.KeyboardAccelerators><KeyboardAccelerator Key="Escape" /></Button.KeyboardAccelerators>
+                </Button>
+                <Button Grid.Column="1" x:Uid="Wizard_Back" Content="Zurück" Click="Back_Click" MinWidth="100" Visibility="{x:Bind ViewModel.CanGoBack, Mode=OneWay}" />
+                <Button Grid.Column="2" x:Uid="Wizard_Next" Content="Weiter" Click="Next_Click" MinWidth="120" Style="{StaticResource AccentButtonStyle}"
+                        Visibility="{x:Bind ViewModel.ShowNext, Mode=OneWay}" />
+                <StackPanel Grid.Column="3" Orientation="Horizontal" Spacing="8" Visibility="{x:Bind ViewModel.IsSummaryStep, Mode=OneWay}">
+                    <Button x:Uid="Wizard_CreatePreview" Content="Anlegen und Vorschau zeigen" Click="CreatePreview_Click" />
+                    <Button x:Uid="Wizard_Create" Content="Profil anlegen" Click="Create_Click" MinWidth="120" Style="{StaticResource AccentButtonStyle}" />
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Page>

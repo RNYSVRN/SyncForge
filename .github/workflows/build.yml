@@ -1,0 +1,37 @@
+# Builds and tests SyncForge on every push and pull request.
+# Releases are created by hand with the locally tested installer (installer\build.ps1).
+name: Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  DOTNET_NOLOGO: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+
+jobs:
+  build:
+    name: Build and test
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Tests
+        run: dotnet test --project tests/SyncForge.Core.Tests/SyncForge.Core.Tests.csproj -c Release
+
+      - name: Build app (x64)
+        run: dotnet build SyncForge.sln -c Release -p:Platform=x64

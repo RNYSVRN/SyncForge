@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="SyncForge.Views.SupportPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Background="Transparent">
+
+    <ScrollViewer>
+        <Grid Padding="{StaticResource PageMargin}">
+            <StackPanel MaxWidth="1000" Spacing="16">
+                <StackPanel>
+                    <TextBlock x:Uid="Support_Title" Text="SyncForge unterstützen" Style="{StaticResource TitleTextBlockStyle}" />
+                    <TextBlock x:Uid="Support_Subtitle" Text="Einen Kaffee spendieren, weiterempfehlen oder Feedback geben." Style="{StaticResource PageSubtitleTextBlockStyle}" />
+                </StackPanel>
+
+                <!-- Hauptkarte: dampfende Tasse + Text + Ko-fi -->
+                <Border Style="{StaticResource CardBorderStyle}" Padding="32">
+                    <Grid ColumnSpacing="32">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Große Tasse im selben 16×16-Raster wie das Navigationssymbol, mit Herz in Akzentfarbe -->
+                        <Viewbox Width="128" Height="128" VerticalAlignment="Top">
+                            <Grid x:Name="CupHost" Width="16" Height="16">
+                                <Path x:Name="CupPath" Fill="{ThemeResource TextFillColorPrimaryBrush}"
+                                      Data="M2,6.5 H12 V10.5 C12,12.16 10.66,13.5 9,13.5 H5 C3.34,13.5 2,12.16 2,10.5 Z M3,7.5 V10.5 C3,11.6 3.9,12.5 5,12.5 H9 C10.1,12.5 11,11.6 11,10.5 V7.5 Z M12,7.5 H12.75 A2.25,1.5 0 0 1 12.75,10.5 H12 V9.5 H12.75 A1.25,0.5 0 0 0 12.75,8.5 H12 Z" />
+                                <Path Fill="{ThemeResource AccentFillColorDefaultBrush}"
+                                      Data="M7,11.65 C5.55,10.7 5.2,10.05 5.2,9.4 C5.2,8.85 5.63,8.45 6.15,8.45 C6.52,8.45 6.84,8.65 7,8.95 C7.16,8.65 7.48,8.45 7.85,8.45 C8.37,8.45 8.8,8.85 8.8,9.4 C8.8,10.05 8.45,10.7 7,11.65 Z" />
+                            </Grid>
+                        </Viewbox>
+
+                        <StackPanel Grid.Column="1" Spacing="12" VerticalAlignment="Center">
+                            <TextBlock x:Uid="Support_Headline" Text="Kostenlos, und das bleibt so." Style="{StaticResource SubtitleTextBlockStyle}" TextWrapping="Wrap" />
+                            <TextBlock x:Uid="Support_Text" TextWrapping="Wrap" Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                       Text="SyncForge ist kostenlos und Open Source, ohne Werbung, ohne Abo und ohne Datensammlung. Wenn dir die App Zeit und Nerven spart, freue ich mich über einen Kaffee. Jede Unterstützung hilft, SyncForge weiterzuentwickeln." />
+                            <HyperlinkButton x:Name="KofiButton" Padding="0" Margin="0,4,0,0" NavigateUri="https://ko-fi.com/rnysvrn"
+                                             x:Uid="Support_KofiButton" AutomationProperties.Name="Buy me a coffee auf Ko-fi"
+                                             ToolTipService.ToolTip="ko-fi.com/rnysvrn">
+                                <Image Source="ms-appx:///Assets/Support/kofi-button.png" Height="44" Stretch="Uniform" />
+                            </HyperlinkButton>
+                            <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorTertiaryBrush}" TextWrapping="Wrap">
+                                <Run x:Uid="Support_Voluntary" Text="Freiwillig: Alle Funktionen stehen allen kostenlos zur Verfügung." />
+                                <Run Text=" " />
+                                <Hyperlink NavigateUri="https://ko-fi.com/rnysvrn">ko-fi.com/rnysvrn</Hyperlink>
+                            </TextBlock>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- Andere Wege zu helfen -->
+                <TextBlock x:Uid="Support_OtherWays" Text="Auch so hilfst du weiter" Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Margin="1,12,0,0" />
+                <Grid ColumnSpacing="12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Border Style="{StaticResource CardBorderStyle}">
+                        <StackPanel Spacing="8">
+                            <FontIcon Glyph="&#xE72D;" HorizontalAlignment="Left" Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}" />
+                            <TextBlock x:Uid="Support_ShareTitle" Text="Weiterempfehlen" Style="{StaticResource BodyStrongTextBlockStyle}" />
+                            <TextBlock x:Uid="Support_ShareText" Text="Erzähl Freunden und Kollegen von SyncForge." TextWrapping="Wrap"
+                                       Style="{StaticResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                        </StackPanel>
+                    </Border>
+                    <Border Grid.Column="1" Style="{StaticResource CardBorderStyle}">
+                        <StackPanel Spacing="8">
+                            <FontIcon Glyph="&#xE734;" HorizontalAlignment="Left" Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}" />
+                            <TextBlock x:Uid="Support_RateTitle" Text="Stern auf GitHub" Style="{StaticResource BodyStrongTextBlockStyle}" />
+                            <TextBlock x:Uid="Support_RateText" Text="Ein Stern für SyncForge auf GitHub hilft anderen, das Projekt zu finden." TextWrapping="Wrap"
+                                       Style="{StaticResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                            <HyperlinkButton x:Uid="Support_RateLink" Content="SyncForge auf GitHub" Padding="0" NavigateUri="https://github.com/RNYSVRN/SyncForge"
+                                             ToolTipService.ToolTip="github.com/RNYSVRN/SyncForge" />
+                        </StackPanel>
+                    </Border>
+                    <Border Grid.Column="2" Style="{StaticResource CardBorderStyle}">
+                        <StackPanel Spacing="8">
+                            <FontIcon Glyph="&#xED15;" HorizontalAlignment="Left" Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}" />
+                            <TextBlock x:Uid="Support_FeedbackTitle" Text="Feedback geben" Style="{StaticResource BodyStrongTextBlockStyle}" />
+                            <TextBlock x:Uid="Support_FeedbackText" Text="Ideen und Fehlermeldungen (gern als Issue auf GitHub) machen SyncForge besser." TextWrapping="Wrap"
+                                       Style="{StaticResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                            <HyperlinkButton x:Uid="Support_FeedbackLink" Content="Issue erstellen" Padding="0" NavigateUri="https://github.com/RNYSVRN/SyncForge/issues/new"
+                                             ToolTipService.ToolTip="github.com/RNYSVRN/SyncForge/issues" />
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</Page>

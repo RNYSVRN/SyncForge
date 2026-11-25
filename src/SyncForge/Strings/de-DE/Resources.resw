@@ -1,0 +1,614 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Automatisch erzeugt aus tools/strings.csv - nicht von Hand bearbeiten. -->
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="Nav_Dashboard.Content" xml:space="preserve"><value>Übersicht</value></data>
+  <data name="Nav_Profiles.Content" xml:space="preserve"><value>Backup-Profile</value></data>
+  <data name="Nav_History.Content" xml:space="preserve"><value>Historie</value></data>
+  <data name="Dashboard_Title.Text" xml:space="preserve"><value>Übersicht</value></data>
+  <data name="Dashboard_ProfilesCard.Text" xml:space="preserve"><value>Backup-Profile</value></data>
+  <data name="Dashboard_LastRunCard.Text" xml:space="preserve"><value>Letzter Lauf</value></data>
+  <data name="Dashboard_NextRunCard.Text" xml:space="preserve"><value>Nächster Lauf</value></data>
+  <data name="Dashboard_NewProfileText.Text" xml:space="preserve"><value>Neues Profil</value></data>
+  <data name="Profiles_Title.Text" xml:space="preserve"><value>Backup-Profile</value></data>
+  <data name="Profiles_Add.Text" xml:space="preserve"><value>Profil hinzufügen</value></data>
+  <data name="Profiles_EmptyTitle.Text" xml:space="preserve"><value>Noch keine Profile</value></data>
+  <data name="Profiles_EmptyText.Text" xml:space="preserve"><value>Ein Profil legt fest, welche Ordner wohin synchronisiert werden, in welchem Modus und wann.</value></data>
+  <data name="History_Title.Text" xml:space="preserve"><value>Historie</value></data>
+  <data name="History_EmptyTitle.Text" xml:space="preserve"><value>Noch keine Läufe</value></data>
+  <data name="History_EmptyText.Text" xml:space="preserve"><value>Hier erscheinen alle Synchronisierungsläufe mit Details zu jeder Datei.</value></data>
+  <data name="Settings_Title.Text" xml:space="preserve"><value>Einstellungen</value></data>
+  <data name="Settings_SectionAppearance.Text" xml:space="preserve"><value>Darstellung</value></data>
+  <data name="Settings_Theme.Header" xml:space="preserve"><value>App-Design</value></data>
+  <data name="Settings_Theme.Description" xml:space="preserve"><value>Wähle, ob SyncForge hell, dunkel oder wie Windows dargestellt wird.</value></data>
+  <data name="Theme_System.Content" xml:space="preserve"><value>Windows-Standard verwenden</value></data>
+  <data name="Theme_Light.Content" xml:space="preserve"><value>Hell</value></data>
+  <data name="Theme_Dark.Content" xml:space="preserve"><value>Dunkel</value></data>
+  <data name="Settings_Language.Header" xml:space="preserve"><value>Sprache</value></data>
+  <data name="Settings_Language.Description" xml:space="preserve"><value>Sprache der Benutzeroberfläche.</value></data>
+  <data name="Language_System.Content" xml:space="preserve"><value>Windows-Standard verwenden</value></data>
+  <data name="Settings_RestartInfo.Title" xml:space="preserve"><value>Neustart erforderlich</value></data>
+  <data name="Settings_RestartInfo.Message" xml:space="preserve"><value>Die Sprache wird nach einem Neustart von SyncForge übernommen.</value></data>
+  <data name="Settings_RestartButton.Content" xml:space="preserve"><value>Jetzt neu starten</value></data>
+  <data name="Settings_SectionGeneral.Text" xml:space="preserve"><value>Allgemein</value></data>
+  <data name="Settings_Autostart.Header" xml:space="preserve"><value>Mit Windows starten</value></data>
+  <data name="Settings_Autostart.Description" xml:space="preserve"><value>SyncForge startet bei der Anmeldung im Infobereich.</value></data>
+  <data name="Settings_Tray.Header" xml:space="preserve"><value>Beim Schließen in den Infobereich</value></data>
+  <data name="Settings_Tray.Description" xml:space="preserve"><value>Zeitpläne und Überwachung laufen weiter, wenn das Fenster geschlossen wird.</value></data>
+  <data name="Settings_Notifications.Header" xml:space="preserve"><value>Benachrichtigungen</value></data>
+  <data name="Settings_Notifications.Description" xml:space="preserve"><value>Windows-Benachrichtigungen nach Synchronisierungsläufen.</value></data>
+  <data name="Settings_NotifySuccess.Header" xml:space="preserve"><value>Bei Erfolg</value></data>
+  <data name="Settings_NotifyError.Header" xml:space="preserve"><value>Bei Fehlern</value></data>
+  <data name="Settings_NotifyConflict.Header" xml:space="preserve"><value>Bei Konflikten</value></data>
+  <data name="Settings_SectionPerformance.Text" xml:space="preserve"><value>Leistung</value></data>
+  <data name="Settings_Parallel.Header" xml:space="preserve"><value>Parallele Kopiervorgänge</value></data>
+  <data name="Settings_Parallel.Description" xml:space="preserve"><value>Anzahl der gleichzeitig kopierten Dateien (1–16).</value></data>
+  <data name="Settings_Bandwidth.Header" xml:space="preserve"><value>Bandbreitenlimit (KB/s)</value></data>
+  <data name="Settings_Bandwidth.Description" xml:space="preserve"><value>0 = unbegrenzt. Sinnvoll bei Netzwerkzielen.</value></data>
+  <data name="Settings_Battery.Header" xml:space="preserve"><value>Im Akkubetrieb pausieren</value></data>
+  <data name="Settings_Metered.Header" xml:space="preserve"><value>Bei getakteter Verbindung pausieren</value></data>
+  <data name="Settings_Metered.Description" xml:space="preserve"><value>Gilt für Netzwerkziele.</value></data>
+  <data name="Settings_SectionData.Text" xml:space="preserve"><value>Daten &amp; Aufbewahrung</value></data>
+  <data name="Settings_Retention.Header" xml:space="preserve"><value>Historie aufbewahren (Tage)</value></data>
+  <data name="Settings_Retention.Description" xml:space="preserve"><value>Ältere Laufprotokolle werden automatisch entfernt.</value></data>
+  <data name="Settings_ImportExport.Header" xml:space="preserve"><value>Import &amp; Export</value></data>
+  <data name="Settings_ImportExport.Description" xml:space="preserve"><value>Profile und Einstellungen sichern oder auf einen anderen PC übertragen.</value></data>
+  <data name="Settings_Import.Content" xml:space="preserve"><value>Importieren…</value></data>
+  <data name="Settings_Export.Content" xml:space="preserve"><value>Exportieren…</value></data>
+  <data name="Settings_DataFolder.Header" xml:space="preserve"><value>Datenordner</value></data>
+  <data name="Settings_SectionAbout.Text" xml:space="preserve"><value>Info</value></data>
+  <data name="TitleBar_Back.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve"><value>Zurück</value></data>
+  <data name="TitleBar_Back.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Zurück</value></data>
+  <data name="TitleBar_PaneToggle.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve"><value>Navigation</value></data>
+  <data name="TitleBar_PaneToggle.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Navigation umschalten</value></data>
+  <data name="Toggle_On" xml:space="preserve"><value>Ein</value></data>
+  <data name="Toggle_Off" xml:space="preserve"><value>Aus</value></data>
+  <data name="Profiles_Preview.Content" xml:space="preserve"><value>Vorschau</value></data>
+  <data name="Profiles_SyncNow.Content" xml:space="preserve"><value>Synchronisieren</value></data>
+  <data name="Profiles_More.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve"><value>Weitere Optionen</value></data>
+  <data name="Profiles_Edit.Text" xml:space="preserve"><value>Bearbeiten</value></data>
+  <data name="Profiles_Duplicate.Text" xml:space="preserve"><value>Duplizieren</value></data>
+  <data name="Profiles_Delete.Text" xml:space="preserve"><value>Löschen</value></data>
+  <data name="Profiles_EmptyAdd.Content" xml:space="preserve"><value>Erstes Profil anlegen</value></data>
+  <data name="Profiles_RouteOne" xml:space="preserve"><value>{0}  →  1 Ziel</value></data>
+  <data name="Profiles_RouteMany" xml:space="preserve"><value>{0}  →  {1} Ziele</value></data>
+  <data name="Profiles_LastRun" xml:space="preserve"><value>Zuletzt: {0} ({1})</value></data>
+  <data name="Profiles_NeverRun" xml:space="preserve"><value>Noch nie synchronisiert</value></data>
+  <data name="Profiles_CopyName" xml:space="preserve"><value>{0} (Kopie)</value></data>
+  <data name="Profiles_DeleteTitle" xml:space="preserve"><value>Profil löschen?</value></data>
+  <data name="Profiles_DeleteText" xml:space="preserve"><value>Das Profil „{0}“ wird entfernt. Dateien in Quelle und Zielen bleiben unverändert.</value></data>
+  <data name="Common_Delete" xml:space="preserve"><value>Löschen</value></data>
+  <data name="Common_Cancel" xml:space="preserve"><value>Abbrechen</value></data>
+  <data name="Common_CancelButton.Content" xml:space="preserve"><value>Abbrechen</value></data>
+  <data name="Mode_Mirror" xml:space="preserve"><value>Spiegeln</value></data>
+  <data name="Mode_Versioned" xml:space="preserve"><value>Versioniert</value></data>
+  <data name="Mode_TwoWay" xml:space="preserve"><value>Zwei-Wege</value></data>
+  <data name="Status_Success" xml:space="preserve"><value>Erfolgreich</value></data>
+  <data name="Status_Warning" xml:space="preserve"><value>Mit Warnungen</value></data>
+  <data name="Status_Error" xml:space="preserve"><value>Fehlgeschlagen</value></data>
+  <data name="Status_Cancelled" xml:space="preserve"><value>Abgebrochen</value></data>
+  <data name="Status_None" xml:space="preserve"><value>–</value></data>
+  <data name="Editor_TitleNew" xml:space="preserve"><value>Neues Profil</value></data>
+  <data name="Editor_TitleEdit" xml:space="preserve"><value>Profil bearbeiten</value></data>
+  <data name="Editor_SectionGeneral.Text" xml:space="preserve"><value>Allgemein</value></data>
+  <data name="Editor_Name.Header" xml:space="preserve"><value>Name</value></data>
+  <data name="Editor_Name.Description" xml:space="preserve"><value>Wird in der Liste und in Benachrichtigungen angezeigt.</value></data>
+  <data name="Editor_NameBox.PlaceholderText" xml:space="preserve"><value>z. B. Dokumente auf NAS</value></data>
+  <data name="Editor_SectionSource.Text" xml:space="preserve"><value>Quellen</value></data>
+  <data name="Editor_PathBox.PlaceholderText" xml:space="preserve"><value>C:\Users\Name\Documents</value></data>
+  <data name="Editor_Browse.Content" xml:space="preserve"><value>Durchsuchen…</value></data>
+  <data name="Editor_SectionTargets.Text" xml:space="preserve"><value>Ziele</value></data>
+  <data name="Editor_Targets.Header" xml:space="preserve"><value>Zielordner</value></data>
+  <data name="Editor_Targets.Description" xml:space="preserve"><value>Lokale Laufwerke, USB-Laufwerke, Netzwerkfreigaben (\\server\freigabe) oder Cloud-Ordner.</value></data>
+  <data name="Editor_AddTargetText.Text" xml:space="preserve"><value>Ziel hinzufügen</value></data>
+  <data name="Editor_BrowseTarget.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve"><value>Durchsuchen</value></data>
+  <data name="Editor_TargetEnabled.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve"><value>Ziel aktiv</value></data>
+  <data name="Editor_RemoveTarget.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve"><value>Ziel entfernen</value></data>
+  <data name="Editor_MultiTarget.Header" xml:space="preserve"><value>Mehrere Ziele</value></data>
+  <data name="Editor_MultiTarget.Description" xml:space="preserve"><value>Ziele nacheinander oder gleichzeitig synchronisieren. Nicht erreichbare Ziele werden übersprungen.</value></data>
+  <data name="MultiTarget_Sequential.Content" xml:space="preserve"><value>Nacheinander</value></data>
+  <data name="MultiTarget_Parallel.Content" xml:space="preserve"><value>Gleichzeitig</value></data>
+  <data name="Editor_SectionSync.Text" xml:space="preserve"><value>Synchronisierung</value></data>
+  <data name="Editor_Mode.Header" xml:space="preserve"><value>Modus</value></data>
+  <data name="Mode_MirrorItem.Content" xml:space="preserve"><value>Spiegeln</value></data>
+  <data name="Editor_Compare.Header" xml:space="preserve"><value>Änderungen erkennen</value></data>
+  <data name="Editor_Compare.Description" xml:space="preserve"><value>Inhaltsvergleich findet auch Änderungen ohne neues Datum, ist aber deutlich langsamer.</value></data>
+  <data name="Compare_SizeDate.Content" xml:space="preserve"><value>Größe und Datum</value></data>
+  <data name="Compare_Content.Content" xml:space="preserve"><value>Größe und Inhalt (Prüfsumme)</value></data>
+  <data name="Editor_Verify.Header" xml:space="preserve"><value>Kopien prüfen</value></data>
+  <data name="Editor_Verify.Description" xml:space="preserve"><value>Jede kopierte Datei per Prüfsumme mit der Quelle vergleichen.</value></data>
+  <data name="Editor_SectionFilter.Text" xml:space="preserve"><value>Filter</value></data>
+  <data name="Editor_Filter.Header" xml:space="preserve"><value>Ein- und Ausschlüsse</value></data>
+  <data name="Editor_Filter.Description" xml:space="preserve"><value>Ausgeschlossene Dateien werden weder kopiert noch im Ziel gelöscht.</value></data>
+  <data name="Editor_Exclude.Header" xml:space="preserve"><value>Ausschließen</value></data>
+  <data name="Editor_Exclude.Description" xml:space="preserve"><value>Ein Muster pro Zeile, z. B. *.tmp, node_modules\ oder Projekte\**\bin\</value></data>
+  <data name="Editor_Include.Header" xml:space="preserve"><value>Nur einschließen</value></data>
+  <data name="Editor_Include.Description" xml:space="preserve"><value>Leer = alle Dateien. Sonst nur Dateien, die einem Muster entsprechen, z. B. *.jpg</value></data>
+  <data name="Editor_ExcludeHidden.Header" xml:space="preserve"><value>Versteckte Dateien ausschließen</value></data>
+  <data name="Editor_ExcludeSystem.Header" xml:space="preserve"><value>Systemdateien ausschließen</value></data>
+  <data name="Editor_MinSize.Header" xml:space="preserve"><value>Mindestgröße (MB)</value></data>
+  <data name="Editor_MinSize.Description" xml:space="preserve"><value>0 = keine Grenze</value></data>
+  <data name="Editor_MaxSize.Header" xml:space="preserve"><value>Höchstgröße (MB)</value></data>
+  <data name="Editor_MaxSize.Description" xml:space="preserve"><value>0 = keine Grenze</value></data>
+  <data name="Editor_SectionSafety.Text" xml:space="preserve"><value>Sicherheit</value></data>
+  <data name="Editor_RecycleBin.Header" xml:space="preserve"><value>Gelöschte Dateien in den Papierkorb</value></data>
+  <data name="Editor_RecycleBin.Description" xml:space="preserve"><value>Nur auf lokalen Laufwerken möglich. Auf Netzlaufwerken wird endgültig gelöscht.</value></data>
+  <data name="Editor_DeletionProtection.Header" xml:space="preserve"><value>Löschschutz (%)</value></data>
+  <data name="Editor_DeletionProtection.Description" xml:space="preserve"><value>Vor dem Lauf warnen, wenn mehr als dieser Anteil der Dateien im Ziel gelöscht würde. 0 = aus.</value></data>
+  <data name="Editor_Save.Content" xml:space="preserve"><value>Speichern</value></data>
+  <data name="Editor_ErrorName" xml:space="preserve"><value>Bitte gib einen Namen ein.</value></data>
+  <data name="Editor_ErrorSourceEmpty" xml:space="preserve"><value>Bitte wähle einen Quellordner.</value></data>
+  <data name="Editor_ErrorPathInvalid" xml:space="preserve"><value>Ungültiger Pfad:</value></data>
+  <data name="Editor_ErrorSourceMissing" xml:space="preserve"><value>Der Quellordner existiert nicht.</value></data>
+  <data name="Editor_ErrorNoTarget" xml:space="preserve"><value>Bitte füge mindestens ein Ziel hinzu.</value></data>
+  <data name="Editor_ErrorDuplicateTarget" xml:space="preserve"><value>Ziel ist doppelt eingetragen:</value></data>
+  <data name="Editor_ErrorSizeRange" xml:space="preserve"><value>Die Mindestgröße ist größer als die Höchstgröße.</value></data>
+  <data name="Validation_SourceMissing" xml:space="preserve"><value>Quellordner nicht gefunden:</value></data>
+  <data name="Validation_TargetEqualsSource" xml:space="preserve"><value>Ziel und Quelle sind identisch:</value></data>
+  <data name="Validation_TargetInsideSource" xml:space="preserve"><value>Das Ziel liegt innerhalb der Quelle:</value></data>
+  <data name="Validation_SourceInsideTarget" xml:space="preserve"><value>Die Quelle liegt innerhalb des Ziels:</value></data>
+  <data name="Validation_TargetUnavailable" xml:space="preserve"><value>Ziel nicht erreichbar</value></data>
+  <data name="Run_ProfileMissing" xml:space="preserve"><value>Das Profil wurde nicht gefunden.</value></data>
+  <data name="Run_Analyzing" xml:space="preserve"><value>Analysiere…</value></data>
+  <data name="Run_Comparing" xml:space="preserve"><value>Vergleiche Inhalte… {0} von {1} Dateien</value></data>
+  <data name="Run_Scanning" xml:space="preserve"><value>Lese Ordner… {0} Einträge</value></data>
+  <data name="Run_DeletionWarning" xml:space="preserve"><value>{0} Dateien ({1} %) würden in {2} gelöscht. Bitte prüfe die geplanten Änderungen, bevor du startest.</value></data>
+  <data name="Run_NoTargetReady" xml:space="preserve"><value>Kein Ziel ist erreichbar.</value></data>
+  <data name="Run_UpToDate" xml:space="preserve"><value>Alles aktuell, keine Änderungen nötig.</value></data>
+  <data name="Run_Waiting" xml:space="preserve"><value>Wartet…</value></data>
+  <data name="Run_Deleting" xml:space="preserve"><value>Lösche…</value></data>
+  <data name="Run_Finishing" xml:space="preserve"><value>Schließe ab…</value></data>
+  <data name="Run_Copying" xml:space="preserve"><value>Kopiere…</value></data>
+  <data name="Run_ProgressDetail" xml:space="preserve"><value>{0} von {1} Schritten · {2} von {3} · {4}</value></data>
+  <data name="Run_TargetUnavailable" xml:space="preserve"><value>Nicht erreichbar, wird übersprungen</value></data>
+  <data name="Run_TargetReady" xml:space="preserve"><value>Bereit</value></data>
+  <data name="Run_PlanSummary" xml:space="preserve"><value>{0} neu · {1} geändert · {2} zu löschen · {3} unverändert · {4} zu kopieren</value></data>
+  <data name="Run_MoreActions" xml:space="preserve"><value>… und {0} weitere</value></data>
+  <data name="Run_TargetDoneErrors" xml:space="preserve"><value>Abgeschlossen mit {0} Fehlern</value></data>
+  <data name="Run_TargetDone" xml:space="preserve"><value>Abgeschlossen</value></data>
+  <data name="Run_ResultSummary" xml:space="preserve"><value>{0} kopiert · {1} aktualisiert · {2} gelöscht · {3} · {4}</value></data>
+  <data name="Run_TotalSummary" xml:space="preserve"><value>{0} kopiert, {1} aktualisiert, {2} gelöscht ({3}) in {4}.</value></data>
+  <data name="Run_SkippedTargets" xml:space="preserve"><value>{0} Ziel(e) übersprungen.</value></data>
+  <data name="Run_DeletionWarningBar.Title" xml:space="preserve"><value>Löschschutz</value></data>
+  <data name="Run_ErrorsExpander.Header" xml:space="preserve"><value>Fehler</value></data>
+  <data name="Run_ActionsExpander.Header" xml:space="preserve"><value>Geplante Änderungen</value></data>
+  <data name="Run_Cancel.Content" xml:space="preserve"><value>Abbrechen</value></data>
+  <data name="Run_Back.Content" xml:space="preserve"><value>Zurück zur Liste</value></data>
+  <data name="Run_Start.Content" xml:space="preserve"><value>Jetzt synchronisieren</value></data>
+  <data name="Action_CopyNew" xml:space="preserve"><value>Neu</value></data>
+  <data name="Action_Update" xml:space="preserve"><value>Geändert</value></data>
+  <data name="Action_DeleteFile" xml:space="preserve"><value>Löschen</value></data>
+  <data name="Action_DeleteDirectory" xml:space="preserve"><value>Ordner löschen</value></data>
+  <data name="Action_CreateDirectory" xml:space="preserve"><value>Ordner anlegen</value></data>
+  <data name="Dashboard_NoSchedule.Text" xml:space="preserve"><value>Noch kein Zeitplan</value></data>
+  <data name="Run_HistoryFailed" xml:space="preserve"><value>Der Lauf konnte nicht in der Historie gespeichert werden: {0}</value></data>
+  <data name="Run_ShowDetails.Content" xml:space="preserve"><value>Details anzeigen</value></data>
+  <data name="History_ChartEmpty" xml:space="preserve"><value>Noch keine Daten</value></data>
+  <data name="History_ChartTooltip" xml:space="preserve"><value>{0}: {1} übertragen, {2} Läufe</value></data>
+  <data name="History_RunSummary" xml:space="preserve"><value>{0} kopiert · {1} aktualisiert · {2} gelöscht</value></data>
+  <data name="History_RunErrors" xml:space="preserve"><value>{0} Fehler</value></data>
+  <data name="History_AllStatus" xml:space="preserve"><value>Alle Status</value></data>
+  <data name="History_AllProfiles" xml:space="preserve"><value>Alle Profile</value></data>
+  <data name="History_TileRuns.Text" xml:space="preserve"><value>Läufe (30 Tage)</value></data>
+  <data name="History_TileSuccess.Text" xml:space="preserve"><value>Erfolgsquote</value></data>
+  <data name="History_TileBytes.Text" xml:space="preserve"><value>Übertragene Daten</value></data>
+  <data name="History_TileDuration.Text" xml:space="preserve"><value>Ø Dauer</value></data>
+  <data name="History_ChartTitle.Text" xml:space="preserve"><value>Übertragene Daten pro Tag</value></data>
+  <data name="History_ChartSubtitle.Text" xml:space="preserve"><value>Letzte 30 Tage</value></data>
+  <data name="History_RunsHeader.Text" xml:space="preserve"><value>Läufe</value></data>
+  <data name="History_NoMatches.Text" xml:space="preserve"><value>Keine Läufe für diesen Filter.</value></data>
+  <data name="History_LoadMore.Content" xml:space="preserve"><value>Weitere laden</value></data>
+  <data name="History_ProfileFilter.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Profil</value></data>
+  <data name="History_StatusFilter.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Status</value></data>
+  <data name="Detail_NotFound" xml:space="preserve"><value>Eintrag nicht gefunden</value></data>
+  <data name="Trigger_Manual" xml:space="preserve"><value>Manuell</value></data>
+  <data name="Trigger_Schedule" xml:space="preserve"><value>Zeitplan</value></data>
+  <data name="Trigger_Watcher" xml:space="preserve"><value>Überwachung</value></data>
+  <data name="Trigger_Event" xml:space="preserve"><value>Ereignis</value></data>
+  <data name="Detail_AllTargets" xml:space="preserve"><value>Alle Ziele</value></data>
+  <data name="Detail_FilesCount" xml:space="preserve"><value>{0} Einträge</value></data>
+  <data name="Detail_FilesCountLimited" xml:space="preserve"><value>{0} Einträge, die ersten {1} werden angezeigt. Grenze die Suche ein.</value></data>
+  <data name="Action_Deleted" xml:space="preserve"><value>Gelöscht</value></data>
+  <data name="Action_DirectoryDeleted" xml:space="preserve"><value>Ordner gelöscht</value></data>
+  <data name="Action_DirectoryCreated" xml:space="preserve"><value>Ordner angelegt</value></data>
+  <data name="Detail_Delete.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve"><value>Diesen Eintrag aus der Historie entfernen</value></data>
+  <data name="Detail_DeleteText.Text" xml:space="preserve"><value>Eintrag löschen</value></data>
+  <data name="Detail_OpenFolder.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve"><value>Ordner öffnen</value></data>
+  <data name="Detail_FilterAll.Text" xml:space="preserve"><value>Alle</value></data>
+  <data name="Detail_FilterNew.Text" xml:space="preserve"><value>Neu</value></data>
+  <data name="Detail_FilterUpdated.Text" xml:space="preserve"><value>Geändert</value></data>
+  <data name="Detail_FilterDeleted.Text" xml:space="preserve"><value>Gelöscht</value></data>
+  <data name="Detail_FilterErrors.Text" xml:space="preserve"><value>Fehler</value></data>
+  <data name="Detail_Search.PlaceholderText" xml:space="preserve"><value>Dateien durchsuchen</value></data>
+  <data name="Detail_NoFiles.Text" xml:space="preserve"><value>Keine Einträge für diesen Filter.</value></data>
+  <data name="Detail_DeleteTitle" xml:space="preserve"><value>Eintrag löschen?</value></data>
+  <data name="Detail_DeleteConfirm" xml:space="preserve"><value>Der Lauf und seine Datei-Details werden aus der Historie entfernt. Die Dateien selbst bleiben unverändert.</value></data>
+  <data name="Settings_ClearHistory.Header" xml:space="preserve"><value>Historie löschen</value></data>
+  <data name="Settings_ClearHistory.Description" xml:space="preserve"><value>Entfernt alle gespeicherten Läufe und Datei-Details. Profile bleiben erhalten.</value></data>
+  <data name="Settings_ClearHistoryButton.Content" xml:space="preserve"><value>Löschen…</value></data>
+  <data name="Settings_ClearHistoryTitle" xml:space="preserve"><value>Historie löschen?</value></data>
+  <data name="Settings_ClearHistoryText" xml:space="preserve"><value>Alle gespeicherten Läufe und Datei-Details werden endgültig entfernt.</value></data>
+  <data name="Detail_FilesCountOne" xml:space="preserve"><value>1 Eintrag</value></data>
+  <data name="Run_TargetDoneOneError" xml:space="preserve"><value>Abgeschlossen mit 1 Fehler</value></data>
+  <data name="Run_AlreadyRunning" xml:space="preserve"><value>Dieses Profil wird gerade synchronisiert (z. B. durch einen Zeitplan). Bitte warte, bis der Lauf beendet ist.</value></data>
+  <data name="Run_SkippedProtection" xml:space="preserve"><value>{0} Ziel(e) wegen Löschschutz übersprungen.</value></data>
+  <data name="Validation_DeletionProtection" xml:space="preserve"><value>Löschschutz: zu viele Löschungen, automatischer Lauf übersprungen</value></data>
+  <data name="Tray_Open" xml:space="preserve"><value>SyncForge öffnen</value></data>
+  <data name="Tray_SyncAll" xml:space="preserve"><value>Alle Profile jetzt synchronisieren</value></data>
+  <data name="Tray_Exit" xml:space="preserve"><value>Beenden</value></data>
+  <data name="Tray_Running" xml:space="preserve"><value>SyncForge: synchronisiert ({0})</value></data>
+  <data name="Notify_Title" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="Notify_ShowDetails" xml:space="preserve"><value>Details anzeigen</value></data>
+  <data name="Editor_SectionAutomation.Text" xml:space="preserve"><value>Automatisierung</value></data>
+  <data name="Editor_Schedule.Header" xml:space="preserve"><value>Zeitplan</value></data>
+  <data name="Editor_Schedule.Description" xml:space="preserve"><value>Automatisch zu festen Zeiten synchronisieren.</value></data>
+  <data name="Schedule_None.Content" xml:space="preserve"><value>Kein Zeitplan</value></data>
+  <data name="Schedule_Interval.Content" xml:space="preserve"><value>In festen Abständen</value></data>
+  <data name="Schedule_Daily.Content" xml:space="preserve"><value>Täglich</value></data>
+  <data name="Schedule_Weekly.Content" xml:space="preserve"><value>An bestimmten Wochentagen</value></data>
+  <data name="Editor_Interval.Header" xml:space="preserve"><value>Abstand (Minuten)</value></data>
+  <data name="Editor_TimeOfDay.Header" xml:space="preserve"><value>Uhrzeit</value></data>
+  <data name="Editor_Days.Header" xml:space="preserve"><value>Wochentage</value></data>
+  <data name="Editor_CatchUp.Header" xml:space="preserve"><value>Verpasste Termine nachholen</value></data>
+  <data name="Editor_CatchUp.Description" xml:space="preserve"><value>Lief der PC oder SyncForge zum geplanten Zeitpunkt nicht, wird beim nächsten Start einmal nachsynchronisiert.</value></data>
+  <data name="Editor_Watch.Header" xml:space="preserve"><value>Bei Änderungen synchronisieren</value></data>
+  <data name="Editor_Watch.Description" xml:space="preserve"><value>Überwacht die Quelle und synchronisiert, nachdem eine Weile keine Änderungen mehr kamen.</value></data>
+  <data name="Editor_WatchDelay.Header" xml:space="preserve"><value>Wartezeit nach der letzten Änderung (Sekunden)</value></data>
+  <data name="Editor_RunAtStartup.Header" xml:space="preserve"><value>Beim Start von SyncForge synchronisieren</value></data>
+  <data name="Editor_RunAtStartup.Description" xml:space="preserve"><value>Zusammen mit „Mit Windows starten“ also bei jeder Anmeldung.</value></data>
+  <data name="Editor_RunOnDrive.Header" xml:space="preserve"><value>Wenn ein Ziel-Laufwerk angeschlossen wird</value></data>
+  <data name="Editor_RunOnDrive.Description" xml:space="preserve"><value>Z. B. beim Einstecken der USB-Festplatte, auf der ein Ziel liegt.</value></data>
+  <data name="Editor_AutomationInfo.Message" xml:space="preserve"><value>Automatische Läufe finden statt, solange SyncForge läuft, auch geschlossen im Infobereich. Bei automatischen Läufen wird ein Ziel übersprungen, wenn der Löschschutz anschlägt.</value></data>
+  <data name="Editor_ErrorNoDays" xml:space="preserve"><value>Bitte wähle mindestens einen Wochentag.</value></data>
+  <data name="Mode_VersionedItem.Content" xml:space="preserve"><value>Versioniert</value></data>
+  <data name="Mode_TwoWayItem.Content" xml:space="preserve"><value>Zwei-Wege</value></data>
+  <data name="Mode_MirrorDescription" xml:space="preserve"><value>Das Ziel wird zur exakten Kopie der Quelle, inklusive Löschungen.</value></data>
+  <data name="Mode_VersionedDescription" xml:space="preserve"><value>Wie Spiegeln, aber überschriebene und gelöschte Dateien werden im Ziel aufbewahrt (Ordner .syncforge_versions) und lassen sich wiederherstellen.</value></data>
+  <data name="Mode_TwoWayDescription" xml:space="preserve"><value>Änderungen auf beiden Seiten werden übernommen, auch Löschungen. Wurde eine Datei auf beiden Seiten geändert, entscheidet die Konfliktregel.</value></data>
+  <data name="Editor_VersionsToKeep.Header" xml:space="preserve"><value>Fassungen je Datei behalten</value></data>
+  <data name="Editor_VersionsToKeep.Description" xml:space="preserve"><value>0 = unbegrenzt</value></data>
+  <data name="Editor_VersionMaxAge.Header" xml:space="preserve"><value>Fassungen entfernen nach (Tagen)</value></data>
+  <data name="Editor_VersionMaxAge.Description" xml:space="preserve"><value>0 = nie</value></data>
+  <data name="Editor_Conflict.Header" xml:space="preserve"><value>Bei Konflikten</value></data>
+  <data name="Editor_Conflict.Description" xml:space="preserve"><value>Wenn eine Datei seit dem letzten Lauf auf beiden Seiten geändert wurde.</value></data>
+  <data name="Conflict_NewerWins.Content" xml:space="preserve"><value>Neuere Fassung gewinnt</value></data>
+  <data name="Conflict_SourceWins.Content" xml:space="preserve"><value>Quelle gewinnt</value></data>
+  <data name="Conflict_KeepBoth.Content" xml:space="preserve"><value>Beide behalten</value></data>
+  <data name="Conflict_Ask.Content" xml:space="preserve"><value>Nicht ändern, nur melden</value></data>
+  <data name="Conflict_Label" xml:space="preserve"><value>Konflikt</value></data>
+  <data name="Run_Conflicts" xml:space="preserve"><value>{0} Konflikt(e)</value></data>
+  <data name="Run_PlanToSource" xml:space="preserve"><value>{0} zur Quelle</value></data>
+  <data name="Run_DriveMoved" xml:space="preserve"><value>Laufwerk gefunden unter {0}</value></data>
+  <data name="Action_InSource" xml:space="preserve"><value>in der Quelle</value></data>
+  <data name="Action_RenameConflict" xml:space="preserve"><value>Konflikt: Zielfassung bleibt als „{0}“ erhalten</value></data>
+  <data name="Action_Conflict" xml:space="preserve"><value>Konflikt: wird nicht geändert</value></data>
+  <data name="Action_ConflictKeptBoth" xml:space="preserve"><value>Konflikt: beide Fassungen behalten</value></data>
+  <data name="Action_ConflictOpen" xml:space="preserve"><value>Konflikt: offen</value></data>
+  <data name="Detail_FilterConflicts.Text" xml:space="preserve"><value>Konflikte</value></data>
+  <data name="Profiles_Versions.Text" xml:space="preserve"><value>Versionen</value></data>
+  <data name="Versions_Title" xml:space="preserve"><value>Versionen: {0}</value></data>
+  <data name="Versions_RootTarget" xml:space="preserve"><value>Ziel: {0}</value></data>
+  <data name="Versions_RootSource" xml:space="preserve"><value>Quelle: {0}</value></data>
+  <data name="Versions_Count" xml:space="preserve"><value>{0} Fassungen</value></data>
+  <data name="Versions_CountOne" xml:space="preserve"><value>1 Fassung</value></data>
+  <data name="Versions_Deleted" xml:space="preserve"><value>aktuell nicht vorhanden</value></data>
+  <data name="Versions_Restored" xml:space="preserve"><value>Wiederhergestellt: {0}</value></data>
+  <data name="Versions_RestoreFailed" xml:space="preserve"><value>Wiederherstellen fehlgeschlagen: {0}</value></data>
+  <data name="Versions_Search.PlaceholderText" xml:space="preserve"><value>Dateien durchsuchen</value></data>
+  <data name="Versions_NoMatches.Text" xml:space="preserve"><value>Keine Dateien gefunden.</value></data>
+  <data name="Versions_VersionsHeader.Text" xml:space="preserve"><value>Fassungen</value></data>
+  <data name="Versions_Restore.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve"><value>In der Quelle wiederherstellen</value></data>
+  <data name="Versions_SaveAs.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve"><value>Speichern unter…</value></data>
+  <data name="Versions_Show.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve"><value>Im Explorer anzeigen</value></data>
+  <data name="Versions_EmptyTitle.Text" xml:space="preserve"><value>Noch keine früheren Fassungen</value></data>
+  <data name="Versions_EmptyText.Text" xml:space="preserve"><value>Im Modus „Versioniert“ werden überschriebene und gelöschte Dateien aufbewahrt und erscheinen hier.</value></data>
+  <data name="Versions_RestoreTitle" xml:space="preserve"><value>Fassung wiederherstellen?</value></data>
+  <data name="Versions_RestoreText" xml:space="preserve"><value>Die Fassung vom {1} wird nach {0} kopiert. Beim nächsten Lauf gelangt sie auch ins Ziel.</value></data>
+  <data name="Versions_RestoreOverwrite" xml:space="preserve"><value>Die Fassung vom {1} ersetzt die aktuelle Datei {0}. Beim nächsten Lauf wird die bisherige Fassung im Ziel als Version aufbewahrt.</value></data>
+  <data name="Versions_RestoreButton" xml:space="preserve"><value>Wiederherstellen</value></data>
+  <data name="Versions_AnyFile" xml:space="preserve"><value>Datei</value></data>
+  <data name="ImportExport_FileType" xml:space="preserve"><value>SyncForge-Sicherung</value></data>
+  <data name="ImportExport_ExportedTitle" xml:space="preserve"><value>Export abgeschlossen</value></data>
+  <data name="ImportExport_ExportedText" xml:space="preserve"><value>Profile und Einstellungen wurden gespeichert: {0}</value></data>
+  <data name="ImportExport_InvalidTitle" xml:space="preserve"><value>Keine gültige Sicherung</value></data>
+  <data name="ImportExport_InvalidText" xml:space="preserve"><value>Die Datei ist keine SyncForge-Sicherung oder stammt aus einer neueren Version.</value></data>
+  <data name="ImportExport_IncludeSettings" xml:space="preserve"><value>Auch die Einstellungen übernehmen (Design, Benachrichtigungen, Leistung …)</value></data>
+  <data name="ImportExport_ImportText" xml:space="preserve"><value>Die Sicherung vom {1} enthält {0} Profil(e). Profile mit gleicher Kennung werden ersetzt, die übrigen hinzugefügt.</value></data>
+  <data name="ImportExport_ImportTitle" xml:space="preserve"><value>Sicherung importieren</value></data>
+  <data name="ImportExport_ImportButton" xml:space="preserve"><value>Importieren</value></data>
+  <data name="Common_Ok" xml:space="preserve"><value>OK</value></data>
+  <data name="Profiles_More.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Weitere Optionen</value></data>
+  <data name="Editor_BrowseTarget.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Durchsuchen</value></data>
+  <data name="Editor_TargetEnabled.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Ziel aktiv</value></data>
+  <data name="Editor_RemoveTarget.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Ziel entfernen</value></data>
+  <data name="Detail_OpenFolder.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Ordner öffnen</value></data>
+  <data name="Versions_Restore.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>In der Quelle wiederherstellen</value></data>
+  <data name="Versions_SaveAs.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Speichern unter</value></data>
+  <data name="Versions_Show.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Im Explorer anzeigen</value></data>
+  <data name="Nav_Help.Content" xml:space="preserve"><value>Hilfe</value></data>
+  <data name="Nav_Legal.Content" xml:space="preserve"><value>Lizenzen &amp; Rechtliches</value></data>
+  <data name="Help_Title.Text" xml:space="preserve"><value>Hilfe</value></data>
+  <data name="Help_Search.PlaceholderText" xml:space="preserve"><value>Hilfe durchsuchen</value></data>
+  <data name="Help_Results" xml:space="preserve"><value>{0} Themen gefunden</value></data>
+  <data name="Help_ResultOne" xml:space="preserve"><value>1 Thema gefunden</value></data>
+  <data name="Help_NoResults.Text" xml:space="preserve"><value>Keine Treffer.</value></data>
+  <data name="Legal_Title.Text" xml:space="preserve"><value>Lizenzen &amp; Rechtliches</value></data>
+  <data name="Legal_TabApp.Text" xml:space="preserve"><value>SyncForge</value></data>
+  <data name="Legal_TabPrivacy.Text" xml:space="preserve"><value>Datenschutz</value></data>
+  <data name="Legal_TabThirdParty.Text" xml:space="preserve"><value>Drittanbieter</value></data>
+  <data name="Legal_Copyright.Text" xml:space="preserve"><value>© 2026 Ronny Severin · Open Source unter der MIT-Lizenz</value></data>
+  <data name="Legal_ThirdPartyIntro.Text" xml:space="preserve"><value>SyncForge verwendet die folgenden Komponenten. Vielen Dank an alle Autorinnen und Autoren. Die vollständigen Lizenztexte findest du jeweils beim Aufklappen.</value></data>
+  <data name="Legal_Version" xml:space="preserve"><value>Version {0}</value></data>
+  <data name="Legal_Packages" xml:space="preserve"><value>Pakete: {0}</value></data>
+  <data name="Legal_OpenFullText" xml:space="preserve"><value>Volltext öffnen</value></data>
+  <data name="Legal_LicenseMissing" xml:space="preserve"><value>Lizenztext nicht gefunden.</value></data>
+  <data name="Legal_Truncated" xml:space="preserve"><value>… Text gekürzt. Vollständig über „Volltext öffnen“.</value></data>
+  <data name="Nav_Support.Content" xml:space="preserve"><value>Unterstützen</value></data>
+  <data name="Support_Title.Text" xml:space="preserve"><value>SyncForge unterstützen</value></data>
+  <data name="Support_Headline.Text" xml:space="preserve"><value>Kostenlos, und das bleibt so.</value></data>
+  <data name="Support_Text.Text" xml:space="preserve"><value>SyncForge ist kostenlos und Open Source, ohne Werbung, ohne Abo und ohne Datensammlung. Wenn dir die App Zeit und Nerven spart, freue ich mich über einen Kaffee. Jede Unterstützung hilft, SyncForge weiterzuentwickeln.</value></data>
+  <data name="Support_KofiButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Auf Ko-fi einen Kaffee spendieren</value></data>
+  <data name="Support_Voluntary.Text" xml:space="preserve"><value>Freiwillig: Alle Funktionen stehen allen kostenlos zur Verfügung.</value></data>
+  <data name="Support_OtherWays.Text" xml:space="preserve"><value>Auch so hilfst du weiter</value></data>
+  <data name="Support_ShareTitle.Text" xml:space="preserve"><value>Weiterempfehlen</value></data>
+  <data name="Support_ShareText.Text" xml:space="preserve"><value>Erzähl Freunden und Kollegen von SyncForge.</value></data>
+  <data name="Support_RateTitle.Text" xml:space="preserve"><value>Stern auf GitHub</value></data>
+  <data name="Support_RateText.Text" xml:space="preserve"><value>Ein Stern für SyncForge auf GitHub hilft anderen, das Projekt zu finden.</value></data>
+  <data name="Support_FeedbackTitle.Text" xml:space="preserve"><value>Feedback geben</value></data>
+  <data name="Support_FeedbackText.Text" xml:space="preserve"><value>Ideen und Fehlermeldungen (gern als Issue auf GitHub) machen SyncForge besser.</value></data>
+  <data name="Editor_CloudFiles.Header" xml:space="preserve"><value>Nur online verfügbare Dateien</value></data>
+  <data name="Editor_CloudFiles.Description" xml:space="preserve"><value>Dateien aus OneDrive, Dropbox &amp; Co., die nicht lokal gespeichert sind. Überspringen verhindert ungewollte Downloads. Vorhandene Kopien im Ziel bleiben erhalten.</value></data>
+  <data name="CloudFiles_Skip.Content" xml:space="preserve"><value>Überspringen</value></data>
+  <data name="CloudFiles_Download.Content" xml:space="preserve"><value>Herunterladen und sichern</value></data>
+  <data name="Run_PlanCloudSkipped" xml:space="preserve"><value>{0} nur online (übersprungen)</value></data>
+  <data name="Run_CloudSkipped" xml:space="preserve"><value>{0} nur online verfügbare Datei(en) übersprungen.</value></data>
+  <data name="Run_PlanUnreadable" xml:space="preserve"><value>{0} Ordner nicht lesbar (ausgelassen)</value></data>
+  <data name="Run_Unreadable" xml:space="preserve"><value>{0} Ordner konnten nicht gelesen werden und wurden ausgelassen.</value></data>
+  <data name="Run_RootLost" xml:space="preserve"><value>Abgebrochen, {0} war nicht mehr erreichbar</value></data>
+  <data name="Settings_Updates.Header" xml:space="preserve"><value>Nach Updates suchen</value></data>
+  <data name="Settings_Updates.Description" xml:space="preserve"><value>Fragt einmal täglich bei GitHub nach einer neuen Version. Übertragen werden dabei nur deine IP-Adresse und die Version von SyncForge. Heruntergeladen wird nichts.</value></data>
+  <data name="Update_CheckNow.Content" xml:space="preserve"><value>Jetzt suchen</value></data>
+  <data name="Update_OpenPage.Content" xml:space="preserve"><value>Download-Seite öffnen</value></data>
+  <data name="Update_StatusChecking" xml:space="preserve"><value>Es wird gesucht …</value></data>
+  <data name="Update_StatusError" xml:space="preserve"><value>Suche fehlgeschlagen: {0}</value></data>
+  <data name="Update_StatusAvailable" xml:space="preserve"><value>SyncForge {0} ist verfügbar.</value></data>
+  <data name="Update_StatusLatest" xml:space="preserve"><value>Du verwendest die neueste Version. Zuletzt gesucht: {0}</value></data>
+  <data name="Update_StatusNever" xml:space="preserve"><value>Noch nicht gesucht.</value></data>
+  <data name="Update_Timeout" xml:space="preserve"><value>GitHub hat nicht rechtzeitig geantwortet.</value></data>
+  <data name="Update_InfoTitle" xml:space="preserve"><value>Update verfügbar</value></data>
+  <data name="Update_InfoMessage" xml:space="preserve"><value>SyncForge {0} ist erschienen. Du verwendest Version {1}.</value></data>
+  <data name="Update_NotifyTitle" xml:space="preserve"><value>SyncForge {0} ist verfügbar</value></data>
+  <data name="Update_NotifyText" xml:space="preserve"><value>Auf der Download-Seite findest du das Setup und die Neuerungen.</value></data>
+  <data name="Support_RateLink.Content" xml:space="preserve"><value>SyncForge auf GitHub</value></data>
+  <data name="Support_FeedbackLink.Content" xml:space="preserve"><value>Issue erstellen</value></data>
+  <data name="Editor_Credentials.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve"><value>Anmeldedaten für die Netzwerkfreigabe</value></data>
+  <data name="Editor_Credentials.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Anmeldedaten</value></data>
+  <data name="Editor_ErrorSourceNetwork" xml:space="preserve"><value>Netzwerkfreigabe nicht erreichbar. Ist der Server eingeschaltet? Falls nötig, hinterlege Anmeldedaten über das Schlüsselsymbol.</value></data>
+  <data name="Credentials_Title" xml:space="preserve"><value>Anmeldedaten für die Netzwerkfreigabe</value></data>
+  <data name="Credentials_Text" xml:space="preserve"><value>SyncForge meldet sich mit diesen Daten an {0} an. Sie werden sicher in der Windows-Anmeldeinformationsverwaltung gespeichert und gelten für alle Profile mit dieser Freigabe.</value></data>
+  <data name="Credentials_User" xml:space="preserve"><value>Benutzername</value></data>
+  <data name="Credentials_UserPlaceholder" xml:space="preserve"><value>z. B. NAS\benutzer oder benutzer</value></data>
+  <data name="Credentials_Password" xml:space="preserve"><value>Kennwort</value></data>
+  <data name="Credentials_Save" xml:space="preserve"><value>Testen und speichern</value></data>
+  <data name="Credentials_Remove" xml:space="preserve"><value>Anmeldedaten entfernen</value></data>
+  <data name="Credentials_Missing" xml:space="preserve"><value>Bitte Benutzername und Kennwort eingeben.</value></data>
+  <data name="Credentials_ErrorLogon" xml:space="preserve"><value>Anmeldung fehlgeschlagen. Bitte Benutzername und Kennwort prüfen.</value></data>
+  <data name="Credentials_ErrorNotFound" xml:space="preserve"><value>{0} wurde nicht gefunden. Ist der Server eingeschaltet und im Netzwerk erreichbar?</value></data>
+  <data name="Credentials_ErrorConflict" xml:space="preserve"><value>Windows ist mit diesem Server bereits unter einem anderen Benutzer verbunden. Trenne die bestehende Verbindung (z. B. ein verbundenes Netzlaufwerk) oder verwende dieselben Anmeldedaten.</value></data>
+  <data name="Validation_NetworkLogonFailed" xml:space="preserve"><value>Anmeldung an der Netzwerkfreigabe fehlgeschlagen</value></data>
+  <data name="Validation_NetworkCredentialConflict" xml:space="preserve"><value>Netzwerkfreigabe: Windows ist bereits unter einem anderen Benutzer verbunden</value></data>
+  <data name="Conflicts_Title.Text" xml:space="preserve"><value>Konflikte lösen</value></data>
+  <data name="Conflicts_Intro.Text" xml:space="preserve"><value>Diese Dateien wurden seit dem letzten Lauf auf beiden Seiten geändert. Wähle je Datei, welche Fassung gilt. Ersetzte Fassungen landen im Papierkorb bzw. im Versionsordner.</value></data>
+  <data name="Conflicts_None.Title" xml:space="preserve"><value>Keine offenen Konflikte</value></data>
+  <data name="Conflicts_None.Message" xml:space="preserve"><value>Beide Seiten sind sich einig.</value></data>
+  <data name="Conflicts_SetAll.Content" xml:space="preserve"><value>Für alle übernehmen</value></data>
+  <data name="Conflicts_AllNewer.Text" xml:space="preserve"><value>Jeweils neuere Fassung</value></data>
+  <data name="Conflicts_AllSource.Text" xml:space="preserve"><value>Quelle behalten</value></data>
+  <data name="Conflicts_AllTarget.Text" xml:space="preserve"><value>Ziel behalten</value></data>
+  <data name="Conflicts_AllBoth.Text" xml:space="preserve"><value>Beide behalten</value></data>
+  <data name="Conflicts_AllSkip.Text" xml:space="preserve"><value>Später entscheiden</value></data>
+  <data name="Conflicts_TypeConflict.Text" xml:space="preserve"><value>Ordner auf der einen, Datei auf der anderen Seite. Bitte im Explorer umbenennen oder entfernen.</value></data>
+  <data name="Conflicts_Choice.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Entscheidung</value></data>
+  <data name="Resolve_Skip.Content" xml:space="preserve"><value>Später entscheiden</value></data>
+  <data name="Resolve_KeepSource.Content" xml:space="preserve"><value>Quelle behalten</value></data>
+  <data name="Resolve_KeepTarget.Content" xml:space="preserve"><value>Ziel behalten</value></data>
+  <data name="Resolve_KeepBoth.Content" xml:space="preserve"><value>Beide behalten</value></data>
+  <data name="Conflicts_Back.Content" xml:space="preserve"><value>Zurück</value></data>
+  <data name="Conflicts_Apply.Content" xml:space="preserve"><value>Übernehmen</value></data>
+  <data name="Conflict_SourceVersion" xml:space="preserve"><value>Quelle: {0}</value></data>
+  <data name="Conflict_TargetVersion" xml:space="preserve"><value>Ziel: {0}</value></data>
+  <data name="Conflict_Missing" xml:space="preserve"><value>nicht vorhanden</value></data>
+  <data name="Conflict_Folder" xml:space="preserve"><value>Ordner</value></data>
+  <data name="Conflict_Newer" xml:space="preserve"><value>neuer</value></data>
+  <data name="Conflicts_Busy" xml:space="preserve"><value>Für dieses Profil läuft gerade eine Synchronisierung. Bitte warte, bis sie fertig ist.</value></data>
+  <data name="Conflicts_Analyzing" xml:space="preserve"><value>Konflikte werden gesucht …</value></data>
+  <data name="Conflicts_Applying" xml:space="preserve"><value>Entscheidungen werden übernommen …</value></data>
+  <data name="Conflicts_TargetsUnavailable" xml:space="preserve"><value>{0} Ziel(e) nicht erreichbar, deren Konflikte fehlen hier.</value></data>
+  <data name="Conflicts_NothingChosen" xml:space="preserve"><value>Wähle zuerst bei mindestens einer Datei, welche Fassung gilt.</value></data>
+  <data name="Conflicts_Done" xml:space="preserve"><value>{0} Konflikt(e) gelöst.</value></data>
+  <data name="Conflicts_DoneErrors" xml:space="preserve"><value>Nicht alles hat geklappt: {0} Fehler. Details stehen in der Historie.</value></data>
+  <data name="Run_ConflictsBar.Title" xml:space="preserve"><value>Offene Konflikte</value></data>
+  <data name="Run_ConflictsBar.Message" xml:space="preserve"><value>Einige Dateien wurden auf beiden Seiten geändert. SyncForge ändert sie nicht, bis du entscheidest.</value></data>
+  <data name="Run_ResolveConflicts.Content" xml:space="preserve"><value>Konflikte lösen</value></data>
+  <data name="Detail_ConflictsBar.Title" xml:space="preserve"><value>Offene Konflikte</value></data>
+  <data name="Detail_ConflictsBar.Message" xml:space="preserve"><value>Einige Dateien wurden auf beiden Seiten geändert und warten auf deine Entscheidung.</value></data>
+  <data name="Detail_ResolveConflicts.Content" xml:space="preserve"><value>Konflikte lösen</value></data>
+  <data name="Detail_Delete.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Eintrag löschen</value></data>
+  <data name="Activity_Cancel.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve"><value>Abbrechen</value></data>
+  <data name="Activity_Cancel.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Synchronisierung abbrechen</value></data>
+  <data name="Activity_Analyzing" xml:space="preserve"><value>Wird analysiert …</value></data>
+  <data name="Activity_Scanning" xml:space="preserve"><value>{0} Dateien gefunden …</value></data>
+  <data name="Activity_Copying" xml:space="preserve"><value>{0} % erledigt</value></data>
+  <data name="Activity_Cancelling" xml:space="preserve"><value>Wird abgebrochen …</value></data>
+  <data name="Tray_RunningOne" xml:space="preserve"><value>SyncForge: {0}, {1} %</value></data>
+  <data name="Tray_RunningOneAnalyzing" xml:space="preserve"><value>SyncForge: {0} wird analysiert</value></data>
+  <data name="Profiles_SourcesMany" xml:space="preserve"><value>{0} Quellen</value></data>
+  <data name="Editor_Sources.Header" xml:space="preserve"><value>Quellordner</value></data>
+  <data name="Editor_Sources.Description" xml:space="preserve"><value>Diese Ordner werden mit allen Unterordnern synchronisiert. Mehrere Quellen landen jeweils in einem eigenen Unterordner der Ziele.</value></data>
+  <data name="Editor_AddSourceText.Text" xml:space="preserve"><value>Quelle hinzufügen</value></data>
+  <data name="Editor_RemoveSource.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve"><value>Quelle entfernen</value></data>
+  <data name="Editor_RemoveSource.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Quelle entfernen</value></data>
+  <data name="Editor_SourceSubfolder" xml:space="preserve"><value>Im Ziel: Unterordner „{0}“</value></data>
+  <data name="Editor_DriveFolder" xml:space="preserve"><value>Laufwerk</value></data>
+  <data name="Editor_ErrorSourcesOverlap" xml:space="preserve"><value>Quellen dürfen sich nicht überschneiden (eine liegt in der anderen):</value></data>
+  <data name="Editor_MultiSourceInfo.Message" xml:space="preserve"><value>Jede Quelle landet in einem eigenen Unterordner der Ziele. Bereits vorhandene Dateien im Ziel bleiben unverändert.</value></data>
+  <data name="Dashboard_SyncAll.Text" xml:space="preserve"><value>Alle synchronisieren</value></data>
+  <data name="Dashboard_EmptyTitle.Text" xml:space="preserve"><value>Willkommen bei SyncForge</value></data>
+  <data name="Dashboard_EmptyText.Text" xml:space="preserve"><value>Lege ein Backup-Profil an: Wähle einen oder mehrere Ordner und ein Ziel, zum Beispiel eine USB-Festplatte oder dein NAS. Vor jedem Lauf siehst du, was passieren wird.</value></data>
+  <data name="Dashboard_CreateFirst.Text" xml:space="preserve"><value>Erstes Profil anlegen</value></data>
+  <data name="Dashboard_YourProfiles.Text" xml:space="preserve"><value>Deine Profile</value></data>
+  <data name="Dashboard_RunNow.Content" xml:space="preserve"><value>Jetzt synchronisieren</value></data>
+  <data name="Dashboard_Preview.Content" xml:space="preserve"><value>Vorschau</value></data>
+  <data name="Dashboard_Edit.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve"><value>Bearbeiten</value></data>
+  <data name="Dashboard_Edit.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Profil bearbeiten</value></data>
+  <data name="Dashboard_NextRun" xml:space="preserve"><value>Nächster Lauf: {0}</value></data>
+  <data name="Dashboard_OnChanges" xml:space="preserve"><value>Bei Änderungen</value></data>
+  <data name="Dashboard_OnDrive" xml:space="preserve"><value>Beim Anschließen des Laufwerks</value></data>
+  <data name="Dashboard_ManualOnly" xml:space="preserve"><value>Nur manuell</value></data>
+  <data name="Dashboard_AttentionTitle" xml:space="preserve"><value>Bitte prüfen</value></data>
+  <data name="Dashboard_AttentionOne" xml:space="preserve"><value>Beim letzten Lauf eines Profils gab es Fehler oder Warnungen. Details stehen in der Historie.</value></data>
+  <data name="Dashboard_AttentionMany" xml:space="preserve"><value>Beim letzten Lauf von {0} Profilen gab es Fehler oder Warnungen. Details stehen in der Historie.</value></data>
+  <data name="Dashboard_SyncAllButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Alle synchronisieren</value></data>
+  <data name="Dashboard_NewProfileButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Neues Profil</value></data>
+  <data name="Dashboard_CreateFirstButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Erstes Profil anlegen</value></data>
+  <data name="Wizard_Title.Text" xml:space="preserve"><value>Neues Backup-Profil</value></data>
+  <data name="Wizard_StepOf" xml:space="preserve"><value>Schritt {0} von {1}</value></data>
+  <data name="Wizard_TemplateHeading.Text" xml:space="preserve"><value>Was möchtest du sichern?</value></data>
+  <data name="Wizard_Template_documents_Title" xml:space="preserve"><value>Dokumente sichern</value></data>
+  <data name="Wizard_Template_documents_Text" xml:space="preserve"><value>Dein Dokumente-Ordner, täglich und beim Anschließen der Festplatte.</value></data>
+  <data name="Wizard_Template_photos_Title" xml:space="preserve"><value>Fotos und Videos sichern</value></data>
+  <data name="Wizard_Template_photos_Text" xml:space="preserve"><value>Bilder und Videos in eigenen Unterordnern, täglich und beim Anschließen der Festplatte.</value></data>
+  <data name="Wizard_Template_usb_Title" xml:space="preserve"><value>Auf USB-Festplatte spiegeln</value></data>
+  <data name="Wizard_Template_usb_Text" xml:space="preserve"><value>Exakte Kopie beliebiger Ordner, sobald die Festplatte angeschlossen wird.</value></data>
+  <data name="Wizard_Template_nas_Title" xml:space="preserve"><value>Auf NAS sichern, mit Versionen</value></data>
+  <data name="Wizard_Template_nas_Text" xml:space="preserve"><value>Täglich ins Netzwerk. Überschriebene und gelöschte Dateien lassen sich wiederherstellen.</value></data>
+  <data name="Wizard_Template_twoway_Title" xml:space="preserve"><value>Zwei Ordner synchron halten</value></data>
+  <data name="Wizard_Template_twoway_Text" xml:space="preserve"><value>Änderungen auf beiden Seiten werden übernommen, sofort bei jeder Änderung.</value></data>
+  <data name="Wizard_Template_custom_Title" xml:space="preserve"><value>Alles selbst festlegen</value></data>
+  <data name="Wizard_Template_custom_Text" xml:space="preserve"><value>Öffnet den vollständigen Editor mit allen Einstellungen.</value></data>
+  <data name="Wizard_SourcesHeading.Text" xml:space="preserve"><value>Welche Ordner sollen gesichert werden?</value></data>
+  <data name="Wizard_SourcesText.Text" xml:space="preserve"><value>Alle Unterordner werden mitgesichert. Bei mehreren Ordnern bekommt jeder im Ziel einen eigenen Unterordner.</value></data>
+  <data name="Wizard_AddSource.Text" xml:space="preserve"><value>Weiteren Ordner hinzufügen</value></data>
+  <data name="Wizard_AddSourceButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Weiteren Ordner hinzufügen</value></data>
+  <data name="Wizard_TargetHeading.Text" xml:space="preserve"><value>Wohin soll gesichert werden?</value></data>
+  <data name="Wizard_TargetText.Text" xml:space="preserve"><value>Zum Beispiel ein Ordner auf einer USB-Festplatte, auf einem zweiten Laufwerk oder auf deinem NAS (\\server\freigabe). USB-Festplatten erkennt SyncForge auch unter einem anderen Laufwerksbuchstaben wieder.</value></data>
+  <data name="Wizard_TargetBox.PlaceholderText" xml:space="preserve"><value>E:\Backup</value></data>
+  <data name="Wizard_TargetBox.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Zielordner</value></data>
+  <data name="Wizard_TargetNetwork" xml:space="preserve"><value>Netzwerkfreigabe</value></data>
+  <data name="Wizard_TargetNotReady" xml:space="preserve"><value>Laufwerk nicht bereit</value></data>
+  <data name="Wizard_DriveRemovable" xml:space="preserve"><value>USB-Laufwerk</value></data>
+  <data name="Wizard_DriveNetwork" xml:space="preserve"><value>Netzlaufwerk</value></data>
+  <data name="Wizard_DriveFixed" xml:space="preserve"><value>Laufwerk</value></data>
+  <data name="Wizard_TargetInfo" xml:space="preserve"><value>{0} {1} · {2} frei</value></data>
+  <data name="Wizard_WhenHeading.Text" xml:space="preserve"><value>Wann soll gesichert werden?</value></data>
+  <data name="Wizard_ScheduleChoice.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Zeitplan</value></data>
+  <data name="Wizard_WhenManual.Content" xml:space="preserve"><value>Nur wenn ich es starte</value></data>
+  <data name="Wizard_WhenDaily.Content" xml:space="preserve"><value>Täglich</value></data>
+  <data name="Wizard_WhenHourlyOption.Content" xml:space="preserve"><value>Stündlich</value></data>
+  <data name="Wizard_Time.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Uhrzeit</value></data>
+  <data name="Wizard_WatchOption.Content" xml:space="preserve"><value>Zusätzlich bei Änderungen sofort sichern</value></data>
+  <data name="Wizard_DriveOption.Content" xml:space="preserve"><value>Sichern, sobald das Ziel-Laufwerk angeschlossen wird</value></data>
+  <data name="Wizard_WhenHint.Text" xml:space="preserve"><value>Automatische Läufe finden statt, solange SyncForge läuft, auch im Infobereich. Mit „Mit Windows starten“ in den Einstellungen klappt das ab der Anmeldung.</value></data>
+  <data name="Wizard_SummaryHeading.Text" xml:space="preserve"><value>Fast fertig</value></data>
+  <data name="Wizard_NameBox.Header" xml:space="preserve"><value>Name</value></data>
+  <data name="Wizard_SummaryModeLabel.Text" xml:space="preserve"><value>Modus</value></data>
+  <data name="Wizard_SummarySourcesLabel.Text" xml:space="preserve"><value>Quellen</value></data>
+  <data name="Wizard_SummaryTargetLabel.Text" xml:space="preserve"><value>Ziel</value></data>
+  <data name="Wizard_SummaryWhenLabel.Text" xml:space="preserve"><value>Wann</value></data>
+  <data name="Wizard_OpenEditor.Content" xml:space="preserve"><value>Weitere Einstellungen (Filter, Löschschutz …) im Editor festlegen</value></data>
+  <data name="Wizard_WhenDailyAt" xml:space="preserve"><value>Täglich um {0}</value></data>
+  <data name="Wizard_WhenHourly" xml:space="preserve"><value>Stündlich</value></data>
+  <data name="Wizard_Cancel.Content" xml:space="preserve"><value>Abbrechen</value></data>
+  <data name="Wizard_Back.Content" xml:space="preserve"><value>Zurück</value></data>
+  <data name="Wizard_Next.Content" xml:space="preserve"><value>Weiter</value></data>
+  <data name="Wizard_CreatePreview.Content" xml:space="preserve"><value>Anlegen und Vorschau zeigen</value></data>
+  <data name="Wizard_Create.Content" xml:space="preserve"><value>Profil anlegen</value></data>
+  <data name="Hint_InvalidPath" xml:space="preserve"><value>Kein gültiger Pfad (vollständig angeben, z. B. D:\Backup).</value></data>
+  <data name="Hint_NetworkCheckedOnSave" xml:space="preserve"><value>Netzwerkfreigabe, wird beim Speichern geprüft.</value></data>
+  <data name="Hint_SourceFound" xml:space="preserve"><value>Ordner gefunden.</value></data>
+  <data name="Hint_SourceMissing" xml:space="preserve"><value>Ordner nicht gefunden.</value></data>
+  <data name="Hint_DriveNotReady" xml:space="preserve"><value>Laufwerk nicht angeschlossen. Gesichert wird, sobald es wieder da ist.</value></data>
+  <data name="Hint_SameDrive" xml:space="preserve"><value>{0} · Gleiches Laufwerk wie eine Quelle: schützt nicht vor einem Ausfall des Laufwerks.</value></data>
+  <data name="Hint_LowSpace" xml:space="preserve"><value>{0} · Nur noch wenig Platz frei.</value></data>
+  <data name="Editor_SavePreview.Content" xml:space="preserve"><value>Speichern und Vorschau</value></data>
+  <data name="Editor_TargetPathBox.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Zielordner</value></data>
+  <data name="Profiles_AddButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Profil hinzufügen</value></data>
+  <data name="Editor_AddSource.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Quelle hinzufügen</value></data>
+  <data name="Editor_AddTarget.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Ziel hinzufügen</value></data>
+  <data name="Trigger_CommandLine" xml:space="preserve"><value>Befehlszeile</value></data>
+  <data name="Cli_UsageTitle" xml:space="preserve"><value>SyncForge Befehlszeile</value></data>
+  <data name="Cli_UsageRun" xml:space="preserve"><value>Profil synchronisieren (mehrfach möglich, Name oder Id)</value></data>
+  <data name="Cli_UsageRunAll" xml:space="preserve"><value>Alle Profile synchronisieren</value></data>
+  <data name="Cli_UsageList" xml:space="preserve"><value>Profile mit Id auflisten</value></data>
+  <data name="Cli_UsageHelp" xml:space="preserve"><value>Diese Hilfe</value></data>
+  <data name="Cli_UsageExit" xml:space="preserve"><value>Exitcode: 0 erfolgreich, 1 Warnung, 2 Fehler, 3 abgebrochen, 4 Profil nicht gefunden, 5 falsche Angabe, 6 läuft bereits</value></data>
+  <data name="Cli_Invalid" xml:space="preserve"><value>Ungültige Angabe: {0}</value></data>
+  <data name="Cli_NotFound" xml:space="preserve"><value>Profil nicht gefunden: {0}</value></data>
+  <data name="Cli_NoProfiles" xml:space="preserve"><value>Keine Profile vorhanden.</value></data>
+  <data name="Cli_Running" xml:space="preserve"><value>{0}: wird synchronisiert …</value></data>
+  <data name="Cli_AlreadyRunning" xml:space="preserve"><value>{0}: läuft bereits.</value></data>
+  <data name="Cli_Result" xml:space="preserve"><value>{0}: {1}. {2}</value></data>
+  <data name="Cli_HandedOver" xml:space="preserve"><value>An das geöffnete SyncForge übergeben. Fortschritt und Ergebnis stehen dort und in der Historie.</value></data>
+  <data name="Editor_ShadowCopy.Header" xml:space="preserve"><value>Gesperrte Dateien über Schattenkopie lesen</value></data>
+  <data name="Editor_ShadowCopy.Description" xml:space="preserve"><value>Für Dateien, die ein Programm dauerhaft sperrt (z. B. Outlook-Datendateien). Benötigt Administratorrechte.</value></data>
+  <data name="Editor_ShadowCopyHint.Title" xml:space="preserve"><value>Wirkt nur mit Administratorrechten</value></data>
+  <data name="Editor_ShadowCopyHint.Message" xml:space="preserve"><value>SyncForge läuft gerade ohne. Richte für dieses Profil eine Aufgabe in der Windows-Aufgabenplanung ein (Mit höchsten Privilegien ausführen, Argumente: --run &quot;Profilname&quot;). Details stehen in der Hilfe unter Automatisierung.</value></data>
+  <data name="Run_ShadowCopied" xml:space="preserve"><value>{0} gesperrte Datei(en) aus einer Schattenkopie gesichert.</value></data>
+  <data name="Editor_LowPriority.Header" xml:space="preserve"><value>Mit niedriger Priorität kopieren</value></data>
+  <data name="Editor_LowPriority.Description" xml:space="preserve"><value>Andere Programme haben beim Zugriff auf die Laufwerke Vorrang, der PC bleibt auch bei großen Läufen flüssig. Der Lauf kann dadurch länger dauern.</value></data>
+  <data name="Editor_OwnBandwidth.Header" xml:space="preserve"><value>Eigenes Bandbreitenlimit</value></data>
+  <data name="Editor_OwnBandwidth.Description" xml:space="preserve"><value>Sonst gilt das Limit aus den Einstellungen der App. Sinnvoll z. B. für ein NAS über WLAN.</value></data>
+  <data name="Editor_OwnBandwidthValue.Header" xml:space="preserve"><value>Höchstens (KB/s)</value></data>
+  <data name="Editor_OwnBandwidthValue.Description" xml:space="preserve"><value>0 = unbegrenzt</value></data>
+  <data name="Editor_OwnBandwidthBox.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Bandbreitenlimit in KB/s</value></data>
+  <data name="History_Export.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Historie als CSV exportieren</value></data>
+  <data name="History_Export.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve"><value>Läufe des aktuellen Filters als CSV-Datei speichern (z. B. für Excel)</value></data>
+  <data name="History_ExportText.Text" xml:space="preserve"><value>Exportieren…</value></data>
+  <data name="Detail_Export.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Dateiliste als CSV exportieren</value></data>
+  <data name="Detail_Export.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve"><value>Angezeigte Dateiliste (mit Ziel, Filter und Suche) als CSV-Datei speichern</value></data>
+  <data name="Detail_ExportText.Text" xml:space="preserve"><value>Dateiliste exportieren…</value></data>
+  <data name="Csv_FileType" xml:space="preserve"><value>CSV-Datei</value></data>
+  <data name="Csv_FileNameRuns" xml:space="preserve"><value>SyncForge Historie {0}</value></data>
+  <data name="Csv_FileNameFiles" xml:space="preserve"><value>SyncForge {0} {1}</value></data>
+  <data name="Csv_ExportedTitle" xml:space="preserve"><value>Export abgeschlossen</value></data>
+  <data name="Csv_ExportedText" xml:space="preserve"><value>Die Datei wurde gespeichert: {0}</value></data>
+  <data name="Csv_Open" xml:space="preserve"><value>Öffnen</value></data>
+  <data name="Csv_Col_Start" xml:space="preserve"><value>Start</value></data>
+  <data name="Csv_Col_Profile" xml:space="preserve"><value>Profil</value></data>
+  <data name="Csv_Col_Trigger" xml:space="preserve"><value>Auslöser</value></data>
+  <data name="Csv_Col_Status" xml:space="preserve"><value>Status</value></data>
+  <data name="Csv_Col_Copied" xml:space="preserve"><value>Kopiert</value></data>
+  <data name="Csv_Col_Updated" xml:space="preserve"><value>Aktualisiert</value></data>
+  <data name="Csv_Col_Deleted" xml:space="preserve"><value>Gelöscht</value></data>
+  <data name="Csv_Col_Bytes" xml:space="preserve"><value>Bytes</value></data>
+  <data name="Csv_Col_Errors" xml:space="preserve"><value>Fehler</value></data>
+  <data name="Csv_Col_Conflicts" xml:space="preserve"><value>Konflikte</value></data>
+  <data name="Csv_Col_Targets" xml:space="preserve"><value>Ziele</value></data>
+  <data name="Csv_Col_Skipped" xml:space="preserve"><value>Übersprungene Ziele</value></data>
+  <data name="Csv_Col_Duration" xml:space="preserve"><value>Dauer (s)</value></data>
+  <data name="Csv_Col_Target" xml:space="preserve"><value>Ziel</value></data>
+  <data name="Csv_Col_Action" xml:space="preserve"><value>Aktion</value></data>
+  <data name="Csv_Col_Path" xml:space="preserve"><value>Pfad</value></data>
+  <data name="Csv_Col_Size" xml:space="preserve"><value>Größe (Bytes)</value></data>
+  <data name="Csv_Col_Side" xml:space="preserve"><value>Seite</value></data>
+  <data name="Csv_Col_Error" xml:space="preserve"><value>Fehler</value></data>
+  <data name="Csv_SideSource" xml:space="preserve"><value>Quelle</value></data>
+  <data name="Csv_SideTarget" xml:space="preserve"><value>Ziel</value></data>
+  <data name="Csv_Kind_CreateDirectory" xml:space="preserve"><value>Ordner angelegt</value></data>
+  <data name="Csv_Kind_CopyNew" xml:space="preserve"><value>Neu kopiert</value></data>
+  <data name="Csv_Kind_Update" xml:space="preserve"><value>Aktualisiert</value></data>
+  <data name="Csv_Kind_DeleteFile" xml:space="preserve"><value>Datei gelöscht</value></data>
+  <data name="Csv_Kind_DeleteDirectory" xml:space="preserve"><value>Ordner gelöscht</value></data>
+  <data name="Csv_Kind_RenameConflict" xml:space="preserve"><value>Konflikt umbenannt</value></data>
+  <data name="Csv_Kind_Conflict" xml:space="preserve"><value>Konflikt</value></data>
+  <data name="Dashboard_Subtitle.Text" xml:space="preserve"><value>Alle Backup-Profile auf einen Blick: Status, letzter und nächster Lauf.</value></data>
+  <data name="Profiles_Subtitle.Text" xml:space="preserve"><value>Lege fest, welche Ordner wohin gesichert werden, und starte Läufe von Hand.</value></data>
+  <data name="History_Subtitle.Text" xml:space="preserve"><value>Alle bisherigen Läufe mit Ergebnis, Datenmenge und Details.</value></data>
+  <data name="Settings_Subtitle.Text" xml:space="preserve"><value>Darstellung, Verhalten beim Start, Leistung und Aufbewahrung der Daten.</value></data>
+  <data name="Help_Subtitle.Text" xml:space="preserve"><value>Anleitungen zu allen Funktionen von SyncForge.</value></data>
+  <data name="Legal_Subtitle.Text" xml:space="preserve"><value>Lizenz von SyncForge, Datenschutz und verwendete Bibliotheken.</value></data>
+  <data name="Support_Subtitle.Text" xml:space="preserve"><value>Einen Kaffee spendieren, weiterempfehlen oder Feedback geben.</value></data>
+</root>

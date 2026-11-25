@@ -1,0 +1,66 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows10.0.26100.0</TargetFramework>
+    <TargetPlatformMinVersion>10.0.22000.0</TargetPlatformMinVersion>
+    <SupportedOSPlatformVersion>10.0.22000.0</SupportedOSPlatformVersion>
+    <RootNamespace>SyncForge</RootNamespace>
+    <AssemblyName>SyncForge</AssemblyName>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Assets\SyncForge.ico</ApplicationIcon>
+    <Platforms>x64;ARM64</Platforms>
+    <RuntimeIdentifiers>win-x64;win-arm64</RuntimeIdentifiers>
+    <UseWinUI>true</UseWinUI>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <!-- Eigener Einstiegspunkt (Program.cs) für Einzelinstanz-Weiterleitung -->
+    <DefineConstants>$(DefineConstants);DISABLE_XAML_GENERATED_MAIN</DefineConstants>
+
+    <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
+
+    <DefaultLanguage>de-DE</DefaultLanguage>
+    <SatelliteResourceLanguages>de;en</SatelliteResourceLanguages>
+
+    <Product>SyncForge</Product>
+    <AssemblyTitle>SyncForge</AssemblyTitle>
+    <Company>Ronny Severin</Company>
+    <Copyright>Copyright © 2026 Ronny Severin</Copyright>
+    <Version>1.0.0</Version>
+  </PropertyGroup>
+
+  <!-- Unpaketiert (klassische Desktop-App), verteilt über das Inno-Setup-Installationsprogramm. -->
+  <PropertyGroup>
+    <WindowsPackageType>None</WindowsPackageType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="2.6.5" />
+    <!-- Ungenutzte Teile des Windows App SDK nicht mitliefern (KI, ML, Suche, Widgets: ca. 45 MB). -->
+    <PackageReference Include="Microsoft.WindowsAppSDK.AI" Version="2.6.5" ExcludeAssets="all" />
+    <PackageReference Include="Microsoft.WindowsAppSDK.ML" Version="2.6.5" ExcludeAssets="all" />
+    <PackageReference Include="Microsoft.WindowsAppSDK.Search" Version="2.6.5" ExcludeAssets="all" />
+    <PackageReference Include="Microsoft.WindowsAppSDK.Widgets" Version="2.6.5" ExcludeAssets="all" />
+    <PackageReference Include="Microsoft.Windows.AI.MachineLearning" Version="2.4.89" ExcludeAssets="all" />
+    <PackageReference Include="System.Numerics.Tensors" Version="9.0.0" ExcludeAssets="all" />
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.28000.2957" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+    <PackageReference Include="CommunityToolkit.WinUI.Controls.SettingsControls" Version="8.2.251219" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.15" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\**" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SyncForge.Core\SyncForge.Core.csproj" />
+  </ItemGroup>
+
+  <!-- Unpaketiert veröffentlichen: Die Ressourcendatei (Texte, XAML) wird gebaut, aber nicht mitkopiert. -->
+  <Target Name="CopyPriToPublishDir" AfterTargets="Publish" Condition="'$(WindowsPackageType)' == 'None'">
+    <Copy SourceFiles="$(OutDir)$(TargetName).pri" DestinationFolder="$(PublishDir)" Condition="Exists('$(OutDir)$(TargetName).pri')" />
+  </Target>
+
+</Project>

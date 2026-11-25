@@ -1,0 +1,607 @@
+Key;de-DE;en-US
+Nav_Dashboard.Content;Übersicht;Overview
+Nav_Profiles.Content;Backup-Profile;Backup profiles
+Nav_History.Content;Historie;History
+Dashboard_Title.Text;Übersicht;Overview
+Dashboard_ProfilesCard.Text;Backup-Profile;Backup profiles
+Dashboard_LastRunCard.Text;Letzter Lauf;Last run
+Dashboard_NextRunCard.Text;Nächster Lauf;Next run
+Dashboard_NewProfileText.Text;Neues Profil;New profile
+Profiles_Title.Text;Backup-Profile;Backup profiles
+Profiles_Add.Text;Profil hinzufügen;Add profile
+Profiles_EmptyTitle.Text;Noch keine Profile;No profiles yet
+Profiles_EmptyText.Text;Ein Profil legt fest, welche Ordner wohin synchronisiert werden, in welchem Modus und wann.;A profile defines which folders are synced where, in which mode and when.
+History_Title.Text;Historie;History
+History_EmptyTitle.Text;Noch keine Läufe;No runs yet
+History_EmptyText.Text;Hier erscheinen alle Synchronisierungsläufe mit Details zu jeder Datei.;All sync runs will appear here, with details for every file.
+Settings_Title.Text;Einstellungen;Settings
+Settings_SectionAppearance.Text;Darstellung;Appearance
+Settings_Theme.Header;App-Design;App theme
+Settings_Theme.Description;Wähle, ob SyncForge hell, dunkel oder wie Windows dargestellt wird.;Choose whether SyncForge appears light, dark or follows Windows.
+Theme_System.Content;Windows-Standard verwenden;Use Windows setting
+Theme_Light.Content;Hell;Light
+Theme_Dark.Content;Dunkel;Dark
+Settings_Language.Header;Sprache;Language
+Settings_Language.Description;Sprache der Benutzeroberfläche.;Display language of the app.
+Language_System.Content;Windows-Standard verwenden;Use Windows setting
+Settings_RestartInfo.Title;Neustart erforderlich;Restart required
+Settings_RestartInfo.Message;Die Sprache wird nach einem Neustart von SyncForge übernommen.;The language will change after SyncForge restarts.
+Settings_RestartButton.Content;Jetzt neu starten;Restart now
+Settings_SectionGeneral.Text;Allgemein;General
+Settings_Autostart.Header;Mit Windows starten;Start with Windows
+Settings_Autostart.Description;SyncForge startet bei der Anmeldung im Infobereich.;SyncForge starts in the notification area when you sign in.
+Settings_Tray.Header;Beim Schließen in den Infobereich;Keep running in the notification area
+Settings_Tray.Description;Zeitpläne und Überwachung laufen weiter, wenn das Fenster geschlossen wird.;Schedules and monitoring keep running when the window is closed.
+Settings_Notifications.Header;Benachrichtigungen;Notifications
+Settings_Notifications.Description;Windows-Benachrichtigungen nach Synchronisierungsläufen.;Windows notifications after sync runs.
+Settings_NotifySuccess.Header;Bei Erfolg;On success
+Settings_NotifyError.Header;Bei Fehlern;On errors
+Settings_NotifyConflict.Header;Bei Konflikten;On conflicts
+Settings_SectionPerformance.Text;Leistung;Performance
+Settings_Parallel.Header;Parallele Kopiervorgänge;Parallel copy operations
+Settings_Parallel.Description;Anzahl der gleichzeitig kopierten Dateien (1–16).;Number of files copied at the same time (1–16).
+Settings_Bandwidth.Header;Bandbreitenlimit (KB/s);Bandwidth limit (KB/s)
+Settings_Bandwidth.Description;0 = unbegrenzt. Sinnvoll bei Netzwerkzielen.;0 = unlimited. Useful for network destinations.
+Settings_Battery.Header;Im Akkubetrieb pausieren;Pause on battery power
+Settings_Metered.Header;Bei getakteter Verbindung pausieren;Pause on metered connections
+Settings_Metered.Description;Gilt für Netzwerkziele.;Applies to network destinations.
+Settings_SectionData.Text;Daten & Aufbewahrung;Data & retention
+Settings_Retention.Header;Historie aufbewahren (Tage);Keep history (days)
+Settings_Retention.Description;Ältere Laufprotokolle werden automatisch entfernt.;Older run logs are removed automatically.
+Settings_ImportExport.Header;Import & Export;Import & export
+Settings_ImportExport.Description;Profile und Einstellungen sichern oder auf einen anderen PC übertragen.;Back up profiles and settings or move them to another PC.
+Settings_Import.Content;Importieren…;Import…
+Settings_Export.Content;Exportieren…;Export…
+Settings_DataFolder.Header;Datenordner;Data folder
+Settings_SectionAbout.Text;Info;About
+TitleBar_Back.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip;Zurück;Back
+TitleBar_Back.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Zurück;Back
+TitleBar_PaneToggle.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip;Navigation;Navigation
+TitleBar_PaneToggle.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Navigation umschalten;Toggle navigation
+Toggle_On;Ein;On
+Toggle_Off;Aus;Off
+Profiles_Preview.Content;Vorschau;Preview
+Profiles_SyncNow.Content;Synchronisieren;Sync now
+Profiles_More.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip;Weitere Optionen;More options
+Profiles_Edit.Text;Bearbeiten;Edit
+Profiles_Duplicate.Text;Duplizieren;Duplicate
+Profiles_Delete.Text;Löschen;Delete
+Profiles_EmptyAdd.Content;Erstes Profil anlegen;Create first profile
+Profiles_RouteOne;{0}  →  1 Ziel;{0}  →  1 destination
+Profiles_RouteMany;{0}  →  {1} Ziele;{0}  →  {1} destinations
+Profiles_LastRun;Zuletzt: {0} ({1});Last run: {0} ({1})
+Profiles_NeverRun;Noch nie synchronisiert;Never synced
+Profiles_CopyName;{0} (Kopie);{0} (copy)
+Profiles_DeleteTitle;Profil löschen?;Delete profile?
+Profiles_DeleteText;Das Profil „{0}“ wird entfernt. Dateien in Quelle und Zielen bleiben unverändert.;The profile “{0}” will be removed. Files in the source and destinations are not touched.
+Common_Delete;Löschen;Delete
+Common_Cancel;Abbrechen;Cancel
+Common_CancelButton.Content;Abbrechen;Cancel
+Mode_Mirror;Spiegeln;Mirror
+Mode_Versioned;Versioniert;Versioned
+Mode_TwoWay;Zwei-Wege;Two-way
+Status_Success;Erfolgreich;Successful
+Status_Warning;Mit Warnungen;With warnings
+Status_Error;Fehlgeschlagen;Failed
+Status_Cancelled;Abgebrochen;Cancelled
+Status_None;–;–
+Editor_TitleNew;Neues Profil;New profile
+Editor_TitleEdit;Profil bearbeiten;Edit profile
+Editor_SectionGeneral.Text;Allgemein;General
+Editor_Name.Header;Name;Name
+Editor_Name.Description;Wird in der Liste und in Benachrichtigungen angezeigt.;Shown in the list and in notifications.
+Editor_NameBox.PlaceholderText;z. B. Dokumente auf NAS;e.g. Documents to NAS
+Editor_SectionSource.Text;Quellen;Sources
+Editor_PathBox.PlaceholderText;C:\Users\Name\Documents;C:\Users\Name\Documents
+Editor_Browse.Content;Durchsuchen…;Browse…
+Editor_SectionTargets.Text;Ziele;Destinations
+Editor_Targets.Header;Zielordner;Destination folders
+Editor_Targets.Description;Lokale Laufwerke, USB-Laufwerke, Netzwerkfreigaben (\\server\freigabe) oder Cloud-Ordner.;Local drives, USB drives, network shares (\\server\share) or cloud folders.
+Editor_AddTargetText.Text;Ziel hinzufügen;Add destination
+Editor_BrowseTarget.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip;Durchsuchen;Browse
+Editor_TargetEnabled.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip;Ziel aktiv;Destination enabled
+Editor_RemoveTarget.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip;Ziel entfernen;Remove destination
+Editor_MultiTarget.Header;Mehrere Ziele;Multiple destinations
+Editor_MultiTarget.Description;Ziele nacheinander oder gleichzeitig synchronisieren. Nicht erreichbare Ziele werden übersprungen.;Sync destinations one after another or at the same time. Unreachable destinations are skipped.
+MultiTarget_Sequential.Content;Nacheinander;One after another
+MultiTarget_Parallel.Content;Gleichzeitig;At the same time
+Editor_SectionSync.Text;Synchronisierung;Synchronization
+Editor_Mode.Header;Modus;Mode
+Mode_MirrorItem.Content;Spiegeln;Mirror
+Editor_Compare.Header;Änderungen erkennen;Detect changes
+Editor_Compare.Description;Inhaltsvergleich findet auch Änderungen ohne neues Datum, ist aber deutlich langsamer.;Content comparison also finds changes without a new date, but is much slower.
+Compare_SizeDate.Content;Größe und Datum;Size and date
+Compare_Content.Content;Größe und Inhalt (Prüfsumme);Size and content (checksum)
+Editor_Verify.Header;Kopien prüfen;Verify copies
+Editor_Verify.Description;Jede kopierte Datei per Prüfsumme mit der Quelle vergleichen.;Compare every copied file with the source using a checksum.
+Editor_SectionFilter.Text;Filter;Filters
+Editor_Filter.Header;Ein- und Ausschlüsse;Includes and excludes
+Editor_Filter.Description;Ausgeschlossene Dateien werden weder kopiert noch im Ziel gelöscht.;Excluded files are neither copied nor deleted in the destination.
+Editor_Exclude.Header;Ausschließen;Exclude
+Editor_Exclude.Description;Ein Muster pro Zeile, z. B. *.tmp, node_modules\ oder Projekte\**\bin\;One pattern per line, e.g. *.tmp, node_modules\ or Projects\**\bin\
+Editor_Include.Header;Nur einschließen;Include only
+Editor_Include.Description;Leer = alle Dateien. Sonst nur Dateien, die einem Muster entsprechen, z. B. *.jpg;Empty = all files. Otherwise only files matching a pattern, e.g. *.jpg
+Editor_ExcludeHidden.Header;Versteckte Dateien ausschließen;Exclude hidden files
+Editor_ExcludeSystem.Header;Systemdateien ausschließen;Exclude system files
+Editor_MinSize.Header;Mindestgröße (MB);Minimum size (MB)
+Editor_MinSize.Description;0 = keine Grenze;0 = no limit
+Editor_MaxSize.Header;Höchstgröße (MB);Maximum size (MB)
+Editor_MaxSize.Description;0 = keine Grenze;0 = no limit
+Editor_SectionSafety.Text;Sicherheit;Safety
+Editor_RecycleBin.Header;Gelöschte Dateien in den Papierkorb;Move deleted files to the Recycle Bin
+Editor_RecycleBin.Description;Nur auf lokalen Laufwerken möglich. Auf Netzlaufwerken wird endgültig gelöscht.;Only possible on local drives. On network drives files are deleted permanently.
+Editor_DeletionProtection.Header;Löschschutz (%);Deletion protection (%)
+Editor_DeletionProtection.Description;Vor dem Lauf warnen, wenn mehr als dieser Anteil der Dateien im Ziel gelöscht würde. 0 = aus.;Warn before the run if more than this share of files in the destination would be deleted. 0 = off.
+Editor_Save.Content;Speichern;Save
+Editor_ErrorName;Bitte gib einen Namen ein.;Please enter a name.
+Editor_ErrorSourceEmpty;Bitte wähle einen Quellordner.;Please choose a source folder.
+Editor_ErrorPathInvalid;Ungültiger Pfad:;Invalid path:
+Editor_ErrorSourceMissing;Der Quellordner existiert nicht.;The source folder does not exist.
+Editor_ErrorNoTarget;Bitte füge mindestens ein Ziel hinzu.;Please add at least one destination.
+Editor_ErrorDuplicateTarget;Ziel ist doppelt eingetragen:;Destination is listed twice:
+Editor_ErrorSizeRange;Die Mindestgröße ist größer als die Höchstgröße.;The minimum size is larger than the maximum size.
+Validation_SourceMissing;Quellordner nicht gefunden:;Source folder not found:
+Validation_TargetEqualsSource;Ziel und Quelle sind identisch:;Destination equals the source:
+Validation_TargetInsideSource;Das Ziel liegt innerhalb der Quelle:;The destination is inside the source:
+Validation_SourceInsideTarget;Die Quelle liegt innerhalb des Ziels:;The source is inside the destination:
+Validation_TargetUnavailable;Ziel nicht erreichbar;Destination not reachable
+Run_ProfileMissing;Das Profil wurde nicht gefunden.;The profile was not found.
+Run_Analyzing;Analysiere…;Analyzing…
+Run_Comparing;Vergleiche Inhalte… {0} von {1} Dateien;Comparing contents… {0} of {1} files
+Run_Scanning;Lese Ordner… {0} Einträge;Reading folders… {0} items
+Run_DeletionWarning;{0} Dateien ({1} %) würden in {2} gelöscht. Bitte prüfe die geplanten Änderungen, bevor du startest.;{0} files ({1} %) would be deleted in {2}. Please review the planned changes before you start.
+Run_NoTargetReady;Kein Ziel ist erreichbar.;No destination is reachable.
+Run_UpToDate;Alles aktuell, keine Änderungen nötig.;Everything is up to date. No changes needed.
+Run_Waiting;Wartet…;Waiting…
+Run_Deleting;Lösche…;Deleting…
+Run_Finishing;Schließe ab…;Finishing…
+Run_Copying;Kopiere…;Copying…
+Run_ProgressDetail;{0} von {1} Schritten · {2} von {3} · {4};{0} of {1} steps · {2} of {3} · {4}
+Run_TargetUnavailable;Nicht erreichbar, wird übersprungen;Not reachable, will be skipped
+Run_TargetReady;Bereit;Ready
+Run_PlanSummary;{0} neu · {1} geändert · {2} zu löschen · {3} unverändert · {4} zu kopieren;{0} new · {1} changed · {2} to delete · {3} unchanged · {4} to copy
+Run_MoreActions;… und {0} weitere;… and {0} more
+Run_TargetDoneErrors;Abgeschlossen mit {0} Fehlern;Finished with {0} errors
+Run_TargetDone;Abgeschlossen;Finished
+Run_ResultSummary;{0} kopiert · {1} aktualisiert · {2} gelöscht · {3} · {4};{0} copied · {1} updated · {2} deleted · {3} · {4}
+Run_TotalSummary;{0} kopiert, {1} aktualisiert, {2} gelöscht ({3}) in {4}.;{0} copied, {1} updated, {2} deleted ({3}) in {4}.
+Run_SkippedTargets;{0} Ziel(e) übersprungen.;{0} destination(s) skipped.
+Run_DeletionWarningBar.Title;Löschschutz;Deletion protection
+Run_ErrorsExpander.Header;Fehler;Errors
+Run_ActionsExpander.Header;Geplante Änderungen;Planned changes
+Run_Cancel.Content;Abbrechen;Cancel
+Run_Back.Content;Zurück zur Liste;Back to list
+Run_Start.Content;Jetzt synchronisieren;Sync now
+Action_CopyNew;Neu;New
+Action_Update;Geändert;Changed
+Action_DeleteFile;Löschen;Delete
+Action_DeleteDirectory;Ordner löschen;Delete folder
+Action_CreateDirectory;Ordner anlegen;Create folder
+Dashboard_NoSchedule.Text;Noch kein Zeitplan;No schedule yet
+Run_HistoryFailed;Der Lauf konnte nicht in der Historie gespeichert werden: {0};The run could not be saved to the history: {0}
+Run_ShowDetails.Content;Details anzeigen;Show details
+History_ChartEmpty;Noch keine Daten;No data yet
+History_ChartTooltip;{0}: {1} übertragen, {2} Läufe;{0}: {1} transferred, {2} runs
+History_RunSummary;{0} kopiert · {1} aktualisiert · {2} gelöscht;{0} copied · {1} updated · {2} deleted
+History_RunErrors;{0} Fehler;{0} errors
+History_AllStatus;Alle Status;All statuses
+History_AllProfiles;Alle Profile;All profiles
+History_TileRuns.Text;Läufe (30 Tage);Runs (30 days)
+History_TileSuccess.Text;Erfolgsquote;Success rate
+History_TileBytes.Text;Übertragene Daten;Data transferred
+History_TileDuration.Text;Ø Dauer;Avg. duration
+History_ChartTitle.Text;Übertragene Daten pro Tag;Data transferred per day
+History_ChartSubtitle.Text;Letzte 30 Tage;Last 30 days
+History_RunsHeader.Text;Läufe;Runs
+History_NoMatches.Text;Keine Läufe für diesen Filter.;No runs match this filter.
+History_LoadMore.Content;Weitere laden;Load more
+History_ProfileFilter.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Profil;Profile
+History_StatusFilter.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Status;Status
+Detail_NotFound;Eintrag nicht gefunden;Entry not found
+Trigger_Manual;Manuell;Manual
+Trigger_Schedule;Zeitplan;Schedule
+Trigger_Watcher;Überwachung;Monitoring
+Trigger_Event;Ereignis;Event
+Detail_AllTargets;Alle Ziele;All destinations
+Detail_FilesCount;{0} Einträge;{0} entries
+Detail_FilesCountLimited;{0} Einträge, die ersten {1} werden angezeigt. Grenze die Suche ein.;{0} entries, showing the first {1}. Narrow down the search.
+Action_Deleted;Gelöscht;Deleted
+Action_DirectoryDeleted;Ordner gelöscht;Folder deleted
+Action_DirectoryCreated;Ordner angelegt;Folder created
+Detail_Delete.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip;Diesen Eintrag aus der Historie entfernen;Remove this entry from the history
+Detail_DeleteText.Text;Eintrag löschen;Delete entry
+Detail_OpenFolder.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip;Ordner öffnen;Open folder
+Detail_FilterAll.Text;Alle;All
+Detail_FilterNew.Text;Neu;New
+Detail_FilterUpdated.Text;Geändert;Changed
+Detail_FilterDeleted.Text;Gelöscht;Deleted
+Detail_FilterErrors.Text;Fehler;Errors
+Detail_Search.PlaceholderText;Dateien durchsuchen;Search files
+Detail_NoFiles.Text;Keine Einträge für diesen Filter.;No entries match this filter.
+Detail_DeleteTitle;Eintrag löschen?;Delete entry?
+Detail_DeleteConfirm;Der Lauf und seine Datei-Details werden aus der Historie entfernt. Die Dateien selbst bleiben unverändert.;The run and its file details will be removed from the history. The files themselves are not touched.
+Settings_ClearHistory.Header;Historie löschen;Clear history
+Settings_ClearHistory.Description;Entfernt alle gespeicherten Läufe und Datei-Details. Profile bleiben erhalten.;Removes all stored runs and file details. Profiles are kept.
+Settings_ClearHistoryButton.Content;Löschen…;Clear…
+Settings_ClearHistoryTitle;Historie löschen?;Clear history?
+Settings_ClearHistoryText;Alle gespeicherten Läufe und Datei-Details werden endgültig entfernt.;All stored runs and file details will be permanently removed.
+Detail_FilesCountOne;1 Eintrag;1 entry
+Run_TargetDoneOneError;Abgeschlossen mit 1 Fehler;Finished with 1 error
+Run_AlreadyRunning;Dieses Profil wird gerade synchronisiert (z. B. durch einen Zeitplan). Bitte warte, bis der Lauf beendet ist.;This profile is being synced right now (e.g. by a schedule). Please wait until the run has finished.
+Run_SkippedProtection;{0} Ziel(e) wegen Löschschutz übersprungen.;{0} destination(s) skipped by deletion protection.
+Validation_DeletionProtection;Löschschutz: zu viele Löschungen, automatischer Lauf übersprungen;Deletion protection: too many deletions, automatic run skipped
+Tray_Open;SyncForge öffnen;Open SyncForge
+Tray_SyncAll;Alle Profile jetzt synchronisieren;Sync all profiles now
+Tray_Exit;Beenden;Exit
+Tray_Running;SyncForge: synchronisiert ({0});SyncForge: syncing ({0})
+Notify_Title;{0}: {1};{0}: {1}
+Notify_ShowDetails;Details anzeigen;Show details
+Editor_SectionAutomation.Text;Automatisierung;Automation
+Editor_Schedule.Header;Zeitplan;Schedule
+Editor_Schedule.Description;Automatisch zu festen Zeiten synchronisieren.;Sync automatically at fixed times.
+Schedule_None.Content;Kein Zeitplan;No schedule
+Schedule_Interval.Content;In festen Abständen;At fixed intervals
+Schedule_Daily.Content;Täglich;Daily
+Schedule_Weekly.Content;An bestimmten Wochentagen;On specific weekdays
+Editor_Interval.Header;Abstand (Minuten);Interval (minutes)
+Editor_TimeOfDay.Header;Uhrzeit;Time
+Editor_Days.Header;Wochentage;Weekdays
+Editor_CatchUp.Header;Verpasste Termine nachholen;Catch up on missed runs
+Editor_CatchUp.Description;Lief der PC oder SyncForge zum geplanten Zeitpunkt nicht, wird beim nächsten Start einmal nachsynchronisiert.;If the PC or SyncForge was not running at the scheduled time, sync once at the next start.
+Editor_Watch.Header;Bei Änderungen synchronisieren;Sync on changes
+Editor_Watch.Description;Überwacht die Quelle und synchronisiert, nachdem eine Weile keine Änderungen mehr kamen.;Monitors the source and syncs once no further changes have occurred for a while.
+Editor_WatchDelay.Header;Wartezeit nach der letzten Änderung (Sekunden);Wait after the last change (seconds)
+Editor_RunAtStartup.Header;Beim Start von SyncForge synchronisieren;Sync when SyncForge starts
+Editor_RunAtStartup.Description;Zusammen mit „Mit Windows starten“ also bei jeder Anmeldung.;Combined with “Start with Windows” this means at every sign-in.
+Editor_RunOnDrive.Header;Wenn ein Ziel-Laufwerk angeschlossen wird;When a destination drive is connected
+Editor_RunOnDrive.Description;Z. B. beim Einstecken der USB-Festplatte, auf der ein Ziel liegt.;E.g. when plugging in the USB drive that holds a destination.
+Editor_AutomationInfo.Message;Automatische Läufe finden statt, solange SyncForge läuft, auch geschlossen im Infobereich. Bei automatischen Läufen wird ein Ziel übersprungen, wenn der Löschschutz anschlägt.;Automatic runs happen while SyncForge is running, also when closed to the notification area. In automatic runs a destination is skipped if deletion protection is triggered.
+Editor_ErrorNoDays;Bitte wähle mindestens einen Wochentag.;Please choose at least one weekday.
+Mode_VersionedItem.Content;Versioniert;Versioned
+Mode_TwoWayItem.Content;Zwei-Wege;Two-way
+Mode_MirrorDescription;Das Ziel wird zur exakten Kopie der Quelle, inklusive Löschungen.;The destination becomes an exact copy of the source, including deletions.
+Mode_VersionedDescription;Wie Spiegeln, aber überschriebene und gelöschte Dateien werden im Ziel aufbewahrt (Ordner .syncforge_versions) und lassen sich wiederherstellen.;Like mirror, but overwritten and deleted files are kept in the destination (folder .syncforge_versions) and can be restored.
+Mode_TwoWayDescription;Änderungen auf beiden Seiten werden übernommen, auch Löschungen. Wurde eine Datei auf beiden Seiten geändert, entscheidet die Konfliktregel.;Changes on both sides are applied, including deletions. If a file was changed on both sides, the conflict rule decides.
+Editor_VersionsToKeep.Header;Fassungen je Datei behalten;Versions to keep per file
+Editor_VersionsToKeep.Description;0 = unbegrenzt;0 = unlimited
+Editor_VersionMaxAge.Header;Fassungen entfernen nach (Tagen);Remove versions after (days)
+Editor_VersionMaxAge.Description;0 = nie;0 = never
+Editor_Conflict.Header;Bei Konflikten;On conflicts
+Editor_Conflict.Description;Wenn eine Datei seit dem letzten Lauf auf beiden Seiten geändert wurde.;When a file was changed on both sides since the last run.
+Conflict_NewerWins.Content;Neuere Fassung gewinnt;Newer version wins
+Conflict_SourceWins.Content;Quelle gewinnt;Source wins
+Conflict_KeepBoth.Content;Beide behalten;Keep both
+Conflict_Ask.Content;Nicht ändern, nur melden;Leave unchanged, just report
+Conflict_Label;Konflikt;conflict
+Run_Conflicts;{0} Konflikt(e);{0} conflict(s)
+Run_PlanToSource;{0} zur Quelle;{0} to source
+Run_DriveMoved;Laufwerk gefunden unter {0};drive found at {0}
+Action_InSource;in der Quelle;in source
+Action_RenameConflict;Konflikt: Zielfassung bleibt als „{0}“ erhalten;Conflict: destination version kept as “{0}”
+Action_Conflict;Konflikt: wird nicht geändert;Conflict: left unchanged
+Action_ConflictKeptBoth;Konflikt: beide Fassungen behalten;Conflict: both versions kept
+Action_ConflictOpen;Konflikt: offen;Conflict: unresolved
+Detail_FilterConflicts.Text;Konflikte;Conflicts
+Profiles_Versions.Text;Versionen;Versions
+Versions_Title;Versionen: {0};Versions: {0}
+Versions_RootTarget;Ziel: {0};Destination: {0}
+Versions_RootSource;Quelle: {0};Source: {0}
+Versions_Count;{0} Fassungen;{0} versions
+Versions_CountOne;1 Fassung;1 version
+Versions_Deleted;aktuell nicht vorhanden;currently not present
+Versions_Restored;Wiederhergestellt: {0};Restored: {0}
+Versions_RestoreFailed;Wiederherstellen fehlgeschlagen: {0};Restore failed: {0}
+Versions_Search.PlaceholderText;Dateien durchsuchen;Search files
+Versions_NoMatches.Text;Keine Dateien gefunden.;No files found.
+Versions_VersionsHeader.Text;Fassungen;Versions
+Versions_Restore.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip;In der Quelle wiederherstellen;Restore in source
+Versions_SaveAs.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip;Speichern unter…;Save as…
+Versions_Show.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip;Im Explorer anzeigen;Show in Explorer
+Versions_EmptyTitle.Text;Noch keine früheren Fassungen;No earlier versions yet
+Versions_EmptyText.Text;Im Modus „Versioniert“ werden überschriebene und gelöschte Dateien aufbewahrt und erscheinen hier.;In “Versioned” mode, overwritten and deleted files are kept and appear here.
+Versions_RestoreTitle;Fassung wiederherstellen?;Restore version?
+Versions_RestoreText;Die Fassung vom {1} wird nach {0} kopiert. Beim nächsten Lauf gelangt sie auch ins Ziel.;The version from {1} will be copied to {0}. The next run will also bring it to the destination.
+Versions_RestoreOverwrite;Die Fassung vom {1} ersetzt die aktuelle Datei {0}. Beim nächsten Lauf wird die bisherige Fassung im Ziel als Version aufbewahrt.;The version from {1} replaces the current file {0}. On the next run the previous version is kept as a version in the destination.
+Versions_RestoreButton;Wiederherstellen;Restore
+Versions_AnyFile;Datei;File
+ImportExport_FileType;SyncForge-Sicherung;SyncForge backup
+ImportExport_ExportedTitle;Export abgeschlossen;Export complete
+ImportExport_ExportedText;Profile und Einstellungen wurden gespeichert: {0};Profiles and settings were saved: {0}
+ImportExport_InvalidTitle;Keine gültige Sicherung;Not a valid backup
+ImportExport_InvalidText;Die Datei ist keine SyncForge-Sicherung oder stammt aus einer neueren Version.;The file is not a SyncForge backup or comes from a newer version.
+ImportExport_IncludeSettings;Auch die Einstellungen übernehmen (Design, Benachrichtigungen, Leistung …);Also apply the settings (theme, notifications, performance …)
+ImportExport_ImportText;Die Sicherung vom {1} enthält {0} Profil(e). Profile mit gleicher Kennung werden ersetzt, die übrigen hinzugefügt.;The backup from {1} contains {0} profile(s). Profiles with the same ID are replaced, the others are added.
+ImportExport_ImportTitle;Sicherung importieren;Import backup
+ImportExport_ImportButton;Importieren;Import
+Common_Ok;OK;OK
+Profiles_More.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Weitere Optionen;More options
+Editor_BrowseTarget.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Durchsuchen;Browse
+Editor_TargetEnabled.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Ziel aktiv;Destination enabled
+Editor_RemoveTarget.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Ziel entfernen;Remove destination
+Detail_OpenFolder.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Ordner öffnen;Open folder
+Versions_Restore.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;In der Quelle wiederherstellen;Restore in source
+Versions_SaveAs.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Speichern unter;Save as
+Versions_Show.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Im Explorer anzeigen;Show in Explorer
+Nav_Help.Content;Hilfe;Help
+Nav_Legal.Content;Lizenzen & Rechtliches;Licenses & legal
+Help_Title.Text;Hilfe;Help
+Help_Search.PlaceholderText;Hilfe durchsuchen;Search help
+Help_Results;{0} Themen gefunden;{0} topics found
+Help_ResultOne;1 Thema gefunden;1 topic found
+Help_NoResults.Text;Keine Treffer.;No results.
+Legal_Title.Text;Lizenzen & Rechtliches;Licenses & legal
+Legal_TabApp.Text;SyncForge;SyncForge
+Legal_TabPrivacy.Text;Datenschutz;Privacy
+Legal_TabThirdParty.Text;Drittanbieter;Third party
+Legal_Copyright.Text;© 2026 Ronny Severin · Open Source unter der MIT-Lizenz;© 2026 Ronny Severin · Open source under the MIT License
+Legal_ThirdPartyIntro.Text;SyncForge verwendet die folgenden Komponenten. Vielen Dank an alle Autorinnen und Autoren. Die vollständigen Lizenztexte findest du jeweils beim Aufklappen.;SyncForge uses the following components. Many thanks to all their authors. Expand an entry to see the full license text.
+Legal_Version;Version {0};Version {0}
+Legal_Packages;Pakete: {0};Packages: {0}
+Legal_OpenFullText;Volltext öffnen;Open full text
+Legal_LicenseMissing;Lizenztext nicht gefunden.;License text not found.
+Legal_Truncated;… Text gekürzt. Vollständig über „Volltext öffnen“.;… text shortened. See “Open full text” for the complete version.
+Nav_Support.Content;Unterstützen;Support
+Support_Title.Text;SyncForge unterstützen;Support SyncForge
+Support_Headline.Text;Kostenlos, und das bleibt so.;Free, and it stays that way.
+Support_Text.Text;SyncForge ist kostenlos und Open Source, ohne Werbung, ohne Abo und ohne Datensammlung. Wenn dir die App Zeit und Nerven spart, freue ich mich über einen Kaffee. Jede Unterstützung hilft, SyncForge weiterzuentwickeln.;SyncForge is free and open source, with no ads, no subscription and no data collection. If the app saves you time and nerves, I'd be happy about a coffee. Every bit of support helps to keep developing SyncForge.
+Support_KofiButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Auf Ko-fi einen Kaffee spendieren;Buy me a coffee on Ko-fi
+Support_Voluntary.Text;Freiwillig: Alle Funktionen stehen allen kostenlos zur Verfügung.;Voluntary: all features are free for everyone.
+Support_OtherWays.Text;Auch so hilfst du weiter;Other ways to help
+Support_ShareTitle.Text;Weiterempfehlen;Spread the word
+Support_ShareText.Text;Erzähl Freunden und Kollegen von SyncForge.;Tell friends and colleagues about SyncForge.
+Support_RateTitle.Text;Stern auf GitHub;Star on GitHub
+Support_RateText.Text;Ein Stern für SyncForge auf GitHub hilft anderen, das Projekt zu finden.;A star for SyncForge on GitHub helps others find the project.
+Support_FeedbackTitle.Text;Feedback geben;Give feedback
+Support_FeedbackText.Text;Ideen und Fehlermeldungen (gern als Issue auf GitHub) machen SyncForge besser.;Ideas and bug reports (ideally as an issue on GitHub) make SyncForge better.
+Editor_CloudFiles.Header;Nur online verfügbare Dateien;Online-only files
+Editor_CloudFiles.Description;Dateien aus OneDrive, Dropbox & Co., die nicht lokal gespeichert sind. Überspringen verhindert ungewollte Downloads. Vorhandene Kopien im Ziel bleiben erhalten.;Files from OneDrive, Dropbox & co. that are not stored locally. Skipping prevents unwanted downloads. Existing copies in the destination are kept.
+CloudFiles_Skip.Content;Überspringen;Skip
+CloudFiles_Download.Content;Herunterladen und sichern;Download and back up
+Run_PlanCloudSkipped;{0} nur online (übersprungen);{0} online-only (skipped)
+Run_CloudSkipped;{0} nur online verfügbare Datei(en) übersprungen.;{0} online-only file(s) skipped.
+Run_PlanUnreadable;{0} Ordner nicht lesbar (ausgelassen);{0} folder(s) unreadable (skipped)
+Run_Unreadable;{0} Ordner konnten nicht gelesen werden und wurden ausgelassen.;{0} folder(s) could not be read and were skipped.
+Run_RootLost;Abgebrochen, {0} war nicht mehr erreichbar;Stopped, {0} was no longer reachable
+Settings_Updates.Header;Nach Updates suchen;Check for updates
+Settings_Updates.Description;Fragt einmal täglich bei GitHub nach einer neuen Version. Übertragen werden dabei nur deine IP-Adresse und die Version von SyncForge. Heruntergeladen wird nichts.;Asks GitHub once a day whether a new version exists. Only your IP address and the SyncForge version are transmitted. Nothing is downloaded.
+Update_CheckNow.Content;Jetzt suchen;Check now
+Update_OpenPage.Content;Download-Seite öffnen;Open download page
+Update_StatusChecking;Es wird gesucht …;Checking …
+Update_StatusError;Suche fehlgeschlagen: {0};Check failed: {0}
+Update_StatusAvailable;SyncForge {0} ist verfügbar.;SyncForge {0} is available.
+Update_StatusLatest;Du verwendest die neueste Version. Zuletzt gesucht: {0};You are using the latest version. Last checked: {0}
+Update_StatusNever;Noch nicht gesucht.;Not checked yet.
+Update_Timeout;GitHub hat nicht rechtzeitig geantwortet.;GitHub did not respond in time.
+Update_InfoTitle;Update verfügbar;Update available
+Update_InfoMessage;SyncForge {0} ist erschienen. Du verwendest Version {1}.;SyncForge {0} has been released. You are using version {1}.
+Update_NotifyTitle;SyncForge {0} ist verfügbar;SyncForge {0} is available
+Update_NotifyText;Auf der Download-Seite findest du das Setup und die Neuerungen.;The download page has the installer and the release notes.
+Support_RateLink.Content;SyncForge auf GitHub;SyncForge on GitHub
+Support_FeedbackLink.Content;Issue erstellen;Open an issue
+Editor_Credentials.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip;Anmeldedaten für die Netzwerkfreigabe;Credentials for the network share
+Editor_Credentials.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Anmeldedaten;Credentials
+Editor_ErrorSourceNetwork;Netzwerkfreigabe nicht erreichbar. Ist der Server eingeschaltet? Falls nötig, hinterlege Anmeldedaten über das Schlüsselsymbol.;Network share not reachable. Is the server switched on? If needed, enter credentials using the key icon.
+Credentials_Title;Anmeldedaten für die Netzwerkfreigabe;Credentials for the network share
+Credentials_Text;SyncForge meldet sich mit diesen Daten an {0} an. Sie werden sicher in der Windows-Anmeldeinformationsverwaltung gespeichert und gelten für alle Profile mit dieser Freigabe.;SyncForge signs in to {0} with these details. They are stored securely in the Windows Credential Manager and apply to all profiles using this share.
+Credentials_User;Benutzername;User name
+Credentials_UserPlaceholder;z. B. NAS\benutzer oder benutzer;e.g. NAS\user or user
+Credentials_Password;Kennwort;Password
+Credentials_Save;Testen und speichern;Test and save
+Credentials_Remove;Anmeldedaten entfernen;Remove credentials
+Credentials_Missing;Bitte Benutzername und Kennwort eingeben.;Please enter user name and password.
+Credentials_ErrorLogon;Anmeldung fehlgeschlagen. Bitte Benutzername und Kennwort prüfen.;Sign-in failed. Please check user name and password.
+Credentials_ErrorNotFound;{0} wurde nicht gefunden. Ist der Server eingeschaltet und im Netzwerk erreichbar?;{0} was not found. Is the server switched on and reachable on the network?
+Credentials_ErrorConflict;Windows ist mit diesem Server bereits unter einem anderen Benutzer verbunden. Trenne die bestehende Verbindung (z. B. ein verbundenes Netzlaufwerk) oder verwende dieselben Anmeldedaten.;Windows is already connected to this server as a different user. Disconnect the existing connection (e.g. a mapped network drive) or use the same credentials.
+Validation_NetworkLogonFailed;Anmeldung an der Netzwerkfreigabe fehlgeschlagen;Sign-in to the network share failed
+Validation_NetworkCredentialConflict;Netzwerkfreigabe: Windows ist bereits unter einem anderen Benutzer verbunden;Network share: Windows is already connected as a different user
+Conflicts_Title.Text;Konflikte lösen;Resolve conflicts
+Conflicts_Intro.Text;Diese Dateien wurden seit dem letzten Lauf auf beiden Seiten geändert. Wähle je Datei, welche Fassung gilt. Ersetzte Fassungen landen im Papierkorb bzw. im Versionsordner.;These files were changed on both sides since the last run. Choose which version applies for each file. Replaced versions go to the Recycle Bin or the versions folder.
+Conflicts_None.Title;Keine offenen Konflikte;No open conflicts
+Conflicts_None.Message;Beide Seiten sind sich einig.;Both sides agree.
+Conflicts_SetAll.Content;Für alle übernehmen;Apply to all
+Conflicts_AllNewer.Text;Jeweils neuere Fassung;Newer version each time
+Conflicts_AllSource.Text;Quelle behalten;Keep source
+Conflicts_AllTarget.Text;Ziel behalten;Keep destination
+Conflicts_AllBoth.Text;Beide behalten;Keep both
+Conflicts_AllSkip.Text;Später entscheiden;Decide later
+Conflicts_TypeConflict.Text;Ordner auf der einen, Datei auf der anderen Seite. Bitte im Explorer umbenennen oder entfernen.;Folder on one side, file on the other. Please rename or remove it in Explorer.
+Conflicts_Choice.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Entscheidung;Decision
+Resolve_Skip.Content;Später entscheiden;Decide later
+Resolve_KeepSource.Content;Quelle behalten;Keep source
+Resolve_KeepTarget.Content;Ziel behalten;Keep destination
+Resolve_KeepBoth.Content;Beide behalten;Keep both
+Conflicts_Back.Content;Zurück;Back
+Conflicts_Apply.Content;Übernehmen;Apply
+Conflict_SourceVersion;Quelle: {0};Source: {0}
+Conflict_TargetVersion;Ziel: {0};Destination: {0}
+Conflict_Missing;nicht vorhanden;not present
+Conflict_Folder;Ordner;folder
+Conflict_Newer;neuer;newer
+Conflicts_Busy;Für dieses Profil läuft gerade eine Synchronisierung. Bitte warte, bis sie fertig ist.;A sync is currently running for this profile. Please wait until it has finished.
+Conflicts_Analyzing;Konflikte werden gesucht …;Looking for conflicts …
+Conflicts_Applying;Entscheidungen werden übernommen …;Applying decisions …
+Conflicts_TargetsUnavailable;{0} Ziel(e) nicht erreichbar, deren Konflikte fehlen hier.;{0} destination(s) not reachable, their conflicts are missing here.
+Conflicts_NothingChosen;Wähle zuerst bei mindestens einer Datei, welche Fassung gilt.;First choose which version applies for at least one file.
+Conflicts_Done;{0} Konflikt(e) gelöst.;{0} conflict(s) resolved.
+Conflicts_DoneErrors;Nicht alles hat geklappt: {0} Fehler. Details stehen in der Historie.;Not everything worked: {0} error(s). Details are in the history.
+Run_ConflictsBar.Title;Offene Konflikte;Open conflicts
+Run_ConflictsBar.Message;Einige Dateien wurden auf beiden Seiten geändert. SyncForge ändert sie nicht, bis du entscheidest.;Some files were changed on both sides. SyncForge leaves them unchanged until you decide.
+Run_ResolveConflicts.Content;Konflikte lösen;Resolve conflicts
+Detail_ConflictsBar.Title;Offene Konflikte;Open conflicts
+Detail_ConflictsBar.Message;Einige Dateien wurden auf beiden Seiten geändert und warten auf deine Entscheidung.;Some files were changed on both sides and are waiting for your decision.
+Detail_ResolveConflicts.Content;Konflikte lösen;Resolve conflicts
+Detail_Delete.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Eintrag löschen;Delete entry
+Activity_Cancel.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip;Abbrechen;Cancel
+Activity_Cancel.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Synchronisierung abbrechen;Cancel sync
+Activity_Analyzing;Wird analysiert …;Analyzing …
+Activity_Scanning;{0} Dateien gefunden …;{0} files found …
+Activity_Copying;{0} % erledigt;{0} % done
+Activity_Cancelling;Wird abgebrochen …;Cancelling …
+Tray_RunningOne;SyncForge: {0}, {1} %;SyncForge: {0}, {1} %
+Tray_RunningOneAnalyzing;SyncForge: {0} wird analysiert;SyncForge: analyzing {0}
+Profiles_SourcesMany;{0} Quellen;{0} sources
+Editor_Sources.Header;Quellordner;Source folders
+Editor_Sources.Description;Diese Ordner werden mit allen Unterordnern synchronisiert. Mehrere Quellen landen jeweils in einem eigenen Unterordner der Ziele.;These folders are synced including all subfolders. Multiple sources each go into their own subfolder of the destinations.
+Editor_AddSourceText.Text;Quelle hinzufügen;Add source
+Editor_RemoveSource.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip;Quelle entfernen;Remove source
+Editor_RemoveSource.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Quelle entfernen;Remove source
+Editor_SourceSubfolder;Im Ziel: Unterordner „{0}“;In the destination: subfolder "{0}"
+Editor_DriveFolder;Laufwerk;Drive
+Editor_ErrorSourcesOverlap;Quellen dürfen sich nicht überschneiden (eine liegt in der anderen):;Sources must not overlap (one is inside the other):
+Editor_MultiSourceInfo.Message;Jede Quelle landet in einem eigenen Unterordner der Ziele. Bereits vorhandene Dateien im Ziel bleiben unverändert.;Each source goes into its own subfolder of the destinations. Files already in the destination stay unchanged.
+Dashboard_SyncAll.Text;Alle synchronisieren;Sync all
+Dashboard_EmptyTitle.Text;Willkommen bei SyncForge;Welcome to SyncForge
+Dashboard_EmptyText.Text;Lege ein Backup-Profil an: Wähle einen oder mehrere Ordner und ein Ziel, zum Beispiel eine USB-Festplatte oder dein NAS. Vor jedem Lauf siehst du, was passieren wird.;Create a backup profile: choose one or more folders and a destination, for example a USB drive or your NAS. Before every run you see what will happen.
+Dashboard_CreateFirst.Text;Erstes Profil anlegen;Create first profile
+Dashboard_YourProfiles.Text;Deine Profile;Your profiles
+Dashboard_RunNow.Content;Jetzt synchronisieren;Sync now
+Dashboard_Preview.Content;Vorschau;Preview
+Dashboard_Edit.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip;Bearbeiten;Edit
+Dashboard_Edit.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Profil bearbeiten;Edit profile
+Dashboard_NextRun;Nächster Lauf: {0};Next run: {0}
+Dashboard_OnChanges;Bei Änderungen;On changes
+Dashboard_OnDrive;Beim Anschließen des Laufwerks;When the drive is connected
+Dashboard_ManualOnly;Nur manuell;Manual only
+Dashboard_AttentionTitle;Bitte prüfen;Please check
+Dashboard_AttentionOne;Beim letzten Lauf eines Profils gab es Fehler oder Warnungen. Details stehen in der Historie.;The last run of one profile had errors or warnings. Details are in the history.
+Dashboard_AttentionMany;Beim letzten Lauf von {0} Profilen gab es Fehler oder Warnungen. Details stehen in der Historie.;The last run of {0} profiles had errors or warnings. Details are in the history.
+Dashboard_SyncAllButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Alle synchronisieren;Sync all
+Dashboard_NewProfileButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Neues Profil;New profile
+Dashboard_CreateFirstButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Erstes Profil anlegen;Create first profile
+Wizard_Title.Text;Neues Backup-Profil;New backup profile
+Wizard_StepOf;Schritt {0} von {1};Step {0} of {1}
+Wizard_TemplateHeading.Text;Was möchtest du sichern?;What would you like to back up?
+Wizard_Template_documents_Title;Dokumente sichern;Back up documents
+Wizard_Template_documents_Text;Dein Dokumente-Ordner, täglich und beim Anschließen der Festplatte.;Your Documents folder, daily and when the drive is connected.
+Wizard_Template_photos_Title;Fotos und Videos sichern;Back up photos and videos
+Wizard_Template_photos_Text;Bilder und Videos in eigenen Unterordnern, täglich und beim Anschließen der Festplatte.;Pictures and videos in their own subfolders, daily and when the drive is connected.
+Wizard_Template_usb_Title;Auf USB-Festplatte spiegeln;Mirror to a USB drive
+Wizard_Template_usb_Text;Exakte Kopie beliebiger Ordner, sobald die Festplatte angeschlossen wird.;An exact copy of any folders as soon as the drive is connected.
+Wizard_Template_nas_Title;Auf NAS sichern, mit Versionen;Back up to a NAS, with versions
+Wizard_Template_nas_Text;Täglich ins Netzwerk. Überschriebene und gelöschte Dateien lassen sich wiederherstellen.;Daily to the network. Overwritten and deleted files can be restored.
+Wizard_Template_twoway_Title;Zwei Ordner synchron halten;Keep two folders in sync
+Wizard_Template_twoway_Text;Änderungen auf beiden Seiten werden übernommen, sofort bei jeder Änderung.;Changes on both sides are applied, right after every change.
+Wizard_Template_custom_Title;Alles selbst festlegen;Set everything myself
+Wizard_Template_custom_Text;Öffnet den vollständigen Editor mit allen Einstellungen.;Opens the full editor with all settings.
+Wizard_SourcesHeading.Text;Welche Ordner sollen gesichert werden?;Which folders should be backed up?
+Wizard_SourcesText.Text;Alle Unterordner werden mitgesichert. Bei mehreren Ordnern bekommt jeder im Ziel einen eigenen Unterordner.;All subfolders are included. With several folders, each gets its own subfolder in the destination.
+Wizard_AddSource.Text;Weiteren Ordner hinzufügen;Add another folder
+Wizard_AddSourceButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Weiteren Ordner hinzufügen;Add another folder
+Wizard_TargetHeading.Text;Wohin soll gesichert werden?;Where should the backup go?
+Wizard_TargetText.Text;Zum Beispiel ein Ordner auf einer USB-Festplatte, auf einem zweiten Laufwerk oder auf deinem NAS (\\server\freigabe). USB-Festplatten erkennt SyncForge auch unter einem anderen Laufwerksbuchstaben wieder.;For example a folder on a USB drive, on a second drive or on your NAS (\\server\share). SyncForge recognizes USB drives even under a different drive letter.
+Wizard_TargetBox.PlaceholderText;E:\Backup;E:\Backup
+Wizard_TargetBox.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Zielordner;Destination folder
+Wizard_TargetNetwork;Netzwerkfreigabe;Network share
+Wizard_TargetNotReady;Laufwerk nicht bereit;Drive not ready
+Wizard_DriveRemovable;USB-Laufwerk;USB drive
+Wizard_DriveNetwork;Netzlaufwerk;Network drive
+Wizard_DriveFixed;Laufwerk;Drive
+Wizard_TargetInfo;{0} {1} · {2} frei;{0} {1} · {2} free
+Wizard_WhenHeading.Text;Wann soll gesichert werden?;When should the backup run?
+Wizard_ScheduleChoice.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Zeitplan;Schedule
+Wizard_WhenManual.Content;Nur wenn ich es starte;Only when I start it
+Wizard_WhenDaily.Content;Täglich;Daily
+Wizard_WhenHourlyOption.Content;Stündlich;Hourly
+Wizard_Time.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Uhrzeit;Time
+Wizard_WatchOption.Content;Zusätzlich bei Änderungen sofort sichern;Also back up right after changes
+Wizard_DriveOption.Content;Sichern, sobald das Ziel-Laufwerk angeschlossen wird;Back up as soon as the destination drive is connected
+Wizard_WhenHint.Text;Automatische Läufe finden statt, solange SyncForge läuft, auch im Infobereich. Mit „Mit Windows starten“ in den Einstellungen klappt das ab der Anmeldung.;Automatic runs happen while SyncForge is running, also in the notification area. With "Start with Windows" in the settings this works from sign-in.
+Wizard_SummaryHeading.Text;Fast fertig;Almost done
+Wizard_NameBox.Header;Name;Name
+Wizard_SummaryModeLabel.Text;Modus;Mode
+Wizard_SummarySourcesLabel.Text;Quellen;Sources
+Wizard_SummaryTargetLabel.Text;Ziel;Destination
+Wizard_SummaryWhenLabel.Text;Wann;When
+Wizard_OpenEditor.Content;Weitere Einstellungen (Filter, Löschschutz …) im Editor festlegen;Set more options (filters, deletion protection …) in the editor
+Wizard_WhenDailyAt;Täglich um {0};Daily at {0}
+Wizard_WhenHourly;Stündlich;Hourly
+Wizard_Cancel.Content;Abbrechen;Cancel
+Wizard_Back.Content;Zurück;Back
+Wizard_Next.Content;Weiter;Next
+Wizard_CreatePreview.Content;Anlegen und Vorschau zeigen;Create and show preview
+Wizard_Create.Content;Profil anlegen;Create profile
+Hint_InvalidPath;Kein gültiger Pfad (vollständig angeben, z. B. D:\Backup).;Not a valid path (enter it in full, e.g. D:\Backup).
+Hint_NetworkCheckedOnSave;Netzwerkfreigabe, wird beim Speichern geprüft.;Network share, checked when saving.
+Hint_SourceFound;Ordner gefunden.;Folder found.
+Hint_SourceMissing;Ordner nicht gefunden.;Folder not found.
+Hint_DriveNotReady;Laufwerk nicht angeschlossen. Gesichert wird, sobald es wieder da ist.;Drive not connected. The backup runs as soon as it is back.
+Hint_SameDrive;{0} · Gleiches Laufwerk wie eine Quelle: schützt nicht vor einem Ausfall des Laufwerks.;{0} · Same drive as a source: does not protect against the drive failing.
+Hint_LowSpace;{0} · Nur noch wenig Platz frei.;{0} · Little free space left.
+Editor_SavePreview.Content;Speichern und Vorschau;Save and preview
+Editor_TargetPathBox.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Zielordner;Destination folder
+Profiles_AddButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Profil hinzufügen;Add profile
+Editor_AddSource.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Quelle hinzufügen;Add source
+Editor_AddTarget.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Ziel hinzufügen;Add destination
+Trigger_CommandLine;Befehlszeile;Command line
+Cli_UsageTitle;SyncForge Befehlszeile;SyncForge command line
+Cli_UsageRun;Profil synchronisieren (mehrfach möglich, Name oder Id);Sync a profile (can be repeated, name or ID)
+Cli_UsageRunAll;Alle Profile synchronisieren;Sync all profiles
+Cli_UsageList;Profile mit Id auflisten;List profiles with their ID
+Cli_UsageHelp;Diese Hilfe;This help
+Cli_UsageExit;Exitcode: 0 erfolgreich, 1 Warnung, 2 Fehler, 3 abgebrochen, 4 Profil nicht gefunden, 5 falsche Angabe, 6 läuft bereits;Exit code: 0 success, 1 warning, 2 error, 3 cancelled, 4 profile not found, 5 invalid arguments, 6 already running
+Cli_Invalid;Ungültige Angabe: {0};Invalid argument: {0}
+Cli_NotFound;Profil nicht gefunden: {0};Profile not found: {0}
+Cli_NoProfiles;Keine Profile vorhanden.;No profiles.
+Cli_Running;{0}: wird synchronisiert …;{0}: syncing …
+Cli_AlreadyRunning;{0}: läuft bereits.;{0}: already running.
+Cli_Result;{0}: {1}. {2};{0}: {1}. {2}
+Cli_HandedOver;An das geöffnete SyncForge übergeben. Fortschritt und Ergebnis stehen dort und in der Historie.;Handed over to the open SyncForge. Progress and result are shown there and in the history.
+Editor_ShadowCopy.Header;Gesperrte Dateien über Schattenkopie lesen;Read locked files via shadow copy
+Editor_ShadowCopy.Description;Für Dateien, die ein Programm dauerhaft sperrt (z. B. Outlook-Datendateien). Benötigt Administratorrechte.;For files a program keeps locked (e.g. Outlook data files). Requires administrator rights.
+Editor_ShadowCopyHint.Title;Wirkt nur mit Administratorrechten;Only works with administrator rights
+Editor_ShadowCopyHint.Message;SyncForge läuft gerade ohne. Richte für dieses Profil eine Aufgabe in der Windows-Aufgabenplanung ein (Mit höchsten Privilegien ausführen, Argumente: --run "Profilname"). Details stehen in der Hilfe unter Automatisierung.;SyncForge is currently running without them. Set up a task for this profile in the Windows Task Scheduler (Run with highest privileges, arguments: --run "Profile name"). Details are in the help under Automation.
+Run_ShadowCopied;{0} gesperrte Datei(en) aus einer Schattenkopie gesichert.;{0} locked file(s) backed up from a shadow copy.
+Editor_LowPriority.Header;Mit niedriger Priorität kopieren;Copy with low priority
+Editor_LowPriority.Description;Andere Programme haben beim Zugriff auf die Laufwerke Vorrang, der PC bleibt auch bei großen Läufen flüssig. Der Lauf kann dadurch länger dauern.;Other programs get priority when accessing the drives, so the PC stays responsive even during large runs. The run may take longer.
+Editor_OwnBandwidth.Header;Eigenes Bandbreitenlimit;Own bandwidth limit
+Editor_OwnBandwidth.Description;Sonst gilt das Limit aus den Einstellungen der App. Sinnvoll z. B. für ein NAS über WLAN.;Otherwise the limit from the app settings applies. Useful e.g. for a NAS over Wi-Fi.
+Editor_OwnBandwidthValue.Header;Höchstens (KB/s);At most (KB/s)
+Editor_OwnBandwidthValue.Description;0 = unbegrenzt;0 = unlimited
+Editor_OwnBandwidthBox.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Bandbreitenlimit in KB/s;Bandwidth limit in KB/s
+History_Export.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Historie als CSV exportieren;Export history as CSV
+History_Export.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip;Läufe des aktuellen Filters als CSV-Datei speichern (z. B. für Excel);Save the runs of the current filter as a CSV file (e.g. for Excel)
+History_ExportText.Text;Exportieren…;Export…
+Detail_Export.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name;Dateiliste als CSV exportieren;Export file list as CSV
+Detail_Export.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip;Angezeigte Dateiliste (mit Ziel, Filter und Suche) als CSV-Datei speichern;Save the shown file list (with destination, filter and search) as a CSV file
+Detail_ExportText.Text;Dateiliste exportieren…;Export file list…
+Csv_FileType;CSV-Datei;CSV file
+Csv_FileNameRuns;SyncForge Historie {0};SyncForge history {0}
+Csv_FileNameFiles;SyncForge {0} {1};SyncForge {0} {1}
+Csv_ExportedTitle;Export abgeschlossen;Export complete
+Csv_ExportedText;Die Datei wurde gespeichert: {0};The file was saved: {0}
+Csv_Open;Öffnen;Open
+Csv_Col_Start;Start;Start
+Csv_Col_Profile;Profil;Profile
+Csv_Col_Trigger;Auslöser;Trigger
+Csv_Col_Status;Status;Status
+Csv_Col_Copied;Kopiert;Copied
+Csv_Col_Updated;Aktualisiert;Updated
+Csv_Col_Deleted;Gelöscht;Deleted
+Csv_Col_Bytes;Bytes;Bytes
+Csv_Col_Errors;Fehler;Errors
+Csv_Col_Conflicts;Konflikte;Conflicts
+Csv_Col_Targets;Ziele;Destinations
+Csv_Col_Skipped;Übersprungene Ziele;Skipped destinations
+Csv_Col_Duration;Dauer (s);Duration (s)
+Csv_Col_Target;Ziel;Destination
+Csv_Col_Action;Aktion;Action
+Csv_Col_Path;Pfad;Path
+Csv_Col_Size;Größe (Bytes);Size (bytes)
+Csv_Col_Side;Seite;Side
+Csv_Col_Error;Fehler;Error
+Csv_SideSource;Quelle;Source
+Csv_SideTarget;Ziel;Destination
+Csv_Kind_CreateDirectory;Ordner angelegt;Folder created
+Csv_Kind_CopyNew;Neu kopiert;Copied (new)
+Csv_Kind_Update;Aktualisiert;Updated
+Csv_Kind_DeleteFile;Datei gelöscht;File deleted
+Csv_Kind_DeleteDirectory;Ordner gelöscht;Folder deleted
+Csv_Kind_RenameConflict;Konflikt umbenannt;Conflict renamed
+Csv_Kind_Conflict;Konflikt;Conflict
+Dashboard_Subtitle.Text;Alle Backup-Profile auf einen Blick: Status, letzter und nächster Lauf.;All backup profiles at a glance: status, last and next run.
+Profiles_Subtitle.Text;Lege fest, welche Ordner wohin gesichert werden, und starte Läufe von Hand.;Choose which folders are backed up where, and start runs manually.
+History_Subtitle.Text;Alle bisherigen Läufe mit Ergebnis, Datenmenge und Details.;All previous runs with result, amount of data and details.
+Settings_Subtitle.Text;Darstellung, Verhalten beim Start, Leistung und Aufbewahrung der Daten.;Appearance, startup behavior, performance and data retention.
+Help_Subtitle.Text;Anleitungen zu allen Funktionen von SyncForge.;Guides for all features of SyncForge.
+Legal_Subtitle.Text;Lizenz von SyncForge, Datenschutz und verwendete Bibliotheken.;SyncForge's license, privacy and the libraries it uses.
+Support_Subtitle.Text;Einen Kaffee spendieren, weiterempfehlen oder Feedback geben.;Buy a coffee, spread the word or give feedback.
